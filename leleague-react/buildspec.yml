@@ -1,0 +1,22 @@
+version: 0.2
+env:
+  #variables:
+    #REACT_APP_BASE_URL: `$(aws ssm get-parameter --name "s3_react_bucket_${AWS_STAGE}" --with-decryption --query "Parameter.Value" --output text)`
+  parameter-store:
+    REACT_APP_API_URL: "api_url_${AWS_STAGE}"
+phases:
+  install:
+    commands:
+      - npm i npm@latest -g
+  pre_build:
+    commands:
+      - npm install --silent --no-progress -g yarn
+      - aws configure set region $AWS_REGION
+  build:
+    commands:
+      - yarn
+      - yarn build
+  post_build:
+    commands:
+      - S3_REACT_BUCKET=$(aws ssm get-parameter --name "s3_react_bucket_${AWS_STAGE}" --with-decryption --query "Parameter.Value" --region ap-southeast-1 --output text)
+      - aws s3 sync --cache-control 'max-age=0' ./build s3://$S3_REACT_BUCKET --delete
