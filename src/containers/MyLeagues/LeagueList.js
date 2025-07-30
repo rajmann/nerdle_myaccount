@@ -35,7 +35,7 @@ const LeagueList = ({ leagues, isValidating }) => {
             index={1}
             nameAlternative='This could be you!'
           />
-          <p className='text-white text-center text-sm mt-10 px-8 mb-20'>Leagues (for 1 to 50 people) allow you to compare your scores with friends.<br/><br/>Create your own league here or join someone else's once they share their league code.</p>
+          <p className='text-gray-700 text-center text-sm mt-10 px-8 mb-20'>Leagues (for 1 to 50 people) allow you to compare your scores with friends.<br/><br/>Create your own league here or join someone else's once they share their league code.</p>
         </div>
       </div>)
     }
@@ -90,35 +90,35 @@ const LeagueList = ({ leagues, isValidating }) => {
           <Link
             key={league.ID}
             to={String(league.ID)}
-            className="flex min-w-fit items-center justify-between gap-4 rounded-lg bg-slate-700 p-4 ring-violet-500 hover:ring-2">
+            className="flex min-w-fit items-center justify-between gap-4 rounded-lg bg-white border-2 border-gray-200 p-4 ring-nerdle-primary hover:ring-2 hover:border-nerdle-primary/20 transition-all duration-200 shadow-sm">
             <div className="flex-1 truncate">
-              <h4 className="text-sm font-semibold text-white">
+              <h4 className="text-sm font-semibold text-gray-900">
                 {league.details.title}
               </h4>
               <div>
-                <span className="text-xs font-light text-gray-400">
+                <span className="text-xs font-light text-gray-600">
                   {league.members?.length || 0} members •
                 </span>
                 {userAdmin && (
                   <button
                     onClick={(e) => handleManageClick(e, league.ID)}
-                    className="mx-1 text-xs text-violet-400 underline hover:text-violet-500">
+                    className="mx-1 text-xs text-nerdle-primary underline hover:text-nerdle-secondary">
                     Manage
                   </button>
                 )}
               </div>
             </div>
             <div className="flex w-1/3 min-w-fit justify-between gap-4">
-              <span className="text-sm text-white">{userScore}</span>
+              <span className="text-sm text-gray-900 font-medium">{userScore}</span>
               <div className="flex items-center gap-2">
                 <span
                   className={
-                    userRank === 1 ? "text-amber-500" : "text-white"
+                    userRank === 1 ? "text-amber-500" : "text-gray-900"
                   }>
                   {userRank === 1 ? <GoldCrownIcon /> : null}
                 </span>
                 <span
-                  className={`text-sm ${userRank === 1 ? "text-amber-500" : "text-white"
+                  className={`text-sm font-medium ${userRank === 1 ? "text-amber-500" : "text-gray-900"
                     }`}>
                   {`${userRank}${nth(userRank)}`}
                 </span>
