@@ -111,7 +111,7 @@ const OAuthAuthorizeDialog = ({ open, clientID, redirectURI }) => {
             <div className="mx-10 mt-3 flex flex-1 flex-col ">
               <h1 className="text-center text-xl font-semibold text-black">
                 <span className="text-violet-500">{`${clientInfo.name}`}</span>{" "}
-                wants to connect to your LeaderboardLe account
+                wants to connect to your Nerdle League account
               </h1>
               <h3 className="mt-10 mb-3 font-semibold text-black">
                 This will allow{" "}
@@ -123,7 +123,7 @@ const OAuthAuthorizeDialog = ({ open, clientID, redirectURI }) => {
                   Access your name, email and profile photo
                 </li>
                 <li className="text-xs text-black">
-                  Add scores to LeaderboardLe using this account.
+                  Add scores to Nerdle League using this account.
                 </li>
               </ol>
 

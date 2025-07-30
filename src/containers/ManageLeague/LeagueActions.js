@@ -25,7 +25,7 @@ const LeagueActions = () => {
   }, [execute, navigate, params.leagueId]);
 
   const reportLeague = React.useCallback((e) => {
-    window.location.href = "mailto:contact@leaderboardle.com";
+    window.location.href = "mailto:support@nerdlegame.com";
     e.preventDefault();
   }, []);
 

@@ -1,9 +1,17 @@
 import React from "react";
 
-import { ReactComponent as Logo } from "../assets/icons/logo-banner.svg";
+import nerdleLogo from "../assets/images/nerdle-logo.png";
 
 const LogoBanner = () => {
-  return <Logo />;
+  return (
+    <div className="flex items-center justify-center">
+      <img 
+        src={nerdleLogo} 
+        alt="Nerdle League" 
+        className="h-12 w-auto"
+      />
+    </div>
+  );
 };
 
 export default LogoBanner;

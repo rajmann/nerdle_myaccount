@@ -81,7 +81,7 @@ const League = () => {
       const member = league?.members[rank - 1];
       return `${icon} ${member?.details?.fullname} (${member.total} points)\n`;
     };
-    const text = `🟣🟧LeaderboardLe stats update for "${league?.details.title
+    const text = `🧮✨Nerdle League stats update for "${league?.details.title
       }" league (${dateFilter?.label}):\n\n${getText("🥇", 1)}${getText(
         "🥈",
         2

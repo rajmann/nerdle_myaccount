@@ -2,9 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Roboto+Mono:wght@100;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323:wght@400&display=swap');
+
 @layer base {
-  #root {
-    @apply bg-slate-700;
+  :root {
+    /* Nerdle Brand Colors */
+    --nerdle-primary: #820458; /* Primary purple/magenta */
+    --nerdle-secondary: #398874; /* Secondary teal/green */
+    --nerdle-accent: #989484; /* Accent gray */
+    --nerdle-correct: #4CAF50; /* Game green - correct */
+    --nerdle-wrong-position: #9C27B0; /* Game purple - wrong position */
+    --nerdle-incorrect: #424242; /* Game black - incorrect */
+    
+    /* UI Colors based on Nerdle palette */
+    --background: hsl(0, 0%, 100%);
+    --foreground: hsl(0, 0%, 13%);
+    --card: hsl(0, 0%, 100%);
+    --card-foreground: hsl(0, 0%, 13%);
+    --popover: hsl(0, 0%, 100%);
+    --popover-foreground: hsl(0, 0%, 13%);
+    --primary: #820458; /* Nerdle primary purple */
+    --primary-foreground: hsl(0, 0%, 98%);
+    --secondary: #398874; /* Nerdle secondary teal */
+    --secondary-foreground: hsl(0, 0%, 98%);
+    --muted: hsl(210, 40%, 96%);
+    --muted-foreground: #989484; /* Nerdle accent gray */
+    --accent: #398874; /* Nerdle secondary teal */
+    --accent-foreground: hsl(0, 0%, 98%);
+    --destructive: hsl(0, 84.2%, 60.2%);
+    --destructive-foreground: hsl(210, 40%, 98%);
+    --border: hsl(214.3, 31.8%, 91.4%);
+    --input: hsl(214.3, 31.8%, 91.4%);
+    --ring: #820458; /* Nerdle primary purple */
+    --radius: 0.5rem;
+    --chart-1: #820458;
+    --chart-2: #398874;
+    --chart-3: #989484;
+    --chart-4: #4CAF50;
+    --chart-5: #9C27B0;
+  }
+
+  .dark {
+    --background: hsl(222.2, 84%, 4.9%);
+    --foreground: hsl(210, 40%, 98%);
+    --card: hsl(222.2, 84%, 4.9%);
+    --card-foreground: hsl(210, 40%, 98%);
+    --popover: hsl(222.2, 84%, 4.9%);
+    --popover-foreground: hsl(210, 40%, 98%);
+    --primary: #820458;
+    --primary-foreground: hsl(210, 40%, 98%);
+    --secondary: #398874;
+    --secondary-foreground: hsl(210, 40%, 98%);
+    --muted: hsl(217.2, 32.6%, 17.5%);
+    --muted-foreground: #989484;
+    --accent: #398874;
+    --accent-foreground: hsl(210, 40%, 98%);
+    --destructive: hsl(0, 62.8%, 30.6%);
+    --destructive-foreground: hsl(210, 40%, 98%);
+    --border: hsl(217.2, 32.6%, 17.5%);
+    --input: hsl(217.2, 32.6%, 17.5%);
+    --ring: #820458;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 
   [type="text"]:focus,
@@ -22,6 +89,40 @@
   [multiple]:focus,
   textarea:focus,
   select:focus {
-    @apply border-violet-500 ring-violet-500;
+    border-color: var(--nerdle-primary);
+    --tw-ring-color: var(--nerdle-primary);
   }
+}
+
+/* Nerdle Brand Typography Classes */
+.nerdle-name {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.2rem;
+  color: #820458;
+}
+
+.nerdle-sub-name {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.2rem;
+  color: #398874;
+}
+
+.nerdle-dot {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.2rem;
+  color: #989484;
+}
+
+.nerdle-brand {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.nerdle-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.nerdle-retro {
+  font-family: 'VT323', monospace;
 }

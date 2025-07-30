@@ -144,7 +144,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData }) => {
     const finalGraph = arrGraph.join("\n");
 
     const footer = `Stats by ${
-      isPWA ? "LeaderboardLe" : "www.LeaderboardLe.com"
+      isPWA ? "Nerdle League" : "nerdleleague.com"
     }`;
 
     const finalText = `${title}\n\n${summary}\n${finalGraph}\n\n${footer}`;

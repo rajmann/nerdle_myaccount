@@ -1,8 +1,20 @@
-# Leleague React Application
+# Nerdle League Application
 
 ## Overview
 
-This is a React-based gaming/league platform called "Leleague" that has been migrated from the `leleague-react` directory to the root. The application includes functionality for user management, leagues, game statistics, and social authentication. Built with Create React App and modern React patterns.
+This is a React-based gaming/league platform being rebranded from "Leleague" to match Nerdle's branding and styling. The application includes functionality for user management, leagues, game statistics, and social authentication. Built with Create React App and modern React patterns.
+
+## Recent Changes
+
+### 2025-07-30: Project Migration & Rebranding Initiative
+- Successfully migrated React app from leleague-react directory to root
+- Installed dependencies with yarn using legacy peer deps
+- Fixed environment variable issues for API connectivity
+- Added REACT_APP_API_URL secret pointing to https://api.leaderboardle.com/
+- **CHECKPOINT**: Starting Nerdle rebranding process
+  - Goal: Match Nerdle (nerdlegame.com) branding, colors, fonts, and styling
+  - Remove all "leaderboardle" references
+  - Apply Nerdle assets from uploaded nerdle folder
 
 ## User Preferences
 

@@ -33,7 +33,7 @@ const OverwriteScoreDialog = ({ open, onClose, callback, score }) => {
         <h2 className="text-xl font-semibold">Just Checking!</h2>
         <div className="mt-2 flex flex-col gap-4 text-center">
           <p className="text-sm">
-            You already have a score for this game and day. LeaderboardLe is
+            You already have a score for this game and day. Nerdle League will
             based on trust - please be fair.
           </p>
           <p className="text-sm">

@@ -34,15 +34,15 @@ const pages = [
 const externalPages = [
   {
     label: "About",
-    path: "https://www.leaderboardle.com/about.html",
+    path: "https://nerdlegame.com/",
   },
   {
     label: "FAQs",
-    path: "https://www.leaderboardle.com/faqs.html",
+    path: "https://nerdlegame.com/faqs.html",
   },
   {
     label: "T&Cs",
-    path: "https://www.leaderboardle.com/tandcs.html",
+    path: "https://nerdlegame.com/",
   },
 ];
 
@@ -122,16 +122,16 @@ const Drawer = ({ isOpen, onClose }) => {
           {!!isPWA === false && (
             <li className="flex items-center">
               <a
-                href="https://www.leaderboardle.com/download.html?external=true"
+                href="https://nerdlegame.com/"
                 target="_blank"
                 rel="noreferrer"
                 className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-violet-400 hover:bg-slate-800">
                 <img
                   src={AppIcon}
-                  alt="Leaderboardle App"
+                  alt="Nerdle League App"
                   className="h-8 w-8"
                 />
-                Download App
+                Visit Nerdle
               </a>
             </li>
           )}

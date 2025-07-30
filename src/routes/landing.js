@@ -1,10 +1,10 @@
-import Reactemail, { useEffect } from "react";
+import React, { useEffect } from "react";
 
-import { GoogleOAuthProvider, useGoogleLogin, GoogleLogin as GoogleLogin2 } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import axios from "axios";
 //import { gapi } from "gapi-script";
 import jwtDecode from "jwt-decode";
-import GoogleLogin from "react-google-login";
+// import GoogleLogin from "react-google-login";
 import {
   Navigate,
   Link,
@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 import AppleIcon from "../assets/icons/appleIcon.svg";
-import GoogleIcon from "../assets/icons/googleIcon.svg";
+// import GoogleIcon from "../assets/icons/googleIcon.svg";
 import AppleSignInButton from "../components/AppleSignInButton";
 import Button from "../components/Button";
 import GoogleLoginButton from "../components/GoogleLoginButton";
@@ -113,10 +113,9 @@ const Landing = () => {
     //<div className="relative flex h-full flex-col items-stretch justify-center text-center"></div>
     <div className="flex flex-col items-stretch justify-center text-center">
       <LogoMain className="w-1/2 self-center" />
-      <h1 className="mt-5 text-3xl font-semibold text-black">{`Welcome!`}</h1>
+      <h1 className="mt-5 text-3xl font-semibold nerdle-name">{`Welcome to Nerdle League!`}</h1>
       <p className="mt-5 text-xl text-gray-400">
-        One place to track all your -le game scores and compete in leagues with
-        friends.
+        Track your Nerdle scores and compete in leagues with friends. Join the math puzzle community!
       </p>
       <div className="mt-10 flex flex-col items-stretch gap-2">
         <hr className="mb-2" />
@@ -139,8 +138,8 @@ const Landing = () => {
           {(appPlatform === "ios" || !isPWA) && (
             <AppleSignInButton
               authOptions={{
-                clientId: "com.leaderboardle.web.sid",
-                redirectURI: (process.env.REACT_APP_API_URL || '').includes("dev") ? "https://dev.leaderboardle.com/sso" : "https://leaderboardle.com/sso",
+                clientId: "com.nerdleleague.web.sid",
+                redirectURI: (process.env.REACT_APP_API_URL || '').includes("dev") ? "https://dev.nerdleleague.com/sso" : "https://nerdleleague.com/sso",
                 scope: "email name",
                 state: "",
                 nonce: "nonce",

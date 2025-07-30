@@ -144,7 +144,7 @@ const SignUpForm = () => {
               <a
                 className="text-blue-400"
                 target="_blank"
-                href="https://www.leaderboardle.com/tandcs.html?external=true"
+                href="https://nerdlegame.com/"
                 rel="noreferrer">
                 Terms & Conditions
               </a>
@@ -154,7 +154,7 @@ const SignUpForm = () => {
               <a
                 className="text-blue-400"
                 target="_blank"
-                href="https://www.leaderboardle.com/tandcs.html?external=true"
+                href="https://nerdlegame.com/"
                 rel="noreferrer">
                 Privacy Policy
               </a>

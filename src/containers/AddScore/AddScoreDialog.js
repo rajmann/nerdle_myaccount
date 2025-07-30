@@ -96,11 +96,11 @@ const AddScoreDialog = ({ open, callback, onClose }) => {
             <div className="flex flex-col gap-2">
               <p className="text-sm font-semibold">1. Share to mobile app</p>
               <p className="text-sm">
-                On mobile, share direct to the Leaderboardle app
+                On mobile, share direct to the Nerdle League app
               </p>
               {!!isPWA === false && (
                 <a
-                  href="https://www.leaderboardle.com/download.html?external=true"
+                  href="https://nerdlegame.com/"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-8 text-xs font-semibold text-violet-400 underline hover:text-violet-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2">
@@ -145,7 +145,7 @@ const AddScoreDialog = ({ open, callback, onClose }) => {
           )}
         </form>
         <a
-          href="https://www.leaderboardle.com/faqs.html?external=true"
+          href="https://nerdlegame.com/faqs.html"
           target="_blank"
           rel="noreferrer"
           className="mt-12 text-sm font-semibold text-violet-400 underline hover:text-violet-500">

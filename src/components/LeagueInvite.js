@@ -18,7 +18,7 @@ const LeagueInvite = ({
 }) => {
   const { isPWA } = useAuth();
   const copyInviteCode = React.useCallback(async () => {
-    const shareText = `🟣🟧LeaderboardLe: Please join my -le game league. \n League: ${title} \n League code: ${code}\n\n${window.location.origin}/join/${code}`;
+    const shareText = `🧮✨Nerdle League: Please join my math puzzle league! \n League: ${title} \n League code: ${code}\n\n${window.location.origin}/join/${code}`;
 
     if (isPWA) {
       window.ReactNativeWebView.postMessage(`COPIED_FROM_CLIPBOARD:${shareText}`);

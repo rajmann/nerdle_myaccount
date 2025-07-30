@@ -10,12 +10,12 @@ const AuthProvider = ({ children }) => {
     localStorage.getItem("appPlatform")
   );
   React.useEffect(() => {
-    setIsPWA(localStorage.getItem("onLeaderboardleApp"));
+    setIsPWA(localStorage.getItem("onNerdleLeagueApp"));
     setAppPlatform(localStorage.getItem("appPlatform"));
     setIsTestFlight(localStorage.getItem("showSSOButtons"));
     // Interval is for backup in case line 11 (^) fails
     const interval = setInterval(() => {
-      setIsPWA(localStorage.getItem("onLeaderboardleApp"));
+      setIsPWA(localStorage.getItem("onNerdleLeagueApp"));
       setAppPlatform(localStorage.getItem("appPlatform"));
       setIsTestFlight(localStorage.getItem("showSSOButtons"));
     }, 2000);
