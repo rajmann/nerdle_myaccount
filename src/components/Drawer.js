@@ -4,7 +4,7 @@ import { FiExternalLink } from "react-icons/fi";
 import { MdClose, MdAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-import AppIcon from "../assets/images/favicon.png";
+import NerdleLogo from "../assets/images/nerdle-logo.png";
 import useAuth from "../hooks/useAuth";
 import useAddScoreStore, { dialogStates } from "../store/useAddScoreStore";
 
@@ -127,9 +127,9 @@ const Drawer = ({ isOpen, onClose }) => {
                 rel="noreferrer"
                 className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-nerdle-primary hover:bg-gray-100">
                 <img
-                  src={AppIcon}
-                  alt="Nerdle League App"
-                  className="h-8 w-8"
+                  src={NerdleLogo}
+                  alt="Visit Nerdle"
+                  className="h-8 w-8 rounded"
                 />
                 Visit Nerdle
               </a>
