@@ -1,0 +1,112 @@
+# React Express Full-Stack Application
+
+## Overview
+
+This is a full-stack web application built with React (frontend) and Express.js (backend), featuring PostgreSQL database integration via Drizzle ORM. The application appears to be a gaming/league platform called "Leleague" based on the directory structure, with functionality for user management, leagues, and game statistics.
+
+## User Preferences
+
+Preferred communication style: Simple, everyday language.
+
+## System Architecture
+
+### Frontend Architecture
+- **Framework**: React 18 with TypeScript/JSX
+- **Styling**: Tailwind CSS with shadcn/ui components for consistent design
+- **Routing**: Wouter for client-side routing (lightweight React Router alternative)
+- **State Management**: TanStack Query (React Query) for server state, Zustand for client state
+- **Build Tool**: Vite for fast development and optimized production builds
+- **Component Library**: Radix UI primitives with custom shadcn/ui styling
+
+### Backend Architecture
+- **Framework**: Express.js with TypeScript
+- **Database ORM**: Drizzle ORM for type-safe database operations
+- **Database**: PostgreSQL (configured for Neon Database)
+- **Development**: Hot reload with tsx for TypeScript execution
+- **API Design**: RESTful APIs with /api prefix routing
+
+### Build System
+- **Frontend**: Vite with React plugin for fast HMR and optimized builds
+- **Backend**: esbuild for server bundling and compilation
+- **TypeScript**: Shared configuration across frontend, backend, and shared modules
+- **Development**: Concurrent development servers with Vite middleware integration
+
+## Key Components
+
+### Database Layer
+- **ORM**: Drizzle ORM with PostgreSQL dialect
+- **Schema**: Located in `shared/schema.ts` for type sharing between frontend and backend
+- **Migrations**: Generated to `./migrations` directory
+- **Connection**: Neon Database serverless connection via environment variables
+
+### Authentication & Storage
+- **Storage Interface**: Abstracted storage layer with in-memory implementation for development
+- **User Management**: Basic user CRUD operations with username-based lookup
+- **Session**: Placeholder for session management implementation
+
+### UI Components
+- **Design System**: shadcn/ui with Tailwind CSS for consistent styling
+- **Error Handling**: React Error Boundaries for graceful error recovery
+- **Responsive Design**: Mobile-first approach with Tailwind utilities
+- **Toast Notifications**: Integrated toast system for user feedback
+
+### Legacy Integration
+- **Existing React App**: `leleague-react` directory contains existing React application
+- **Migration Path**: Current structure suggests migration from legacy app to new stack
+- **Feature Parity**: Legacy app includes extensive gaming/league functionality to be ported
+
+## Data Flow
+
+### Client-Server Communication
+1. Frontend makes API requests to `/api/*` endpoints
+2. Express server handles routing and business logic
+3. Drizzle ORM manages database operations
+4. Responses flow back through the same chain
+
+### State Management
+1. TanStack Query handles server state caching and synchronization
+2. Local component state for UI interactions
+3. Shared types between frontend and backend ensure type safety
+
+### Development Workflow
+1. Vite serves frontend with HMR
+2. Express server runs concurrently with hot reload
+3. Database changes managed through Drizzle migrations
+4. TypeScript provides compile-time error checking
+
+## External Dependencies
+
+### Database
+- **Neon Database**: Serverless PostgreSQL hosting
+- **Connection**: Managed via DATABASE_URL environment variable
+- **Pooling**: Built-in connection pooling through Neon's serverless architecture
+
+### UI Libraries
+- **Radix UI**: Accessible component primitives
+- **Tailwind CSS**: Utility-first CSS framework
+- **Lucide React**: Icon library for consistent iconography
+
+### Development Tools
+- **Replit Integration**: Custom plugins for development environment
+- **Error Overlay**: Runtime error modal for development debugging
+- **Hot Reload**: File watching and automatic refresh
+
+## Deployment Strategy
+
+### Production Build
+1. **Frontend**: Vite builds optimized static assets to `dist/public`
+2. **Backend**: esbuild bundles server code to `dist/index.js`
+3. **Database**: Drizzle migrations applied via `db:push` command
+
+### Environment Configuration
+- **Development**: Local development with Vite dev server
+- **Production**: Served static files through Express with API routes
+- **Database**: Environment-based connection strings for different stages
+
+### Scalability Considerations
+- **Database**: Serverless PostgreSQL scales automatically
+- **Static Assets**: Can be served via CDN in production
+- **API**: Express server can be deployed to serverless platforms
+- **Caching**: TanStack Query provides client-side caching strategy
+
+The architecture prioritizes developer experience with fast hot reload, type safety, and modern tooling while maintaining production readiness with optimized builds and scalable database solutions.
