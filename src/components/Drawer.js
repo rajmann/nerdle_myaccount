@@ -63,7 +63,7 @@ const Drawer = ({ isOpen, onClose }) => {
 
   return (
     <nav
-      className={`absolute z-20 h-full w-full flex flex-col bg-[#10171F] ${isOpen
+      className={`absolute z-20 h-full w-full flex flex-col bg-white border-r border-gray-200 ${isOpen
         ? "translate-x-0 transition-all duration-200"
         : "-translate-x-full transition-all duration-200"
         }`}>
@@ -71,7 +71,7 @@ const Drawer = ({ isOpen, onClose }) => {
         <div>
           <button
             onClick={onClose}
-            className="h-11 w-11 rounded-full p-2 text-white hover:bg-slate-800">
+            className="h-11 w-11 rounded-full p-2 text-gray-600 hover:bg-gray-100">
             <MdClose className="h-full w-full" />
           </button>
         </div>
@@ -81,7 +81,7 @@ const Drawer = ({ isOpen, onClose }) => {
               onClose();
               setDialogState(dialogStates.adding);
             }}
-            className="flex w-full items-center gap-2 rounded-lg p-2 font-semibold text-violet-400 hover:bg-slate-800">
+            className="flex w-full items-center gap-2 rounded-lg p-2 font-semibold text-nerdle-primary hover:bg-gray-100">
             <MdAdd className="h-8 w-8" />
             <h6>Add Score</h6>
           </button>
@@ -91,7 +91,7 @@ const Drawer = ({ isOpen, onClose }) => {
             <li key={page.label} onClick={onClose} className="flex">
               <Link
                 to={page.path}
-                className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-white hover:bg-slate-800">
+                className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 hover:bg-gray-100">
                 <page.icon />
                 {page.label}
               </Link>
@@ -100,7 +100,7 @@ const Drawer = ({ isOpen, onClose }) => {
           <li key={"signout"} onClick={onSignOut} className="flex">  
             <Link
                 to='#'
-                className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-white hover:bg-slate-800">
+                className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 hover:bg-gray-100">
                 <LogoutIcon />
                 Sign Out
               </Link>
@@ -112,7 +112,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 href={page.path + "?external=true"}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-white hover:bg-slate-800">
+                className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-gray-800 hover:bg-gray-100">
                 <FiExternalLink />
                 {page.label}
               </a>
@@ -125,7 +125,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 href="https://nerdlegame.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-violet-400 hover:bg-slate-800">
+                className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-nerdle-primary hover:bg-gray-100">
                 <img
                   src={AppIcon}
                   alt="Nerdle League App"

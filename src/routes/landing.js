@@ -113,8 +113,8 @@ const Landing = () => {
     //<div className="relative flex h-full flex-col items-stretch justify-center text-center"></div>
     <div className="flex flex-col items-stretch justify-center text-center">
       <LogoMain className="w-1/2 self-center" />
-      <h1 className="mt-5 text-3xl font-semibold nerdle-name">{`Welcome to Nerdle League!`}</h1>
-      <p className="mt-5 text-xl text-gray-400">
+      <h1 className="mt-5 text-3xl font-semibold text-gray-900">{`Welcome to Nerdle League!`}</h1>
+      <p className="mt-5 text-xl text-gray-600">
         Track your Nerdle scores and compete in leagues with friends. Join the math puzzle community!
       </p>
       <div className="mt-10 flex flex-col items-stretch gap-2">
@@ -164,22 +164,22 @@ const Landing = () => {
           )}
         </div>
       </div>
-      <h3 className="mt-8 text-lg text-gray-400">OR</h3>
+      <h3 className="mt-8 text-lg text-gray-600">OR</h3>
 
       <Link to="sign-up" className="mt-4">
         <Button className="w-full shadow-lg focus-visible:ring-offset-white">
           Create an account manually
         </Button>
       </Link>
-      <span className="mt-7 text-sm text-gray-400">
+      <span className="mt-7 text-sm text-gray-600">
         Already have an account?{" "}
         <Link
           to="sign-in"
-          className="text-violet-400 underline hover:text-violet-500">
+          className="text-nerdle-primary underline hover:text-nerdle-secondary">
           Sign In
         </Link>
       </span>
-      <p className="mt-4 text-sm text-gray-300">
+      <p className="mt-4 text-sm text-gray-500">
         {localStorage.getItem("appVersion")}
       </p>
     </div>

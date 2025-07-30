@@ -70,8 +70,9 @@
   }
 
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: #ffffff;
+    color: #000000;
+    font-family: 'Quicksand', sans-serif;
   }
 
   [type="text"]:focus,
