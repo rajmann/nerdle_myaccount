@@ -1,8 +1,8 @@
-# React Express Full-Stack Application
+# Leleague React Application
 
 ## Overview
 
-This is a full-stack web application built with React (frontend) and Express.js (backend), featuring PostgreSQL database integration via Drizzle ORM. The application appears to be a gaming/league platform called "Leleague" based on the directory structure, with functionality for user management, leagues, and game statistics.
+This is a React-based gaming/league platform called "Leleague" that has been migrated from the `leleague-react` directory to the root. The application includes functionality for user management, leagues, game statistics, and social authentication. Built with Create React App and modern React patterns.
 
 ## User Preferences
 
