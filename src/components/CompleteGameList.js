@@ -101,11 +101,11 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
 
   return (
     <div className="mt-8">
-      <div className="text-sm font-semibold text-white mb-2">
+      <div className="text-sm font-semibold text-gray-900 mb-2">
         <h2>Played Today</h2>
       </div>
 
-      <div className="h-full rounded-md bg-gray-700 p-4">
+      <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
         <div className="pr-4">
           {!gamesTodayWithDetails?.length ? (
             <p className="text-sm text-gray-500">No games played today</p>
@@ -123,7 +123,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                       className="text-sm text-violet-400 underline underline-offset-2">
                       {name}
                     </a>
-                    <p className="text-sm text-white">{calculatedScore}</p>
+                    <p className="text-sm text-gray-900">{calculatedScore}</p>
                   </div>
                 )
               )}
@@ -132,10 +132,10 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
         </div>
       </div>
 
-      <div className="text-sm font-semibold text-white mt-3 mb-2">
+      <div className="text-sm font-semibold text-gray-900 mt-3 mb-2">
         <h2>Not Played Today</h2>
       </div>
-      <div className="h-full rounded-md bg-gray-700 p-4">
+      <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
         <div className="pr-4">
           {!allGamesWithRecentlyPlayed?.length ? (
             <p className="text-sm text-gray-500">All games played today</p>

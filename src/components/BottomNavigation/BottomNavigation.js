@@ -4,7 +4,7 @@ import AddScore from "../../containers/AddScore/AddScore";
 
 const BottomNavigation = ({ children }) => {
   return (
-    <nav className="sticky bottom-0 flex w-full bg-[#10171F]">
+    <nav className="sticky bottom-0 flex w-full bg-white border-t border-gray-200">
       {children}
       <AddScore />
     </nav>

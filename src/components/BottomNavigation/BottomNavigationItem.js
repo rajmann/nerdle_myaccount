@@ -7,8 +7,8 @@ const BottomNavigationItem = ({ path, icon: Icon, label, onClick }) => {
     <NavLink
       to={path}
       className={({ isActive }) =>
-        `flex flex-1 flex-col items-center justify-center whitespace-nowrap p-2 text-center text-[0.5rem] hover:bg-slate-800 ${
-          isActive ? "text-violet-400" : "text-gray-400"
+        `flex flex-1 flex-col items-center justify-center whitespace-nowrap p-2 text-center text-[0.5rem] hover:bg-gray-100 ${
+          isActive ? "text-nerdle-primary" : "text-gray-600"
         }`
       }
 
@@ -16,7 +16,7 @@ const BottomNavigationItem = ({ path, icon: Icon, label, onClick }) => {
     >
       {({ isActive }) => (
         <>
-          <Icon className={isActive ? "fill-violet-400" : "fill-gray-400"} />
+          <Icon className={isActive ? "fill-nerdle-primary" : "fill-gray-600"} />
           {label}
         </>
       )}

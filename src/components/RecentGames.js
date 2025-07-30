@@ -146,11 +146,11 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
 
   return (
     <div className="mt-8">
-      {/* <div className="text-sm font-semibold text-white mb-2">
+      {/* <div className="text-sm font-semibold text-gray-900 mb-2">
         <h2>Played Today</h2>
       </div>
 
-      <div className="h-full rounded-md bg-gray-700 p-4">
+      <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
         <div className="max-h-[125px] overflow-y-auto pr-4">
           {!gamesTodayWithDetails?.length ? (
             <p className="text-sm text-gray-500">No games played today</p>
@@ -165,10 +165,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                       href={url + "?external=true"}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-sm text-violet-400 underline underline-offset-2">
+                      className="text-sm text-nerdle-primary underline underline-offset-2">
                       {name}
                     </a>
-                    <p className="text-sm text-white">{calculatedScore}</p>
+                    <p className="text-sm text-gray-900">{calculatedScore}</p>
                   </div>
                 )
               )}
@@ -177,10 +177,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         </div>
       </div>
 
-      <div className="text-sm font-semibold text-white mt-3 mb-2">
+      <div className="text-sm font-semibold text-gray-900 mt-3 mb-2">
         <h2>Not Played Today</h2>
       </div>
-      <div className="h-full rounded-md bg-gray-700 p-4">
+      <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
         <div className="max-h-[100px] overflow-y-auto pr-4">
           {!recentlyPlayed?.length ? (
             <p className="text-sm text-gray-500">All games played today</p>
@@ -194,7 +194,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                     href={url + "?external=true"}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-sm text-violet-400 underline underline-offset-2">
+                    className="text-sm text-nerdle-primary underline underline-offset-2">
                     {name}
                   </a>
                 </div>
@@ -205,14 +205,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
       </div>
  */}
 
-      <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-semibold text-white">
+      <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-semibold text-gray-900">
         <div className="flex justify-between">
           <h2>Played Today</h2>
         </div>
         <h2>Not Played Today</h2>
       </div>
       <div className="grid grid-cols-2 gap-x-2">
-        <div className="h-full rounded-md bg-gray-700 p-4">
+        <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
           <div className="max-h-[125px] overflow-y-auto pr-4">
             {!gamesTodayWithDetails?.length ? (
               <p className="text-sm text-gray-500">No games played today</p>
@@ -227,10 +227,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         href={url + "?external=true"}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-sm text-violet-400 underline underline-offset-2">
+                        className="text-sm text-nerdle-primary underline underline-offset-2">
                         {name}
                       </a>
-                      <p className="text-sm text-white">{calculatedScore}</p>
+                      <p className="text-sm text-gray-900">{calculatedScore}</p>
                     </div>
                   )
                 )}
@@ -239,7 +239,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           </div>
         </div>
         <div className="h-full">
-          <div className="h-full rounded-md bg-gray-700 p-4">
+          <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
             <div className="max-h-[100px] overflow-y-auto pr-4">
               {!recentlyPlayed?.length ? (
                 <p className="text-sm text-gray-500">All games played today</p>
@@ -253,7 +253,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         href={url + "?external=true"}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-sm text-violet-400 underline underline-offset-2">
+                        className="text-sm text-nerdle-primary underline underline-offset-2">
                         {name}
                       </a>
                     </div>

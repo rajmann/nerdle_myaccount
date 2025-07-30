@@ -7,7 +7,7 @@ const ScoreDistribution = ({ data, isMultipleGames = false }) => {
   return (
     <div>
       <div className="mt-10">
-        <h2 className="mb-2 font-semibold text-white">Score Distribution</h2>
+        <h2 className="mb-2 font-semibold text-gray-900">Score Distribution</h2>
           <div className="flex gap-2">
             <StatCard
               value={data?.totalScore}

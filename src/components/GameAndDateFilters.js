@@ -13,7 +13,7 @@ const GameAndDateFilters = ({
 }) => {
   return (
     <div className={`flex items-center gap-2 ${className} mt-10`}>
-      <p className="text-sm text-white">Filter by:</p>
+      <p className="text-sm text-gray-900">Filter by:</p>
       <FilterSelectMenu
         options={gameFilterOptions}
         value={gameFilter}
