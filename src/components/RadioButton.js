@@ -10,7 +10,7 @@ const RadioButton = ({ value, label, ...props }) => {
         <label className="flex items-center gap-2">
           <input
             type="radio"
-            className="checked:bg-violet-500 hover:checked:bg-violet-500 focus:ring-violet-500 focus:checked:bg-violet-500"
+            className="checked:bg-nerdle-primary hover:checked:bg-nerdle-primary focus:ring-nerdle-primary focus:checked:bg-nerdle-primary"
             {...field}
             value={value}
           />
