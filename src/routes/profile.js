@@ -157,34 +157,34 @@ const Profile = () => {
         {(data?.email !== undefined) && (
         <>
           <div className="h-px w-full bg-gray-500"></div>
-          <div className="flex w-full pt-4 text-left text-xs text-violet-400">
+          <div className="flex w-full pt-4 text-left text-xs text-gray-700">
             <div className="flex-1">
               <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400': ''}`}>Send me marketing emails</div>
             </div>
             <div className="flex-none w-14">
-              <Switch onColor='#8b5cf6' onChange={marketingClicked} checked={marketingOptedInState} />
+              <Switch onColor='#820458' onChange={marketingClicked} checked={marketingOptedInState} />
             </div>
           </div>
 
-          <div className="flex w-full pb-3 pt-2 text-left text-xs text-violet-400">
+          <div className="flex w-full pb-3 pt-2 text-left text-xs text-gray-700">
             <div className="flex-1">
               <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400': ''}`}>Send me LeaderBoardLe app updates</div>
             </div>
             <div className="flex-none w-14">
-              <Switch onColor='#8b5cf6' onChange={updatesClicked} checked={updatesOptedInState} />
+              <Switch onColor='#820458' onChange={updatesClicked} checked={updatesOptedInState} />
             </div>
           </div>
         </>)}
         <div className="h-px w-full bg-gray-500"></div>
         <button
           onClick={onChangePassword}
-          className="w-full py-4 text-left text-xs text-violet-400 underline hover:text-violet-500">
+          className="w-full py-4 text-left text-xs text-nerdle-primary underline hover:text-nerdle-secondary">
           Change password
         </button>
         <div className="h-px w-full bg-gray-500"></div>
         <button
           onClick={onSignOut}
-          className="w-full py-4 text-left text-xs text-violet-400 underline hover:text-violet-500">
+          className="w-full py-4 text-left text-xs text-nerdle-primary underline hover:text-nerdle-secondary">
           Sign out
         </button>
         <div className="h-px w-full bg-gray-500"></div>
