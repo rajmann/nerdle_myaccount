@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+  <head>
+  </head>
+  <body style="margin:0; height:32px; width:156px; ">
+    <div id="amazon-root"></div>
+    <script type="text/javascript">
+      window.onAmazonLoginReady = function () {
+        amazon.Login.setClientId(
+          'amzn1.application-oa2-client.f03846c73b1a434f9c7fc9afe7a55695'
+        )
+      }
+      ;(function (d) {
+        var a = d.createElement('script')
+        a.type = 'text/javascript'
+        a.async = true
+        a.id = 'amazon-login-sdk'
+        a.src = 'https://assets.loginwithamazon.com/sdk/na/login1.js'
+        d.getElementById('amazon-root').appendChild(a)
+      })(document)
+    </script>
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <!-- <div id="root" class="h-full min-h-screen w-screen min-h-screen-ios bg-white dark:bg-gray-800 rounded-lg"> -->
+    <div
+      id="root"
+      class="h-full min-h-screen w-screen bg-white dark:bg-gray-800 rounded-lg"
+    >
+      <a href id="LoginWithAmazon">
+        <img
+          border="0"
+          alt="Login with Amazon"
+          src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
+          width="156"
+          height="32"
+        />
+      </a>
+
+      <!-- <hr />
+      <a id="Logout">Logout</a>  -->
+
+
+    </div>
+
+    <script type="text/javascript">
+
+      // if window is at localhost set redirect_uri to http://localhost/lwa-callback
+      // else use current protocol and host
+        if (window.location.host.includes('localhost:3000')) {  
+            var redirect_uri = 'http://localhost:3000/lwa-callback'
+        } else {
+            var redirect_uri = window.location.protocol + '//' + window.location.host + '/lwa-callback'
+        }
+
+        // what is subdomain - first part of host before . if present
+        var subdomain = window.location.host.split('.')[0]
+
+      document.getElementById('LoginWithAmazon').onclick = function () {
+        options = {}
+        options.scope = 'profile'
+        options.scope_data = {
+          profile: { essential: false },
+        }
+        options.popup = false
+        options.response_type = 'code'
+        options.state = subdomain
+       // options.redirect_uri = window.location.protocol + '//' + window.location.host + '/lwa-callback'
+        amazon.Login.authorize(
+          options,
+          redirect_uri
+        )
+        return false
+      }
+      
+      document.getElementById('Logout').onclick = function() { 
+        amazon.Login.logout();
+      };
+
+    </script>
+  </body>
+</html>

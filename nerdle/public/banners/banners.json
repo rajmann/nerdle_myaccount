@@ -1,0 +1,20 @@
+{
+    "banners":[
+     {
+      "active": true,
+      "start":"2025-01-10T00:00:00Z",
+      "end":"2025-01-11T00:00:00Z",
+      "fileName":"banner_3rd_birthday.html",
+      "GAEvent":"nerdle_weekly_challenge_click",
+      "backgroundColor": "#E2E8F0"
+    },
+    {
+      "active": true,
+      "start":"2025-01-20T00:00:00Z",
+      "end":"2025-01-21T00:00:00Z",
+      "fileName":"banner_3rd_birthday.html",
+      "GAEvent":"nerdle_weekly_challenge_click",
+      "backgroundColor": "#E2E8F0"
+    }
+    ]
+}

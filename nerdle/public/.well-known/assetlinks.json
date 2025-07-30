@@ -1,0 +1,16 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.nerdle.app",
+            "sha256_cert_fingerprints": [
+                "20:30:35:54:71:AB:C7:73:12:2C:B7:B4:28:3F:FE:D8:B3:D5:F8:FE:4B:3F:22:D1:87:1C:93:94:E5:23:9B:57",
+                "D1:EB:EA:D2:5A:69:DE:5C:E2:52:B4:A5:C2:4A:EA:11:90:4F:FF:A6:59:93:C8:13:97:48:D8:08:E3:79:11:50",
+                "61:C7:08:FE:D1:1B:18:33:FB:E1:E5:63:63:94:F8:B3:B8:67:9C:4E:75:3A:84:92:88:C2:53:F6:06:9A:0B:87"
+            ]
+        }
+    }
+]

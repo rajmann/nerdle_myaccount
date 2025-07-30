@@ -1,0 +1,88 @@
+# Ads.txt -- Longitudeads.com for nerdlegame.com
+ManagerDomain=longitudeads.com
+OwnerDomain=nerdlegame.com
+longitudeads.com, 9305, DIRECT
+amxrtb.com, 105199591, DIRECT
+appnexus.com, 12290, RESELLER
+lijit.com, 260380, RESELLER
+pubmatic.com, 158355, RESELLER
+rubiconproject.com, 23844, RESELLER
+openx.com, 559680764, RESELLER
+rubiconproject.com, 17960, RESELLER
+google.com, pub-5286346120013326, RESELLER, f08c47fec0942fa0
+google.com, pub-1008130700664775, DIRECT, f08c47fec0942fa0 #Adsense
+google.com, pub-7973133048409296, DIRECT, f08c47fec0942fa0 #AdX
+aps.amazon.com,c8b7d244-cdfc-48df-8b4a-98e8c4fadc6a, DIRECT
+aps.amazon.com,fe31632e-8fb8-4c60-9299-04518b01c706,RESELLER
+appnexus.com, 3781, DIRECT, f5ab79cb980f11d1
+conversantmedia.com, 41132, DIRECT
+criteo.com, B-063675, RESELLER, 9fac4a4a87c2a44f
+themediagrid.com, V13DP2, RESELLER, 35d5010d7789b49d
+deepintent.com, 1225, DIRECT
+gumgum.com, 13886, DIRECT, ffdef49475d318a9
+rubiconproject.com,23434,RESELLER,0bfd66d529a55807
+pubmatic.com,157897,RESELLER,5d62403b186f2ace
+appnexus.com,2758,RESELLER,f5ab79cb980f11d1
+openx.com,537149485,RESELLER,6a698e2ec38604c6
+indexexchange.com, 192251, DIRECT, 50b1c356f2c5c8fc #PB
+indexexchange.com, 193401, DIRECT, 50b1c356f2c5c8fc #TAM
+kargo.com, 8678, DIRECT
+themediagrid.com, KWDN13, DIRECT, 35d5010d7789b49d
+media.net, 8CUA0SYJJ, DIRECT #PB
+media.net, 8CU45YNUH, DIRECT #TAM
+media.net, 8CU7BR6J3, DIRECT #s2s
+nativo.com, 5883, DIRECT, 59521ca7cc5e9fee
+ogury.com, fd1f5fd7-b4a5-4e79-b1e4-c805c0d604f7, RESELLER
+appnexus.com, 11470, RESELLER
+pubmatic.com, 163238, RESELLER, 5d62403b186f2ace
+smartadserver.com, 4537, RESELLER, 060d053dcf45cbf3
+rubiconproject.com, 25198, RESELLER, 0bfd66d529a55807
+sharethrough.com, 4j22CXRt, DIRECT, d53b998a7bd4ecd2
+pubmatic.com, 159855, DIRECT, 5d62403b186f2ace
+lijit.com, 423964, RESELLER, fafdf38b16bf6b2b #SOVRN
+lijit.com, 423964-eb, RESELLER, fafdf38b16bf6b2b #SOVRN
+media.net, 8CUG6YKH8, RESELLER #OB
+openx.com, 537119862, DIRECT, 6a698e2ec38604c6 #PB
+openx.com, 556665488, DIRECT, 6a698e2ec38604c6 #TAM
+pubmatic.com, 160037, DIRECT, 5d62403b186f2ace #PB
+pubmatic.com, 160620, DIRECT, 5d62403b186f2ace #TAM
+rubiconproject.com, 13708, DIRECT, 0bfd66d529a55807 #PB
+rubiconproject.com, 19556, DIRECT, 0bfd66d529a55807 #TAM
+sharethrough.com, 7eaa6660, DIRECT, d53b998a7bd4ecd2
+pubmatic.com, 156557, RESELLER
+rubiconproject.com, 18694, RESELLER, 0bfd66d529a55807
+openx.com, 540274407, RESELLER, 6a698e2ec38604c6
+smartadserver.com, 4342, RESELLER
+sovrn.com, 237742, DIRECT, fafdf38b16bf6b2b
+lijit.com, 237742, DIRECT, fafdf38b16bf6b2b
+triplelift.com, 9091, RESELLER, 6c33edb13117fd86 #PB
+triplelift.com, 14128, RESELLER, 6c33edb13117fd86 #PB
+triplelift.com, 11717, DIRECT, 6c33edb13117fd86
+video.unrulymedia.com, 8958776761568691051, DIRECT #PB
+rubiconproject.com, 15268, RESELLER, 0bfd66d529a55807
+pubmatic.com, 159277, RESELLER
+appnexus.com, 6849, RESELLER
+pubnative.net, 1007449, RESELLER, d641df8625486a7b
+yieldmo.com, 1834133916509439625, DIRECT
+yieldmo.com, 1834133916509439625, RESELLER
+rubiconproject.com, 17070, RESELLER, 0bfd66d529a55807 #yieldmo
+pubmatic.com, 160648, RESELLER, 5d62403b186f2ace #yieldmo
+openx.com, 558228330, RESELLER, 6a698e2ec38604c6 #yieldmo
+contextweb.com, 561118, RESELLER, 89ff185a4c4e857c #yieldmo
+conversantmedia.com, 100270, RESELLER, 03113cd04947736d #yieldmo
+appnexus.com, 7911, RESELLER #yieldmo
+rhythmone.com, 3463482822,RESELLER,a670c89d4a324e47 #yieldmo
+video.unrulymedia.com, 3463482822, RESELLER #yieldmo
+smartadserver.com, 4524, RESELLER, 060d053dcf45cbf3 #yieldmo
+loopme.com,11479,RESELLER,6c8d5f95897a5a3b #yieldmo
+lunamedia.io, 920a0ad09fc811ec82a719991b8924e5, RESELLER, 524ecb396915caaf #yieldmo
+iqzone.com,IQ190,RESELLER
+smartyads.com, 217, RESELLER, fd2bde0ff2e62c5d #yieldmo
+pubnative.net, 1007284, RESELLER, d641df8625486a7b #yieldmodisplay
+pubnative.net, 1007285, RESELLER, d641df8625486a7b #yieldmonative
+pubnative.net, 1007286, RESELLER, d641df8625486a7b #yieldmovideo
+trustedstack.com, TS931XQ4D, DIRECT
+admanmedia.com, 746, RESELLER #yieldmo
+visiblemeasures.com, 1041, DIRECT #yieldmo
+krushmedia.com, AJxF6R537a9M6CaTvK, RESELLER
+taurusx.com, 80632, DIRECT

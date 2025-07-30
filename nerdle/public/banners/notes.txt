@@ -1,0 +1,44 @@
+structure of banners.json
+
+{
+    "banners":[ 
+        {
+         "active": true,  
+         "start":"2024-10-14T00:00:00Z",
+         "end":"2024-10-14T23:59:59Z",
+         "fileName":"banner6.html",
+         "GAEvent":"nerdle_1000_banner_click",
+         "backgroundColor": "#EEEEEE",
+         "games": ["all"]
+        }
+    ]
+}
+
+active: if false will never show
+start/end: will show if current ISO time within start and end and active is true
+fileName: filename of banner html file in same folder
+GAEvent: a google analytics event to fire when banner is clicked
+backgroundColor: background color of banner
+games:
+
+if games attribute omitted - will show on all games
+if contains "all" will show on all games
+otherwise must contain gameMode for that game to show the banner:
+
+supported games currently:
+
+all
+classic
+micro
+mini
+midi
+maxi
+pro
+speed
+instant
+bi
+quad
+crossnerdle
+nanagram
+numbers = shuffle and 2d nerdle
+words = shuffle

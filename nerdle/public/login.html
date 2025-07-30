@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.png?002" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0,user-scalable=0"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Nerdle - guess the solution in 6 tries - try classic, mini, speed and pro"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <!-- <link rel="manifest" href="/manifest.json" /> -->
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Nerdle - the daily numbers game</title>
+
+    <meta
+      property="og:image"
+      content="https://nerdlegame.com/social/nerdle_tw.png"
+    />
+    <meta property="og:title" content="Nerdle - the daily numbers game" />
+    <meta
+      property="og:description"
+      content="Daily number challenge at nerdlegame.com"
+    />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    <meta property="twitter:site" content="@nerdlegame" />
+    <meta property="twitter:title" content="Nerdle - the daily numbers game" />
+    <meta
+      property="twitter:description"
+      content="Daily number challenge at nerdlegame.com"
+    />
+    <meta
+      property="twitter:image"
+      content="https://nerdlegame.com/social/nerdle_tw.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1008130700664775" crossOrigin="anonymous"></script> -->
+    <script>
+      if (
+        !sessionStorage.getItem('_swa') &&
+        document.referrer.indexOf(location.protocol + '//' + location.host) !==
+          0
+      ) {
+        fetch(
+          'https://counter.dev/track?' +
+            new URLSearchParams({
+              referrer: document.referrer,
+              screen: screen.width + 'x' + screen.height,
+              user: 'marcusnerdle',
+              utcoffset: '0',
+            })
+        )
+      }
+      sessionStorage.setItem('_swa', '1')
+    </script>
+
+    <script>
+      var subdomain = window.location.hostname.split('.')[0]
+
+      // handles retrieving lbl token from other games ... see iframes end of App
+      // window.onmessage = (event) => {
+      //   console.log(event)
+      //   if (event.data && event.data.startsWith('lbltoken:')) {
+      //       let token = event.data.substring(9)
+      //       console.log(token)
+      //       localStorage.setItem('lbl_token', token)
+      //   }
+      // }
+
+      ;(function () {
+        'use strict'
+
+        if (window.location !== window.top.location) {
+          window.top.location = window.location
+        }
+      })()
+    </script>
+
+    <style>
+      .stars {
+        background-image: url('/red_stars.jpg');
+        background-size: contain;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body id="body" class="bg-white dark:bg-gray-800">
+    <div id="amazon-root"></div>
+    <script type="text/javascript">
+      window.onAmazonLoginReady = function () {
+        amazon.Login.setClientId(
+          'amzn1.application-oa2-client.f03846c73b1a434f9c7fc9afe7a55695'
+        )
+      }
+      ;(function (d) {
+        var a = d.createElement('script')
+        a.type = 'text/javascript'
+        a.async = true
+        a.id = 'amazon-login-sdk'
+        a.src = 'https://assets.loginwithamazon.com/sdk/na/login1.js'
+        d.getElementById('amazon-root').appendChild(a)
+      })(document)
+    </script>
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <!-- <div id="root" class="h-full min-h-screen w-screen min-h-screen-ios bg-white dark:bg-gray-800 rounded-lg"> -->
+    <div
+      id="root"
+      class="h-full min-h-screen w-screen bg-white dark:bg-gray-800 rounded-lg"
+    >
+      <a href id="LoginWithAmazon">
+        <img
+          border="0"
+          alt="Login with Amazon"
+          src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
+          width="156"
+          height="32"
+        />
+      </a>
+
+      <hr />
+      <a id="Logout">Logout</a> 
+
+
+    </div>
+
+    <script type="text/javascript">
+      document.getElementById('LoginWithAmazon').onclick = function () {
+        options = {}
+        options.scope = 'profile'
+        options.scope_data = {
+          profile: { essential: false },
+        }
+        options.popup = true
+        amazon.Login.authorize(
+          options,
+          window.location.protocol + '//' + window.location.host + '/lwa-callback'
+        )
+        return false
+      }
+
+      
+      document.getElementById('Logout').onclick = function() { 
+        amazon.Login.logout();
+      };
+
+    </script>
+  </body>
+</html>

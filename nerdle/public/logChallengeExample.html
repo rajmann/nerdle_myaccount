@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script>
+
+            const award = {
+                name: "Advent 2024 Challenge",
+                description: "Complete the Advent 2024 Challenge",
+                smallImage: "https://nerdlegame.com/badges/challenges/advent.png",
+                achievedOn: new Date().toISOString(),
+                // anything else?
+            }
+
+            // base 64 encode it
+            const encoded = btoa(JSON.stringify(award))
+
+            const redirectURL = 'https://www.nerdlegame.com/advent/2024/return.html'
+
+            // redirect to https://nerdlegame.com/logChallenge.html?data=encoded&returnUrl=redirectURL
+            window.location.href = `https://dev.nerdlegame.com/logChallenge.html?data=${encoded}&returnUrl=${redirectURL}`
+
+        </script>
+    </head>
+
+</html>

@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "RDVZD9NA5N.com.nerdle.app",
+                "paths": ["/*"]
+            }
+        ]
+    }
+}

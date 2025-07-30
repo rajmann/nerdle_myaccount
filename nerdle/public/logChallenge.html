@@ -1,0 +1,50 @@
+<html>
+    <head>
+
+        <script>
+        var urlParams = new URLSearchParams(window.location.search)
+
+        var data = urlParams.get('data')
+        var returnUrl = urlParams.get('returnUrl')
+        if (data) {
+            // base 64 decode it
+            var decoded = atob(data)
+            
+            // get challenges from localStorage 'challengeAwards' key or empty array
+            var challenges = JSON.parse(localStorage.getItem('challengeAwards')) || []
+
+            // json parse it
+            var parsed = JSON.parse(decoded)
+
+            // does the challenge already exist (name)? If it does update the existing one's achievedOn with the new one
+            // otherwise add the challenge
+            var foundIt = false
+            challenges.forEach((element, index) => {
+                if (element.name == parsed.name) {
+                    challenges[index].achievedOn = parsed.achievedOn
+                    foundIt = true
+                }
+            });
+            if (!foundIt) {
+                challenges.push(parsed)
+            }
+
+            // store challenges in local storage
+            localStorage.setItem('challengeAwards', JSON.stringify(challenges))
+
+        }
+
+        if (returnUrl) {
+            // redirect to returnUrl
+            window.location.href = returnUrl
+        }
+
+        </script>
+
+    </head>
+
+    <body>
+
+    </body>
+
+</html>

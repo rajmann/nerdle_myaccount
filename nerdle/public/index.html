@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+
+<head>
+
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+
+  <!-- Google tag (gtag.js) FOR NERDLE GA DIRECT -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BDY25XYPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7BDY25XYPN');
+  </script> -->
+
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "pqpkqsfnl7");
+  </script>
+
+
+  <script>
+    
+    // fetch /version.txt to get the version of the game - compare it to local storage, if different update local storage and reload
+    const timestamp = Math.floor(Date.now() / 1000)
+    console.log('timestamp', timestamp)
+    fetch('/version.txt?' + timestamp)
+      .then(response => response.text())
+      .then(data => {
+        console.log('version pull', data)
+        let version = localStorage.getItem('version') || ''
+        if (version == '') {
+          localStorage.setItem('version', data)
+        } else {
+          if (version !== data) {
+            localStorage.setItem('version', data)
+            // if url already has a v= parm, remove it first
+            var url = window.location.href
+
+            if (window.location.href.includes('v=')) {
+              url =url
+                .replace(/&v=[^&]*/, '')
+                .replace(/\?v=[^&]*/, '')
+            }
+
+            // add version to url to foce reload - if already a ? then add &v= otherwise add ?v=
+            if (url.includes('?')) {
+              window.location.href = url + '&v=' + data
+            } else {
+              window.location.href = url + '?v=' + data
+            }
+          }
+        }
+      })
+
+    // do we have sessionTime var in url?
+    const url = new URL(window.location.href)
+    const sessionTime = url.searchParams.get('st') || ''
+    if (sessionTime != '') {
+      localStorage.setItem('sessionTime', sessionTime)
+    }
+    var redirectedToRoot = false
+    
+    // this handles redirecting to the root domain to get the game tracking object from localstorage - it is redfirected back here
+    // we do it first before GA/LNGTD is loaded to avoid skewing page views and to avoid ad elements rendering
+    var subdomain = window.location.hostname.split('.')[0]
+    if (/*subdomain != 'localhost' &&*/ subdomain != 'dev' && subdomain != 'nerdlegame' && subdomain != 'pro') {
+      const url = new URL(window.location.href)
+      const setlbl = url.searchParams.get('setlbl')
+      if (setlbl) {
+        let decoded = atob(setlbl)
+        let parsed = JSON.parse(decoded)
+        let lblToken = parsed.lblToken
+        let userEmail = parsed.userEmail || ''
+        if (lblToken !== undefined && lblToken !== 'undefined' && lblToken !== '') {
+          localStorage.setItem('lbl_token', lblToken)
+        }
+        let lastPlayed = parsed.lastPlayed
+        if (JSON.stringify(lastPlayed) !== "{}") {
+          localStorage.setItem('lastPlayed', JSON.stringify(lastPlayed))
+        }
+        if (userEmail !== undefined && userEmail !== 'undefined' && userEmail !== '') {
+          localStorage.setItem('userEmail', userEmail)
+        }
+        let challengeAwards = parsed.challengeAwards
+        if (JSON.stringify(challengeAwards) !== "{}") {
+          localStorage.setItem('challengeAwards', JSON.stringify(challengeAwards))
+        }
+        // if we have 'pwa' in searcHparams then we need to add it to the url
+
+        if (window.location.search.includes('pwa')) {
+          window.location.href = '/game?pwa'
+        } else {
+          window.location.href = '/game'
+        }
+      } else {
+        if (
+          //window.location.hostname.includes('maxi') && 
+          window.location.pathname == '/' //&& 
+          //window.location.href.includes('marcustest99') 
+        ) {
+          console.log('need to go to storeLbl.html to get lbl token')
+          // no lbl token so redirect to store page to try and get one ..
+          window.location.href = window.location.hostname.includes('localhost')
+            ? 'http://localhost:3000/storeLbl.html?load=1&target=' +
+            window.location.href
+            : (window.location.hostname.includes('dev.') ? 'https://dev.' : 'https://') + 'nerdlegame.com/storeLbl.html?load=1&target='
+            + encodeURIComponent(window.location.href)
+            redirectedToRoot = true
+        }
+      }
+    } 
+
+    if (window.location.pathname.includes('/game') || subdomain == 'nerdlegame' ) {
+      const sessionTimeFromLS = localStorage.getItem('sessionTime') || '0'
+      var sessionTimeInt = parseInt(sessionTimeFromLS)
+      window.sessionTime = sessionTimeInt
+      setInterval(() => {
+        window.sessionTime += 5
+      }, 5000)
+      localStorage.removeItem('sessionTime')
+    }
+
+  </script>
+
+
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.png?002" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0,user-scalable=0" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Nerdle - guess the solution in 6 tries - try classic, mini, speed and pro"
+    data-react-helmet="true" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <title>Nerdle - the daily numbers game</title>
+
+  <script>
+        var newUser = false
+        var classicOnlyAudience = false
+        var nerdleVerseAudience = false
+        if (!localStorage.getItem('lastPlayed')) {
+          newUser = true
+          clarity("set", "newUser", "true");
+        } else {
+          clarity("set", "newUser", "false");
+          // lastPlayed looks like this:
+          // {"crossnerdle":"2025-01-15","classic":"2025-01-08","bi":"2024-01-10","quad":"2024-01-24","shufflenumbers":"2024-02-21","targetsnumbers1":"2024-04-03","targetsnumbers2":"2024-04-03","targetsnumbers3":"2024-04-03","targetsnumbers4":"2024-04-03","midi":"2024-10-02","mini":"2025-01-08","nanagram_9":"2025-01-15"}
+          // if lastPlayed only has one game and it is "classic" then set classicOnlyAudience to true otherwise set nerdleVerseAudience to true
+          let lastPlayed = JSON.parse(localStorage.getItem('lastPlayed'))
+          let gamesPlayed = Object.keys(lastPlayed)
+          if (gamesPlayed.length == 1 && gamesPlayed[0] == 'classic') {
+            classicOnlyAudience = true
+            console.log('classicOnlyAudience', classicOnlyAudience)
+          } else {
+            nerdleVerseAudience = true
+          }
+        }
+        window.classicOnlyAudience = classicOnlyAudience
+        window.nerdleVerseAudience = nerdleVerseAudience
+  </script>
+
+  <!-- begin Convert Experiences code--><script type="text/javascript" src="//cdn-4.convertexperiments.com/v1/js/100413619-100414877.js?environment=production"></script><!-- end Convert Experiences code -->
+
+  <script>
+    // if gameState does not exist in local storage
+    if (newUser) {
+      console.log('trigger new user conversion')
+      window._conv_q = window._conv_q || [];
+      _conv_q.push(["triggerConversion", "100481190"]);
+      window.newUser = true
+    }
+
+
+
+    // // look in convert.currentData.experiences with ID: "1004127454" and see if it has a variation with ID: "1004301984"
+    // if (convert && convert.currentData && convert.currentData.experiences) {
+    //   const experience = convert.currentData.experiences["1004127454"] || null
+    //   if (experience) {
+    //     // find experiences.variations with ID: "1004301984"
+    //     if (experience.variation.id == "1004301984") {
+    //       // ok this is the how to with OUT splash scren variation so we need to set a variable which we will later use to NOT show the splash screen
+    //       window.noSplash = true
+    //     }
+    //   }
+    // }
+    
+    // console.log('noSplash', window.noSplash)
+
+    // // get running experience and variant for google analytics
+    // if (convert && convert.currentData && convert.currentData.experiences) {
+    //   const experiences = convert.currentData.experiences
+    //   for (const experience in experiences) {
+    //     if (experiences[experience].variation.status == 'running') {
+    //       window.experienceId = experience
+    //       window.variantId = experiences[experience].variation.id
+    //     }
+    //   }
+    // }
+
+    // console.log('experienceId', window.experienceId)
+    // console.log('variantId', window.variantId)
+
+  </script>
+
+  <meta property="og:image" content="https://nerdlegame.com/og_image_nerdle.png" />
+  <meta property="og:title" content="Nerdle - the daily numbers game" data-react-helmet="true" />
+  <meta property="og:description" content="Daily number challenge at nerdlegame.com" data-react-helmet="true" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="twitter:site" content="@nerdlegame" />
+  <meta property="twitter:title" content="Nerdle - the daily numbers game" data-react-helmet="true" />
+  <meta property="twitter:description" content="Daily number challenge at nerdlegame.com" data-react-helmet="true" />
+  <meta property="twitter:image" content="https://nerdlegame.com/og_image_nerdle.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1008130700664775" crossOrigin="anonymous"></script> -->
+  <script>
+    if (
+      !sessionStorage.getItem('_swa') &&
+      document.referrer.indexOf(location.protocol + '//' + location.host) !==
+      0
+    ) {
+      fetch(
+        'https://counter.dev/track?' +
+        new URLSearchParams({
+          referrer: document.referrer,
+          screen: screen.width + 'x' + screen.height,
+          user: 'marcusnerdle',
+          utcoffset: '0',
+        })
+      )
+    }
+    sessionStorage.setItem('_swa', '1')
+  </script>
+
+  <!-- <script>
+    // get user agent
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    console.log('userAgent', userAgent);
+    // check if user agent contains 'Nerdle'
+    if (/Nerdle/i.test(userAgent)) {
+      console.log('Nerdle user agent detected, do not load script');
+    } else {
+      var head = document.getElementsByTagName('head')[0];
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = "https://lngtd.com/nerdlegame.js"
+      script.async = true;
+      script.defer = true;
+      head.appendChild(script);
+    }
+  </script> -->
+  <script defer async src="https://lngtd.com/nerdlegame.js"></script>
+
+  <script>
+    subdomain = window.location.hostname.split('.')[0]
+
+      // handles retrieving lbl token from other games ... see iframes end of App
+      // window.onmessage = (event) => {
+      //   console.log(event)
+      //   if (event.data && event.data.startsWith('lbltoken:')) {
+      //       console.log('receiving token from other game')
+      //       let token = event.data.substring(9)
+      //       console.log(token)
+      //       localStorage.setItem('lbl_token', token)
+      //   }
+      // }
+
+      ; (function () {
+        'use strict'
+
+        if (localStorage.getItem('convert')) {
+          return
+        }
+
+        console.log(window.location);
+        console.log(window.top.location);
+
+        if (window.location !== window.top.location) {
+
+          // igmore if ?convert=true in url
+          if (window.location.href.includes('?visualEditor=convert')) {
+            localStorage.setItem('convert', true)
+            return
+          }
+
+          window.top.location = window.location
+        }
+      })()
+  </script>
+
+  <style>
+    .stars {
+      background-image: url('/red_stars.jpg');
+      background-size: contain;
+      padding: 20px;
+    }
+  </style>
+
+  <style>
+    .info-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    .info-sub-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      font-style: italic;
+    }
+    .min-h-screen {
+      min-height: 90vh!important;
+    }
+    /* .winModalNew {
+      display:block!important;
+    }
+    .winModalOld {
+      display:none!important;
+    } */
+    .hintBoxOld {
+      display:none!important;
+    }
+    .hintBoxNew {
+      display:block!important;
+    }
+    :is(.dark .dark\:bg-gray-new) {
+    --tw-bg-opacity: 1;
+    background-color: rgb(62 62 65 / var(--tw-bg-opacity));
+    }
+  </style>
+
+  <!-- <script>
+    // make a function to see if winModalNew class has display block
+    window.winModalOldVisible = false
+    window.winModalNewVisible = true
+  </script> -->
+
+</head>
+
+<body id="body" class="bg-white dark:bg-gray-800">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <!-- <div id="root" class="h-full min-h-screen w-screen min-h-screen-ios bg-white dark:bg-gray-800 rounded-lg"> -->
+  <div id="root" class="h-full min-h-screen w-screen bg-white dark:bg-gray-800 rounded-lg">
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </div>
+
+  <!-- <iframe id="settingsGetter" style="display: none"> </iframe> -->
+
+
+
+  <div class="row text-center justify-center dark:text-[#D7DADC]" style="max-width:800px; margin:auto;" id="info">
+    <h1 class="info-title">about nerdle and the nerdleverse</h1>
+    <p className="mb-4 p-4">
+
+      Our flagship game, nerdle, was inspired by puzzle games and a passion for math.
+      It challenges you to find the hidden calculation in just six guesses.
+      In the wider <a style="text-decoration-line: underline; cursor: pointer;"
+        href="https://www.nerdlegame.com/">nerdleverse</a>, you'll roam an entire galaxy of puzzles,
+      including number-based crosswords, anagrams, and so much more. Whether you're a math enthusiast or just
+      looking for a daily brain workout, the <a style="text-decoration-line: underline; cursor: pointer;"
+        href="https://www.nerdlegame.com/">nerdleverse</a> has something special for you.
+      Join us and let your mind explore the wonders of the <a style="text-decoration-line: underline; cursor: pointer;"
+        href="https://www.nerdlegame.com/">nerdleverse</a>!
+
+    </p>
+
+  </div>
+
+  <div id="version" class="text-center w-full"></div>
+
+</body>
+
+<script>
+  const screenWidth = window.innerWidth
+  console.log(screenWidth)
+  if (screenWidth < 669) {
+    console.log('screenWidth', screenWidth)
+    var adTest = Math.random() < 0.5 ? 'anchor-ad' : 'no-anchor-ad'
+    localStorage.setItem('adTest', adTest)
+    console.log('applying ad class', adTest)
+    //logEvent(analytics, 'ad_test_' + adTest)
+    document.body.classList.add(adTest)
+  }
+
+  /**
+   * Functions from
+   * @see https://web.dev/push-notifications-subscribing-a-user/
+   */
+  const PushService = {
+    pushSupported: 'Notification' in window,
+    requestPermission: () => {
+      return new Promise(function (resolve, reject) {
+        const permissionResult = Notification.requestPermission(resolve);
+
+        if (permissionResult) {
+          permissionResult.then((result) => {
+            setPushToken();
+            resolve(result);
+          }, reject);
+        }
+      }).then(function (permissionResult) {
+        if (permissionResult !== 'granted') {
+          throw new Error("We weren't granted permission.");
+        }
+      });
+    }
+  }
+
+  // urlB64ToUint8Array is a magic function that will encode the base64 public key
+  // to Array buffer which is needed by the subscription option
+  const urlB64ToUint8Array = base64String => {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding)
+      .replace(/\-/g, "+")
+      .replace(/_/g, "/");
+    const rawData = atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  };
+
+
+  function setPushToken(token) {
+    //notificationButton.textContent = "🔔 Push enabled";
+    localStorage.setItem('pushEnabled', true)
+
+    if (token) {
+      var lbl_token = localStorage.getItem('lbl_token')
+      fetch('https://api.leaderboardle.com/user/updateFCMToken', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${lbl_token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token }),
+      }).then((response) => {
+        // console.log('response from updateFCMToken')
+        // console.log(response)
+      })
+      return;
+    }
+    return;
+    // if(!('serviceWorker' in navigator)) { return; }
+
+    // return navigator.serviceWorker.register('/service-worker.js')
+    //   .then(function (registration) {
+    //     const subscribeOptions = {
+    //       userVisibleOnly: true,
+    //       applicationServerKey: urlB64ToUint8Array(PUSH_SERVER_KEY), // for WebPush
+    //     };
+
+    //     return registration.pushManager.subscribe(subscribeOptions);
+    //   })
+    //   .then(function (pushSubscription) {
+    //     // send subscription to server and save to current user
+    //     // apiClient.put('/auth', {webpush_subscription: pushSubscription})
+    //     return pushSubscription;
+    //   });
+  }
+
+
+
+  const notificationButton = document.getElementById("enableNotifications");
+  if (notificationButton) {
+    notificationButton.addEventListener("click", () => PushService.requestPermission());
+  }
+
+
+  if (!PushService.pushSupported) {
+    // need this timeout because flutter app will add window.Notification after page load
+    setTimeout(() => {
+      PushService.pushSupported = 'Notification' in window;
+      if (!PushService.pushSupported) {
+        //notificationButton.textContent = "🔕 Push not supported";
+        localStorage.setItem('pushEnabled', false)
+      }
+    }, 500);
+  }
+
+
+
+  function sendFlutterMessage(message) {
+    console.log('message from flutter', message)
+    window.postMessage(message, '*')
+  }
+
+  var subdomain = window.location.hostname.split('.')[0]
+
+  if (subdomain == 'localhost' || subdomain == 'nerdlegame' || subdomain == 'dev') {
+
+    const html = `
+        <div style="margin-left:5px; padding-bottom:60px;">
+
+          <h1 class="info-title">About nerdle and the nerdleverse</h1>
+
+          <p class="mb-4 p-4">
+              Our flagship game, nerdle, was inspired by puzzle games and a passion for math. Nerdle is a daily math puzzle
+               that
+              challenges you to find the hidden calculation in just six guesses. In the wider <a
+                  class="underline cursor-pointer" href="https://www.nerdlegame.com" target="_new">nerdleverse</a>, you'll
+              roam
+              an entire galaxy of free and fun math challenges, including number-based crosswords, anagrams, mathematics puzzles and so much more. Whether
+              you're a
+              math enthusiast or just looking for a daily brain teaser, the nerdleverse has something special for you. Join
+              us
+              and let your mind explore the wonders of the <a class="underline cursor-pointer"
+                  href="https://www.nerdlegame.com" target="_new">nerdleverse</a>!
+          </p>
+
+          <h1 class="info-title">What is nerdle?</h1>
+
+          <p class="mb-4 p-4">
+              Nerdle is a daily math game solved by logic and a little mental arithmetic. Each day, there is a new math
+              puzzle,
+              leading you to a hidden answer in the form of a simple calculation. For example, in classic 8-digit nerdle, the
+              daily math problem could be solved with something like 3*4+5=17.
+          </p>
+
+          <h1 class="info-title">How do you play nerdle step by step?</h1>
+
+          <p class="p-4 pb-0">To play the nerdle daily math challenge, follow these four simple steps:</p>
+
+
+          <p class="p-4 pb-2">1. Understand the nerdle concept. If you've played similar games before, you'll understand nerdle
+              immediately as a daily
+              math puzzle. But if this is a new game format for you, read our guide
+              below on
+              <a class="underline cursor-pointer" href="#how">how does a game of nerdle work</a>?
+          <p>
+          <p class="p-4 pb-2">2. Give your first nerdle a try. It's more straightforward than you might think and we promise
+              the math isn't
+              scary! Think of it as a simple numbering game. Just make a couple of guesses and see how you get on.</p>
+          <p class="p-4 pb-2">3. Develop your nerdle strategy. By applying your powers of deduction and by solving a few daily
+              games, you'll
+              quickly see your daily scores improving. You can also read our guide on <a class="underline cursor-pointer"
+                  href="#what_strategies">'what strategies help you win at
+                  nerdle?'</a></p>
+          <p class="p-4 pb-4">4. Keep on nerdling. Come back tomorrow and play again.</p>
+
+
+
+          <h1 class="info-title"><a name="how" />How does a game of nerdle work?</h1>
+
+          <p class="mt-2"></p>
+
+          <h1 class="info-sub-title">Game objective</h1>
+
+          <p class="mb-2 p-4">Your goal is to discover the hidden calculation in as few guesses as possible using the feedback
+              hints given after
+              each guess. Correct tiles are shown in green – so your goal is to turn them all green.</p>
+
+          <h1 class="info-sub-title">Game layout</h1>
+
+          <p class="p-4 pb-0">The nerdle game layout consists simply of two parts:</p>
+          <p class="p-4 pb-2">1. The game board: This is also where you enter your guesses and where we show colored feedback
+              hints that tell
+              you about how close your previous guesses are to the daily solution.</p>
+          <p class="p-4 pb-4">2. The keyboard: You can use either the on screen keyboard or your device's keyboard to enter
+              your guesses.</p>
+
+
+          <h1 class="info-sub-title">Permitted nerdle calculations</h1>
+
+          <p class="p-4 pb-0">There are a few simple rules about possible nerdle solutions:</p>
+
+          <p class="p-4 pb-2">- Valid characters: nerdle calculations consist of any of the following characters:
+              0123456789+-*/=. Some special
+              games (e.g. maxi nerdle) include extra mathematical operators. If that happens, they will also appear on the
+              keyboard.</p>
+          <p class="p-4 pb-2">- Valid calculations: All guesses have to be mathematically correct before they can be entered.
+              They must include
+              one "=", with only a number (no symbols) after it.</p>
+          <p class="p-4 pb-2">- Order of operations: Standard <a class="underline cursor-pointer"
+                  href="https://www.nerdlegame.com/faqs.html?faq=order" target="_new">order of operations</a> applies, so
+              calculate * and / before + and -
+          </p>
+          <p class="p-4 pb-4">- Commutativity: Commutative answers are accepted. i.e. if today's answer is 10+20=30, then
+              20+10=30 will also be
+              accepted. However the commutativity rule only applies when everything else matches today's target solution. <a
+                  class="underline cursor-pointer" href="https://www.nerdlegame.com/faqs.html?faq=commutativity"
+                  target="_new">See FAQs</a>.</p>
+
+
+
+          <p class="mb-4 p-4">Order of operations and commutativity are the most common causes of confusion in nerdle. So if
+              you think our
+              calculations aren't correct (we promise, we've double-checked them!), please <a class="underline cursor-pointer"
+                  href="https://www.nerdlegame.com/faqs.html" target="_new">read our game FAQs</a> before contacting us.</p>
+
+          <h1 class="info-sub-title">Feedback hints & nerdle colors</h1>
+
+          <p class="mb-0 p-4">After each guess, the color of the tiles shown on the game board will change to show how close
+              your guess was to the
+              target calculation.</p>
+
+          <p class="pb-2 px-4">Nerdle colors are as follows:</p>
+
+          <p class="px-4 pb-0 pt-0 text-[#398874]">Green = correct character, in the correct position.</p>
+          <p class="px-4 pb-0 pt-0 text-[#820458]">Purple = correct character, in the wrong position.</p>
+          <p class="px-4 pb-2 pt-0 text-[#161803]">Black = incorrect character.</p>
+
+          <p class="mb-4 px-4">There are special rules for doubles (i.e. if there are two of the same number/symbol in the
+              answer or in a guess).
+             <a href="https://www.nerdlegame.com/faqs.html?faq=doubles">See FAQ</a>.</p>
+
+          <h1 class="info-sub-title">Game illustration</h1>
+
+          <p class="mb-2 mt-2 px-4">Nerdle is like a math version of some of the word games we all love, which makes perfect sense as puzzlews and a love of
+              math were our two
+              inspirations!</p>
+
+          <p class="mb-2 px-4">But if you are new to the format, the best approach is just to enter a calculation and see what
+              happens. Here are a
+              couple of examples:</p>
+
+          <!-- <p class="mb-2 px-4"><i>First moves</i></p> -->
+
+          <div class="px-4">
+
+              <div class="flex mb-1 mt-4">
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#398874] text-white border-[#398874]"
+                      aria-label="9 correct" role="navigation">9</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="* undefined" role="navigation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                          aria-label="multipy" style="height: 1rem;">
+                          <title id="timestitle">multiply</title>
+                          <path
+                              d="M417.1 368c-5.937 10.27-16.69 16-27.75 16c-5.422 0-10.92-1.375-15.97-4.281L256 311.4V448c0 17.67-14.33 32-31.1 32S192 465.7 192 448V311.4l-118.3 68.29C68.67 382.6 63.17 384 57.75 384c-11.06 0-21.81-5.734-27.75-16c-8.828-15.31-3.594-34.88 11.72-43.72L159.1 256L41.72 187.7C26.41 178.9 21.17 159.3 29.1 144C36.63 132.5 49.26 126.7 61.65 128.2C65.78 128.7 69.88 130.1 73.72 132.3L192 200.6V64c0-17.67 14.33-32 32-32S256 46.33 256 64v136.6l118.3-68.29c3.838-2.213 7.939-3.539 12.07-4.051C398.7 126.7 411.4 132.5 417.1 144c8.828 15.31 3.594 34.88-11.72 43.72L288 256l118.3 68.28C421.6 333.1 426.8 352.7 417.1 368z">
+                          </path>
+                      </svg></div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="2 undefined" role="navigation">2</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="0 undefined" role="navigation">0</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="= undefined" role="navigation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                          aria-label="equals" style="height: 1rem;">
+                          <title id="equalstitle">=</title>
+                          <path
+                              d="M48 192h352c17.69 0 32-14.32 32-32s-14.31-31.1-32-31.1h-352c-17.69 0-32 14.31-32 31.1S30.31 192 48 192zM400 320h-352c-17.69 0-32 14.31-32 31.1s14.31 32 32 32h352c17.69 0 32-14.32 32-32S417.7 320 400 320z">
+                          </path>
+                      </svg></div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="1 undefined" role="navigation">1</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="8 undefined" role="navigation">8</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="0 undefined" role="navigation">0</div>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-[#D7DADC]">9 is in the solution and in the correct spot.</p>
+              <div class="flex mb-1 mt-4">
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="9 undefined" role="navigation">9</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="* undefined" role="navigation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                          aria-label="multipy" style="height: 1rem;">
+                          <title id="timestitle">multiply</title>
+                          <path
+                              d="M417.1 368c-5.937 10.27-16.69 16-27.75 16c-5.422 0-10.92-1.375-15.97-4.281L256 311.4V448c0 17.67-14.33 32-31.1 32S192 465.7 192 448V311.4l-118.3 68.29C68.67 382.6 63.17 384 57.75 384c-11.06 0-21.81-5.734-27.75-16c-8.828-15.31-3.594-34.88 11.72-43.72L159.1 256L41.72 187.7C26.41 178.9 21.17 159.3 29.1 144C36.63 132.5 49.26 126.7 61.65 128.2C65.78 128.7 69.88 130.1 73.72 132.3L192 200.6V64c0-17.67 14.33-32 32-32S256 46.33 256 64v136.6l118.3-68.29c3.838-2.213 7.939-3.539 12.07-4.051C398.7 126.7 411.4 132.5 417.1 144c8.828 15.31 3.594 34.88-11.72 43.72L288 256l118.3 68.28C421.6 333.1 426.8 352.7 417.1 368z">
+                          </path>
+                      </svg></div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#820458] text-white border-[#820458]"
+                      aria-label="2 present" role="navigation">2</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="0 undefined" role="navigation">0</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="= undefined" role="navigation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                          aria-label="equals" style="height: 1rem;">
+                          <title id="equalstitle">=</title>
+                          <path
+                              d="M48 192h352c17.69 0 32-14.32 32-32s-14.31-31.1-32-31.1h-352c-17.69 0-32 14.31-32 31.1S30.31 192 48 192zM400 320h-352c-17.69 0-32 14.31-32 31.1s14.31 32 32 32h352c17.69 0 32-14.32 32-32S417.7 320 400 320z">
+                          </path>
+                      </svg></div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="1 undefined" role="navigation">1</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="8 undefined" role="navigation">8</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="0 undefined" role="navigation">0</div>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-[#D7DADC]">2 is in the solution but in the wrong spot.</p>
+              <div class="flex mb-1 mt-4">
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="9 undefined" role="navigation">9</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="* undefined" role="navigation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                          aria-label="multipy" style="height: 1rem;">
+                          <title id="timestitle">multiply</title>
+                          <path
+                              d="M417.1 368c-5.937 10.27-16.69 16-27.75 16c-5.422 0-10.92-1.375-15.97-4.281L256 311.4V448c0 17.67-14.33 32-31.1 32S192 465.7 192 448V311.4l-118.3 68.29C68.67 382.6 63.17 384 57.75 384c-11.06 0-21.81-5.734-27.75-16c-8.828-15.31-3.594-34.88 11.72-43.72L159.1 256L41.72 187.7C26.41 178.9 21.17 159.3 29.1 144C36.63 132.5 49.26 126.7 61.65 128.2C65.78 128.7 69.88 130.1 73.72 132.3L192 200.6V64c0-17.67 14.33-32 32-32S256 46.33 256 64v136.6l118.3-68.29c3.838-2.213 7.939-3.539 12.07-4.051C398.7 126.7 411.4 132.5 417.1 144c8.828 15.31 3.594 34.88-11.72 43.72L288 256l118.3 68.28C421.6 333.1 426.8 352.7 417.1 368z">
+                          </path>
+                      </svg></div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="2 undefined" role="navigation">2</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="0 undefined" role="navigation">0</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="= undefined" role="navigation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                          aria-label="equals" style="height: 1rem;">
+                          <title id="equalstitle">=</title>
+                          <path
+                              d="M48 192h352c17.69 0 32-14.32 32-32s-14.31-31.1-32-31.1h-352c-17.69 0-32 14.31-32 31.1S30.31 192 48 192zM400 320h-352c-17.69 0-32 14.31-32 31.1s14.31 32 32 32h352c17.69 0 32-14.32 32-32S417.7 320 400 320z">
+                          </path>
+                      </svg></div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#161803] text-white border-[#161803]"
+                      aria-label="1 absent" role="navigation">1</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="8 undefined" role="navigation">8</div>
+                  <div class="keyboard-cell border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded w-10 h10 bg-[#989484] text-white border-[#989484]"
+                      aria-label="0 undefined" role="navigation">0</div>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-[#D7DADC]">1 is not in the solution in any spot.</p>
+
+          </div>
+
+          <p class="mb-4 p-4">If your guess includes, say, two 1s but the answer has only one, you will get one color tile and
+              one black.</p>
+
+          <h1 class="info-title"><a name="what_strategies" />What strategies help you win at nerdle?</h1>
+
+          <h1 class="info-sub-title mt-2">Your first guess</h1>
+
+          <p class="mb-2 p-4">Try to get as much information as you can in your first guess. For example, a guess with many
+              different numbers and
+              two different operators.</p>
+
+          <h1 class="info-sub-title">Your second guess</h1>
+
+          <p class="mb-0 p-4">If you are lucky, you might now know enough to solve the nerdle in your second guess. If not,
+              use your second guess
+              to uncover new information. Maybe try characters you didn't try in your first guess. Maybe try to reposition
+              characters that are correct but in the wrong position (i.e. turned purple) in guess 1.</p>
+
+          <p class="mb-4 px-4">Working out the position of the equals sign is very helpful, so do that early on.</p>
+
+          <h1 class="info-sub-title">Don't always do the obvious!</h1>
+
+          <p class="mb-4 pt-4 px-4">Sometimes the best next guess is not the obvious one.</p>
+
+          <p class="mb-4 px-4">It's tempting to place the green tiles back in the same place on your next guess but that might
+              mean you miss a
+              chance to learn something new. It might be a better strategy to use that tile to help you narrow down the
+              remaining
+              possibilities, even if it guarantees your next guess cannot be the actual solution.</p>
+
+          <h1 class="info-sub-title">The nerdle endgame</h1>
+
+          <p class="mb-4 pt-4 px-4">Now it's time to apply your logic. Your powers of deduction. Try to use all the
+              information you have gleaned from
+              the previous guesses to work out the answer in as few attempts as possible.</p>
+
+          <p class="mb-4 px-4">Solving a nerdle in 3 or 4 guesses is great. But some games are easier than others and some
+              days you'll be luckier
+              than others. So however many attempts you need, just have fun keeping that brain exercised and try again
+              tomorrow.</p>
+
+          <h1 class="info-title">Winning!</h1>
+
+          <p class="mb-4 pt-4 px-4">The game board does a little dance when you solve a nerdle. And so should you. Well done!
+              Now it's your choice –
+              take a well-earned rest and come back tomorrow. Or play one of any of the other games the nerdleverse has to
+              offer.</p>
+
+          <h1 class="info-title">Sharing</h1>
+
+          <p class="mb-4 pt-4 px-4">Part of the fun of a daily nerdle game is a little friendly competition. You can share
+              your score (including a
+              simple visual of how you played without a spoiler) from the win page. Why not challenge your friends and family
+              to
+              beat your score?</p>
+
+
+          <h1 class="info-title">Who is nerdle for?</h1>
+
+          <p class="mb-4 pt-4 px-4">Nerdle has been enjoyed by millions of people of all ages in every country around the
+              world. It's a daily puzzle
+              that can be enjoyed by teachers, adults, children, math enthusiasts and math novices alike. 
+              The nerdleverse offers various different math challenges; from easy, fun math games that can be played by 
+              any math enthusiast, to intermediate mathematical challenges, riddles, math crosswords and math puzzles which 
+              are more difficult to complete. </p>
+
+          <p class="mb-4 px-4">Our puzzles are played a lot in school because math teachers love their educational value and
+              pupils enjoy the fun
+              and excitement of solving our daily math challenges. Classic nerdle is perhaps suited best to anyone of high
+              school
+              age and above although they are also very accessible to younger kids with a little encouragement from a teacher,
+              parent, friend, grandparent etc. Solving nerdle in a group or a class is a lot of fun too. Team nerdle loves
+              nothing
+              more than seeing photos or videos of a nerdle solved in a big group!</p>
+
+          <p class="mb-4 px-4">However our puzzles are not designed just for children. They are just as much for adults and a
+              lot of nerdlers left
+              school long ago! Nerdle is perfect for anyone who likes a quick logic problem and has a couple of minutes spare
+              at
+              the breakfast table, on the commute or whenever they have a quiet moment. Often part of a daily routine, our
+              games
+              are great for a little mental workout, with all the benefits of exercising those grey cells for the days, months
+              and
+              years ahead!</p>
+
+          <p class="mb-4 px-4">For our youngest nerdlers, we've created games such as micro and mini nerdle. For the
+              super-nerdlers who like a
+              more intermediate challenge, we have maxi nerdle, instant nerdle etc. However all nerdle games involve only simple
+              mathematics. You certainly don't need to be a math expert to be good at nerdle - you just need to enjoy playing
+              with
+              a few numbers.</p>
+
+
+          <h1 class="info-title">Is nerdle like other games?</h1>
+
+          <p class="mb-4 pt-4 px-4">Nerdle was inspired by puzzle games and a love of math. 
+            It includes concepts similar to those in the US TV-show word game Lingo, the web puzzle game Wordle and the UK
+            TV-show number game Countdown. But we hope you agree that nerdle is also an original game and a great
+            example of how math games can be at once fun and educational. For the avoidance of doubt, nerdle is independent of and not
+            affiliated with Wordle, the New York Times, Lingo or Countdown.</p>
+
+          <p class="mb-4 px-4">Nerdle, as a math game, isn't necessarily harder or easier than word games. We suppose it's more inclusive as the
+              language of mathematics
+              is universal. Plus, nerdle has the benefit of never stumbling across a word that has different spellings.
+              Perhaps
+              nerdle involves a slightly purer form of deductive logic as it doesn't depend on your learned
+              vocabulary. But we accept that some people simply prefer word games and some people prefer our math games, which
+              is
+              absolutely fine. At team nerdle, we love all kinds of games. We play 
+              a variety of them every day (after we've played our daily
+              nerdles,
+              of course)!</p>
+
+          <p class="mb-4 px-4">You can read a little more about the origin <a class="underline cursor-pointer"
+                  href="https://en.wikipedia.org/wiki/Nerdle" target="_new">story of nerdle here</a> .</p>
+
+          <h1 class="info-title">How difficult is it to win?</h1>
+
+          <p class="mb-4 pt-4 px-4">In classic nerdle, there are 17,723 different possible solutions.  So you should expect a lucky first guess once every 48.5 years!</p>
+          
+          <p class="mb-4 px-4">But it's surprising how quickly you can narrow down the possible answers within a couple of guesses. 
+            An experienced nerdler can solve most nerdles in 3 or 4 guesses.  But some days are a lot harder than others. 
+            We promise you'll need to use all 6 guesses sometimes, even with perfect logic.</p>
+
+          <h1 class="info-title">What versions of nerdle are available</h1>
+
+          <p class="mb-4 pt-4 px-4">Nerdle started with an 8-digit puzzle.  We now call this one 'classic nerdle'</p>
+          <p class="mb-4 px-4">But since then, we’ve launched a whole family of different nerdle puzzles:</p>
+
+          <p class="mb-4 px-4">
+            &nbsp;&nbsp; -	classic nerdle: 8 digits, 6 guesses <br />
+            &nbsp;&nbsp; -	mini nerdle: 6 digits, 6 guesses <br /> 
+            &nbsp;&nbsp; -	micro nerdle: 5 digits, 6 guesses <br />
+            &nbsp;&nbsp; -	maxi nerdle: 10 digits &amp; extra math (brackets/parentheses, x<suf>2</suf>, x<suf>3</suf>) <br />
+            &nbsp;&nbsp; -	bi nerdle: 2 classic nerdles at once <br />
+            &nbsp;&nbsp; -	quad nerdle: 4 classic nerdles at once <br />
+            &nbsp;&nbsp; -	mini bi nerdle: 2 mini nerdles at once <br />
+            &nbsp;&nbsp; -  speed nerdle: classic nerdle against the clock <br />
+            &nbsp;&nbsp; -  instant nerdle: a partly solved nerdle with just one guess <br />
+
+          </p>
+
+          <p class="mb-4 px-4">We also have</p>
+
+          <p class="mb-4 px-4">
+            &nbsp;&nbsp; -	nerdle cup: multi-player nerdle with leaderboards <br />
+            &nbsp;&nbsp; -	nerdle replay: play previous games <br />
+            &nbsp;&nbsp; -	nerdle resources: make your own nerdles &amp; learning tools 
+          </p>
+
+          <h1 class="info-title">Does team nerdle offer any other games?</h1>
+
+          <p class="mb-4 pt-4 px-4">
+            Inspired by how popular the original nerdle game format has been, we’ve created a few more mathematical puzzle games for your enjoyment:
+          </p>
+          <p class="mb-4 px-4">
+            - <strong>cross nerdle</strong> nerdle (crosswords with numbers): the familiar crossword format but filled with calculations instead of words.  Use your powers of deduction to complete the missing squares.
+          </p>
+          <p class="mb-4 px-4">
+            - <strong>shuffle</strong> (sliding logic puzzle): shuffle the tiles around the board until you complete a magic square of numbers or words
+          </p>
+          <p class="mb-4 px-4">
+            - <strong>nanagrams</strong> (anagrams with numbers): using any of the set of numbers and symbols shown, find all the possible calculations 
+          </p>
+
+          <h1 class="info-title">Is nerdle a free math game?</h1>
+          <p class="mb-4 pt-4 px-4">
+          Nerdle is free to use.  It can be played in a browser (whether on your mobile, computer or tablet device) or downloaded as a mobile app.  Our mobile app is available on IOS and Android and includes all of the nerdleverse games.  App users also get the benefit of backing-up their nerdle stats to the cloud and of bonus math and numbering games that we announce each week.
+          </p>
+
+          <h1 class="info-title">Is there a nerdle answer finder?</h1>
+          <p class="mb-4 pt-4 px-4">
+            We have chosen not to publish nerdle answers as we don't want to create a spoiler for anyone that still wants to solve today's game.  Or any games from previous days, which you can get to with nerdle replay, for that matter.
+            </p>
+            <p class="mb-4 px-4">
+            You can find nerdle answers elsewhere online if you look.  But we think it's much more fun and certainly much more rewarding to keep going until you solve it yourself.  Don't give up yet!
+            </p>
+
+          <h1 class="info-title">How do I stay up to date with nerdle?</h1>
+
+          <p class="mb-4 pt-4 px-4">
+            We have new games every day, so just come back tomorrow for a fresh challenge.
+          </p>
+          <p class="mb-4 px-4">
+          Create an account if you want to back-up your stats and stay informed about major game updates.
+          </p>
+          <p class="mb-4 px-4">
+          Download the nerdle app to find our games more easily and to receive weekly bonus challenges.
+          </p>
+
+          <h1 class="info-title">Why nerdle?</h1>
+          <p class="mb-4 pt-4 px-4">
+          Our 'positive numbers' mission is to make math more accessible and even a little less scary for everyone. Our nerdle games are intended to be challenging, fun and educational. But not everyone has the same opportunity to learn these skills. With your support, our positive numbers initiative aims to make a positive impact on child numeracy.
+          </p>
+          <h1 class="info-title">What next for nerdle fans?</h1>
+          <p class="mb-4 pt-4 px-4">
+          We hope it's obvious that we love challenging you with number-based logic problems.   We have some more ideas in the pipeline, so watch this space.
+          </p>
+          <p class="mb-4 px-4">If you have any suggestions, we'd love to hear from you.  You can email us at <a class="underline cursor-pointer" href="mailto:contact@nerdlegame.com">contact@nerdlegame.com</a>.  
+            </p>
+            <p class="mb-4 px-4">For nerdle super fans, we recommend that you <a class="underline cursor-pointer" href="https://www.nerdlegame.com/#app" target="_new">download our app</a> . 
+               We also have some <a class="underline cursor-pointer" href="https://www.nerdlegame.com/#merch" target="_new">merch</a> 
+               and some <a class="underline cursor-pointer" href="https://www.nerdlegame.com/#books" target="_new">puzzle books</a> on sale that you might like too.</p>
+
+
+        </div>
+    `
+
+    document.getElementById('info').innerHTML = html
+    document.getElementById('info').classList.remove('text-center')
+
+  }
+
+  if (subdomain == 'micro') {
+
+      const html = `
+            <div style="margin-left:5px; padding-bottom:60px;">
+
+              <h1 class="info-title">About micro nerdle - easy online math and numbering game</h1>
+
+              <p class="mb-4 pt-4 px-4">
+
+                For fans of word grid puzzles but with numbers, micro nerdle is the easiest math game in the nerdleverse with a five-digit number puzzle to solve in six tries or less. Challenge yourself to find the correct numbers and solve the micro nerdle in as few guesses as possible. 
+
+              </p>
+
+            </div>
+
+        `
+
+      document.getElementById('info').innerHTML = html
+      document.getElementById('info').classList.remove('text-center')
+
+  }
+
+  if (subdomain == 'mini') {
+
+    const html = `
+          <div style="margin-left:5px; padding-bottom:60px;">
+
+            <h1 class="info-title">About mini nerdle - an easy online math game</h1>
+
+            <p class="mb-4 pt-4 px-4">
+
+              Mini nerdle is a simple, online math game with a new puzzle to solve each day. Guess the six-digit nerdle in six tries or less. 
+            </p>
+            <p class="mb-4 px-4">
+              Check out the other games in the nerdleverse for harder math puzzles and challenges to tease your brain further! 
+            </p>
+
+          </div>
+
+      `
+
+      document.getElementById('info').innerHTML = html
+      document.getElementById('info').classList.remove('text-center')
+
+  }
+
+  if (subdomain == 'maxi') {
+
+      const html = `
+      <div style="margin-left:5px; padding-bottom:60px;">
+
+        <h1 class="info-title">About maxi nerdle - a slightly more intermediate mathematical challenge</h1>
+
+        <p class="mb-4 pt-4 px-4">
+          Maxi nerdle is a daily math game that challenges you to guess a 10-digit number calculation in six tries or less. The additional math means this is a more intermediate challenge than the classic nerdle, for math enthusiasts and those who want a harder math riddle to solve each day.  
+        </p>
+
+      </div>
+
+    `
+
+    document.getElementById('info').innerHTML = html
+    document.getElementById('info').classList.remove('text-center')
+
+  }
+
+  if (subdomain == 'instant') {
+
+    const html = `
+    <div style="margin-left:5px; padding-bottom:60px;">
+
+      <h1 class="info-title">About instant nerdle - solve the math puzzle in one try</h1>
+
+      <p class="mb-4 pt-4 px-4">
+   
+        Instant nerdle is the hardest math game in the nerdleverse. Challenge yourself to work out the math puzzle in just one guess.
+        </p>
+
+    </div>
+
+    `
+
+    document.getElementById('info').innerHTML = html
+    document.getElementById('info').classList.remove('text-center')
+
+  }
+
+
+  if (subdomain == 'speed') {
+
+    const html = `
+    <div style="margin-left:5px; padding-bottom:60px;">
+
+      <h1 class="info-title">About speed nerdle - play the classic nerdle math game against the clock</h1>
+
+      <p class="mb-4 pt-4 px-4">
+
+        Find the hidden math calculation in six tries - against the clock. Speed nerdle lets you play the classic nerdle math game working as quickly as you can to complete the challenge - before you hit a time penalty. 
+        </p>
+
+    </div>
+
+    `
+
+    document.getElementById('info').innerHTML = html
+    document.getElementById('info').classList.remove('text-center')
+
+  }
+
+
+  // // gtag user id
+  // var gUserId = localStorage.getItem('gUserId')
+  // if (!gUserId) {
+  //   gUserId = crypto.randomUUID();
+  //   localStorage.setItem('gUserId', gUserId)
+  // }
+  // gtag('config', 'G-MRLY2WKXE9', {'user_id': gUserId}); 
+
+
+</script>
+
+<script>
+  function enableVariation(varNum) {
+      document.getElementById('miniBadges').classList.add('hidden')
+      document.getElementById('newUserVariant1').classList.add('hidden')
+      document.getElementById('newUserVariant2').classList.add('hidden')
+      document.getElementById('newUserVariant3').classList.add('hidden')
+      document.getElementById('newUserVariant' + varNum).classList.remove('hidden')
+  }
+
+  document.addEventListener('readystatechange', function() {
+    if (document.readyState === 'complete') {
+      // good luck!
+      console.log('React app DOM is fully loaded.');
+      if (window.setupVariation) {
+        window.setupVariation()
+      }
+
+      // is convert defined?
+      if (typeof convert != 'undefined') {
+
+        // get running experience and variant for google analytics
+        if (convert && convert.currentData && convert.currentData.experiences) {
+          const experiences = convert.currentData.experiences
+          for (const experience in experiences) {
+            if (experiences[experience].variation.status == 'running') {
+              window.experienceId = experience
+              window.variantId = experiences[experience].variation.id
+            }
+          }
+        }
+
+        console.log('experienceId', window.experienceId)
+        console.log('variantId', window.variantId)
+
+        console.log('version: 20250118001')
+      }
+
+      // get version from local storage
+      const version = localStorage.getItem('version') || '1'
+      document.getElementById('version').innerHTML = version
+
+    }
+  });
+
+
+</script>
+
+</html>

@@ -1,0 +1,27 @@
+.badge {
+    display: flex;
+    width: 100%;
+}
+
+.badge-image {
+    width: 50%;
+    justify-items: center;
+}
+
+.badge-image-large {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 0px;
+    border: 1px solid gray;
+    justify-items: center;
+}
+
+.badge-text {
+    width: 50%;
+    align-content: center;
+}
+
+.badge-text-content {
+    text-align: left;
+}

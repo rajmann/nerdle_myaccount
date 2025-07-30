@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WordGPT</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A word game versus ChatGPT" />
+    <link rel="canonical" href="https://nerdlegame.com/wordgpt/" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="WordGPT" />
+    <meta property="og:description" content="A word game versus ChatGPT" />
+    <meta property="og:url" content="https://nerdlegame.com/wordgpt/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="WordGPT" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta charset="UTF-8" />
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤓</text></svg>"
+    />
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@600..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Change version to update css -->
+    <link rel="stylesheet" href="/wordgpt/style.css?version=11" />
+
+    <!-- Jquery -->
+    <script src="/wordgpt/jquery-3.6.0.min.js"></script>
+    <script src="/wordgpt/jquery-ui.min.js"></script>
+    <script src="/wordgpt/jquery-ui.touch-punch.min.js"></script>
+
+    <!-- longitude ads -->
+    <script defer async src="https://lngtd.com/nerdlegame.js"></script>
+    <script>subdomain = "wordgpt"</script>
+
+    <!-- Prevent double click zoom for mobile -->
+    <script type="text/javascript">
+      // Prevent double click zoom
+      document.addEventListener(
+        'dblclick',
+        function (e) {
+          e.preventDefault()
+        },
+        {
+          passive: false,
+        }
+      )
+    </script>
+
+    <script src="/wordgpt/wordlist_short.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H17GCHP5JS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-H17GCHP5JS');
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="main-container">
+      <div id="nerdlegame_D_x1" class="desktopSideAd mr-8 ml-4"></div>
+
+      <div class="container">
+      
+        <div class="header">
+          <a href="/" class="nerdle-logo">
+            <img src="/logo192.png" alt="Nerdle logo" style="height: 32px" />
+          </a>
+
+          <!-- Game name -->
+          <h1 class="gamename">WordGPT</h1>
+
+          <!-- Menu -->
+          <div id="menu" class="togglemodal help">☰</div>
+        </div>
+        <p class="mb-20 complete">
+          Round <span class="round">0</span>/<span class="rounds">3</span>
+        </p>
+
+        <div class="playing mt-40">
+          <div class="boardarray hidden"></div>
+          <div class="scorearray hidden"></div>
+          <div class="board flex"></div>
+          <div class="word flex mb-20"></div>
+          <div class="message"></div>
+          <div class="letters flex mb-20"></div>
+          <div class="controls flex mb-20">
+            <div id="delete">Clear</div>
+            <div id="shift">Shuffle</div>
+            <div class="hidden" id="backspace"></div>
+            <div id="enter">Submit</div>
+          </div>
+
+          <div id="nerdlegame_D_1"></div>
+          <div id="nerdlegame_M_1"></div>
+
+          <div class="moregames-container flex">
+            <a href="https://www.nerdlegame.com" >
+                <div class="moregames-button">
+                      <img
+                        src="/new-images/more-games.svg"
+                        alt="Positive Numbers"
+                      />More games</div>
+            </a>
+          </div>
+
+          <h2 class="mt-20 mb-20">How to play WordGPT</h2>
+          <p class="mb-20">Can you find a higher scoring word than ChatGPT?</p>
+          <p class="mb-20">
+            Each round you'll compete to make the highest scoring word from the
+            same letters.
+          </p>
+
+        </div>
+
+        <div class="next hidden">
+          <div class="score flex mb-40">
+            <div>
+              <div style="font-size: 32px">🤓</div>
+              <p class="mb-10">
+                <b>You (<span class="youscore">0</span>)</b>
+              </p>
+              <p>
+                <span class="youword clickword"></span> (<span
+                  class="lastyouscore"
+                ></span
+                >)
+              </p>
+            </div>
+            <div>
+              <div style="font-size: 32px">🤖</div>
+              <p class="mb-10">
+                <b
+                  ><span class="opponent"
+                    >ChatGPT (<span class="chatgptscore">0</span>)</span
+                  ></b
+                >
+              </p>
+              <p>
+                <span class="chatgptword clickword"></span> (<span
+                  class="lastchatgptscore"
+                ></span
+                >)
+              </p>
+            </div>
+          </div>
+          <h2 class="difference mb-20"></h2>
+          <div onclick="create();" class="button playnow">Next round</div>
+        </div>
+
+        <div class="results hidden">
+          <div class="score flex mb-40">
+            <div>
+              <div style="font-size: 32px">🤓</div>
+              <p class="mb-10">
+                <b>You (<span class="youscore">0</span>)</b>
+              </p>
+              <p>
+                <span class="youword clickword"></span> (<span
+                  class="lastyouscore"
+                ></span
+                >)
+              </p>
+            </div>
+            <div>
+              <div style="font-size: 32px">🤖</div>
+              <p class="mb-10">
+                <b
+                  ><span class="opponent"
+                    >ChatGPT (<span class="chatgptscore">0</span>)</span
+                  ></b
+                >
+              </p>
+              <p>
+                <span class="chatgptword clickword"></span> (<span
+                  class="lastchatgptscore"
+                ></span
+                >)
+              </p>
+            </div>
+          </div>
+
+          <h2 class="result mb-20"></h2>
+          <div class="mb-20 hidden sharemessage"></div>
+          <div class="mb-20 hidden sharetext"></div>
+          <div class="share button mb-40">
+            Share score
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-share"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              stroke-width="3"
+              stroke="#ffffff"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+              <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+              <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+              <path d="M8.7 10.7l6.6 -3.4" />
+              <path d="M8.7 13.3l6.6 3.4" />
+            </svg>
+          </div>
+
+          <div class="stats flex mb-30">
+            <div>
+              <h2 class="mb-10">Played</h2>
+              <p><span class="played"></span> days</p>
+            </div>
+            <div>
+              <h2 class="mb-10">Streak</h2>
+              <p><span class="streak"></span> days</p>
+            </div>
+            <div>
+              <h2 class="mb-10">Average</h2>
+              <p><span class="average"></span></p>
+            </div>
+          </div>
+
+          <div class="flex" style="justify-content: center">
+            <a id="archive" class="togglemodal button">🤖 More WordGPT</a>
+            <a href="https://www.nerdlegame.com/"><p class="button">🤓 More games</p></a>
+          </div>
+
+          <p class="mt-20 mb-10">If you could take 2 minutes to give us your feedback on our new WordGPT game, we'd really appreciate it:</p>
+          <a href="https://us9.list-manage.com/survey?u=e4b77ba0d688cffa7815ede85&id=8325ac4087&attribution=false"><p class="button">Complete Feedback Form</p></a>
+        </div>
+      </div>
+
+       <div id="nerdlegame_D_x2" class="desktopSideAd ml-8 mr-4"></div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modals">
+      <!-- Archive modal -->
+      <div class="archive modal hidden">
+        <div class="modalinner">
+          <div id="archive" class="togglemodal close">x</div>
+          <h2 class="mb-20">WordGPT Archive</h2>
+          <p class="mb-40">Play previous puzzles!</p>
+          <div class="pastgames"></div>
+          <div id="archive" class="togglemodal button">Close</div>
+        </div>
+      </div>
+
+      <!-- Instructions modal -->
+      <div class="instructions modal hidden">
+        <div class="modalinner">
+          <div id="instructions" class="togglemodal close">x</div>
+            <h2 class="mb-20">How to play WordGPT</h2>
+            <p class="mb-20">Can you find a higher scoring word than ChatGPT?</p>
+            <p class="mb-20">
+              Each round you'll compete to make the highest scoring word from the
+              same letters.
+            </p>
+          <div id="instructions" class="togglemodal button">Close</div>
+        </div>
+      </div>
+
+      <!-- Menu modal -->
+      <div class="menu modal hidden">
+        <div class="modalinner">
+          <div id="menu" class="togglemodal close">x</div>
+          <h2 class="mb-20">Game paused</h2>
+          <div id="instructions" class="togglemodal button mb-20">
+            How to play
+          </div>
+          <div id="archive" class="togglemodal button mb-20">Archive</div>
+          <a href="mailto:heynerd@wordnerd.co?subject=WordGPT%20Feedback"
+            ><div class="button mb-20">Send feedback</div></a
+          >
+          <div id="menu" class="togglemodal button mb-20">Resume game</div>
+          <p>WordGPT is brought to you by nerdle in partnership with Word Nerd Games.</p>
+        </div>
+      </div>
+
+      <!-- Intro modal -->
+      <div class="intro modal hidden">
+        <div class="modalinner">
+          <h2 class="mb-20">WordGPT 🤖</h2>
+          <p class="mb-20">Can you find a higher scoring word than ChatGPT?</p>
+          <p class="mb-20">
+            Each round you'll compete to make the highest scoring word from the
+            same letters.
+          </p>
+          <div onclick="$('.intro').addClass('hidden')" class="playnow button">
+            Play now!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main script ---------------------------------------------------------- -->
+    <script type="text/javascript">
+      /* --------------------------------------------------------------
+		1.  Work out the day numbers entirely on the client
+		----------------------------------------------------------------*/
+      const MS_PER_DAY = 86_400_000 // 24 h in ms
+      const DAY_ZERO = new Date('2025-07-15T00:00:00Z')
+
+      const urlParams = new URLSearchParams(location.search)
+      const archiveParam = urlParams.has('day')
+        ? parseInt(urlParams.get('day'), 10)
+        : null
+
+      const today = Math.floor((Date.now() - DAY_ZERO.getTime()) / MS_PER_DAY)
+      const day =
+        archiveParam != null && !isNaN(archiveParam)
+          ? archiveParam //+ 100
+          : today
+
+      const gametype = archiveParam != null ? 'archive' : ''
+      if (gametype === 'archive') {
+        document.querySelector('.gamename').textContent = 'WordGPT Archive'
+      }
+      console.log('day: ', day)
+
+      /* --------------------------------------------------------------
+		2.  Load the puzzle JSON
+		----------------------------------------------------------------*/
+      fetch(`/wordgpt/puzzles/${day}.json`)
+        .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+        .then((json) => {
+          console.log('Puzzle loaded successfully')
+          console.log(json)
+          console.log(`Puzzle for day ${day} (${today}):`, json)
+          window.day = day // expose for the legacy code
+          window.today = today
+          window.puzzles = json // what PHP once injected
+          initGame() // now start the original script
+        })
+        .catch((err) => {
+          console.error(err)
+          document.querySelector('.container').innerHTML =
+            '<p style="text-align:center">Sorry – today\'s puzzle is unavailable.</p>'
+        })
+
+      /* --------------------------------------------------------------
+		3.  The original (unchanged) game code, wrapped in initGame()
+		----------------------------------------------------------------*/
+      function initGame() {
+        scores = {
+          A: 1,
+          B: 4,
+          C: 4,
+          D: 2,
+          E: 1,
+          F: 4,
+          G: 3,
+          H: 3,
+          I: 1,
+          J: 8,
+          K: 5,
+          L: 2,
+          M: 4,
+          N: 2,
+          O: 1,
+          P: 4,
+          Q: 9,
+          R: 1,
+          S: 1,
+          T: 1,
+          U: 2,
+          V: 5,
+          W: 4,
+          X: 8,
+          Y: 3,
+          Z: 9,
+        }
+
+        // ======= everything from the old <script> block, except the
+        // ======= three PHP‑generated lines we deleted, starts here ====
+
+        // Load the puzzle
+        function loadgame() {
+          if (localStorage.getItem(gametype + 'wordgpt') == day) {
+            $('.container').html(localStorage.getItem(gametype + 'wordgptload'))
+            activate()
+            if (!$('.results').hasClass('hidden')) {
+              startConfetti()
+            }
+          } else {
+            if (gametype != 'archive') {
+              $('.intro').removeClass('hidden')
+            }
+            create()
+            if (localStorage.getItem(gametype + 'wordgpt') == day - 1) {
+              localStorage.setItem(
+                gametype + 'wordgptstreak',
+                Number(localStorage.getItem(gametype + 'wordgptstreak')) + 1
+              )
+            } else {
+              localStorage.setItem(gametype + 'wordgptstreak', 1)
+            }
+            localStorage.setItem(gametype + 'wordgpt', day)
+            localStorage.setItem(gametype + 'wordgptstatus', 'In progress')
+            localStorage.setItem(
+              gametype + 'wordgptload',
+              $('.container').html()
+            )
+          }
+        }
+
+        function create() {
+          $('.playing').removeClass('hidden')
+          $('.next').addClass('hidden')
+          $('.round').html(Number($('.round').html()) + 1)
+          round = Number($('.round').html()) - 1
+
+          $('.letters').html('')
+          $('.board').html('')
+          $('.word').html('')
+
+          letters = puzzles[round * 4]
+          board = puzzles[round * 4 + 1]
+          chagptword = puzzles[round * 4 + 2]
+          chatgptscore = puzzles[round * 4 + 3]
+
+          lettersarray = letters.split('')
+          $.each(lettersarray, function (_, value) {
+            $('.letters').append(
+              '<div class="letter" data-score="' +
+                scores[value] +
+                '">' +
+                value +
+                '</div>'
+            )
+            $('.word').append('<div class="cell"></div>')
+          })
+
+          $('.boardarray').html(board)
+          boardarray = board.split('')
+          $.each(boardarray, function (_, value) {
+            $('.board').append('<div class="slot ' + value + '"></div>')
+          })
+
+          activate()
+        }
+        window.create = create
+
+        // Shuffle letters
+        function shuffle() {
+          var parent = $('.letters')
+          var divs = parent.children().toArray()
+          parent.append(
+            divs
+              .filter((div) => $.trim($(div).text()))
+              .sort(() => Math.random() - 0.5)
+              .concat(divs.filter((div) => !$.trim($(div).text())))
+          )
+        }
+
+        // ---------- event handlers -------------
+        $(document).on('click', '.letter', function () {
+          $('.cell:empty:first')
+            .attr('data-score', $(this).attr('data-score'))
+            .html($(this).html())
+          $(this).html('')
+        })
+        $(document).on('click', '.cell', function () {
+          $('.letter:empty:first')
+            .attr('data-score', $(this).attr('data-score'))
+            .html($(this).html())
+          $(this).html('')
+        })
+        $(document).on('click', '#delete', function () {
+          $('.cell').trigger('click')
+          $('.cell').trigger('click')
+        })
+        $(document).on('click', '#backspace', function () {
+          $('.cell:not(:empty):last').trigger('click')
+        })
+        $(document).on('click', '#shift', function () {
+          shuffle()
+        })
+        $(document).on('keydown', function (e) {
+          $('[id="' + e.key.toLowerCase() + '"]').trigger('click')
+          $('.letter:contains("' + e.key.toUpperCase() + '")')
+            .last()
+            .trigger('click')
+        })
+
+        // Enter word
+        $(document).on('click', '#enter', function () {
+          if (!$('.next').hasClass('hidden')) return
+          if ($('.cell').first().text() === '') {
+            $('.message')
+              .html('Word must start in first square')
+              .show()
+              .delay(1000)
+              .fadeOut(0)
+            return
+          }
+          word = $('.word')
+            .children()
+            .map(function () {
+              return $(this).html()
+            })
+            .get()
+            .join('')
+          if (!allwords.includes(word)) {
+            $('.message').html('Invalid word').show().delay(1000).fadeOut(0)
+            return
+          }
+          score = 0
+          boardarray = $('.boardarray').html().split('')
+          $.each(word.split(''), function (i, letter) {
+            score += scores[letter] * boardarray[i]
+          })
+          round = Number($('.round').html()) - 1
+          $('.youscore').html(Number($('.youscore').html()) + score)
+          $('.lastyouscore').html(score)
+          $('.youword').html(word)
+
+          chatgptscore = Number(puzzles[round * 4 + 3])
+          $('.chatgptscore').html(
+            Number($('.chatgptscore').html()) + chatgptscore
+          )
+          $('.lastchatgptscore').html(chatgptscore)
+          $('.chatgptword').html(puzzles[round * 4 + 2])
+
+          difference = score - chatgptscore
+          points = Math.abs(difference) === 1 ? ' point!' : ' points!'
+          if (difference > 0) {
+            $('.difference').html('You scored ' + difference + ' more' + points)
+            $('.sharemessage').append('\n' + '🟩'.repeat(word.length))
+          } else if (difference < 0) {
+            $('.difference').html(
+              'You scored ' + Math.abs(difference) + ' less' + points
+            )
+            $('.sharemessage').append('\n' + '🟥'.repeat(word.length))
+          } else {
+            $('.difference').html('You scored the same points!')
+            $('.sharemessage').append('\n' + '🟧'.repeat(word.length))
+          }
+          if (round < 2) {
+            $('.next').removeClass('hidden')
+            $('.playing').addClass('hidden')
+          } else {
+            finish()
+          }
+          localStorage.setItem(gametype + 'wordgptload', $('.container').html())
+        })
+
+        function finish() {
+          startConfetti()
+          $('.complete').html('Match complete')
+          score =
+            Number($('.youscore').html()) - Number($('.chatgptscore').html())
+          pointsLabel = Math.abs(score) === 1 ? ' point' : ' points'
+          localStorage.setItem(
+            gametype + 'wordgptplayed',
+            Number(localStorage.getItem(gametype + 'wordgptplayed')) + 1
+          )
+          localStorage.setItem(
+            gametype + 'wordgptscore',
+            Number(localStorage.getItem(gametype + 'wordgptscore')) + score
+          )
+          localStorage.setItem(
+            'wordgptarchivescores',
+            JSON.stringify({
+              ...JSON.parse(
+                localStorage.getItem('wordgptarchivescores') || '{}'
+              ),
+              [day]: score,
+            })
+          )
+          $('.day' + day + 'score')
+            .html(score + pointsLabel)
+            .addClass('pastgamecomplete')
+          $('.played').html(localStorage.getItem(gametype + 'wordgptplayed'))
+          $('.streak').html(localStorage.getItem(gametype + 'wordgptstreak'))
+          averagescore = (
+            Number(localStorage.getItem(gametype + 'wordgptscore')) /
+            Number(localStorage.getItem(gametype + 'wordgptplayed'))
+          ).toFixed(0)
+          $('.average').html(averagescore)
+          if (score < 0) {
+            $('.result').html(
+              'ChatGPT beat you by ' + Math.abs(score) + pointsLabel + '!'
+            )
+            $('.sharetext').html(
+              '🤖 I scored ' +
+                Math.abs(score) +
+                pointsLabel +
+                ' less than ChatGPT!'
+            )
+          } else if (score > 0) {
+            $('.result').html(
+              'You beat ChatGPT by ' + score + pointsLabel + '!'
+            )
+            $('.sharetext').html(
+              '🤖 I scored ' + score + pointsLabel + ' more than ChatGPT!'
+            )
+          } else {
+            $('.result').html('You tied the match!')
+            $('.sharetext').html('🤖 I scored equal points to ChatGPT!')
+          }
+          if (gametype == 'archive') {
+            $('.stats, .share, .ranking').addClass('hidden')
+          }
+          $('.playing').remove()
+          $('.results').removeClass('hidden')
+        }
+
+        // Drag and drop
+        function activate() {
+          $('.letters, .word').sortable({
+            tolerance: 'pointer',
+            cursor: 'move',
+            distance: 20,
+          })
+          $('.cell').droppable({ drop: swapLetters })
+          $('.letter').droppable({ drop: swapLetters })
+          function swapLetters(_, ui) {
+            var $from = ui.draggable,
+              $to = $(this)
+            if (
+              ($from.hasClass('letter') && $to.hasClass('cell')) ||
+              ($from.hasClass('cell') && $to.hasClass('letter'))
+            ) {
+              var tempLetter = $from.text(),
+                tempScore = $from.attr('data-score')
+              $from.text($to.text()).attr('data-score', $to.attr('data-score'))
+              $to.text(tempLetter).attr('data-score', tempScore)
+            }
+          }
+        }
+
+        // Share score
+        $(document).on('click', '.share', function () {
+          var share =
+            $('.sharetext').html() +
+            '\n' +
+            $('.sharemessage').html() +
+            '\n\nhttps://nerdlegame.com/wordgpt'
+          var isMobile =
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+              navigator.userAgent
+            ) ||
+            'ontouchstart' in window ||
+            navigator.msMaxTouchPoints > 0
+          if (isMobile) {
+            navigator.share({ text: share })
+          } else {
+            navigator.clipboard.writeText(share).then(
+              () => alert('Copied to clipboard'),
+              () => alert('Failed to copy.')
+            )
+          }
+        })
+
+        // Toggle modals
+        $(document).on('click', '.togglemodal', function () {
+          var modal = $(this).attr('id')
+          if (modal == 'menu') {
+            $('.modal.' + modal).toggleClass('hidden')
+          } else {
+            $('.modal.' + modal + ' .modalinner').scrollTop(0)
+            $('.modal.menu').toggleClass('hidden')
+            $('.modal.' + modal).toggleClass('hidden')
+          }
+          if ($('.modal:not(.hidden)').length > 1) {
+            $('.modal.menu').addClass('hidden')
+          }
+        })
+
+        // Confetti
+        function startConfetti() {
+          const canvas = document.createElement('canvas')
+          document.body.appendChild(canvas)
+          const ctx = canvas.getContext('2d')
+          canvas.style.cssText =
+            'position:fixed;top:0;left:0;pointer-events:none;z-index:9999'
+          resize()
+          window.addEventListener('resize', resize)
+          const confetti = [],
+            colors = [
+              '#ff0d00',
+              '#ff8800',
+              '#ffee00',
+              '#00ff00',
+              '#00aaff',
+              '#aa00ff',
+            ],
+            confettiCount =
+              /Android|i|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
+                navigator.userAgent
+              )
+                ? 70
+                : 150
+          class Piece {
+            constructor() {
+              this.reset()
+            }
+            reset() {
+              this.x = Math.random() * canvas.width
+              this.y = Math.random() * -canvas.height
+              this.size = Math.random() * 6 + 2
+              this.color = colors[Math.floor(Math.random() * colors.length)]
+              this.speedY = Math.random() * 3 + 2
+              this.speedX = Math.random() * 2 - 1
+              this.rotation = Math.random() * 360
+              this.spin = Math.random() * 4 - 2
+            }
+            update() {
+              this.y += this.speedY
+              this.x += this.speedX
+              this.rotation += this.spin
+              if (this.y > canvas.height) this.reset()
+              if (this.x > canvas.width) this.x = 0
+              if (this.x < 0) this.x = canvas.width
+            }
+            draw() {
+              ctx.save()
+              ctx.translate(this.x, this.y)
+              ctx.rotate((this.rotation * Math.PI) / 180)
+              ctx.fillStyle = this.color
+              ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size)
+              ctx.restore()
+            }
+          }
+          for (let i = 0; i < confettiCount; i++) {
+            confetti.push(new Piece())
+          }
+          ;(function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            confetti.forEach((p) => {
+              p.update()
+              p.draw()
+            })
+            requestAnimationFrame(animate)
+          })()
+          function resize() {
+            canvas.width = innerWidth
+            canvas.height = innerHeight
+          }
+        }
+
+        // Add archive list
+        var archive = JSON.parse(
+          localStorage.getItem('wordgptarchivescores') || '{}'
+        )
+
+        for (let i = Math.max(1, today - 365); i <= today; i++) {
+
+          let j = i,
+            scoreTxt = archive[j] ? `${archive[j]} points` : 'Not played',
+            cls = archive[j] ? 'pastgamecomplete' : 'pastgamescore'
+          $('.pastgames').prepend(
+            `<a href="/wordgpt?day=${i}"><div class="pastgame flex mb-10"><span class="day${j}">#${i}</span><span class="day${j}score ${cls}">${scoreTxt}</span></div></a>`
+          )
+        }
+        $(`.day${today}`).append(' (today)')
+
+        loadgame()
+        $.ajaxSetup({ cache: true })
+        $.getScript('/wordgpt/wordlist.js')
+      }
+    </script>
+  </body>
+</html>

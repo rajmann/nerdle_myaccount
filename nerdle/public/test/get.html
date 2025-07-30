@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    
+
+    <script>
+
+        // if query string contains get=1
+        if (window.location.href.indexOf('get=5') > -1) {
+
+            // get target from target query string parm
+            var target = new URLSearchParams(window.location.search).get('target')
+            // redirect back to target after 1 second
+
+            console.log('getting')
+            lblToken = localStorage.getItem('lbl_token') || ''
+            // get referring url
+            //var referrer = urlParams.get('target')
+            console.log(target)
+            var data = {
+                lblToken: lblToken,
+                target: target
+            }
+            console.log(data)
+            // base 64 data
+            var b64 = btoa(JSON.stringify(data))
+            console.log(b64)
+
+            window.location.href = target + '?setlbl=' + b64
+            //setTimeout(function() { window.location.href = target} ,2000)
+
+            
+            
+
+        }    
+
+        
+
+    </script>
+
+</head>
+
+<body>
+    <h1>GETTER</h1>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    
+
+    <script>
+
+        if (window.location.href.indexOf('get') > -1) {
+
+            // remove query string from url
+            var url = window.location.href.split('?')[0]
+
+            // redirect to classic on the root domain (not the subdomain) and ask it to return the token
+            window.location.href = 'https://nerdlegame.com/test/get.html?get=5&target=' + url
+            //window.location.href = 'http://localhost:3000/test/get.html?get=2&target=' + url
+
+        }    
+
+        if (window.location.href.indexOf('setlbl')) {
+
+            const url = new URL(window.location.href)
+            const setlbl = url.searchParams.get('setlbl')
+            if (setlbl) {
+                let decoded = atob(setlbl)
+                let parsed = JSON.parse(decoded)
+                console.log(parsed)
+                let lblToken = parsed.lblToken
+                if (lblToken !== '') {
+                    localStorage.setItem('lbl_token', lblToken)
+                }
+                window.location.href = '/game'
+            }
+
+            //window.location.href = '/game'
+        }
+
+        
+
+    </script>
+
+</head>
+
+<body>
+    <H1>INDEX</H1>
+</body>
+
+</html>

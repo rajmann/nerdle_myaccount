@@ -1,0 +1,346 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Roboto+Mono:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323:wght@300;400;500;600;700&display=swap');
+
+
+.text-white {
+  fill: white;
+}
+
+:is(.dark .dark\:text-white) {
+  fill: white;
+}
+
+.nerdle-name {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.2rem;
+  color: #820458;
+}
+
+.nerdle-sub-name {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.2rem;
+  color: #398874;
+}
+
+.nerdle-dot {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.2rem;
+  color: #989484;
+}
+
+/* .nerdle-name-gamemode {
+    font-size:1.5rem;
+    line-height:1rem;
+} */
+
+/* set h-13 smaller for mobile with breakpoint to make larger for larger screens */
+.h-13 {
+  height: 2.8rem;
+}
+.pb-grid {
+  /* padding-bottom: 0.6rem; */
+  padding-bottom: 0.2rem;
+}
+.bottom-buttons {
+  margin-top: 0.6rem;
+}
+.bottom-button {
+  height: 42px!important;
+}
+
+.pb-nav {
+  padding-bottom: 0.3rem;
+}
+
+#nerdlegame_M_1 iframe {
+  margin: auto !important;
+}
+
+#nerdlegame_M_2 iframe {
+  margin: auto !important;
+}
+
+#nerdlegame_D_2 iframe {
+  margin: auto !important;
+}
+
+.desktopSideAd {
+  flex: 3;
+  overflow: hidden;
+}
+
+.shaker {
+  animation: shake 1.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(0, -1px, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(0, 2px, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(0, 4px, 0);
+  }
+}
+
+.shake1 {
+  animation: tilt-shaking1 0.25s linear 5;
+}
+
+@keyframes tilt-shaking1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.shake2 {
+  animation: tilt-shaking2 0.35s linear 5;
+}
+
+@keyframes tilt-shaking2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.shake3 {
+  animation: tilt-shaking2 0.45s linear 5;
+}
+
+@keyframes tilt-shaking3 {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.shake4 {
+  animation: tilt-shaking4 0.8s linear 5;
+}
+
+@keyframes tilt-shaking4 {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.shake5 {
+  animation: tilt-shaking5 1s linear 1;
+}
+
+@keyframes tilt-shaking5 {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  15% {
+    transform: scale(1.02) rotate(10deg);
+  }
+  30% {
+    transform: scale(1) rotate(0deg);
+  }
+  45% {
+    transform: scale(0.98) rotate(-10deg);
+  }
+  60% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.05)
+  }
+  80% {
+    transform: scale(1)
+  }
+  90% {
+    transform: scale(0.95)
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.menu-open {
+  transition:0.5s;
+}
+
+.menu-overlay-open {
+  transition:0.2s
+}
+
+@keyframes menu-open {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+
+@media screen and (max-width: 850px) {
+  .desktopSideAd {
+    display: none !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .h-13 {
+    height: 3.2rem;
+  }
+  .pb-grid {
+    padding-bottom: 1rem;
+  }
+  .pb-nav {
+    padding-bottom: 0.8rem;
+  }
+  .bottom-buttons {
+    margin-top: 1rem;
+  }
+  .bottom-button {
+    height: 48px!important;
+  }
+
+}
+
+@media screen and (max-width: 668px) {
+  .mobile-top-2 {
+    padding-top: 0.6rem!important;
+  }
+
+  .anchor-ad-spacing .main-grid {
+      padding-top: 0rem!important;
+  }
+  .anchor-ad-spacing .main-nav {
+      padding-top: 0.5rem!important;
+  }
+  .anchor-ad-spacing .ad-space {
+    /* height:10px!important; */
+    margin-top:30px!important;
+  }
+  .no-anchor-ad-spacing .ad-space {
+    height:undefined!important;
+  }
+  .no-anchor-ad-spacing .main-grid {
+      padding-top: undefined!important;
+  }
+  .no-anchor-ad-spacing .main-nav {
+      padding-top: undefined!important;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  .moreGamesNumBot {
+    display:none;
+  }
+}
+
+.stats-tab-button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
+  width:100px;
+  margin:0;
+  color:white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height:40px;
+}
+
+/* moves the more games links up to top of winmodal */
+#winSection {
+  display: table;
+}
+#moreGamesSection {
+  display: table-header-group;
+}
+/* end move games up */
+
+.h-4 {
+  height: 1.5rem!important;
+}
+
+.w-4 {
+  width: 1.5rem!important;
+}
+
+.h-3a {
+  height: 1.2rem!important;
+}
+
+.w-3a {
+  width: 1.2rem!important;
+}
+
+.mx-0 {
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+

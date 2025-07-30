@@ -1,0 +1,175 @@
+<html>
+
+<head>
+    
+
+    <script>
+
+        console.log('hello')
+
+        // get querystring and see if we have 'set' parameter
+        var urlParams = new URLSearchParams(window.location.search)
+
+        console.log(urlParams)
+        var linkref = 'https://nerdlegame.com/game'
+
+        var set = urlParams.get('set')
+        var get = urlParams.get('load')
+        if (set) {
+            // base 64 decode it
+            var decoded = atob(set)
+            // json parse it
+            var parsed = JSON.parse(decoded)
+            console.log('parsed', parsed)
+            var lblToken = parsed.lblToken
+            var target = parsed.target
+            var userEmail = parsed.userEmail
+            // store the token in local storage
+            if (lblToken!==undefined && lblToken!=='undefined' && lblToken!='') {
+                localStorage.setItem('lbl_token', lblToken)
+            } else {
+                //localStorage.removeItem('lbl_token')
+            }
+
+            if (userEmail!==undefined && userEmail!=='undefined' && userEmail!='') {
+                localStorage.setItem('userEmail', userEmail)
+            }
+
+            var lastPlayed = parsed.lastPlayed
+            if (lastPlayed) {
+
+                console.log('lastPlayed', lastPlayed)
+
+                //get the current lastPlayed object from local storage
+                var currentLastPlayed = localStorage.getItem('lastPlayed')
+                if (currentLastPlayed) {
+                    // json parse it
+                    currentLastPlayed = JSON.parse(currentLastPlayed)
+                    
+                    // merge lastPlayed with currentLastPlayed
+                    var merged = {...currentLastPlayed, ...lastPlayed}
+                    console.log('merged', merged)
+                    // store merged in local storage
+                    localStorage.setItem('lastPlayed', JSON.stringify(merged))
+                } else {
+                    // store lastPlayed in local storage
+                    console.log('store it ... ')
+                    localStorage.setItem('lastPlayed', JSON.stringify(lastPlayed))
+                }
+
+            }
+
+            linkref = target
+
+            // redirect to target
+            window.location.href = target
+        }
+
+
+
+        if (get) {
+            console.log('getting')
+            lblToken = localStorage.getItem('lbl_token') || ''
+            lastPlayed = JSON.parse(localStorage.getItem('lastPlayed') || "{}")
+            challengeAwards = JSON.parse(localStorage.getItem('challengeAwards') || "{}")
+            var userEmail = localStorage.getItem('userEmail') || ''
+            console.log('lastPlayed', lastPlayed)
+            // get referring url
+            var referrer = urlParams.get('target')
+            console.log(referrer)
+            var data = {
+                lblToken: lblToken,
+                target: referrer,
+                lastPlayed: lastPlayed,
+                challengeAwards: challengeAwards,
+                userEmail: userEmail
+            }
+            console.log(data)
+            // base 64 data
+            var b64 = btoa(JSON.stringify(data))
+            // redirect to get
+
+            // remove and retrieve any hashtags from referrer
+            var hash = ''
+            if (referrer.indexOf('#') > -1) {
+                hash = referrer.substring(referrer.indexOf('#'))
+                referrer = referrer.substring(0, referrer.indexOf('#'))
+            }
+
+            // does referrer contain a ?
+            if (referrer.indexOf('?') > -1) {
+                // yes, append &get=1
+                referrer += '&setlbl=' + b64
+            } else {
+                // no, append ?get=1
+                referrer += '?setlbl=' + b64
+            }
+
+            // append hash
+            referrer += hash
+
+            console.log('redirecting to ... ', referrer)
+            console.log(referrer)
+
+            linkref = referrer
+
+            window.location.href = referrer
+        }
+
+        window.onmessage = (event) => {
+            console.log(event)
+            console.log(event.data)
+            if (event.data.startsWith('lbltoken:')) {
+                let token = event.data.substring(9)
+                if (token!==undefined && token!=='' && token!=='undefined') {
+                    localStorage.setItem('lbl_token', token)
+                }
+                
+            }
+        }
+
+        // get lbl_token from local storage and post to parent every second
+        // setInterval(() => {
+        //     let token = localStorage.getItem('lbl_token')
+        //     if (token) {
+        //         window.parent.postMessage('lbltoken:' + token, '*')
+        //     }
+        // }, 1000)
+
+        // send token to parent ... 
+        let token = localStorage.getItem('lbl_token')
+        if (token) {
+            console.log('sending it')
+            window.parent.postMessage('lbltoken:' + token, '*')
+        }
+
+
+       
+
+
+    </script>
+
+</head>
+
+
+
+<body>
+
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 2em; font-weight: bold; color: white; background-color: #820458; padding: 1em; border-radius: 1em; font-family:Arial, Helvetica, sans-serif;">
+        <div>Setting things up ...</div>
+        <div style="margin-top:20px; margin-bottom:10px; font-size: 0.5em; font-weight: normal;">Please wait.<br /><br />If you get stuck on this page 
+        <a style="color:white;" id="redirect_link" href="">click here</a>.
+        </div>
+
+    <script>
+        if (document.getElementById('redirect_link')) {
+            document.getElementById('redirect_link').href = linkref
+        }
+    </script>
+
+
+</body>
+
+
+
+</html>

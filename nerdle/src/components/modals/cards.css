@@ -1,0 +1,68 @@
+.n-big-card {
+    background-color: #fff;
+    border-radius: 6px;
+    outline: 1px solid #161803;
+    transition: all 0.25s ease-in-out;
+    margin-bottom: 10px;
+}
+
+.n-big-card-content {
+    /* padding: 15px 10px; */
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.n-big-card-title {
+    font-family: "Quicksand" !important;
+    font-size: 24px;
+    /* font-weight: bold; */
+    /* color: var(--nerdle-black); */
+    background-color: #a20b70;
+    width: 100%;
+    color: #fff;
+    justify-content: center;
+    text-align: center;
+    min-height: 30px;
+    line-height: 90%;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.n-big-card-description {
+    font-family: "Barlow" !important;
+    font-size: 11px;
+    color: #333333;
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    max-height: 150px;
+    text-align: center;
+}
+
+.n-big-card-play-button {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    font-family: "Quicksand" !important;
+    font-size: 24px;
+    background-color: #a20b70;
+    color: #fff;
+    border-radius: 6px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    max-height: 150px;
+    padding: 5px;
+    margin: auto;
+}
