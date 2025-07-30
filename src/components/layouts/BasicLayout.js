@@ -18,7 +18,7 @@ const BasicLayout = ({ children }) => {
       <Header className="bg-white p-0 px-1">
         <Header.Left>
           {path.pathname !== "/" && (
-            <button onClick={goBack} className="p-3">
+            <button onClick={goBack} className="p-3 text-nerdle-primary hover:text-nerdle-secondary">
               <HiArrowLeft />
             </button>
           )}

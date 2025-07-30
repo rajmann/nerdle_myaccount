@@ -39,7 +39,7 @@ const BottomTabsLayout = ({ children }) => {
         <Header.Left>
           <button
             onClick={onDrawerOpen}
-            className="text-white hover:text-violet-300">
+            className="text-nerdle-primary hover:text-nerdle-secondary p-2">
             <DrawerIcon />
           </button>
         </Header.Left>
