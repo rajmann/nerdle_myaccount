@@ -12,7 +12,7 @@ const Avatar = ({ src, alt = "", className }) => {
 
   return (
     <div
-      className={`relative grid h-16 w-16 place-items-center overflow-hidden rounded-full border-2 border-white bg-violet-500 ${className}`}>
+      className={`relative grid h-16 w-16 place-items-center overflow-hidden rounded-full border-2 border-white bg-nerdle-primary ${className}`}>
       {src ? (
         <img
           src={src}
