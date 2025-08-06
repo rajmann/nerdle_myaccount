@@ -17,17 +17,17 @@ export const getGameFilterOptions = (games, allGamesOption, allNerdleGamesOption
   let individualGames = games.map((game) => ({ 
     label: game.name, 
     value: game.value,
-    url: game.url 
+    url: game.url,
+    nGame: game.nGame
   }));
 
   // If score logging is disabled, filter to only show Nerdle games
   if (!scoreLoggingEnabled) {
-    console.log('Score logging disabled, filtering to Nerdle games only');
     const originalCount = individualGames.length;
     individualGames = individualGames.filter(game => isNerdleGame(game));
-    console.log(`Filtered games from ${originalCount} to ${individualGames.length} Nerdle games`);
+    console.log(`Score logging disabled: Filtered games from ${originalCount} to ${individualGames.length} Nerdle games`);
   } else {
-    console.log('Score logging enabled, showing all games');
+    console.log(`Score logging enabled: Showing all ${individualGames.length} games`);
   }
 
   // Find Nerdle (nerdlegame) game to put it first

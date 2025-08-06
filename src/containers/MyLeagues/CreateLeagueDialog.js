@@ -51,7 +51,7 @@ const CreateLeagueDialog = ({ open, onClose, onSubmit, mutate }) => {
       filteredGames = filterNerdleGames(data);
     }
     
-    return filteredGames.map((game) => ({ label: game.name, value: game.value }));
+    return filteredGames.map((game) => ({ label: game.name, value: game.value, nGame: game.nGame }));
   }, [games.data?.data, scoreLoggingEnabled]);
 
   // const scoringSystems = useOptionsStore((state) => state.scoringSystems);
