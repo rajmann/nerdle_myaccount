@@ -187,7 +187,7 @@ const Profile = () => {
           <div className="flex-none">
             <button
               onClick={toggleDarkMode}
-              className="flex items-center gap-2 text-xs text-nerdle-primary hover:text-nerdle-secondary">
+              className="flex items-center gap-2 text-xs text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300">
               {isDarkMode ? <SunIcon className="w-4 h-4" /> : <MoonIcon className="w-4 h-4" />}
               {isDarkMode ? 'Light Mode' : 'Dark Mode'}
             </button>
@@ -196,13 +196,13 @@ const Profile = () => {
         <div className="h-px w-full bg-gray-500"></div>
         <button
           onClick={onChangePassword}
-          className="w-full py-4 text-left text-xs text-nerdle-primary underline hover:text-nerdle-secondary">
+          className="w-full py-4 text-left text-xs text-black dark:text-white underline hover:text-gray-600 dark:hover:text-gray-300">
           Change password
         </button>
         <div className="h-px w-full bg-gray-500"></div>
         <button
           onClick={onSignOut}
-          className="w-full py-4 text-left text-xs text-nerdle-primary underline hover:text-nerdle-secondary">
+          className="w-full py-4 text-left text-xs text-black dark:text-white underline hover:text-gray-600 dark:hover:text-gray-300">
           Sign out
         </button>
         <div className="h-px w-full bg-gray-500"></div>
