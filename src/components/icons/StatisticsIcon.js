@@ -1,7 +1,7 @@
 import * as React from "react";
 
 const SvgComponent = (props) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={44} height={30} {...props}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 30" {...props}>
     <g fill="currentColor" data-name="vuesax/bold/chart">
       <path d="M31.328 24.328h-18.48a.7.7 0 0 1-.693-.693.7.7 0 0 1 .693-.693h18.48a.7.7 0 0 1 .693.693.7.7 0 0 1-.693.693Z" />
       <path
