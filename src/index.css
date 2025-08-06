@@ -143,3 +143,8 @@
 .text-nerdle-primary:visited {
   color: var(--nerdle-primary) !important;
 }
+
+/* Custom nerdle green text color for statistics */
+.text-nerdle-green {
+  color: #398874;
+}

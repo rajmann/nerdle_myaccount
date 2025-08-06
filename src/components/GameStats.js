@@ -13,12 +13,12 @@ const GameStats = ({ data }) => {
         <StatCard
           value={data?.points}
           label="Points"
-          numberColor="text-amber-500"
+          numberColor="text-nerdle-green"
         />
         <StatCard
           value={data?.pointsPerGame}
           label="Points/Game"
-          numberColor="text-amber-500"
+          numberColor="text-nerdle-green"
         />
         <StatCard
           value={`${data?.ww >= 0 ? "+" : ""}${data?.ww}`}
