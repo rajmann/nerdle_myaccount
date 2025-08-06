@@ -2,34 +2,42 @@ import { useState, useEffect } from 'react';
 
 const useDarkMode = () => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Force start in light mode for debugging
     const stored = localStorage.getItem('darkModeNew');
-    
-    // Always start with light mode and remove any existing dark class
-    const root = document.documentElement;
-    root.classList.remove('dark');
-    
-    // If no stored preference, default to light mode (false)
     const shouldBeDark = stored === 'true';
     
-    console.log('Initial dark mode setup - stored:', stored, 'shouldBeDark:', shouldBeDark, 'forcing light mode for debug');
+    // Immediately apply the correct class
+    const root = document.documentElement;
+    if (shouldBeDark) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    
+    console.log('Initial dark mode setup - stored:', stored, 'shouldBeDark:', shouldBeDark);
     return shouldBeDark;
   });
 
   useEffect(() => {
     const root = document.documentElement;
     
+    // Clear any existing dark mode classes first
+    root.classList.remove('dark');
+    
     if (isDarkMode) {
       root.classList.add('dark');
       localStorage.setItem('darkModeNew', 'true');
     } else {
-      root.classList.remove('dark');
       localStorage.setItem('darkModeNew', 'false');
     }
     
-    // Debug logging
-    console.log('useEffect - Dark mode state:', isDarkMode);
-    console.log('useEffect - HTML classList:', root.classList.toString());
+    console.log('Dark mode state changed:', isDarkMode);
+    console.log('HTML classList:', root.classList.toString());
+    
+    // Force a repaint to ensure styles are applied
+    document.body.style.visibility = 'hidden';
+    // eslint-disable-next-line no-unused-expressions
+    document.body.offsetHeight; // trigger reflow
+    document.body.style.visibility = 'visible';
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {

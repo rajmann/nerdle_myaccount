@@ -51,6 +51,8 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - Updated all major components: Drawer, Header, layouts, BottomNavigation
   - Added dark mode CSS classes throughout the component tree
   - Maintains Nerdle branding colors while providing clean dark theme option
+  - **FIXED**: Added `darkMode: 'class'` to Tailwind config for proper class-based dark mode support
+  - **FIXED**: Enhanced dark mode state management to ensure consistent behavior across environments
 
 ## User Preferences
 
