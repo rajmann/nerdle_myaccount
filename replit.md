@@ -62,6 +62,17 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - **UPDATED**: Profile page title changed from "Profile" to "Profile settings"
   - **UPDATED**: All purple text elements (buttons, links) converted to black/white with proper dark mode support
 
+### 2025-08-06: Profile Page Enhancements
+- **COMPLETED**: Added score logging toggle for non-nerdle games
+  - Created new toggle section "Enable score logging for non-nerdle games" positioned above marketing preferences
+  - Set default state to off (false) as requested
+  - Implemented URL parameter functionality - visiting /profile?lbl=true automatically enables the toggle
+  - Added proper state management with scoreLoggingOptedInState and scoreLoggingClicked handler
+  - Applied consistent styling with existing toggles (black/white text, proper spacing)
+  - Included email verification check like other preference toggles
+  - Added toast notifications for user feedback on save/error states
+  - Prepared for future backend integration with TODO comments for API calls
+
 ### 2025-08-06: Header Redesign to Match Nerdle Website
 - **COMPLETED**: Updated header layout to match nerdlegame.com design
   - Left-aligned section with three items: menu button, Nerdle logo, and "nerdle." text
