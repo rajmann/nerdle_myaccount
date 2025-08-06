@@ -42,9 +42,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         const detail = allGames?.find(
           (g) => g?.value.toLowerCase() === game?.gameName?.toLowerCase()
         );
+        // Transform "nerdle" to "nerdle (classic)" for display
+        let displayName = detail?.name;
+        if (detail?.value === 'nerdlegame' && detail?.name === 'nerdle') {
+          displayName = 'nerdle (classic)';
+        }
         return {
           ...game,
-          name: detail?.name,
+          name: displayName,
           value: detail?.value,
           url: detail?.url,
         };
@@ -58,9 +63,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         const detail = allGames?.find(
           (g) => g?.value.toLowerCase() === game?.gameName?.toLowerCase()
         );
+        // Transform "nerdle" to "nerdle (classic)" for display
+        let displayName = detail?.name;
+        if (detail?.value === 'nerdlegame' && detail?.name === 'nerdle') {
+          displayName = 'nerdle (classic)';
+        }
         return {
           ...game,
-          name: detail?.name,
+          name: displayName,
           url: detail?.url,
         };
       }),
