@@ -150,7 +150,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         <h2>Played Today</h2>
       </div>
 
-      <div className="h-full rounded-md bg-gray-100 dark:bg-[rgb(152,148,132)] border border-gray-200 dark:border-gray-600 p-4">
+      <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
         <div className="max-h-[125px] overflow-y-auto pr-4">
           {!gamesTodayWithDetails?.length ? (
             <p className="text-sm text-gray-500">No games played today</p>
@@ -180,7 +180,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
       <div className="text-sm font-semibold text-gray-900 dark:text-white mt-3 mb-2">
         <h2>Not Played Today</h2>
       </div>
-      <div className="h-full rounded-md bg-gray-100 dark:bg-[rgb(152,148,132)] border border-gray-200 dark:border-gray-600 p-4">
+      <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
         <div className="max-h-[100px] overflow-y-auto pr-4">
           {!recentlyPlayed?.length ? (
             <p className="text-sm text-gray-500">All games played today</p>
@@ -212,7 +212,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         <h2>Not Played Today</h2>
       </div>
       <div className="grid grid-cols-2 gap-x-2">
-        <div className="h-full rounded-md bg-gray-100 dark:bg-[rgb(152,148,132)] border border-gray-200 dark:border-gray-600 p-4">
+        <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
           <div className="max-h-[125px] overflow-y-auto pr-4">
             {!gamesTodayWithDetails?.length ? (
               <p className="text-sm text-gray-500">No games played today</p>
@@ -239,7 +239,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           </div>
         </div>
         <div className="h-full">
-          <div className="h-full rounded-md bg-gray-100 dark:bg-[rgb(152,148,132)] border border-gray-200 dark:border-gray-600 p-4">
+          <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
             <div className="max-h-[100px] overflow-y-auto pr-4">
               {!recentlyPlayed?.length ? (
                 <p className="text-sm text-gray-500">All games played today</p>
