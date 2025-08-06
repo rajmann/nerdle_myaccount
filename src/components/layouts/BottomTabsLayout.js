@@ -1,5 +1,6 @@
 import React from "react";
 
+import { RiUserSettingsLine } from 'react-icons/ri';
 import { Link, Outlet } from "react-router-dom";
 
 import BottomNavigation, { BottomNavigationItem } from "../BottomNavigation";
@@ -8,7 +9,6 @@ import Header from "../Header";
 import AllGamesIcon from "../icons/AllGamesIcon";
 import LeagueIcon from "../icons/LeagueIcon";
 import NerdleMenuIcon from "../icons/NerdleMenuIcon";
-import ProfileSettingsIcon from "../icons/ProfileSettingsIcon";
 import StatisticsIcon from "../icons/StatisticsIcon";
 import NerdleLogo from "../NerdleLogo";
 import NerdleText from "../NerdleText";
@@ -52,7 +52,7 @@ const BottomTabsLayout = ({ children }) => {
           <Link
             to="/profile"
             className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-2">
-            <ProfileSettingsIcon />
+            <RiUserSettingsLine size={24} />
           </Link>
         </Header.Right>
       </Header>
