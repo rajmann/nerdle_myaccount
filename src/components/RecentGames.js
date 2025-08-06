@@ -47,6 +47,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         if (detail?.value === 'nerdlegame' && detail?.name === 'nerdle') {
           displayName = 'nerdle (classic)';
         }
+        // Fallback: also check if game name from API data is "nerdle" or if gameName is "nerdlegame"
+        if (!displayName || displayName === 'nerdle' || game?.gameName?.toLowerCase() === 'nerdlegame') {
+          displayName = 'nerdle (classic)';
+        }
         return {
           ...game,
           name: displayName,
@@ -66,6 +70,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         // Transform "nerdle" to "nerdle (classic)" for display
         let displayName = detail?.name;
         if (detail?.value === 'nerdlegame' && detail?.name === 'nerdle') {
+          displayName = 'nerdle (classic)';
+        }
+        // Fallback: also check if game name from API data is "nerdle" or if gameName is "nerdlegame"
+        if (!displayName || displayName === 'nerdle' || game?.gameName?.toLowerCase() === 'nerdlegame') {
           displayName = 'nerdle (classic)';
         }
         return {
