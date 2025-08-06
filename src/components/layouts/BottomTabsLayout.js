@@ -1,16 +1,17 @@
 import React from "react";
 
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import BottomNavigation, { BottomNavigationItem } from "../BottomNavigation";
 import Drawer from "../Drawer";
 import Header from "../Header";
 import AllGamesIcon from "../icons/AllGamesIcon";
-import DrawerIcon from "../icons/DrawerIcon";
 import LeagueIcon from "../icons/LeagueIcon";
-//import ProfileIcon from "../icons/ProfileIcon";
+import NerdleMenuIcon from "../icons/NerdleMenuIcon";
+import ProfileSettingsIcon from "../icons/ProfileSettingsIcon";
 import StatisticsIcon from "../icons/StatisticsIcon";
-import LogoBanner from "../LogoBanner";
+import NerdleLogo from "../NerdleLogo";
+import NerdleText from "../NerdleText";
 
 const BottomTabsLayout = ({ children }) => {
   const [drawerIsOpen, setDrawerIsOpen] = React.useState(false);
@@ -37,16 +38,23 @@ const BottomTabsLayout = ({ children }) => {
     <div className="relative flex h-screen max-h-[-webkit-fill-available] flex-col overflow-hidden">
       <Header>
         <Header.Left>
-          <button
-            onClick={onDrawerOpen}
-            className="text-nerdle-primary hover:text-nerdle-secondary p-2">
-            <DrawerIcon />
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={onDrawerOpen}
+              className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-1">
+              <NerdleMenuIcon />
+            </button>
+            <NerdleLogo />
+            <NerdleText />
+          </div>
         </Header.Left>
-        <Header.Center>
-          <LogoBanner />
-        </Header.Center>
-        <Header.Right />
+        <Header.Right>
+          <Link
+            to="/profile"
+            className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-2">
+            <ProfileSettingsIcon />
+          </Link>
+        </Header.Right>
       </Header>
       <Drawer isOpen={drawerIsOpen} onClose={onDrawerClose} />
       <main className="flex-1 overflow-y-auto p-4">

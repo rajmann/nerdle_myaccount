@@ -56,6 +56,17 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - **FIXED**: Updated all grey boxes and hover states to use slate-700 (lighter version of dark background) instead of custom rgb color for better consistency
   - **FIXED**: Updated game name text colors to use black in light mode and white in dark mode for better readability
   - **FIXED**: Added dark background (slate-700) to dropdown menus in dark mode
+  - **FIXED**: Updated bottom navigation active tab icons to show white in dark mode instead of purple for better visibility
+
+### 2025-08-06: Header Redesign to Match Nerdle Website
+- **COMPLETED**: Updated header layout to match nerdlegame.com design
+  - Left-aligned section with three items: menu button, Nerdle logo, and "nerdle." text
+  - Right-aligned profile settings icon linking to /profile route
+  - Created new NerdleMenuIcon component matching Nerdle's hamburger menu style
+  - Created ProfileSettingsIcon component with user profile + settings cog overlay
+  - Created separate NerdleLogo and NerdleText components for modular design
+  - Updated header spacing and layout to use justify-between for proper alignment
+  - Removed transparency from decorative elements behind profile pictures
 
 ## User Preferences
 
