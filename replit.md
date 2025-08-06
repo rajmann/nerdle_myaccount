@@ -46,7 +46,7 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
 ### 2025-08-06: Dark Mode Implementation
 - **COMPLETED**: Added dark mode toggle functionality
   - Created useDarkMode hook with localStorage "darkModeNew" persistence (true=dark, false/absent=light)
-  - Added dark mode toggle button to navigation drawer with moon/sun icons
+  - ~~Added dark mode toggle button to navigation drawer with moon/sun icons~~ **MOVED** to profile page
   - Implemented dark theme using #1F2937 background and white text as specified
   - Updated all major components: Drawer, Header, layouts, BottomNavigation
   - Added dark mode CSS classes throughout the component tree
@@ -57,6 +57,8 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - **FIXED**: Updated game name text colors to use black in light mode and white in dark mode for better readability
   - **FIXED**: Added dark background (slate-700) to dropdown menus in dark mode
   - **FIXED**: Updated bottom navigation active tab icons to show white in dark mode instead of purple for better visibility
+  - **MOVED**: Dark mode toggle relocated from navigation drawer to dedicated /profile page section
+  - **UPDATED**: All text on profile page now uses black in light mode and white in dark mode for proper contrast
 
 ### 2025-08-06: Header Redesign to Match Nerdle Website
 - **COMPLETED**: Updated header layout to match nerdlegame.com design

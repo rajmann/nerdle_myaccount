@@ -10,8 +10,8 @@ import { useProfilePhoto } from "../api/profilePhoto";
 import { useUpdateMarketingPreferences } from "../api/updateMarketingPreferences";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 import MoonIcon from "../components/icons/MoonIcon";
-import Spinner from "../components/Spinner";
 import SunIcon from "../components/icons/SunIcon";
+import Spinner from "../components/Spinner";
 import Email from "../containers/Profile/Email";
 import Name from "../containers/Profile/Name";
 import Photo from "../containers/Profile/Photo";
@@ -161,18 +161,18 @@ const Profile = () => {
         {(data?.email !== undefined) && (
         <>
           <div className="h-px w-full bg-gray-500"></div>
-          <div className="flex w-full pt-4 text-left text-xs text-gray-700">
+          <div className="flex w-full pt-4 text-left text-xs text-black dark:text-white">
             <div className="flex-1">
-              <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400': ''}`}>Send me marketing emails</div>
+              <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400 dark:text-gray-500': 'text-black dark:text-white'}`}>Send me marketing emails</div>
             </div>
             <div className="flex-none w-14">
               <Switch onColor='#820458' onChange={marketingClicked} checked={marketingOptedInState} />
             </div>
           </div>
 
-          <div className="flex w-full pb-3 pt-2 text-left text-xs text-gray-700">
+          <div className="flex w-full pb-3 pt-2 text-left text-xs text-black dark:text-white">
             <div className="flex-1">
-              <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400': ''}`}>Send me LeaderBoardLe app updates</div>
+              <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400 dark:text-gray-500': 'text-black dark:text-white'}`}>Send me LeaderBoardLe app updates</div>
             </div>
             <div className="flex-none w-14">
               <Switch onColor='#820458' onChange={updatesClicked} checked={updatesOptedInState} />
@@ -182,7 +182,7 @@ const Profile = () => {
         <div className="h-px w-full bg-gray-500"></div>
         <div className="flex w-full py-4 text-left">
           <div className="flex-1">
-            <div className="text-xs text-gray-700 dark:text-gray-300">Theme</div>
+            <div className="text-xs text-black dark:text-white">Theme</div>
           </div>
           <div className="flex-none">
             <button
@@ -211,7 +211,7 @@ const Profile = () => {
           onClick={() => setShowModal(true)}>
           Delete this account
         </button>
-        <p className="text-xs text-gray-900 dark:text-white">
+        <p className="text-xs text-black dark:text-white">
           Player names considered inappropriate may result in your account being
           deleted. Please see T&Cs.
         </p>
