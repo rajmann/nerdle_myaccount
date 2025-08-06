@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ctrl/react-adsense": "^1.6.0",
+    "@fontsource/barlow": "^5.2.6",
     "@fontsource/inter": "^4.5.10",
     "@headlessui/react": "^1.6.1",
     "@hookform/resolvers": "^2.8.8",

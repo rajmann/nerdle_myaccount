@@ -8,7 +8,9 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
     <Listbox value={value} onChange={onChange}>
       <div className="relative">
         <Listbox.Button className="relative w-full rounded-lg py-1 px-2 pr-8 text-nerdle-primary hover:text-nerdle-secondary">
-          <span className="block truncate text-sm font-semibold">
+          <span className={`block truncate text-sm font-semibold ${
+            value?.label?.toLowerCase().includes('nerdle') ? 'nerdle-game-name' : ''
+          }`}>
             {value?.label}
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-600">
@@ -37,6 +39,8 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
                     <span
                       className={`block truncate ${
                         selected ? "font-semibold" : "font-normal"
+                      } ${
+                        option?.label?.toLowerCase().includes('nerdle') ? 'nerdle-game-name' : ''
                       }`}
                     >
                       {option?.label}

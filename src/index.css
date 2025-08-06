@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Roboto+Mono:wght@100;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&family=Roboto+Mono:wght@100;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=VT323:wght@400&display=swap');
 
 @layer base {
@@ -72,7 +72,7 @@
   body {
     background-color: #ffffff;
     color: #000000;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Barlow', sans-serif;
   }
 
   [type="text"]:focus,
@@ -126,4 +126,10 @@
 
 .nerdle-retro {
   font-family: 'VT323', monospace;
+}
+
+/* Special font class for game names containing "nerdle" */
+.nerdle-game-name {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 300; /* Light weight */
 }

@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["InterVariable", "sans-serif"],
+        sans: ["Barlow", "sans-serif"],
+        barlow: ["Barlow", "sans-serif"],
         quicksand: ["Quicksand", "sans-serif"],
         mono: ["Roboto Mono", "monospace"],
         retro: ["VT323", "monospace"],
