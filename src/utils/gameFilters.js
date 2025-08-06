@@ -1,7 +1,7 @@
-// Utility function to check if a game is a Nerdle game based on its URL
+// Utility function to check if a game is a Nerdle game based on the nGame property
 export const isNerdleGame = (game) => {
-  if (!game?.url) return false;
-  return game.url.includes('nerdlegame.com');
+  // Check if the game has the nGame flag set to true (this is the most reliable indicator)
+  return game?.nGame === true;
 };
 
 // Filter games to only include Nerdle games (URLs containing 'nerdlegame.com')
@@ -22,7 +22,12 @@ export const getGameFilterOptions = (games, allGamesOption, allNerdleGamesOption
 
   // If score logging is disabled, filter to only show Nerdle games
   if (!scoreLoggingEnabled) {
+    console.log('Score logging disabled, filtering to Nerdle games only');
+    const originalCount = individualGames.length;
     individualGames = individualGames.filter(game => isNerdleGame(game));
+    console.log(`Filtered games from ${originalCount} to ${individualGames.length} Nerdle games`);
+  } else {
+    console.log('Score logging enabled, showing all games');
   }
 
   // Find Nerdle (nerdlegame) game to put it first
