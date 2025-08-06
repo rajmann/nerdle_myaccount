@@ -49,11 +49,19 @@ const BottomTabsLayout = ({ children }) => {
           </div>
         </Header.Left>
         <Header.Right>
-          <Link
-            to="/profile"
-            className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-2">
-            <RiUserSettingsLine size={24} />
-          </Link>
+          <div className="flex items-center gap-3">
+            <span 
+              className="text-sm font-medium text-white"
+              style={{ fontSize: '1.3em' }}
+            >
+              account stats
+            </span>
+            <Link
+              to="/profile"
+              className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-2">
+              <RiUserSettingsLine size={24} />
+            </Link>
+          </div>
         </Header.Right>
       </Header>
       <Drawer isOpen={drawerIsOpen} onClose={onDrawerClose} />
