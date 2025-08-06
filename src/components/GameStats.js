@@ -13,17 +13,17 @@ const GameStats = ({ data }) => {
         <StatCard
           value={data?.points}
           label="Points"
-          numberColor="text-nerdle-green"
+          numberColor="text-nerdle-primary"
         />
         <StatCard
           value={data?.pointsPerGame}
           label="Points/Game"
-          numberColor="text-nerdle-green"
+          numberColor="text-nerdle-primary"
         />
         <StatCard
           value={`${data?.ww >= 0 ? "+" : ""}${data?.ww}`}
           label="Week vs Week"
-          numberColor={data?.ww >= 0 ? "text-green-500" : "text-red-500"}
+          numberColor={data?.ww >= 0 ? "text-nerdle-green" : "text-red-500"}
         />
       </div>
     </div>
