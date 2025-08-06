@@ -140,7 +140,7 @@ const Profile = () => {
         click={deleteAccount}
       />
       <div>
-        <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Profile</h1>
+        <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Profile settings</h1>
         <Photo
           isVerified={isVerified}
           photo={photo}
