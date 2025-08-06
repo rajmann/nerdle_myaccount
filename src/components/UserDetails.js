@@ -1,6 +1,6 @@
 import React from "react";
 
-import raysBackground from "../assets/icons/rays.svg";
+import decorativeBackground from "../assets/images/decorative-elements.svg";
 
 import Avatar from "./Avatar";
 
@@ -8,9 +8,9 @@ const UserDetails = ({ user }) => {
   return (
     <div className="relative my-10 flex items-center">
       <img
-        src={raysBackground}
-        alt="decorativeRays"
-        className="absolute left-1/2 top-1/2 w-32 h-32 -translate-x-1/2 -translate-y-1/2 opacity-30"
+        src={decorativeBackground}
+        alt="decorativeBackground"
+        className="absolute left-0 right-0 -top-8 w-full"
       />
       <div className="relative z-10 flex w-full flex-col items-center justify-center">
         <Avatar
