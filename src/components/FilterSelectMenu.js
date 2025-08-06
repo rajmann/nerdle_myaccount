@@ -11,7 +11,7 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
           <span className="block truncate text-sm font-semibold text-black dark:text-white game-name">
             {value?.label}
           </span>
-          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-600">
+          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-600 dark:text-gray-300">
             <HiSelector className="h-4 w-4" aria-hidden="true" />
           </span>
         </Listbox.Button>
