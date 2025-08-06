@@ -38,7 +38,7 @@ const App = () => {
   const auth = useAuth();
 
   return (
-    <div className="mx-auto h-screen min-w-min max-w-md bg-white shadow-2xl shadow-gray-200">
+    <div className="mx-auto h-screen min-w-min max-w-md bg-white dark:bg-gray-900 shadow-2xl shadow-gray-200 dark:shadow-gray-800">
     {/* <div className="mx-auto h-screen max-h-[-webkit-fill-available] min-w-min max-w-md bg-background shadow-2xl shadow-background"> */}
       <Toaster />
       <Routes>
