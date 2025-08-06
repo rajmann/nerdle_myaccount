@@ -59,7 +59,7 @@ const MyStatistics = () => {
     );
     // Update the label to show "Nerdle" instead of "nerdlegame"
     if (nerdleGame && nerdleGame.label === 'nerdlegame') {
-      nerdleGame.label = 'Nerdle';
+      nerdleGame.label = 'Nerdle (Classic)';
     }
     const otherGames = individualGames.filter(game => 
       game !== nerdleGame
