@@ -109,6 +109,9 @@ const MyStatistics = () => {
 
   const user = React.useMemo(() => ({ ...profile, photo }), [photo, profile]);
 
+  // Debug: Log the gameFilter state
+  console.log('Statistics page - gameFilter:', gameFilter);
+  
   let { data: apiData, mutate: mutateStatistics } = useStatistics({
     game: gameFilter.value,
     date: dateFilter.value,

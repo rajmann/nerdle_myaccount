@@ -5,6 +5,9 @@ export const useStatistics = ({
   date = "This week",
   id,
 } = {}) => {
+  // Debug: Log the API call parameters
+  console.log('useStatistics API call with:', { game, date, id });
+  
   const params = new URLSearchParams();
   params.append("game", game);
   params.append("date", date);
