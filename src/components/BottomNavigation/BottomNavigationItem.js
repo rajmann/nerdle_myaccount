@@ -7,7 +7,7 @@ const BottomNavigationItem = ({ path, icon: Icon, label, onClick }) => {
     <NavLink
       to={path}
       className={({ isActive }) =>
-        `flex flex-1 flex-col items-center justify-center whitespace-nowrap p-2 text-center text-[0.5rem] hover:bg-gray-100 dark:hover:bg-gray-700 ${
+        `flex flex-1 flex-col items-center justify-center whitespace-nowrap p-2 text-center text-[0.5rem] hover:bg-gray-100 dark:hover:bg-[rgb(152,148,132)] ${
           isActive ? "text-nerdle-primary dark:text-white" : "text-gray-600 dark:text-gray-400"
         }`
       }

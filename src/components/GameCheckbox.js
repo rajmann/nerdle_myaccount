@@ -1,7 +1,7 @@
 import React from "react";
 
 const GameCheckbox = React.forwardRef(({ label, ...props }, ref) => (
-  <label className="group flex flex-1 flex-col items-start rounded-lg border border-gray-200 bg-white p-1">
+  <label className="group flex flex-1 flex-col items-start rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-[rgb(152,148,132)] p-1">
     <input
       ref={ref}
       type="checkbox"

@@ -105,7 +105,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
         <h2>Played Today</h2>
       </div>
 
-      <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
+      <div className="h-full rounded-md bg-gray-100 dark:bg-[rgb(152,148,132)] border border-gray-200 dark:border-gray-600 p-4">
         <div className="pr-4">
           {!gamesTodayWithDetails?.length ? (
             <p className="text-sm text-gray-500">No games played today</p>
@@ -135,7 +135,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
       <div className="text-sm font-semibold text-gray-900 dark:text-white mt-3 mb-2">
         <h2>Not Played Today</h2>
       </div>
-      <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
+      <div className="h-full rounded-md bg-gray-100 dark:bg-[rgb(152,148,132)] border border-gray-200 dark:border-gray-600 p-4">
         <div className="pr-4">
           {!allGamesWithRecentlyPlayed?.length ? (
             <p className="text-sm text-gray-500">All games played today</p>

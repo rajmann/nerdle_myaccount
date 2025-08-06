@@ -14,8 +14,8 @@ const BasicLayout = ({ children }) => {
   }, [navigate]);
 
   return (
-    <div className="flex h-screen flex-col bg-white">
-      <Header className="bg-white p-0 px-1">
+    <div className="flex h-screen flex-col bg-white dark:bg-gray-800">
+      <Header className="bg-white dark:bg-gray-800 p-0 px-1">
         <Header.Left>
           {path.pathname !== "/" && (
             <button onClick={goBack} className="p-3 text-nerdle-primary hover:text-nerdle-secondary">
