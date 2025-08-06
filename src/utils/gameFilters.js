@@ -20,8 +20,8 @@ export const getGameFilterOptions = (games, allGamesOption, allNerdleGamesOption
     url: game.url 
   }));
 
-  // If score logging is enabled, filter to only show Nerdle games
-  if (scoreLoggingEnabled) {
+  // If score logging is disabled, filter to only show Nerdle games
+  if (!scoreLoggingEnabled) {
     individualGames = individualGames.filter(game => isNerdleGame(game));
   }
 
@@ -42,8 +42,8 @@ export const getGameFilterOptions = (games, allGamesOption, allNerdleGamesOption
   
   if (nerdleGame) options.push(nerdleGame);
   
-  // Only add "All Games" and "All Nerdle Games" if score logging is disabled
-  if (!scoreLoggingEnabled) {
+  // Only add "All Games" and "All Nerdle Games" if score logging is enabled
+  if (scoreLoggingEnabled) {
     options.push(allGamesOption);
     if (allNerdleGamesOption) {
       options.push(allNerdleGamesOption);

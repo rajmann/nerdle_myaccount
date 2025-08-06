@@ -49,8 +49,8 @@ const AddScore = () => {
     setScore(null);
   }, [setDialogState, setScore]);
 
-  // Don't render the button if score logging is enabled
-  if (scoreLoggingEnabled) {
+  // Show the button only if score logging is enabled (when toggle is ON)
+  if (!scoreLoggingEnabled) {
     return null;
   }
 

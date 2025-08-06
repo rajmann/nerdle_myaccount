@@ -72,6 +72,7 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - Included email verification check like other preference toggles
   - Added toast notifications for user feedback on save/error states
   - Prepared for future backend integration with TODO comments for API calls
+  - **FIXED**: Corrected conditional logic so when toggle is OFF (default): only Nerdle games shown, + button hidden; when ON: all games shown, + button visible
 
 ### 2025-08-06: Header Redesign to Match Nerdle Website
 - **COMPLETED**: Updated header layout to match nerdlegame.com design

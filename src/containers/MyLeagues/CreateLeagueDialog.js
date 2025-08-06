@@ -46,8 +46,8 @@ const CreateLeagueDialog = ({ open, onClose, onSubmit, mutate }) => {
     
     let filteredGames = data;
     
-    // If score logging is enabled, filter to only show Nerdle games
-    if (scoreLoggingEnabled) {
+    // If score logging is disabled, filter to only show Nerdle games
+    if (!scoreLoggingEnabled) {
       filteredGames = filterNerdleGames(data);
     }
     
