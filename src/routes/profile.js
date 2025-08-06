@@ -172,7 +172,7 @@ const Profile = () => {
 
           <div className="flex w-full pb-3 pt-2 text-left text-xs text-black dark:text-white">
             <div className="flex-1">
-              <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400 dark:text-gray-500': 'text-black dark:text-white'}`}>Send me LeaderBoardLe app updates</div>
+              <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400 dark:text-gray-500': 'text-black dark:text-white'}`}>Send me nerdle updates</div>
             </div>
             <div className="flex-none w-14">
               <Switch onColor='#820458' onChange={updatesClicked} checked={updatesOptedInState} />
@@ -207,7 +207,7 @@ const Profile = () => {
         </button>
         <div className="h-px w-full bg-gray-500"></div>
         <button
-          className="w-full py-4 text-left text-xs text-pink-400 underline hover:text-pink-500"
+          className="w-full py-4 text-left text-xs text-black dark:text-white underline hover:text-gray-600 dark:hover:text-gray-300"
           onClick={() => setShowModal(true)}>
           Delete this account
         </button>
