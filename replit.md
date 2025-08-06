@@ -59,6 +59,8 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - **FIXED**: Updated bottom navigation active tab icons to show white in dark mode instead of purple for better visibility
   - **MOVED**: Dark mode toggle relocated from navigation drawer to dedicated /profile page section
   - **UPDATED**: All text on profile page now uses black in light mode and white in dark mode for proper contrast
+  - **UPDATED**: Profile page title changed from "Profile" to "Profile settings"
+  - **UPDATED**: All purple text elements (buttons, links) converted to black/white with proper dark mode support
 
 ### 2025-08-06: Header Redesign to Match Nerdle Website
 - **COMPLETED**: Updated header layout to match nerdlegame.com design
