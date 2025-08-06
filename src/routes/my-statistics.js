@@ -11,6 +11,7 @@ import { useProfile } from "../api/profile";
 import { useProfilePhoto } from "../api/profilePhoto";
 import { useStatistics } from "../api/statistics";
 import { useStatisticsWvw } from "../api/statisticsWvw";
+import EnableNonNerdleDialog from "../components/EnableNonNerdleDialog";
 import GameAndDateFilters from "../components/GameAndDateFilters";
 import GameDiary from "../components/GameDiary";
 import GameStats from "../components/GameStats";
@@ -36,6 +37,7 @@ const MyStatistics = () => {
   // data every 30 seconds.
   const [timestamp, setTimestamp] = useState(Math.floor(new Date().getTime() / 1000));
   const [refresher,] = useOutletContext();
+  const [showEnableNonNerdleDialog, setShowEnableNonNerdleDialog] = useState(false);
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker('My Statistics');
   const auth = useAuth();
@@ -46,7 +48,7 @@ const MyStatistics = () => {
     allNerdleGamesOption: state.allNerdleGamesOption,
     dateFilterOptions: state.dateOptions,
   }));
-  const { scoreLoggingEnabled } = useScoreLoggingStore();
+  const { scoreLoggingEnabled, setScoreLoggingEnabled } = useScoreLoggingStore();
 
   const allGames = React.useMemo(() => games.data?.data, [games.data?.data]);
 
@@ -57,6 +59,26 @@ const MyStatistics = () => {
 
   const { gameFilter, setGameFilter, dateFilter, setDateFilter } =
     useMyStatisticsStore();
+
+  // Handle game filter change with dialog for "All Games" when non-nerdle games disabled
+  const handleGameFilterChange = (newGameFilter) => {
+    if (newGameFilter.value === allGamesOption.value && !scoreLoggingEnabled) {
+      setShowEnableNonNerdleDialog(true);
+      return;
+    }
+    setGameFilter(newGameFilter);
+  };
+
+  const handleEnableNonNerdleConfirm = () => {
+    setScoreLoggingEnabled(true);
+    setGameFilter(allGamesOption);
+    setShowEnableNonNerdleDialog(false);
+    toast.success('Non-nerdle games enabled');
+  };
+
+  const handleEnableNonNerdleCancel = () => {
+    setShowEnableNonNerdleDialog(false);
+  };
 
   // Ensure the Nerdle filter is properly set when games data loads
   React.useEffect(() => {
@@ -226,7 +248,7 @@ const MyStatistics = () => {
       <GameAndDateFilters
         gameFilter={gameFilter}
         gameFilterOptions={gameFilterOptions}
-        onGameFilterChange={onGameFilterChange}
+        onGameFilterChange={handleGameFilterChange}
         dateFilter={dateFilter}
         dateFilterOptions={dateFilterOptions}
         onDateFilterChange={onDateFilterChange}
@@ -237,6 +259,12 @@ const MyStatistics = () => {
         isMultipleGames={gameFilter.value === "all"}
       />
       <GameDiary data={gameDiary} weeklyScoresForSharingData={weeklyScoresForSharingData} />
+      
+      <EnableNonNerdleDialog
+        isOpen={showEnableNonNerdleDialog}
+        onClose={handleEnableNonNerdleCancel}
+        onConfirm={handleEnableNonNerdleConfirm}
+      />
     </div>
   );
 };

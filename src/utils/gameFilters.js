@@ -47,12 +47,10 @@ export const getGameFilterOptions = (games, allGamesOption, allNerdleGamesOption
   
   if (nerdleGame) options.push(nerdleGame);
   
-  // Only add "All Games" and "All Nerdle Games" if score logging is enabled
-  if (scoreLoggingEnabled) {
-    options.push(allGamesOption);
-    if (allNerdleGamesOption) {
-      options.push(allNerdleGamesOption);
-    }
+  // Always add "All Games" and "All Nerdle Games" as these are multi-game filters
+  options.push(allGamesOption);
+  if (allNerdleGamesOption) {
+    options.push(allNerdleGamesOption);
   }
   
   options.push(...otherGames);
