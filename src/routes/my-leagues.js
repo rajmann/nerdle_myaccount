@@ -60,8 +60,8 @@ const MyLeagues = () => {
     const nerdleGame = individualGames.find(game => 
       game.value === 'nerdlegame'
     );
-    // Update the label to show "Nerdle (Classic)" instead of "nerdlegame"
-    if (nerdleGame && nerdleGame.label === 'nerdlegame') {
+    // Update the label to show "Nerdle (Classic)" instead of just "Nerdle"
+    if (nerdleGame) {
       nerdleGame.label = 'Nerdle (Classic)';
     }
     const otherGames = individualGames.filter(game => 
