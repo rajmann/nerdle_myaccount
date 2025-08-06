@@ -77,6 +77,16 @@ const MyStatistics = () => {
   const { gameFilter, setGameFilter, dateFilter, setDateFilter } =
     useMyStatisticsStore();
 
+  // Ensure the Nerdle filter is properly set when games data loads
+  React.useEffect(() => {
+    if (gameFilterOptions.length > 0) {
+      const nerdleOption = gameFilterOptions.find(option => option.value === "classic");
+      if (nerdleOption && gameFilter.value === "classic" && gameFilter.label !== nerdleOption.label) {
+        setGameFilter(nerdleOption);
+      }
+    }
+  }, [gameFilterOptions, gameFilter, setGameFilter]);
+
   const onGameFilterChange = React.useCallback(
     (value) => {
       const option = gameFilterOptions.find((option) => option.value === value);
