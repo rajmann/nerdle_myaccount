@@ -26,6 +26,7 @@ const Profile = () => {
   const { data: photo, ...photoResponse } = useProfilePhoto();
   const [updatesOptedInState, setUpdatesOptedInState] = React.useState(false);
   const [marketingOptedInState, setMarketingOptedInState] = React.useState(false);
+  const [scoreLoggingOptedInState, setScoreLoggingOptedInState] = React.useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [showModal, setShowModal] = React.useState(false);
@@ -43,6 +44,17 @@ const Profile = () => {
     const marketingOptIn = data ? data.marketingOptIn === 0 ? false: true: false;
     setMarketingOptedInState(marketingOptIn);
   }, [data]);
+
+  React.useEffect(() =>
+  {
+    // Check URL parameter for lbl=true
+    const urlParams = new URLSearchParams(window.location.search);
+    const lblParam = urlParams.get('lbl');
+    if (lblParam === 'true') {
+      setScoreLoggingOptedInState(true);
+    }
+    // TODO: Load from user preferences/API when backend support is added
+  }, []);
 
 
   const isVerified = React.useMemo(() =>
@@ -97,6 +109,23 @@ const Profile = () => {
     }
 
   }, [executeUpdateMarketingPreferences, marketingOptedInState, isVerified]);
+
+  const scoreLoggingClicked = React.useCallback(async () => {
+    if(!isVerified)
+    {
+      toast.error("Please verify your email first!");
+      return;
+    }
+    try {
+      const newScoreLoggingOptedInState = !scoreLoggingOptedInState;
+      setScoreLoggingOptedInState(newScoreLoggingOptedInState);
+      // TODO: Add API call to save score logging preference when backend support is added
+      toast.success("Saved!");
+    } catch (e) {
+      console.log(e);
+      toast.error("Cannot update preference. Please try again.");
+    }
+  }, [scoreLoggingOptedInState, isVerified]);
 
   const onChangePassword = React.useCallback(() => {
     navigate("../change-password");
@@ -161,6 +190,15 @@ const Profile = () => {
         {(data?.email !== undefined) && (
         <>
           <div className="h-px w-full bg-gray-500"></div>
+          <div className="flex w-full pt-4 text-left text-xs text-black dark:text-white">
+            <div className="flex-1">
+              <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400 dark:text-gray-500': 'text-black dark:text-white'}`}>Enable score logging for non-nerdle games</div>
+            </div>
+            <div className="flex-none w-14">
+              <Switch onColor='#820458' onChange={scoreLoggingClicked} checked={scoreLoggingOptedInState} />
+            </div>
+          </div>
+
           <div className="flex w-full pt-4 text-left text-xs text-black dark:text-white">
             <div className="flex-1">
               <div className={`w-100 pt-2 ${(!isVerified) ? 'text-gray-400 dark:text-gray-500': 'text-black dark:text-white'}`}>Send me marketing emails</div>
