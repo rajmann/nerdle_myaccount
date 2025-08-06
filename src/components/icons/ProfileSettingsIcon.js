@@ -13,15 +13,13 @@ const ProfileSettingsIcon = (props) => (
     height={24}
     {...props}
   >
-    {/* User head profile */}
-    <path d="M3 20c0-4.4 3.6-8 8-8v8H3z"/>
-    <circle cx="11" cy="8" r="5"/>
+    {/* Cogwheel head */}
+    <circle cx="12" cy="8" r="3"/>
+    <path d="M12 2l1 2h2l-1 1.5L15 8l-1.5-1L12 8l-1.5-1L9 8l1-2.5L9 4h2l1-2z"/>
+    <path d="M8.5 6L10 4.5M15.5 6L14 4.5M8.5 10L10 11.5M15.5 10L14 11.5"/>
     
-    {/* Settings cogwheel - positioned to the right */}
-    <path d="M14 12h1.5l.5-1.5.5 1.5H18l-1 1 .5 1.5-1.5-1-1.5 1L15 13l-1-1z"/>
-    <circle cx="16.5" cy="13" r="2.5"/>
-    <path d="M19 10.5v5M14 10.5v5"/>
-    <path d="M16.5 8v2M16.5 16v2"/>
+    {/* Body/shoulders */}
+    <path d="M12 14c-3.31 0-6 2.02-6 4.5V22h12v-3.5c0-2.48-2.69-4.5-6-4.5z"/>
   </svg>
 );
 
