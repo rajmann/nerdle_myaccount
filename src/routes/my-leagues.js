@@ -58,8 +58,12 @@ const MyLeagues = () => {
     
     // Find Nerdle (classic) game to put it first
     const nerdleGame = individualGames.find(game => 
-      game.value === 'classic' || game.label.toLowerCase().includes('classic')
+      game.value === 'classic'
     );
+    // Update the label to show "Nerdle" instead of "classic"
+    if (nerdleGame && nerdleGame.label === 'classic') {
+      nerdleGame.label = 'Nerdle';
+    }
     const otherGames = individualGames.filter(game => 
       game !== nerdleGame
     );

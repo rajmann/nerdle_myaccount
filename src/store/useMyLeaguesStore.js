@@ -1,7 +1,7 @@
 import create from "zustand";
 
 const useMyLeaguesStore = create((set) => ({
-  gameFilter: { label: "classic", value: "classic" },
+  gameFilter: { label: "Nerdle", value: "classic" },
   setGameFilter: (gameFilter) => set(() => ({ gameFilter })),
   dateFilter: { label: "This week", value: "This week" },
   setDateFilter: (dateFilter) => set(() => ({ dateFilter })),
