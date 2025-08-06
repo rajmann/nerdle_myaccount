@@ -35,7 +35,7 @@ const LeagueList = ({ leagues, isValidating }) => {
             index={1}
             nameAlternative='This could be you!'
           />
-          <p className='text-gray-700 text-center text-sm mt-10 px-8 mb-20'>Leagues (for 1 to 50 people) allow you to compare your scores with friends.<br/><br/>Create your own league here or join someone else's once they share their league code.</p>
+          <p className='text-gray-700 dark:text-gray-300 text-center text-sm mt-10 px-8 mb-20'>Leagues (for 1 to 50 people) allow you to compare your scores with friends.<br/><br/>Create your own league here or join someone else's once they share their league code.</p>
         </div>
       </div>)
     }
@@ -90,19 +90,19 @@ const LeagueList = ({ leagues, isValidating }) => {
           <Link
             key={league.ID}
             to={String(league.ID)}
-            className="flex min-w-fit items-center justify-between gap-4 rounded-lg bg-white border-2 border-gray-200 p-4 ring-nerdle-primary hover:ring-2 hover:border-nerdle-primary/20 transition-all duration-200 shadow-sm">
+            className="flex min-w-fit items-center justify-between gap-4 rounded-lg bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-gray-600 p-4 ring-nerdle-primary hover:ring-2 hover:border-nerdle-primary/20 transition-all duration-200 shadow-sm">
             <div className="flex-1 truncate">
               <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
                 {league.details.title}
               </h4>
               <div>
-                <span className="text-xs font-light text-gray-600">
+                <span className="text-xs font-light text-gray-600 dark:text-gray-300">
                   {league.members?.length || 0} members •
                 </span>
                 {userAdmin && (
                   <button
                     onClick={(e) => handleManageClick(e, league.ID)}
-                    className="mx-1 text-xs text-nerdle-primary underline hover:text-nerdle-secondary">
+                    className="mx-1 text-xs text-black dark:text-white underline hover:text-gray-600 dark:hover:text-gray-300">
                     Manage
                   </button>
                 )}
