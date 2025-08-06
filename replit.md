@@ -35,6 +35,13 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - Changed light purple (#8D77B3) to Nerdle purple (#820458)  
   - Applied changes to both main and legacy GameChart components
   - Ensures maximum value bars show in Nerdle green, other bars in Nerdle purple
+  - Updated orange text in statistics to use Nerdle green for Points/Points per Game
+
+### 2025-08-06: Favicon and Icon Updates
+- **COMPLETED**: Updated favicon to use Nerdle logo
+  - Replaced all favicon files (16x16, 32x32, 192x192, 512x512, apple-touch-icon) with Nerdle branding
+  - Updated site.webmanifest to reference correct icon files
+  - Created proper ICO file for cross-browser compatibility
 
 ## User Preferences
 
