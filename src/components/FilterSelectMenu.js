@@ -27,7 +27,7 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
                 key={index}
                 className={({ active }) =>
                   `relative select-none py-2 px-8 pl-8 text-sm ${
-                    active ? "bg-nerdle-primary/10 text-nerdle-primary" : "text-gray-900 dark:text-white"
+                    active ? "bg-nerdle-primary/10 text-gray-900 dark:text-white font-bold" : "text-gray-900 dark:text-white"
                   }`
                 }
                 value={option?.value}
@@ -42,7 +42,7 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
                       {option?.label}
                     </span>
                     {selected ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-2 text-nerdle-primary">
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-900 dark:text-white">
                         <HiCheck className="h-5 w-5" aria-hidden="true" />
                       </span>
                     ) : null}
