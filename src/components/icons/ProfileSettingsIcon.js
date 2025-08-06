@@ -6,22 +6,22 @@ const ProfileSettingsIcon = (props) => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth={2}
+    strokeWidth={1.5}
     strokeLinecap="round"
     strokeLinejoin="round"
     width={24}
     height={24}
     {...props}
   >
-    {/* User circle icon */}
-    <circle cx="7" cy="7" r="4"/>
-    <path d="M2 21v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/>
+    {/* User head profile */}
+    <path d="M3 20c0-4.4 3.6-8 8-8v8H3z"/>
+    <circle cx="11" cy="8" r="5"/>
     
-    {/* Settings cogwheel */}
-    <circle cx="18" cy="12" r="3"/>
-    <path d="m19.4 15-1.4-1.4m0-2.2 1.4-1.4m-2.8 0L18 8.6m2.8 2.8L18 12.8"/>
-    <path d="M15.7 13.5 18 12l2.3 1.5"/>
-    <path d="M15.7 10.5 18 12l2.3-1.5"/>
+    {/* Settings cogwheel - positioned to the right */}
+    <path d="M14 12h1.5l.5-1.5.5 1.5H18l-1 1 .5 1.5-1.5-1-1.5 1L15 13l-1-1z"/>
+    <circle cx="16.5" cy="13" r="2.5"/>
+    <path d="M19 10.5v5M14 10.5v5"/>
+    <path d="M16.5 8v2M16.5 16v2"/>
   </svg>
 );
 
