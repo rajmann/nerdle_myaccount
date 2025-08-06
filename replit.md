@@ -29,6 +29,13 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - Fixed initial load issue where statistics showed 0 games despite recent play
   - **CRITICAL FIX**: Corrected API parameter from "classic" to "nerdlegame" for proper Nerdle data loading
 
+### 2025-08-06: Chart Color Scheme Updates
+- **COMPLETED**: Updated bar chart colors to match Nerdle branding
+  - Changed orange highlights (#F4900C) to Nerdle green (#398874)
+  - Changed light purple (#8D77B3) to Nerdle purple (#820458)  
+  - Applied changes to both main and legacy GameChart components
+  - Ensures maximum value bars show in Nerdle green, other bars in Nerdle purple
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.

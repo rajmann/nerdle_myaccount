@@ -41,12 +41,7 @@ const AllGames = () => {
 
   const { data: photo} = useProfilePhoto();
 
-  const user = React.useMemo(() => {
-    if (profile) {
-      console.log('Profile data:', profile);
-    }
-    return { ...profile, photo };
-  }, [photo, profile]);
+  const user = React.useMemo(() => ({ ...profile, photo }), [photo, profile]);
 
   let { data: apiData, mutate: mutateStatistics } = useStatistics({
     game: gameFilter.value,

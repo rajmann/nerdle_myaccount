@@ -49,7 +49,7 @@ const GameChart = ({ data }) => {
           {dataWithPercentage.map((entry, index) => (
             <Cell
               key={`cell-${index}`}
-              fill={entry.percentage === maxValue ? "#F4900C" : "#8D77B3"}
+              fill={entry.percentage === maxValue ? "#398874" : "#820458"}
             />
           ))}
         </Bar>
