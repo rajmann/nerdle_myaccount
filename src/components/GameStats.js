@@ -9,7 +9,7 @@ const GameStats = ({ data }) => {
       <div className="grid grid-cols-3 gap-2">
         <StatCard value={data?.played} label="Played" />
         <StatCard value={data?.won} label="Won" />
-        <StatCard value={data?.winPercentage} label="Win %" />
+        <StatCard value={data?.winPercentage} label="% of Games Played" />
         <StatCard
           value={data?.points}
           label="Points"
