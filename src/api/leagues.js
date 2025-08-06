@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-export const useLeagues = ({ game, date } = {}) => {
+export const useLeagues = ({ game = "classic", date = "This week" } = {}) => {
   const params = new URLSearchParams();
   params.append("game", game);
   params.append("date", date);

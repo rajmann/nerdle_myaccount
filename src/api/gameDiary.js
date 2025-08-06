@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-export const useGameDiary = ({ game = "all", date = "This week", id }) => {
+export const useGameDiary = ({ game = "classic", date = "This week", id }) => {
   const params = new URLSearchParams();
   params.append("game", game);
   params.append("date", date);
