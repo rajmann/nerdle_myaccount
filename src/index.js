@@ -10,7 +10,7 @@ import swrConfig from "./lib/swrConfig";
 import reportWebVitals from "./reportWebVitals";
 
 import "@fontsource/inter/variable.css";
-import "@fontsource/quicksand";
+import "@fontsource/quicksand/300.css"; // Light weight
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
