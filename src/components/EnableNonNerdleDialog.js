@@ -5,7 +5,7 @@ import Button from './Button';
 
 const EnableNonNerdleDialog = ({ isOpen, onClose, onConfirm }) => {
   return (
-    <BaseDialog isOpen={isOpen} onClose={onClose}>
+    <BaseDialog open={isOpen} closeDialog={onClose}>
       <div className="p-6">
         <h3 className="text-lg font-medium text-black dark:text-white mb-4">
           Enable Non-Nerdle Games
