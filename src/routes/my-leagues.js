@@ -52,11 +52,22 @@ const MyLeagues = () => {
 
   const gameFilterOptions = React.useMemo(() => {
     const data = games.data?.data;
+    const individualGames = Array.isArray(data)
+      ? data.map((game) => ({ label: game.name, value: game.value }))
+      : [];
+    
+    // Find Nerdle (classic) game to put it first
+    const nerdleGame = individualGames.find(game => 
+      game.value === 'classic' || game.label.toLowerCase().includes('classic')
+    );
+    const otherGames = individualGames.filter(game => 
+      game !== nerdleGame
+    );
+    
     const options = [
+      ...(nerdleGame ? [nerdleGame] : []),
       allGamesOption,
-      ...(Array.isArray(data)
-        ? data.map((game) => ({ label: game.name, value: game.value }))
-        : []),
+      ...otherGames,
     ];
     return options;
   }, [allGamesOption, games.data?.data]);
