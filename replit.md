@@ -69,6 +69,7 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - Removed transparency from decorative elements behind profile pictures
   - **UPDATED**: Applied Nerdle website fonts - Quicksand for "nerdle" and Times New Roman for the period
   - **UPDATED**: Replaced custom profile icon with professional Heroicons settings icon
+  - **UPDATED**: Replaced Nerdle logo with official transparent version from nerdlegame.com
 
 ## User Preferences
 

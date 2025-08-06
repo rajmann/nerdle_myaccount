@@ -1,6 +1,6 @@
 import React from "react";
 
-import nerdleLogo from "../assets/images/nerdle-logo.png";
+import nerdleLogo from "../assets/images/nerdle-logo-transparent.png";
 
 const NerdleLogo = () => {
   return (
