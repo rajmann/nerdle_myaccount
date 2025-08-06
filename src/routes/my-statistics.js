@@ -63,13 +63,13 @@ const MyStatistics = () => {
     }
     const otherGames = individualGames.filter(game => 
       game !== nerdleGame
-    );
+    ).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
     
     const options = [
       ...(nerdleGame ? [nerdleGame] : []),
       allGamesOption,
       allNerdleGamesOption,
-      ...otherGames.filter(game => game !== nerdleGame),
+      ...otherGames,
     ];
     return options;
   }, [allGamesOption, allNerdleGamesOption, games.data?.data]);

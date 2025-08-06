@@ -120,7 +120,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                       href={url + "?external=true"}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-sm text-violet-400 underline underline-offset-2">
+                      className="text-sm text-violet-400 underline underline-offset-2 game-name">
                       {name}
                     </a>
                     <p className="text-sm text-gray-900">{calculatedScore}</p>
@@ -151,7 +151,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                     href={url + "?external=true"}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-sm text-violet-400 underline underline-offset-2">
+                    className="text-sm text-violet-400 underline underline-offset-2 game-name">
                     {name}
                   </a>
                 </div>

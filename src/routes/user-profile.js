@@ -30,12 +30,14 @@ const UserProfile = () => {
 
   const gameFilterOptions = React.useMemo(() => {
     const data = games.data?.data;
+    const individualGames = Array.isArray(data)
+      ? data.map((game) => ({ label: game.name, value: game.value }))
+        .sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
+      : [];
     const options = [
       allGamesOption,
       allNerdleGamesOption,
-      ...(Array.isArray(data)
-        ? data.map((game) => ({ label: game.name, value: game.value }))
-        : []),
+      ...individualGames,
     ];
     return options;
   }, [allGamesOption, allNerdleGamesOption, games.data?.data]);

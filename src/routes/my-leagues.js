@@ -66,7 +66,7 @@ const MyLeagues = () => {
     }
     const otherGames = individualGames.filter(game => 
       game !== nerdleGame
-    );
+    ).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
     
     const options = [
       ...(nerdleGame ? [nerdleGame] : []),
