@@ -13,6 +13,8 @@ import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from '../lib/useAnalyticsEventTracker';
 import useMyLeaguesStore from "../store/useMyLeaguesStore";
 import useOptionsStore from "../store/useOptionsStore";
+import useScoreLoggingStore from "../store/useScoreLoggingStore";
+import { getGameFilterOptions } from "../utils/gameFilters";
 
 const MyLeagues = () => {
   const games = useGames();
@@ -45,36 +47,17 @@ const MyLeagues = () => {
     }
   }, [isUsingApp, gaEventTracker, firstTimeLoaded]);
 
-  const { allGamesOption, dateFilterOptions } = useOptionsStore((state) => ({
+  const { allGamesOption, allNerdleGamesOption, dateFilterOptions } = useOptionsStore((state) => ({
     allGamesOption: state.allGamesOption,
+    allNerdleGamesOption: state.allNerdleGamesOption,
     dateFilterOptions: state.dateOptions,
   }));
+  const { scoreLoggingEnabled } = useScoreLoggingStore();
 
   const gameFilterOptions = React.useMemo(() => {
     const data = games.data?.data;
-    const individualGames = Array.isArray(data)
-      ? data.map((game) => ({ label: game.name, value: game.value }))
-      : [];
-    
-    // Find Nerdle (nerdlegame) game to put it first
-    const nerdleGame = individualGames.find(game => 
-      game.value === 'nerdlegame'
-    );
-    // Update the label to show "Nerdle (Classic)" instead of just "Nerdle"
-    if (nerdleGame) {
-      nerdleGame.label = 'Nerdle (Classic)';
-    }
-    const otherGames = individualGames.filter(game => 
-      game !== nerdleGame
-    ).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
-    
-    const options = [
-      ...(nerdleGame ? [nerdleGame] : []),
-      allGamesOption,
-      ...otherGames,
-    ];
-    return options;
-  }, [allGamesOption, games.data?.data]);
+    return getGameFilterOptions(data, allGamesOption, allNerdleGamesOption, scoreLoggingEnabled);
+  }, [allGamesOption, allNerdleGamesOption, games.data?.data, scoreLoggingEnabled]);
 
   const { gameFilter, setGameFilter, dateFilter, setDateFilter } =
     useMyLeaguesStore();

@@ -17,6 +17,7 @@ import Name from "../containers/Profile/Name";
 import Photo from "../containers/Profile/Photo";
 import useAuth from "../hooks/useAuth";
 import useDarkMode from "../hooks/useDarkMode";
+import useScoreLoggingStore from "../store/useScoreLoggingStore";
 
 
 const Profile = () => {
@@ -28,6 +29,7 @@ const Profile = () => {
   const [marketingOptedInState, setMarketingOptedInState] = React.useState(false);
   const [scoreLoggingOptedInState, setScoreLoggingOptedInState] = React.useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { setScoreLoggingEnabled } = useScoreLoggingStore();
 
   const [showModal, setShowModal] = React.useState(false);
   
@@ -52,9 +54,10 @@ const Profile = () => {
     const lblParam = urlParams.get('lbl');
     if (lblParam === 'true') {
       setScoreLoggingOptedInState(true);
+      setScoreLoggingEnabled(true);
     }
     // TODO: Load from user preferences/API when backend support is added
-  }, []);
+  }, [setScoreLoggingEnabled]);
 
 
   const isVerified = React.useMemo(() =>
@@ -119,13 +122,14 @@ const Profile = () => {
     try {
       const newScoreLoggingOptedInState = !scoreLoggingOptedInState;
       setScoreLoggingOptedInState(newScoreLoggingOptedInState);
+      setScoreLoggingEnabled(newScoreLoggingOptedInState);
       // TODO: Add API call to save score logging preference when backend support is added
       toast.success("Saved!");
     } catch (e) {
       console.log(e);
       toast.error("Cannot update preference. Please try again.");
     }
-  }, [scoreLoggingOptedInState, isVerified]);
+  }, [scoreLoggingOptedInState, isVerified, setScoreLoggingEnabled]);
 
   const onChangePassword = React.useCallback(() => {
     navigate("../change-password");

@@ -3,6 +3,7 @@ import React from "react";
 import { MdAdd } from "react-icons/md";
 
 import useAddScoreStore, { dialogStates } from "../../store/useAddScoreStore";
+import useScoreLoggingStore from "../../store/useScoreLoggingStore";
 
 import AddScoreDialog from "./AddScoreDialog";
 import OverwriteScoreDialog from "./OverwriteScoreDialog";
@@ -10,6 +11,7 @@ import ScoreAddedDialog from "./ScoreAddedDialog";
 
 const AddScore = () => {
   const { dialogState, setDialogState, score, setScore } = useAddScoreStore();
+  const { scoreLoggingEnabled } = useScoreLoggingStore();
 
   const addScoreDialogCallback = React.useCallback(
     (data) => {
@@ -46,6 +48,11 @@ const AddScore = () => {
     setDialogState(dialogStates.closed);
     setScore(null);
   }, [setDialogState, setScore]);
+
+  // Don't render the button if score logging is enabled
+  if (scoreLoggingEnabled) {
+    return null;
+  }
 
   return (
     <>

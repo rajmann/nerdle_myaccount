@@ -16,6 +16,8 @@ import ScoreDistribution from "../components/ScoreDistribution";
 import Spinner from "../components/Spinner";
 import UserDetails from "../components/UserDetails";
 import useOptionsStore from "../store/useOptionsStore";
+import useScoreLoggingStore from "../store/useScoreLoggingStore";
+import { getGameFilterOptions } from "../utils/gameFilters";
 
 const UserProfile = () => {
   const games = useGames();
@@ -25,22 +27,14 @@ const UserProfile = () => {
     allNerdleGamesOption: state.allNerdleGamesOption,
     dateFilterOptions: state.dateOptions,
   }));
+  const { scoreLoggingEnabled } = useScoreLoggingStore();
 
   const allGames = React.useMemo(() => games.data?.data, [games.data?.data]);
 
   const gameFilterOptions = React.useMemo(() => {
     const data = games.data?.data;
-    const individualGames = Array.isArray(data)
-      ? data.map((game) => ({ label: game.name, value: game.value }))
-        .sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
-      : [];
-    const options = [
-      allGamesOption,
-      allNerdleGamesOption,
-      ...individualGames,
-    ];
-    return options;
-  }, [allGamesOption, allNerdleGamesOption, games.data?.data]);
+    return getGameFilterOptions(data, allGamesOption, allNerdleGamesOption, scoreLoggingEnabled);
+  }, [allGamesOption, allNerdleGamesOption, games.data?.data, scoreLoggingEnabled]);
 
   const [gameFilter, setGameFilter] = React.useState(allGamesOption);
   const [dateFilter, setDateFilter] = React.useState(dateFilterOptions[0]);

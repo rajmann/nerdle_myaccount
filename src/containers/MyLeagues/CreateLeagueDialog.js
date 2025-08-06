@@ -14,6 +14,8 @@ import GameCheckbox from "../../components/GameCheckbox";
 // import RadioButton from "../../components/RadioButton";
 import Spinner from "../../components/Spinner";
 // import useOptionsStore from "../../store/useOptionsStore";
+import useScoreLoggingStore from "../../store/useScoreLoggingStore";
+import { filterNerdleGames } from "../../utils/gameFilters";
 
 const schema = yup
   .object({
@@ -36,13 +38,21 @@ const schema = yup
 
 const CreateLeagueDialog = ({ open, onClose, onSubmit, mutate }) => {
   const games = useGames();
+  const { scoreLoggingEnabled } = useScoreLoggingStore();
 
   const gameOptions = React.useMemo(() => {
     const data = games.data?.data;
-    return Array.isArray(data)
-      ? data.map((game) => ({ label: game.name, value: game.value }))
-      : [];
-  }, [games.data?.data]);
+    if (!Array.isArray(data)) return [];
+    
+    let filteredGames = data;
+    
+    // If score logging is enabled, filter to only show Nerdle games
+    if (scoreLoggingEnabled) {
+      filteredGames = filterNerdleGames(data);
+    }
+    
+    return filteredGames.map((game) => ({ label: game.name, value: game.value }));
+  }, [games.data?.data, scoreLoggingEnabled]);
 
   // const scoringSystems = useOptionsStore((state) => state.scoringSystems);
 
