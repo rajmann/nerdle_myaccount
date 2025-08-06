@@ -134,3 +134,12 @@
   font-weight: 300; /* Light weight */
   text-transform: lowercase;
 }
+
+/* Ensure game links always use nerdle purple color */
+.text-nerdle-primary {
+  color: var(--nerdle-primary) !important;
+}
+
+.text-nerdle-primary:visited {
+  color: var(--nerdle-primary) !important;
+}
