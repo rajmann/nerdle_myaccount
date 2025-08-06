@@ -17,11 +17,11 @@ const BottomNavigationItem = ({ path, icon: Icon, label, onClick }) => {
       {({ isActive }) => (
         <>
           <Icon 
-            className={
+            className={`h-6 w-6 ${
               isActive 
                 ? "text-nerdle-primary dark:!text-white" 
                 : "text-gray-600 dark:text-gray-400"
-            } 
+            }`} 
             style={{ color: 'inherit' }}
           />
           {label}
