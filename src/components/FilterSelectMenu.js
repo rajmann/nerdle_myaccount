@@ -8,7 +8,7 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
     <Listbox value={value} onChange={onChange}>
       <div className="relative">
         <Listbox.Button className="relative w-full rounded-lg py-1 px-2 pr-8 text-nerdle-primary hover:text-nerdle-secondary">
-          <span className="block truncate text-sm font-semibold game-name">
+          <span className="block truncate text-sm font-semibold text-black dark:text-white game-name">
             {value?.label}
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-600">
@@ -21,7 +21,7 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute z-50 mt-1 max-h-60 overflow-auto rounded-md bg-white border border-gray-200 py-1 shadow-lg">
+          <Listbox.Options className="absolute z-50 mt-1 max-h-60 overflow-auto rounded-md bg-white dark:bg-slate-700 border border-gray-200 dark:border-gray-600 py-1 shadow-lg">
             {options.map((option, index) => (
               <Listbox.Option
                 key={index}

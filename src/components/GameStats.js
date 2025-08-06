@@ -5,7 +5,7 @@ import StatCard from "./StatCard";
 const GameStats = ({ data }) => {
   return (
     <div className="mt-7">
-      <h2 className="mb-2 font-semibold text-gray-900 dark:text-white">My Stats</h2>
+      <h2 className="mb-2 font-semibold text-gray-900">My Stats</h2>
       <div className="grid grid-cols-3 gap-2">
         <StatCard value={data?.played} label="Played" />
         <StatCard value={data?.won} label="Won" />
@@ -13,12 +13,10 @@ const GameStats = ({ data }) => {
         <StatCard
           value={data?.points}
           label="Points"
-          numberColor="text-nerdle-primary"
         />
         <StatCard
           value={data?.pointsPerGame}
           label="Points/Game"
-          numberColor="text-nerdle-primary"
         />
         <StatCard
           value={`${data?.ww >= 0 ? "+" : ""}${data?.ww}`}

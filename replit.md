@@ -54,6 +54,8 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - **FIXED**: Added `darkMode: 'class'` to Tailwind config for proper class-based dark mode support
   - **FIXED**: Enhanced dark mode state management to ensure consistent behavior across environments
   - **FIXED**: Updated all grey boxes and hover states to use slate-700 (lighter version of dark background) instead of custom rgb color for better consistency
+  - **FIXED**: Updated game name text colors to use black in light mode and white in dark mode for better readability
+  - **FIXED**: Added dark background (slate-700) to dropdown menus in dark mode
 
 ## User Preferences
 

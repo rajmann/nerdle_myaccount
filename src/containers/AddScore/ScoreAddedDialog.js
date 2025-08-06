@@ -29,7 +29,7 @@ const ScoreAddedDialog = ({ open, onClose, callback, score }) => {
         <h2 className="mt-4 text-xl font-semibold">Score Added!</h2>
         <p className="mt-2 text-sm">
           Your score for{" "}
-          <span className="font-semibold game-name">
+          <span className="font-semibold text-black dark:text-white game-name">
             {score?.gameName}
           </span> on{" "}
           <span className="font-semibold">{date}</span> has been successfully
