@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
 export const useStatisticsWvw = ({
-  game = "classic",
+  game = "nerdlegame",
   date = "This week",
   id,
 } = {}) => {

@@ -56,12 +56,12 @@ const MyLeagues = () => {
       ? data.map((game) => ({ label: game.name, value: game.value }))
       : [];
     
-    // Find Nerdle (classic) game to put it first
+    // Find Nerdle (nerdlegame) game to put it first
     const nerdleGame = individualGames.find(game => 
-      game.value === 'classic'
+      game.value === 'nerdlegame'
     );
-    // Update the label to show "Nerdle" instead of "classic"
-    if (nerdleGame && nerdleGame.label === 'classic') {
+    // Update the label to show "Nerdle" instead of "nerdlegame"
+    if (nerdleGame && nerdleGame.label === 'nerdlegame') {
       nerdleGame.label = 'Nerdle';
     }
     const otherGames = individualGames.filter(game => 
@@ -82,8 +82,8 @@ const MyLeagues = () => {
   // Ensure the Nerdle filter is properly set when games data loads
   React.useEffect(() => {
     if (gameFilterOptions.length > 0) {
-      const nerdleOption = gameFilterOptions.find(option => option.value === "classic");
-      if (nerdleOption && gameFilter.value === "classic" && gameFilter.label !== nerdleOption.label) {
+      const nerdleOption = gameFilterOptions.find(option => option.value === "nerdlegame");
+      if (nerdleOption && gameFilter.value === "nerdlegame" && gameFilter.label !== nerdleOption.label) {
         setGameFilter(nerdleOption);
       }
     }

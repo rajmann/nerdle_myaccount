@@ -1,12 +1,11 @@
 import useSWR from "swr";
 
 export const useStatistics = ({
-  game = "classic",
+  game = "nerdlegame",
   date = "This week",
   id,
 } = {}) => {
-  // Debug: Log the API call parameters
-  console.log('useStatistics API call with:', { game, date, id });
+
   
   const params = new URLSearchParams();
   params.append("game", game);

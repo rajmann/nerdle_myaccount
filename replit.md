@@ -22,11 +22,12 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
 
 ### 2025-08-06: Game Filter UX Improvements
 - **COMPLETED**: Updated games filter dropdown to prioritize Nerdle
-  - Changed default game selection from "All Games" to "Nerdle" (classic)
-  - Reordered dropdown options to show "Nerdle" first
-  - Updated all API hooks to default to "classic" game parameter
+  - Changed default game selection from "All Games" to "Nerdle" (nerdlegame)
+  - Reordered dropdown options to show "Nerdle" first  
+  - Updated all API hooks to default to "nerdlegame" game parameter (fixed from "classic")
   - Modified game filter logic in statistics and leagues components
   - Fixed initial load issue where statistics showed 0 games despite recent play
+  - **CRITICAL FIX**: Corrected API parameter from "classic" to "nerdlegame" for proper Nerdle data loading
 
 ## User Preferences
 
