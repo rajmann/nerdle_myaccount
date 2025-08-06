@@ -6,15 +6,13 @@ import { Link } from "react-router-dom";
 
 import NerdleLogo from "../assets/images/nerdle-logo.png";
 import useAuth from "../hooks/useAuth";
-import useDarkMode from "../hooks/useDarkMode";
+
 import useAddScoreStore, { dialogStates } from "../store/useAddScoreStore";
 
 import LeagueIcon from "./icons/LeagueIcon";
 import LogoutIcon from "./icons/LogoutIcon";
-import MoonIcon from "./icons/MoonIcon";
 import ProfileIcon from "./icons/ProfileIcon";
 import StatisticsIcon from "./icons/StatisticsIcon";
-import SunIcon from "./icons/SunIcon";
 
 const pages = [
   {
@@ -53,7 +51,7 @@ const externalPages = [
 const Drawer = ({ isOpen, onClose }) => {
   const { setDialogState } = useAddScoreStore();
   const { isPWA } = useAuth();
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
 
   const auth = useAuth();
 
@@ -109,14 +107,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 Sign Out
               </Link>
             </li>
-          <li key={"darkmode"} className="flex">
-            <button
-              onClick={toggleDarkMode}
-              className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-[slate-700]">
-              {isDarkMode ? <SunIcon /> : <MoonIcon />}
-              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-            </button>
-          </li>
+
           <div className="h-8" />
           {externalPages.map((page) => (
             <li key={page.label} onClick={onClose} className="flex">

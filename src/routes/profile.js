@@ -9,11 +9,14 @@ import { useProfile } from "../api/profile";
 import { useProfilePhoto } from "../api/profilePhoto";
 import { useUpdateMarketingPreferences } from "../api/updateMarketingPreferences";
 import ConfirmationDialog from "../components/ConfirmationDialog";
+import MoonIcon from "../components/icons/MoonIcon";
 import Spinner from "../components/Spinner";
+import SunIcon from "../components/icons/SunIcon";
 import Email from "../containers/Profile/Email";
 import Name from "../containers/Profile/Name";
 import Photo from "../containers/Profile/Photo";
 import useAuth from "../hooks/useAuth";
+import useDarkMode from "../hooks/useDarkMode";
 
 
 const Profile = () => {
@@ -23,6 +26,7 @@ const Profile = () => {
   const { data: photo, ...photoResponse } = useProfilePhoto();
   const [updatesOptedInState, setUpdatesOptedInState] = React.useState(false);
   const [marketingOptedInState, setMarketingOptedInState] = React.useState(false);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [showModal, setShowModal] = React.useState(false);
   
@@ -175,6 +179,20 @@ const Profile = () => {
             </div>
           </div>
         </>)}
+        <div className="h-px w-full bg-gray-500"></div>
+        <div className="flex w-full py-4 text-left">
+          <div className="flex-1">
+            <div className="text-xs text-gray-700 dark:text-gray-300">Theme</div>
+          </div>
+          <div className="flex-none">
+            <button
+              onClick={toggleDarkMode}
+              className="flex items-center gap-2 text-xs text-nerdle-primary hover:text-nerdle-secondary">
+              {isDarkMode ? <SunIcon className="w-4 h-4" /> : <MoonIcon className="w-4 h-4" />}
+              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
+          </div>
+        </div>
         <div className="h-px w-full bg-gray-500"></div>
         <button
           onClick={onChangePassword}
