@@ -177,7 +177,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         </div>
       </div>
 
-      <div className="text-sm font-semibold text-gray-900 mt-3 mb-2">
+      <div className="text-sm font-semibold text-gray-900 dark:text-white mt-3 mb-2">
         <h2>Not Played Today</h2>
       </div>
       <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">
@@ -205,7 +205,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
       </div>
  */}
 
-      <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-semibold text-gray-900">
+      <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-semibold text-gray-900 dark:text-white">
         <div className="flex justify-between">
           <h2>Played Today</h2>
         </div>
@@ -230,7 +230,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         className="text-sm text-nerdle-primary underline underline-offset-2 game-name">
                         {name}
                       </a>
-                      <p className="text-sm text-gray-900">{calculatedScore}</p>
+                      <p className="text-sm text-gray-900 dark:text-white">{calculatedScore}</p>
                     </div>
                   )
                 )}

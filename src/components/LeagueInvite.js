@@ -58,8 +58,8 @@ const LeagueInvite = ({
     <div
       className={`flex flex-col gap-2 rounded-2xl bg-nerdle-primary bg-opacity-20 bg-[url('/src/assets/images/shield.svg')] bg-cover bg-right bg-no-repeat p-5 ${className}`}
     >
-      <h3 className="font-semibold text-gray-900">Invite Players</h3>
-      <p className="text-xs text-gray-700">
+      <h3 className="font-semibold text-gray-900 dark:text-white">Invite Players</h3>
+      <p className="text-xs text-gray-700 dark:text-gray-300">
         Anyone with your league code can join your league.
       </p>
       <div className="flex items-center gap-2 rounded-lg bg-white p-1">

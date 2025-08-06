@@ -155,7 +155,7 @@ const MyLeagues = () => {
         onCreate={handleOpenCreateDialog}
         onJoin={handleOpenJoinDialog}
       />
-      <h1 className="mt-7 text-xl font-semibold text-gray-900">My Leagues</h1>
+      <h1 className="mt-7 text-xl font-semibold text-gray-900 dark:text-white">My Leagues</h1>
       <GameAndDateFilters
         className="mt-5"
         dateFilter={dateFilter}

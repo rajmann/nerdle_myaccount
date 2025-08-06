@@ -67,14 +67,14 @@ const JoinLeagueDialog = ({ open, code }) => {
         onSubmit={form.handleSubmit(handleSubmit)}
         className="mt-7 flex flex-1 flex-col"
       >
-        <h1 className="text-xl font-semibold text-black">Join League</h1>
-        <label className="mt-2 flex flex-col text-sm font-semibold text-black">
+        <h1 className="text-xl font-semibold text-black dark:text-white">Join League</h1>
+        <label className="mt-2 flex flex-col text-sm font-semibold text-black dark:text-white">
           Enter League Code
           <input
             {...register("code")}
             type="text"
             placeholder="Type 8 digit league code here"
-            className="mt-2 rounded-lg border-gray-200 p-5 text-sm text-black"
+            className="mt-2 rounded-lg border-gray-200 p-5 text-sm text-black dark:text-white dark:bg-gray-700"
           />
         </label>
         {errors.code && (

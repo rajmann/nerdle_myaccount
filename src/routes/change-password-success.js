@@ -10,7 +10,7 @@ const ChangePasswordSuccess = () => {
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
       <SuccessIcon />
-      <h1 className="mt-8 text-4xl font-semibold text-black">Success</h1>
+      <h1 className="mt-8 text-4xl font-semibold text-black dark:text-white">Success</h1>
       <p className="mt-5 text-xl text-gray-400">
         Your password has been changed successfully!
       </p>

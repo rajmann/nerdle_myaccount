@@ -18,7 +18,7 @@ const UserDetails = ({ user }) => {
           alt={user?.name}
           className="relative z-10 h-24 w-24"
         />
-        <h1 className="mt-5 text-xl font-semibold text-gray-900">{user?.name}</h1>
+        <h1 className="mt-5 text-xl font-semibold text-gray-900 dark:text-white">{user?.name}</h1>
       </div>
     </div>
   );

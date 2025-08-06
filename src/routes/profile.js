@@ -136,7 +136,7 @@ const Profile = () => {
         click={deleteAccount}
       />
       <div>
-        <h1 className="text-xl font-semibold text-gray-900">Profile</h1>
+        <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Profile</h1>
         <Photo
           isVerified={isVerified}
           photo={photo}
@@ -193,7 +193,7 @@ const Profile = () => {
           onClick={() => setShowModal(true)}>
           Delete this account
         </button>
-        <p className="text-xs text-gray-900">
+        <p className="text-xs text-gray-900 dark:text-white">
           Player names considered inappropriate may result in your account being
           deleted. Please see T&Cs.
         </p>

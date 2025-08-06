@@ -101,7 +101,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
 
   return (
     <div className="mt-8">
-      <div className="text-sm font-semibold text-gray-900 mb-2">
+      <div className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
         <h2>Played Today</h2>
       </div>
 
@@ -123,7 +123,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                       className="text-sm text-nerdle-primary underline underline-offset-2 game-name">
                       {name}
                     </a>
-                    <p className="text-sm text-gray-900">{calculatedScore}</p>
+                    <p className="text-sm text-gray-900 dark:text-white">{calculatedScore}</p>
                   </div>
                 )
               )}
@@ -132,7 +132,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
         </div>
       </div>
 
-      <div className="text-sm font-semibold text-gray-900 mt-3 mb-2">
+      <div className="text-sm font-semibold text-gray-900 dark:text-white mt-3 mb-2">
         <h2>Not Played Today</h2>
       </div>
       <div className="h-full rounded-md bg-gray-100 border border-gray-200 p-4">

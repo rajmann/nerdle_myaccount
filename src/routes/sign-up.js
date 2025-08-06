@@ -15,7 +15,7 @@ const SignUp = () => {
   return (
     //<div className="flex h-full flex-col justify-center"> //FIX FOR SCROLL
     <div className="flex flex-col justify-center">
-      <h1 className="text-center text-3xl font-semibold text-black">
+      <h1 className="text-center text-3xl font-semibold text-black dark:text-white">
         Create an account.
       </h1>
       <SignUpForm />

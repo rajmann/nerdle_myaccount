@@ -82,7 +82,7 @@ const SignInForm = () => {
       </div>
       <Link
         to="../forgot-password"
-        className="mt-2 self-end text-xs font-medium text-black hover:underline"
+        className="mt-2 self-end text-xs font-medium text-black dark:text-white hover:underline"
       >
         Forgot Password?
       </Link>

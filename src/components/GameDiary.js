@@ -10,7 +10,7 @@ import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
 const DiaryTitle = () => {
   return (
     <div className="grid grid-cols-5 place-items-end">
-      <span className="col-span-2 place-self-start font-semibold text-gray-900">
+      <span className="col-span-2 place-self-start font-semibold text-gray-900 dark:text-white">
         Game Diary
       </span>
       {["Played", "Won", "Points"].map((title, index) => (
@@ -68,7 +68,7 @@ const DiaryData = ({ theDay, date, played, won, points }) => {
 
   return (
     <div className="grid grid-cols-5">
-      <span className="col-span-2 py-2 text-sm font-semibold text-gray-900">
+      <span className="col-span-2 py-2 text-sm font-semibold text-gray-900 dark:text-white">
         {theDay === 'today'
           ? "Today"
           : theDay === 'yesterday'
@@ -80,7 +80,7 @@ const DiaryData = ({ theDay, date, played, won, points }) => {
       {[played, won, points].map((value, index) => (
         <span
           key={index}
-          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900">
+          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
           {value}
         </span>
       ))}

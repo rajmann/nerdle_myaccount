@@ -27,7 +27,7 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
                 key={index}
                 className={({ active }) =>
                   `relative select-none py-2 px-8 pl-8 text-sm ${
-                    active ? "bg-nerdle-primary/10 text-nerdle-primary" : "text-gray-900"
+                    active ? "bg-nerdle-primary/10 text-nerdle-primary" : "text-gray-900 dark:text-white"
                   }`
                 }
                 value={option?.value}

@@ -14,7 +14,7 @@ const RadioButton = ({ value, label, ...props }) => {
             {...field}
             value={value}
           />
-          <span className="text-sm text-black">{label}</span>
+          <span className="text-sm text-black dark:text-white">{label}</span>
         </label>
       )}
     ></Controller>

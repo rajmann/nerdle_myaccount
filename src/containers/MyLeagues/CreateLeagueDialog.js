@@ -104,14 +104,14 @@ const CreateLeagueDialog = ({ open, onClose, onSubmit, mutate }) => {
         onSubmit={form.handleSubmit(handleSubmit)}
         className="mt-7 flex flex-1 flex-col"
       >
-        <h1 className="text-xl font-semibold text-black">Create League</h1>
-        <label className="mt-2 flex flex-col text-sm font-semibold text-black">
+        <h1 className="text-xl font-semibold text-black dark:text-white">Create League</h1>
+        <label className="mt-2 flex flex-col text-sm font-semibold text-black dark:text-white">
           League Name
           <input
             {...register("name")}
             type="text"
             placeholder="Enter Name here"
-            className="mt-2 rounded-lg border-gray-200 p-5 text-sm text-black"
+            className="mt-2 rounded-lg border-gray-200 p-5 text-sm text-black dark:text-white dark:bg-gray-700"
           />
         </label>
         {errors.name && (
@@ -119,7 +119,7 @@ const CreateLeagueDialog = ({ open, onClose, onSubmit, mutate }) => {
             {errors.name.message}
           </span>
         )}
-        <p className="mt-5 text-sm font-semibold text-black">
+        <p className="mt-5 text-sm font-semibold text-black dark:text-white">
           Select games to include:
         </p>
         <small className="mt-2 text-xs text-gray-400">
