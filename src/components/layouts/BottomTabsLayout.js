@@ -51,7 +51,7 @@ const BottomTabsLayout = ({ children }) => {
         <Header.Right>
           <div className="flex items-center gap-3">
             <span 
-              className="text-sm font-normal text-white"
+              className="text-sm font-normal text-black dark:text-white"
               style={{ fontSize: '0.975em', fontFamily: "'Barlow', sans-serif" }}
             >
               account stats
