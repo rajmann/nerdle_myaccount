@@ -3,7 +3,7 @@ import React from "react";
 const Header = ({ className, children }) => {
   return (
     <header
-      className={`sticky top-0 flex w-full items-center justify-center gap-4 bg-white border-b border-gray-200 p-4 ${className}`}
+      className={`sticky top-0 flex w-full items-center justify-center gap-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-600 p-4 ${className}`}
     >
       {children}
     </header>

@@ -75,6 +75,11 @@
     font-family: 'Barlow', sans-serif;
   }
 
+  .dark body {
+    background-color: #1F2937;
+    color: #ffffff;
+  }
+
   [type="text"]:focus,
   [type="email"]:focus,
   [type="url"]:focus,

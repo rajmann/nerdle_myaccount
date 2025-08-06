@@ -34,7 +34,7 @@ const BottomTabsLayout = ({ children }) => {
   }
 
   return (
-    <div className="relative flex h-screen max-h-[-webkit-fill-available] flex-col overflow-hidden">
+    <div className="relative flex h-screen max-h-[-webkit-fill-available] flex-col overflow-hidden bg-white dark:bg-gray-900">
       <Header>
         <Header.Left>
           <button
@@ -49,7 +49,7 @@ const BottomTabsLayout = ({ children }) => {
         <Header.Right />
       </Header>
       <Drawer isOpen={drawerIsOpen} onClose={onDrawerClose} />
-      <main className="flex-1 overflow-y-auto p-4">
+      <main className="flex-1 overflow-y-auto p-4 bg-white dark:bg-gray-900">
         {children ? children : <Outlet context={[refresher, setRefresher]}/>}
       </main>
       <BottomNavigation>

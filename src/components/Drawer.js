@@ -6,12 +6,15 @@ import { Link } from "react-router-dom";
 
 import NerdleLogo from "../assets/images/nerdle-logo.png";
 import useAuth from "../hooks/useAuth";
+import useDarkMode from "../hooks/useDarkMode";
 import useAddScoreStore, { dialogStates } from "../store/useAddScoreStore";
 
 import LeagueIcon from "./icons/LeagueIcon";
 import LogoutIcon from "./icons/LogoutIcon";
+import MoonIcon from "./icons/MoonIcon";
 import ProfileIcon from "./icons/ProfileIcon";
 import StatisticsIcon from "./icons/StatisticsIcon";
+import SunIcon from "./icons/SunIcon";
 
 const pages = [
   {
@@ -50,6 +53,7 @@ const externalPages = [
 const Drawer = ({ isOpen, onClose }) => {
   const { setDialogState } = useAddScoreStore();
   const { isPWA } = useAuth();
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const auth = useAuth();
 
@@ -63,7 +67,7 @@ const Drawer = ({ isOpen, onClose }) => {
 
   return (
     <nav
-      className={`absolute z-20 h-full w-full flex flex-col bg-white border-r border-gray-200 ${isOpen
+      className={`absolute z-20 h-full w-full flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-600 ${isOpen
         ? "translate-x-0 transition-all duration-200"
         : "-translate-x-full transition-all duration-200"
         }`}>
@@ -71,7 +75,7 @@ const Drawer = ({ isOpen, onClose }) => {
         <div>
           <button
             onClick={onClose}
-            className="h-11 w-11 rounded-full p-2 text-gray-600 hover:bg-gray-100">
+            className="h-11 w-11 rounded-full p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
             <MdClose className="h-full w-full" />
           </button>
         </div>
@@ -81,7 +85,7 @@ const Drawer = ({ isOpen, onClose }) => {
               onClose();
               setDialogState(dialogStates.adding);
             }}
-            className="flex w-full items-center gap-2 rounded-lg p-2 font-semibold text-nerdle-primary hover:bg-gray-100">
+            className="flex w-full items-center gap-2 rounded-lg p-2 font-semibold text-nerdle-primary hover:bg-gray-100 dark:hover:bg-gray-700">
             <MdAdd className="h-8 w-8" />
             <h6>Add Score</h6>
           </button>
@@ -91,7 +95,7 @@ const Drawer = ({ isOpen, onClose }) => {
             <li key={page.label} onClick={onClose} className="flex">
               <Link
                 to={page.path}
-                className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 hover:bg-gray-100">
+                className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <page.icon />
                 {page.label}
               </Link>
@@ -100,11 +104,19 @@ const Drawer = ({ isOpen, onClose }) => {
           <li key={"signout"} onClick={onSignOut} className="flex">  
             <Link
                 to='#'
-                className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 hover:bg-gray-100">
+                className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <LogoutIcon />
                 Sign Out
               </Link>
             </li>
+          <li key={"darkmode"} className="flex">
+            <button
+              onClick={toggleDarkMode}
+              className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+              {isDarkMode ? <SunIcon /> : <MoonIcon />}
+              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
+          </li>
           <div className="h-8" />
           {externalPages.map((page) => (
             <li key={page.label} onClick={onClose} className="flex">
@@ -112,7 +124,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 href={page.path + "?external=true"}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-gray-800 hover:bg-gray-100">
+                className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <FiExternalLink />
                 {page.label}
               </a>
@@ -125,7 +137,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 href="https://nerdlegame.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-nerdle-primary hover:bg-gray-100">
+                className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-nerdle-primary hover:bg-gray-100 dark:hover:bg-gray-700">
                 <img
                   src={NerdleLogo}
                   alt="Visit Nerdle"
@@ -137,7 +149,7 @@ const Drawer = ({ isOpen, onClose }) => {
           )}
         </ul>
       </div>
-      <p className="text-gray-600 text-sm self-center absolute bottom-0 pb-10">{localStorage.getItem("appVersion")}</p>
+      <p className="text-gray-600 dark:text-gray-300 text-sm self-center absolute bottom-0 pb-10">{localStorage.getItem("appVersion")}</p>
     </nav>
   );
 };
