@@ -1277,6 +1277,11 @@
   resolved "https://registry.npmjs.org/@fontsource/inter/-/inter-4.5.15.tgz"
   integrity sha512-FzleM9AxZQK2nqsTDtBiY0PMEVWvnKnuu2i09+p6DHvrHsuucoV2j0tmw+kAT3L4hvsLdAIDv6MdGehsPIdT+Q==
 
+"@fontsource/quicksand@^5.2.8":
+  version "5.2.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/quicksand/-/quicksand-5.2.8.tgz#db20f0e9356cb53ee120103d04e60b1ad423ce08"
+  integrity sha512-YRgnt2eQfNrk5OWqYJZmFoi6B6sioRIbjKJj3/l5CnezeE0TzD8XL35Q4fRNfHLpOzLi/ckNvTZySBHVVP1G6w==
+
 "@headlessui/react@^1.6.1":
   version "1.7.19"
   resolved "https://registry.npmjs.org/@headlessui/react/-/react-1.7.19.tgz"

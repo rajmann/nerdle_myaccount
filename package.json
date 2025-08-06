@@ -6,6 +6,7 @@
     "@ctrl/react-adsense": "^1.6.0",
     "@fontsource/barlow": "^5.2.6",
     "@fontsource/inter": "^4.5.10",
+    "@fontsource/quicksand": "^5.2.8",
     "@headlessui/react": "^1.6.1",
     "@hookform/resolvers": "^2.8.8",
     "@react-oauth/google": "^0.9.0",
