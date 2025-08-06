@@ -1,7 +1,7 @@
 import React from "react";
 
 import { RiUserSettingsLine } from 'react-icons/ri';
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import BottomNavigation, { BottomNavigationItem } from "../BottomNavigation";
 import Drawer from "../Drawer";
@@ -56,11 +56,6 @@ const BottomTabsLayout = ({ children }) => {
             >
               account stats
             </span>
-            <Link
-              to="/profile"
-              className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-2">
-              <RiUserSettingsLine size={24} />
-            </Link>
           </div>
         </Header.Right>
       </Header>
@@ -80,15 +75,15 @@ const BottomTabsLayout = ({ children }) => {
           path="/my-leagues"
           icon={LeagueIcon}
         />
-        {/* <BottomNavigationItem
-          label="Profile"
-          path="/profile"
-          icon={ProfileIcon}
-        /> */}
         <BottomNavigationItem
           label="All Games"
           path="/all-games"
           icon={AllGamesIcon}
+        />
+        <BottomNavigationItem
+          label="Profile"
+          path="/profile"
+          icon={RiUserSettingsLine}
         />
       </BottomNavigation>
     </div>
