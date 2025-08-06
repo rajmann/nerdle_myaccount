@@ -16,7 +16,7 @@ const BottomNavigationItem = ({ path, icon: Icon, label, onClick }) => {
     >
       {({ isActive }) => (
         <>
-          <Icon className={isActive ? "fill-nerdle-primary dark:fill-white" : "fill-gray-600 dark:fill-gray-400"} />
+          <Icon className={isActive ? "text-nerdle-primary dark:text-white" : "text-gray-600 dark:text-gray-400"} />
           {label}
         </>
       )}
