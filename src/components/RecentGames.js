@@ -135,7 +135,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const totalPointsText = `Points total = ${totalPoints}`;
     const averagePointsText = `avg = ${averagePoints}`; */
 
-    const texts = `${title}\n\n${summary}\n${gameTexts}${extraGamesCount}.\n\nwww.nerdlegame.com`;
+    const texts = `${title}\n\n${summary}\n${gameTexts}${extraGamesCount}.\n\nnerdlegame.com`;
 
     return texts;
   }, [gamesTodayWithDetails, isPWA]);
