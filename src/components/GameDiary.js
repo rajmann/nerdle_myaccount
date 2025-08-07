@@ -103,7 +103,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData }) => {
     const data = currentData;
     if (data.noOfGames === 0) return "NO_GAMES";
 
-    const title = "🟣🟧My -le games for the past 7 days";
+    const title = "🟪🟩⬛️My nerdleverse games for the past 7 days";
     const summary = `${data.averagePointsPerGame} points per game (${
       data.noOfGames
     } game${data.noOfGames !== 1 ? "s" : ""}, ${data.totalPoints} point${
@@ -143,9 +143,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData }) => {
     }
     const finalGraph = arrGraph.join("\n");
 
-    const footer = `Stats by ${
-      isPWA ? "Nerdle League" : "nerdleleague.com"
-    }`;
+    const footer = `nerdlegame.com`;
 
     const finalText = `${title}\n\n${summary}\n${finalGraph}\n\n${footer}`;
 
