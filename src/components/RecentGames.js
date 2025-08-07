@@ -126,7 +126,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     }, 0); */
 
     const averagePoints = Math.round((totalPoints * 10) / totalGames) / 10;
-    const title = `🟣🟧My -le games for ${format(today, "dd MMM")}.`;
+    const title = `🟪🟩⬛️My nerdleverse games for ${format(today, "dd MMM")}.`;
     const summary = `${averagePoints} point${averagePoints === 1 ? '' : 's'} per game (${totalGames} game${totalGames === 1 ? '' : 's'}, ${totalPoints} point${totalPoints === 1 ? '' : 's'}).`;
     const gameTexts = games?.join("\n");
     const extraGamesCount = `${extraGamesToday?.length > 0 ? `\n+${extraGamesToday?.length} more` : ""
@@ -135,7 +135,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const totalPointsText = `Points total = ${totalPoints}`;
     const averagePointsText = `avg = ${averagePoints}`; */
 
-    const texts = `${title}\n\n${summary}\n${gameTexts}${extraGamesCount}\n\nStats by ${isPWA ? 'Nerdle League' : 'nerdleleague.com'}`;
+    const texts = `${title}\n\n${summary}\n${gameTexts}${extraGamesCount}.\n\nwww.nerdlegame.com`;
 
     return texts;
   }, [gamesTodayWithDetails, isPWA]);
