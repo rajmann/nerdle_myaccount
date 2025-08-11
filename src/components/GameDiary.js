@@ -275,19 +275,44 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
 
   // Process multi-game diary data into organized structure
   const enhancedDiaryData = React.useMemo(() => {
-    if (!isMultiGameView || !multiGameDiaryResponses?.length) return null;
+    if (!isMultiGameView || !multiGameDiaryResponses?.length) {
+      console.log('Enhanced diary not active:', { isMultiGameView, responsesLength: multiGameDiaryResponses?.length });
+      return null;
+    }
 
     // Create a map of date -> games data
     const dateGameMap = new Map();
     
+    console.log('Processing multi-game diary responses:', {
+      responsesCount: multiGameDiaryResponses.length,
+      recentGamesCount: recentGamesForDiary.length,
+      responses: multiGameDiaryResponses.map((r, i) => ({
+        game: recentGamesForDiary[i],
+        hasData: !!r?.data,
+        isLoading: r?.isLoading,
+        error: r?.error,
+        dataType: Array.isArray(r?.data) ? 'array' : typeof r?.data
+      }))
+    });
+
     multiGameDiaryResponses.forEach((response, index) => {
       const gameValue = recentGamesForDiary[index];
-      if (!response?.data || response.isLoading || response.error) return;
+      if (!response?.data || response.isLoading || response.error) {
+        console.log(`Skipping response ${index}:`, { gameValue, hasData: !!response?.data, isLoading: response?.isLoading, error: response?.error });
+        return;
+      }
 
       const gameDetail = allGames?.find(g => g.value === gameValue);
-      if (!gameDetail) return;
+      if (!gameDetail) {
+        console.log(`No game detail found for:`, gameValue);
+        return;
+      }
 
-      response.data.forEach(diary => {
+      // Handle both array and object response formats  
+      const diaryData = Array.isArray(response.data) ? response.data : [response.data];
+      console.log(`Processing diary data for ${gameValue}:`, { dataLength: diaryData.length, firstEntry: diaryData[0] });
+      
+      diaryData.forEach(diary => {
         const dateKey = diary.date;
         if (!dateGameMap.has(dateKey)) {
           dateGameMap.set(dateKey, {
