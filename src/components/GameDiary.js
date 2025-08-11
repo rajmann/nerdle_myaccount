@@ -190,7 +190,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
         
         <div className="grid grid-cols-2 gap-x-3">
           {/* Played games - diary page style */}
-          <div className="h-full rounded-lg bg-white border border-gray-200 p-4 shadow-sm relative overflow-hidden">
+          <div className="h-full rounded-lg bg-white border border-gray-200 p-2 shadow-sm relative overflow-hidden">
             {/* Paper texture lines */}
             <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-b from-blue-50/20 to-transparent pointer-events-none"></div>
             <div className="absolute top-6 left-0 right-0 h-px bg-blue-100 opacity-30"></div>
@@ -211,12 +211,12 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                         <GameIcon 
                           gameName={game.name} 
                           gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
-                          className="w-8 h-8 flex-shrink-0 mr-4"
+                          className="w-8 h-8 flex-shrink-0 mr-5"
                         />
-                        <span className="text-sm text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                        <span className="text-xs text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                           {game.name}
                         </span>
-                        <p className="text-sm text-black ml-4 font-medium">{game.points}</p>
+                        <p className="text-xs text-black ml-4 font-medium">{game.points}</p>
                       </div>
                     ))
                   }
@@ -227,7 +227,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
 
           {/* Not played games - diary page style */}
           <div className="h-full">
-            <div className="h-full rounded-lg bg-white border border-gray-200 p-4 shadow-sm relative overflow-hidden">
+            <div className="h-full rounded-lg bg-white border border-gray-200 p-2 shadow-sm relative overflow-hidden">
               {/* Paper texture lines */}
               <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-b from-amber-50/20 to-transparent pointer-events-none"></div>
               <div className="absolute top-6 left-0 right-0 h-px bg-amber-100 opacity-30"></div>
@@ -248,9 +248,9 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                           <GameIcon 
                             gameName={game.name} 
                             gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
-                            className="w-8 h-8 flex-shrink-0 mr-4"
+                            className="w-8 h-8 flex-shrink-0 mr-5"
                           />
-                          <span className="text-sm text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                          <span className="text-xs text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                             {game.name}
                           </span>
                           {dayData.day !== 'tomorrow' && (
@@ -258,7 +258,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                               href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
                               target="_blank"
                               rel="noreferrer"
-                              className="ml-4 inline-block bg-nerdle-primary text-white text-xs px-3 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">
+                              className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">
                               play
                             </a>
                           )}
