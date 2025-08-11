@@ -89,25 +89,15 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       </span>
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm">
-          {(() => {
-            console.log(`DiaryData ${theDay} - played: ${played}, theDay: ${theDay}, gameUrl: ${gameUrl}`);
-            console.log(`Should show play link: ${played === 0 && theDay !== 'tomorrow'}`);
-            
-            if (played === 0 && theDay !== 'tomorrow') {
-              const href = theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`;
-              console.log(`Play link href: ${href}`);
-              return (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-nerdle-primary underline underline-offset-2">
-                  play
-                </a>
-              );
-            }
-            return null;
-          })()}
+          {played === 0 && theDay !== 'tomorrow' ? (
+            <a
+              href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-nerdle-primary underline underline-offset-2">
+              play
+            </a>
+          ) : null}
         </span>
       )}
       {values.map((value, index) => (
@@ -133,38 +123,18 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
 
   // Determine if we should show the play column (only for single games, not "all" or "all nerdle games")
   const showPlayColumn = React.useMemo(() => {
-    console.log('GameDiary - showPlayColumn calculation:');
-    console.log('gameFilter:', gameFilter);
-    console.log('gameFilter.value !== "all":', gameFilter?.value !== 'all');
-    console.log('gameFilter.value !== "allnerdle":', gameFilter?.value !== 'allnerdle');
-    console.log('!gameFilter.label?.includes("All "):', !gameFilter?.label?.includes('All '));
-    
-    const result = gameFilter && 
+    return gameFilter && 
            gameFilter.value !== 'all' && 
            gameFilter.value !== 'allnerdle' &&
            !gameFilter.label?.includes('All '); // Hide for any filter with "All" in the label
-           
-    console.log('showPlayColumn result:', result);
-    return result;
   }, [gameFilter]);
 
   // Get the game URL for play links
   const gameUrl = React.useMemo(() => {
-    console.log('GameDiary - gameUrl calculation:');
-    console.log('showPlayColumn:', showPlayColumn);
-    console.log('allGames:', allGames);
-    console.log('gameFilter:', gameFilter);
-    
-    if (!showPlayColumn || !allGames || !gameFilter) {
-      console.log('Early return - missing prerequisites');
-      return '';
-    }
+    if (!showPlayColumn || !allGames || !gameFilter) return '';
     
     const game = allGames.find(g => g.value === gameFilter.value);
-    console.log('Found game:', game);
-    const url = game ? game.url : '';
-    console.log('Game URL:', url);
-    return url;
+    return game ? game.url : '';
   }, [showPlayColumn, allGames, gameFilter]);
 
   const generateTextForWeeklyScoreSharing = (currentData, isPWA) => {
