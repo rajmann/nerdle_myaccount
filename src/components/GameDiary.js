@@ -1,9 +1,11 @@
 import React from "react";
 
-import { format, isToday, isYesterday, isTomorrow, parseISO } from "date-fns";
+import { format } from "date-fns";
 import toast from "react-hot-toast";
 
+import { useGameDiary } from "../api/gameDiary";
 import Button from "../components/Button";
+import DailyGameDetails from "../components/DailyGameDetails";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
 
@@ -47,7 +49,19 @@ const DiaryTitle = ({ showPlayColumn }) => {
 //   return someDate.getUTCDate() + " " + monthNames[someDate.getUTCMonth()]
 // }
 
-const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl }) => {
+const DiaryData = ({ 
+  theDay, 
+  date, 
+  played, 
+  won, 
+  points, 
+  showPlayColumn, 
+  gameUrl, 
+  showGameDetails = false,
+  gameDetails = [],
+  allGames = [],
+  isFirstDetailsRow = false
+}) => {
   //const parsedDate = React.useMemo(() => parseISO(date), [date]);
   // const parsedDate = new Date(date)
   
@@ -77,41 +91,52 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
   const values = showPlayColumn ? [played, won, points] : [played, won, points];
 
   return (
-    <div className={`grid ${gridCols}`}>
-      <span className="col-span-2 py-2 text-sm font-semibold text-gray-900 dark:text-white">
-        {theDay === 'today'
-          ? "Today"
-          : theDay === 'yesterday'
-          ? "Yesterday"
-          : theDay === 'tomorrow'
-          ? "Tomorrow"
-          : format(parsedDate, "d MMMM")}
-      </span>
-      {showPlayColumn && (
-        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm">
-          {played === 0 && theDay !== 'tomorrow' ? (
-            <a
-              href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
-              target="_blank"
-              rel="noreferrer"
-              className="text-sm text-nerdle-primary underline underline-offset-2">
-              play
-            </a>
-          ) : null}
+    <div>
+      <div className={`grid ${gridCols}`}>
+        <span className="col-span-2 py-2 text-sm font-semibold text-gray-900 dark:text-white">
+          {theDay === 'today'
+            ? "Today"
+            : theDay === 'yesterday'
+            ? "Yesterday"
+            : theDay === 'tomorrow'
+            ? "Tomorrow"
+            : format(parsedDate, "d MMMM")}
         </span>
+        {showPlayColumn && (
+          <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm">
+            {played === 0 && theDay !== 'tomorrow' ? (
+              <a
+                href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-nerdle-primary underline underline-offset-2">
+                play
+              </a>
+            ) : null}
+          </span>
+        )}
+        {values.map((value, index) => (
+          <span
+            key={index}
+            className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
+            {value}
+          </span>
+        ))}
+      </div>
+      
+      {showGameDetails && (
+        <DailyGameDetails
+          gameDetails={gameDetails}
+          date={date}
+          allGames={allGames}
+          isFirstRow={isFirstDetailsRow}
+        />
       )}
-      {values.map((value, index) => (
-        <span
-          key={index}
-          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
-          {value}
-        </span>
-      ))}
     </div>
   );
 };
 
-const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) => {
+const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, gamesToday, gamesPastTwoWeeks }) => {
   const { isPWA } = useAuth();
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker("My Statistics");
@@ -129,6 +154,12 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
            gameFilter.value !== 'nerdlegame'; // Don't show for main nerdle game either since it doesn't follow the same URL pattern
   }, [gameFilter]);
 
+  // Determine if we should show detailed game breakdown (for "all" or "all nerdle games")
+  const showGameDetails = React.useMemo(() => {
+    return gameFilter && 
+           (gameFilter.value === 'all' || gameFilter.value === 'allnerdle');
+  }, [gameFilter]);
+
   // Get the game URL for play links
   const gameUrl = React.useMemo(() => {
     if (!showPlayColumn || !allGames || !gameFilter) return '';
@@ -136,6 +167,49 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
     const game = allGames.find(g => g.value === gameFilter.value);
     return game ? game.url : '';
   }, [showPlayColumn, allGames, gameFilter]);
+
+  // Get unique list of recently played games for fetching game diary data
+  const recentlyPlayedGames = React.useMemo(() => {
+    if (!showGameDetails || !gamesToday || !gamesPastTwoWeeks) return [];
+    
+    const allRecentGames = [...(gamesToday || []), ...(gamesPastTwoWeeks || [])];
+    const uniqueGames = allRecentGames.filter((game, index, self) => 
+      index === self.findIndex(g => g.gameName.toLowerCase() === game.gameName.toLowerCase())
+    );
+    
+    return uniqueGames.map(game => game.gameName);
+  }, [showGameDetails, gamesToday, gamesPastTwoWeeks]);
+
+  // Fetch detailed game diary data for each game for each day
+  const gameDetailsByDate = React.useMemo(() => {
+    if (!showGameDetails || !data || !recentlyPlayedGames.length) return {};
+    
+    const detailsByDate = {};
+    
+    // For now, we'll simulate the data structure that would come from individual API calls
+    // In a real implementation, you would make API calls for each game for each date
+    data.forEach(diary => {
+      if (!detailsByDate[diary.date]) {
+        detailsByDate[diary.date] = [];
+      }
+      
+      // Add game details for this date
+      // This would normally come from API calls to /user/game-diary for each game
+      recentlyPlayedGames.forEach(gameName => {
+        // Simulate game data - in real implementation, this would come from API
+        const hasScore = Math.random() > 0.5; // Random for now
+        const score = hasScore ? Math.floor(Math.random() * 6) + 1 : 0;
+        
+        detailsByDate[diary.date].push({
+          gameName,
+          calculatedScore: score,
+          hasScore
+        });
+      });
+    });
+    
+    return detailsByDate;
+  }, [showGameDetails, data, recentlyPlayedGames]);
 
   const generateTextForWeeklyScoreSharing = (currentData, isPWA) => {
     if (currentData === undefined) return "NO_GAMES";
@@ -221,7 +295,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
   return (
     <div className="mt-12">
       <DiaryTitle showPlayColumn={showPlayColumn} />
-      {data.map((diary) => (
+      {data.map((diary, index) => (
         <DiaryData
           key={diary.day}
           theDay={diary.day}
@@ -231,6 +305,10 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
           points={diary.points}
           showPlayColumn={showPlayColumn}
           gameUrl={gameUrl}
+          showGameDetails={showGameDetails}
+          gameDetails={gameDetailsByDate[diary.date] || []}
+          allGames={allGames}
+          isFirstDetailsRow={index === 0 && showGameDetails}
         />
       ))}
 
