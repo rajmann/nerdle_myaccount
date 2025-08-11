@@ -94,7 +94,7 @@ const MyStatistics = () => {
     }
     
     // If no valid dateFilter is set, set default to first option
-    if (!dateFilter || !dateFilter.value) {
+    if (!dateFilter) {
       const defaultDateOption = dateFilterOptions[0];
       if (defaultDateOption) {
         setDateFilter(defaultDateOption);
@@ -145,11 +145,15 @@ const MyStatistics = () => {
 
   const onDateFilterChange = React.useCallback(
     (value) => {
+      console.log('onDateFilterChange called with value:', value);
       const option = dateFilterOptions.find((option) => option.value === value);
+      console.log('Found option:', option);
       if (option) {
+        console.log('Setting date filter to:', option);
         setDateFilter(option);
         // Navigate to standard URL when date filter changes
         if (location.pathname !== '/my-statistics') {
+          console.log('Navigating to /my-statistics from:', location.pathname);
           navigate('/my-statistics');
         }
       }
@@ -300,7 +304,7 @@ const MyStatistics = () => {
         gameFilter={gameFilter}
         gameFilterOptions={gameFilterOptions}
         onGameFilterChange={onGameFilterChange}
-        dateFilter={dateFilter || (dateFilterOptions.length > 0 ? dateFilterOptions[0] : null)}
+        dateFilter={dateFilter}
         dateFilterOptions={dateFilterOptions}
         onDateFilterChange={onDateFilterChange}
       />
