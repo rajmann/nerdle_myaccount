@@ -92,10 +92,14 @@ const MyStatistics = () => {
         
         // For /lastmonth, also set games filter to "All Nerdle Games"
         if (dateParam === 'lastmonth') {
+          console.log('Setting game filter for /lastmonth');
+          console.log('Available game filter options:', gameFilterOptions.map(opt => opt.label));
           const allNerdleOption = gameFilterOptions.find(option => 
             option.label === 'All Nerdle Games'
           );
+          console.log('Found All Nerdle Games option:', allNerdleOption);
           if (allNerdleOption) {
+            console.log('Setting game filter to All Nerdle Games');
             setGameFilter(allNerdleOption);
           }
         }
