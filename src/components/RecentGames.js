@@ -295,9 +295,9 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                       <GameIcon 
                         gameName={name} 
                         gameData={{ nGame: url && url.includes('nerdlegame.com') }}
-                        className="w-8 h-8 flex-shrink-0 mr-5"
+                        className="w-8 h-8 flex-shrink-0"
                       />
-                      <span className="text-xs text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                      <span className="text-xs text-black game-name flex-1 min-w-0 ml-3" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {name}
                       </span>
                       <p className="text-xs text-black ml-4 font-medium">{calculatedScore}</p>
@@ -328,9 +328,9 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                       <GameIcon 
                         gameName={name} 
                         gameData={{ nGame: url && url.includes('nerdlegame.com') }}
-                        className="w-8 h-8 flex-shrink-0 mr-5"
+                        className="w-8 h-8 flex-shrink-0"
                       />
-                      <span className="text-xs text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                      <span className="text-xs text-black game-name flex-1 min-w-0 ml-3" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {name}
                       </span>
                       <a
