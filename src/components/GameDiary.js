@@ -20,7 +20,7 @@ const DiaryTitle = ({ showPlayColumn }) => {
       {columns.map((title, index) => (
         <span
           key={index}
-          className="border-r border-gray-700 pr-2 text-right text-xs text-gray-400">
+          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white">
           {title}
         </span>
       ))}
