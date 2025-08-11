@@ -68,7 +68,9 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
 
   // Format date as YYYYMMDD for the URL
   const urlDate = React.useMemo(() => {
-    return date.replace(/-/g, ''); // Convert 2020-10-10 to 20201010
+    // Extract just the date part and format as YYYYMMDD
+    const datePart = date.split('T')[0]; // Remove time part if present
+    return datePart.replace(/-/g, ''); // Convert 2020-10-10 to 20201010
   }, [date]);
 
   if(theDay === 'tomorrow' && played === 0 && won === 0 && points === 0) return null;
