@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import NerdleLogo from "../assets/images/nerdle-logo.png";
 import useAuth from "../hooks/useAuth";
+import NerdleMenu from "./NerdleMenu";
 
 import useAddScoreStore, { dialogStates } from "../store/useAddScoreStore";
 
@@ -48,13 +49,11 @@ const externalPages = [
 ];
 
 
-const Drawer = ({ isOpen, onClose }) => {
+const Drawer = ({ isOpen, onClose, useNerdleMenu = false }) => {
   const { setDialogState } = useAddScoreStore();
   const { isPWA } = useAuth();
 
-
   const auth = useAuth();
-
 
   const onSignOut = React.useCallback(() => {
     if (auth.isPWA) {
@@ -62,6 +61,11 @@ const Drawer = ({ isOpen, onClose }) => {
     }
     auth.signOut();
   }, [auth]);
+
+  // If using Nerdle menu, render that instead
+  if (useNerdleMenu) {
+    return <NerdleMenu isOpen={isOpen} onClose={onClose} />;
+  }
 
   return (
     <nav
