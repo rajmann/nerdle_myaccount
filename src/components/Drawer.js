@@ -11,7 +11,6 @@ import useAddScoreStore, { dialogStates } from "../store/useAddScoreStore";
 
 import LeagueIcon from "./icons/LeagueIcon";
 import LogoutIcon from "./icons/LogoutIcon";
-import NerdleMenu from "./NerdleMenu";
 import ProfileIcon from "./icons/ProfileIcon";
 import StatisticsIcon from "./icons/StatisticsIcon";
 
@@ -49,11 +48,13 @@ const externalPages = [
 ];
 
 
-const Drawer = ({ isOpen, onClose, useNerdleMenu = false }) => {
+const Drawer = ({ isOpen, onClose }) => {
   const { setDialogState } = useAddScoreStore();
   const { isPWA } = useAuth();
 
+
   const auth = useAuth();
+
 
   const onSignOut = React.useCallback(() => {
     if (auth.isPWA) {
@@ -61,11 +62,6 @@ const Drawer = ({ isOpen, onClose, useNerdleMenu = false }) => {
     }
     auth.signOut();
   }, [auth]);
-
-  // If using Nerdle menu, render that instead
-  if (useNerdleMenu) {
-    return <NerdleMenu isOpen={isOpen} onClose={onClose} />;
-  }
 
   return (
     <nav
