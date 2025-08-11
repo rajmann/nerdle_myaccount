@@ -62,8 +62,10 @@ const MyStatistics = () => {
   const { gameFilter, setGameFilter, dateFilter, setDateFilter } =
     useMyStatisticsStore();
 
-  // Parse URL to set date filter automatically
+  // Parse URL to set date filter automatically and ensure default value
   React.useEffect(() => {
+    if (dateFilterOptions.length === 0) return;
+    
     const pathSegments = location.pathname.split('/');
     const dateParam = pathSegments[pathSegments.length - 1];
     
@@ -79,16 +81,26 @@ const MyStatistics = () => {
       'all-time': 'All time'
     };
 
-    if (urlToDateMap[dateParam] && dateFilterOptions.length > 0) {
+    // Check if we have a URL parameter that maps to a date filter
+    if (urlToDateMap[dateParam]) {
       const targetDateOption = dateFilterOptions.find(option => 
         option.label === urlToDateMap[dateParam]
       );
       
       if (targetDateOption && targetDateOption.value !== dateFilter?.value) {
         setDateFilter(targetDateOption);
+        return;
       }
     }
-  }, [location.pathname, dateFilterOptions, dateFilter?.value, setDateFilter]);
+    
+    // If no valid dateFilter is set, set default to first option
+    if (!dateFilter || !dateFilter.value) {
+      const defaultDateOption = dateFilterOptions[0];
+      if (defaultDateOption) {
+        setDateFilter(defaultDateOption);
+      }
+    }
+  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter]);
 
 
 
@@ -134,10 +146,12 @@ const MyStatistics = () => {
   const onDateFilterChange = React.useCallback(
     (value) => {
       const option = dateFilterOptions.find((option) => option.value === value);
-      setDateFilter(option);
-      // Navigate to standard URL when date filter changes
-      if (location.pathname !== '/my-statistics') {
-        navigate('/my-statistics');
+      if (option) {
+        setDateFilter(option);
+        // Navigate to standard URL when date filter changes
+        if (location.pathname !== '/my-statistics') {
+          navigate('/my-statistics');
+        }
       }
     },
     [dateFilterOptions, setDateFilter, location.pathname, navigate]
@@ -286,7 +300,7 @@ const MyStatistics = () => {
         gameFilter={gameFilter}
         gameFilterOptions={gameFilterOptions}
         onGameFilterChange={onGameFilterChange}
-        dateFilter={dateFilter}
+        dateFilter={dateFilter || (dateFilterOptions.length > 0 ? dateFilterOptions[0] : null)}
         dateFilterOptions={dateFilterOptions}
         onDateFilterChange={onDateFilterChange}
       />
