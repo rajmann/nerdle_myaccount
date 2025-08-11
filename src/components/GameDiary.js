@@ -197,7 +197,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
             <div className="absolute top-12 left-0 right-0 h-px bg-blue-100 opacity-30"></div>
             <div className="absolute top-18 left-0 right-0 h-px bg-blue-100 opacity-30"></div>
             
-            <div className="max-h-[125px] overflow-y-auto pr-4 relative z-10">
+            <div className="h-full relative z-10">
               {!dayData.games.filter(g => g.played > 0).length ? (
                 <p className="text-sm text-gray-500">No games played {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
               ) : (
@@ -234,7 +234,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
               <div className="absolute top-12 left-0 right-0 h-px bg-amber-100 opacity-30"></div>
               <div className="absolute top-18 left-0 right-0 h-px bg-amber-100 opacity-30"></div>
               
-              <div className="max-h-[100px] overflow-y-auto pr-4 relative z-10">
+              <div className="h-full relative z-10">
                 {!dayData.games.filter(g => g.played === 0).length ? (
                   <p className="text-sm text-gray-500">All games played {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
                 ) : (

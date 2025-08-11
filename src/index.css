@@ -107,6 +107,14 @@
     border-color: var(--nerdle-primary);
     --tw-ring-color: var(--nerdle-primary);
   }
+  /* Remove underlines from links and ensure game icons don't have underlines */
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 /* Nerdle Brand Typography Classes */
