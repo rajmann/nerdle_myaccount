@@ -28,7 +28,7 @@ const BaseDialog = ({ open, closeDialog, children }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="flex min-h-screen w-full min-w-min max-w-md transform flex-col justify-center rounded-2xl rounded-bl-none rounded-br-none bg-dialog p-4 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="flex min-h-screen w-full min-w-min max-w-md transform flex-col justify-center rounded-2xl rounded-bl-none rounded-br-none bg-white dark:bg-slate-800 p-4 text-left align-middle shadow-xl transition-all">
                 {children}
               </Dialog.Panel>
             </Transition.Child>
