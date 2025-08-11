@@ -85,6 +85,18 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
     - Eliminates controlled/uncontrolled component issues with date filter dropdown
     - Provides cleaner UX with proper state management
 
+### 2025-08-11: Enhanced Play Link Functionality
+- **COMPLETED**: Added interactive play link dialog system for game diary
+  - Created PlayLinkDialog component with choice between "View Game Diary" and "Go to Game"
+  - Converted direct play links to interactive buttons that trigger confirmation dialog
+  - Removed "Play" from column heading for cleaner UI
+  - Styled play buttons as purple rounded buttons with white text matching Nerdle branding
+  - Fixed URL formatting to show only /YYYYMMDD without timestamp information
+  - Added proper dark mode support for dialog components
+  - Play links only appear for unplayed games (played = 0) and single game selections
+  - "View Game Diary" keeps user on current page with game already filtered
+  - "Go to Game" opens game URL in new tab for direct play access
+
 ### 2025-08-06: Header Redesign to Match Nerdle Website
 - **COMPLETED**: Updated header layout to match nerdlegame.com design
   - Left-aligned section with three items: menu button, Nerdle logo, and "nerdle." text

@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import toast from "react-hot-toast";
 
 import Button from "../components/Button";
+import PlayLinkDialog from "../components/PlayLinkDialog";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
 
@@ -47,7 +48,7 @@ const DiaryTitle = ({ showPlayColumn }) => {
 //   return someDate.getUTCDate() + " " + monthNames[someDate.getUTCMonth()]
 // }
 
-const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl }) => {
+const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl, onPlayLinkClick }) => {
   //const parsedDate = React.useMemo(() => parseISO(date), [date]);
   // const parsedDate = new Date(date)
   
@@ -92,13 +93,15 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm">
           {played === 0 && theDay !== 'tomorrow' ? (
-            <a
-              href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                const gameLink = theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`;
+                onPlayLinkClick(gameLink);
+              }}
               className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors">
               play
-            </a>
+            </button>
           ) : null}
         </span>
       )}
@@ -131,6 +134,13 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
            !gameFilter.label?.includes('All '); // Hide for any filter with "All" in the label
   }, [gameFilter]);
 
+  // Dialog state for play link choices
+  const [playLinkDialog, setPlayLinkDialog] = React.useState({
+    isOpen: false,
+    gameLink: '',
+    gameName: ''
+  });
+
   // Get the game URL for play links
   const gameUrl = React.useMemo(() => {
     if (!showPlayColumn || !allGames || !gameFilter) return '';
@@ -138,6 +148,27 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
     const game = allGames.find(g => g.value === gameFilter.value);
     return game ? game.url : '';
   }, [showPlayColumn, allGames, gameFilter]);
+
+  // Handle play link click
+  const handlePlayLinkClick = React.useCallback((gameLink) => {
+    setPlayLinkDialog({
+      isOpen: true,
+      gameLink,
+      gameName: gameFilter?.label || 'Game'
+    });
+  }, [gameFilter]);
+
+  // Handle viewing game diary - filter to the selected game and close dialog
+  const handleViewGameDiary = React.useCallback(() => {
+    // Already on the correct game, just close dialog
+    setPlayLinkDialog({ isOpen: false, gameLink: '', gameName: '' });
+  }, []);
+
+  // Handle going to game directly
+  const handleGoToGame = React.useCallback(() => {
+    window.open(playLinkDialog.gameLink, '_blank', 'noreferrer');
+    setPlayLinkDialog({ isOpen: false, gameLink: '', gameName: '' });
+  }, [playLinkDialog.gameLink]);
 
   const generateTextForWeeklyScoreSharing = (currentData, isPWA) => {
     if (currentData === undefined) return "NO_GAMES";
@@ -233,6 +264,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
           points={diary.points}
           showPlayColumn={showPlayColumn}
           gameUrl={gameUrl}
+          onPlayLinkClick={handlePlayLinkClick}
         />
       ))}
 
@@ -243,6 +275,14 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
           </Button>
         </div>
       ) : null}
+
+      <PlayLinkDialog
+        isOpen={playLinkDialog.isOpen}
+        onClose={() => setPlayLinkDialog({ isOpen: false, gameLink: '', gameName: '' })}
+        onViewGameDiary={handleViewGameDiary}
+        onGoToGame={handleGoToGame}
+        gameName={playLinkDialog.gameName}
+      />
     </div>
   );
 };
