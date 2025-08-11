@@ -59,7 +59,7 @@ const BottomTabsLayout = ({ children }) => {
           </div>
         </Header.Right>
       </Header>
-      <Drawer isOpen={drawerIsOpen} onClose={onDrawerClose} />
+      <Drawer isOpen={drawerIsOpen} onClose={onDrawerClose} useNerdleMenu={true} />
       <main className="flex-1 overflow-y-auto p-4">
         {children ? children : <Outlet context={[refresher, setRefresher]}/>}
       </main>
