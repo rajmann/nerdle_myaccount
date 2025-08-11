@@ -126,7 +126,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
     return gameFilter && 
            gameFilter.value !== 'all' && 
            gameFilter.value !== 'allnerdle' &&
-           gameFilter.value !== 'nerdlegame'; // Don't show for main nerdle game either since it doesn't follow the same URL pattern
+           !gameFilter.label?.includes('All '); // Hide for any filter with "All" in the label
   }, [gameFilter]);
 
   // Get the game URL for play links
