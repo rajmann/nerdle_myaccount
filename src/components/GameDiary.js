@@ -167,8 +167,8 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
       {/* Game breakdowns styled like RecentGames boxes */}
       <div className="mt-3">
         <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-          <h3>Played {dayData.day === 'today' ? 'Today' : dayData.day === 'yesterday' ? 'Yesterday' : dayData.day === 'tomorrow' ? 'Tomorrow' : 'This Day'}</h3>
-          <h3>Not Played {dayData.day === 'today' ? 'Today' : dayData.day === 'yesterday' ? 'Yesterday' : dayData.day === 'tomorrow' ? 'Tomorrow' : 'This Day'}</h3>
+          <h3>Played</h3>
+          <h3>Not Played</h3>
         </div>
         
         <div className="grid grid-cols-2 gap-x-2">
