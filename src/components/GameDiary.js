@@ -156,8 +156,11 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, gam
 
   // Determine if we should show detailed game breakdown (for "all" or "all nerdle games")
   const showGameDetails = React.useMemo(() => {
-    return gameFilter && 
+    console.log('GameDiary - gameFilter:', gameFilter);
+    const result = gameFilter && 
            (gameFilter.value === 'all' || gameFilter.value === 'allnerdle');
+    console.log('GameDiary - showGameDetails calculation:', result);
+    return result;
   }, [gameFilter]);
 
   // Get the game URL for play links
