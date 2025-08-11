@@ -308,10 +308,17 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
     
     // If filtering to "All Nerdle Games", only include Nerdle games
     if (gameFilter && gameFilter.value === 'allnerdle') {
+      console.log('Filtering to allnerdle - before filter:', uniqueGames);
+      console.log('All games with nGame properties:', allGames?.map(g => ({ name: g.name, value: g.value, nGame: g.nGame })));
+      
       uniqueGames = uniqueGames.filter(gameValue => {
         const gameDetail = allGames.find(g => g.value === gameValue);
-        return gameDetail && gameDetail.nGame === true;
+        const isNerdle = gameDetail && gameDetail.nGame === true;
+        console.log(`Checking ${gameValue}: gameDetail=${gameDetail?.name}, nGame=${gameDetail?.nGame}, isNerdle=${isNerdle}`);
+        return isNerdle;
       });
+      
+      console.log('Filtering to allnerdle - after filter:', uniqueGames);
     }
     
     return uniqueGames;
