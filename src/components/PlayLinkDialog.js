@@ -17,7 +17,7 @@ const PlayLinkDialog = ({
           Choose an action for {gameName}
         </h3>
         <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
-          Would you like to view the game diary for this game or play it directly?
+          Would you like to view the game diary for this game or play it now?
         </p>
         
         <div className="flex flex-col gap-3">
