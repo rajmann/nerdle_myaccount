@@ -182,48 +182,42 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, gam
 
   // Process game data by date for detailed display
   const gameDetailsByDate = React.useMemo(() => {
-    if (!showGameDetails || !gamesToday || !gamesPastTwoWeeks || !data?.data) return {};
+    if (!showGameDetails) return {};
     
     const detailsByDate = {};
     
     // Debug log to see data structure
+    console.log('GameDiary - showGameDetails:', showGameDetails);
     console.log('GameDiary - gamesToday:', gamesToday);
     console.log('GameDiary - gamesPastTwoWeeks:', gamesPastTwoWeeks);
-    console.log('GameDiary - data.data:', data.data);
+    console.log('GameDiary - data:', data);
     
-    // Combine all games data
-    const allGamesData = [...(gamesToday || []), ...(gamesPastTwoWeeks || [])];
-    
-    // For now, let's create mock data based on the diary dates to see the structure
-    data.data.forEach(diary => {
-      const date = diary.date;
-      detailsByDate[date] = [];
-      
-      // Add some games that were played on this date
-      const todayGames = gamesToday?.filter(game => 
-        // Check if this game was played on this date
-        true // For now, show all games for testing
-      ) || [];
-      
-      const pastGames = gamesPastTwoWeeks?.filter(game => 
-        // Check if this game was played on this date  
-        true // For now, show all games for testing
-      ) || [];
-      
-      // Combine and deduplicate
-      const allGames = [...todayGames, ...pastGames];
-      const uniqueGames = allGames.filter((game, index, self) => 
-        index === self.findIndex(g => g.gameName.toLowerCase() === game.gameName.toLowerCase())
-      );
-      
-      uniqueGames.slice(0, 5).forEach(game => { // Limit to 5 games for testing
-        detailsByDate[date].push({
-          gameName: game.gameName,
-          calculatedScore: game.calculatedScore || 0,
-          hasScore: (game.calculatedScore || 0) > 0
-        });
+    // Only process if we have diary data
+    if (data?.data) {
+      // For now, let's create mock data based on the diary dates to see the structure
+      data.data.forEach(diary => {
+        const date = diary.date;
+        detailsByDate[date] = [];
+        
+        // Add some sample games for testing - this would normally come from API calls
+        if (gamesToday && gamesToday.length > 0) {
+          gamesToday.slice(0, 3).forEach(game => {
+            detailsByDate[date].push({
+              gameName: game.gameName,
+              calculatedScore: game.calculatedScore || 0,
+              hasScore: (game.calculatedScore || 0) > 0
+            });
+          });
+        } else {
+          // Add some mock games for testing
+          detailsByDate[date] = [
+            { gameName: 'nerdlegame', calculatedScore: 3, hasScore: true },
+            { gameName: 'mini', calculatedScore: 0, hasScore: false },
+            { gameName: 'instant', calculatedScore: 5, hasScore: true }
+          ];
+        }
       });
-    });
+    }
     
     console.log('GameDiary - gameDetailsByDate:', detailsByDate);
     return detailsByDate;
@@ -310,6 +304,10 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, gam
     //console.log("GA: SHARED 7 DAYS");
     gaEventTracker("shared_7days");
   }, [weeklyScoresForSharing, isPWA, gaEventTracker]);
+  // Debug the data structure
+  console.log('GameDiary render - data:', data);
+  console.log('GameDiary render - showGameDetails:', showGameDetails);
+
   return (
     <div className="mt-12">
       <DiaryTitle showPlayColumn={showPlayColumn} />
