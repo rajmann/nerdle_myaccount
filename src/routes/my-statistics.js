@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 import toast from "react-hot-toast";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useParams, useLocation } from "react-router-dom";
 
 import { useGameDiary } from "../api/gameDiary";
 import { useGames } from "../api/games";
@@ -38,6 +38,7 @@ const MyStatistics = () => {
   const [timestamp, setTimestamp] = useState(Math.floor(new Date().getTime() / 1000));
   const [refresher,] = useOutletContext();
   const [showEnableNonNerdleDialog, setShowEnableNonNerdleDialog] = useState(false);
+  const location = useLocation();
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker('My Statistics');
   const auth = useAuth();
@@ -59,6 +60,34 @@ const MyStatistics = () => {
 
   const { gameFilter, setGameFilter, dateFilter, setDateFilter } =
     useMyStatisticsStore();
+
+  // Parse URL to set date filter automatically
+  React.useEffect(() => {
+    const pathSegments = location.pathname.split('/');
+    const dateParam = pathSegments[pathSegments.length - 1];
+    
+    // Map URL parameters to date filter options
+    const urlToDateMap = {
+      'lastmonth': 'Last month',
+      'last-month': 'Last month',
+      'thisweek': 'This week',
+      'this-week': 'This week',
+      'lastweek': 'Last week',
+      'last-week': 'Last week',
+      'alltime': 'All time',
+      'all-time': 'All time'
+    };
+
+    if (urlToDateMap[dateParam] && dateFilterOptions.length > 0) {
+      const targetDateOption = dateFilterOptions.find(option => 
+        option.label === urlToDateMap[dateParam]
+      );
+      
+      if (targetDateOption && targetDateOption.value !== dateFilter.value) {
+        setDateFilter(targetDateOption);
+      }
+    }
+  }, [location.pathname, dateFilterOptions, dateFilter.value, setDateFilter]);
 
   // Handle game filter change with dialog for "All Games" when non-nerdle games disabled
   const handleGameFilterChange = (newGameFilter) => {

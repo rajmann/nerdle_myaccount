@@ -52,7 +52,14 @@ const App = () => {
         </Route>
         <Route element={<ProtectedRoute isAllowed={auth.token} />}>
           <Route element={<BottomTabsLayout />}>
-            <Route path="my-statistics" element={<MyStatistics />} />
+            <Route
+                path="my-statistics"
+                element={<MyStatistics />}
+              />
+              <Route
+                path="my-statistics/:dateFilter"
+                element={<MyStatistics />}
+              />
             <Route path="my-leagues" element={<MyLeagues />} />
             <Route path="profile" element={<Profile />} />
             <Route path="all-games" element={<AllGames />} />
