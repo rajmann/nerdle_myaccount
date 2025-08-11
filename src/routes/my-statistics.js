@@ -89,7 +89,18 @@ const MyStatistics = () => {
       
       if (targetDateOption) {
         setDateFilter(targetDateOption);
-        // Auto-forward to standard URL with the date filter applied
+        
+        // For /lastmonth, also set games filter to "All Games"
+        if (dateParam === 'lastmonth' && allGamesOption) {
+          // Check if score logging is disabled and show dialog
+          if (!scoreLoggingEnabled) {
+            setShowEnableNonNerdleDialog(true);
+          } else {
+            setGameFilter(allGamesOption);
+          }
+        }
+        
+        // Auto-forward to standard URL with the filters applied
         navigate('/my-statistics', { replace: true });
         return;
       }
@@ -102,7 +113,7 @@ const MyStatistics = () => {
         setDateFilter(defaultDateOption);
       }
     }
-  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter, navigate]);
+  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter, navigate, allGamesOption, scoreLoggingEnabled, setGameFilter, setShowEnableNonNerdleDialog]);
 
 
 
