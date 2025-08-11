@@ -196,9 +196,9 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, gam
     console.log('GameDiary - data:', data);
     
     // Only process if we have diary data
-    if (data?.data) {
+    if (data) {
       // For now, let's create mock data based on the diary dates to see the structure
-      data.data.forEach(diary => {
+      data.forEach(diary => {
         const date = diary.date;
         detailsByDate[date] = [];
         
@@ -314,7 +314,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, gam
   return (
     <div className="mt-12">
       <DiaryTitle showPlayColumn={showPlayColumn} />
-      {data?.data?.map((diary, index) => (
+      {data?.map((diary, index) => (
         <DiaryData
           key={diary.day}
           theDay={diary.day}

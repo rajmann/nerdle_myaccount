@@ -330,7 +330,7 @@ const MyStatistics = () => {
         isMultipleGames={gameFilter?.value === "all"}
       />
       <GameDiary 
-        data={gameDiary} 
+        data={gameDiary.data?.data} 
         weeklyScoresForSharingData={weeklyScoresForSharingData}
         gameFilter={gameFilter}
         allGames={allGames}
