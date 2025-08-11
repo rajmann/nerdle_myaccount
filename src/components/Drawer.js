@@ -3,7 +3,6 @@ import React from "react";
 import { FiExternalLink } from "react-icons/fi";
 import { MdClose, MdAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
-
 import NerdleLogo from "../assets/images/nerdle-logo.png";
 import useAuth from "../hooks/useAuth";
 
