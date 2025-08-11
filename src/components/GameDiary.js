@@ -123,10 +123,19 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
 
   // Determine if we should show the play column (only for single games, not "all" or "all nerdle games")
   const showPlayColumn = React.useMemo(() => {
-    return gameFilter && 
+    console.log('GameDiary - showPlayColumn calculation:');
+    console.log('gameFilter:', gameFilter);
+    console.log('gameFilter.value !== "all":', gameFilter?.value !== 'all');
+    console.log('gameFilter.value !== "allnerdle":', gameFilter?.value !== 'allnerdle');
+    console.log('!gameFilter.label?.includes("All "):', !gameFilter?.label?.includes('All '));
+    
+    const result = gameFilter && 
            gameFilter.value !== 'all' && 
            gameFilter.value !== 'allnerdle' &&
            !gameFilter.label?.includes('All '); // Hide for any filter with "All" in the label
+           
+    console.log('showPlayColumn result:', result);
+    return result;
   }, [gameFilter]);
 
   // Get the game URL for play links
