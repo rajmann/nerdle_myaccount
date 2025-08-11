@@ -13,14 +13,19 @@ const DiaryTitle = ({ showPlayColumn }) => {
   const columns = showPlayColumn ? ["", "Played", "Won", "Points"] : ["Played", "Won", "Points"];
   
   return (
-    <div className={`grid ${gridCols} place-items-end`}>
-      <span className="col-span-2 place-self-start font-semibold text-gray-900 dark:text-white">
+    <div className={`grid ${gridCols}`}>
+      <span className="col-span-2 py-2 text-sm font-semibold text-gray-900 dark:text-white">
         Game Diary
       </span>
-      {columns.map((title, index) => (
+      {showPlayColumn && (
+        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
+          {columns[0]}
+        </span>
+      )}
+      {columns.slice(showPlayColumn ? 1 : 0).map((title, index) => (
         <span
           key={index}
-          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white">
+          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
           {title}
         </span>
       ))}
