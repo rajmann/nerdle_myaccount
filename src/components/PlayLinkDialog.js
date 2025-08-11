@@ -11,7 +11,7 @@ const PlayLinkDialog = ({
   gameName 
 }) => {
   return (
-    <BaseDialog isOpen={isOpen} onClose={onClose}>
+    <BaseDialog open={isOpen} closeDialog={onClose}>
       <div className="p-6">
         <h3 className="text-lg font-semibold mb-4 text-black dark:text-white">
           Choose an action for {gameName}
