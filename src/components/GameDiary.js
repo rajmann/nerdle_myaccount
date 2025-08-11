@@ -211,7 +211,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                         <GameIcon 
                           gameName={game.name} 
                           gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
-                          className="w-8 h-8 flex-shrink-0 mr-3"
+                          className="w-8 h-8 flex-shrink-0 mr-4"
                         />
                         <span className="text-sm text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                           {game.name}
@@ -248,7 +248,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                           <GameIcon 
                             gameName={game.name} 
                             gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
-                            className="w-8 h-8 flex-shrink-0 mr-3"
+                            className="w-8 h-8 flex-shrink-0 mr-4"
                           />
                           <span className="text-sm text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                             {game.name}

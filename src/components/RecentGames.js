@@ -270,15 +270,19 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
       </div>
  */}
 
-      <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-semibold text-gray-900 dark:text-white">
-        <div className="flex justify-between">
-          <h2>Played Today</h2>
-        </div>
-        <h2>Not Played Today</h2>
+      <div className="mb-3 grid grid-cols-2 gap-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>Played Today</h3>
+        <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>Not Played Today</h3>
       </div>
       <div className="grid grid-cols-2 gap-x-2">
-        <div className="h-full rounded-md bg-white border border-gray-200 p-4">
-          <div className="max-h-[125px] overflow-y-auto pr-4">
+        <div className="h-full rounded-lg bg-white border border-gray-200 p-4 shadow-sm relative overflow-hidden">
+          {/* Paper texture lines */}
+          <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-b from-blue-50/20 to-transparent pointer-events-none"></div>
+          <div className="absolute top-6 left-0 right-0 h-px bg-blue-100 opacity-30"></div>
+          <div className="absolute top-12 left-0 right-0 h-px bg-blue-100 opacity-30"></div>
+          <div className="absolute top-18 left-0 right-0 h-px bg-blue-100 opacity-30"></div>
+          
+          <div className="h-full relative z-10">
             {!gamesTodayWithDetails?.length ? (
               <p className="text-sm text-gray-500">No games played today</p>
             ) : (
@@ -287,21 +291,16 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                   ({ name, calculatedScore, url }, index) => (
                     <div
                       key={index}
-                      className="mb-1 flex items-center justify-between">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handlePlayLinkClick(url + "?external=true", name);
-                        }}
-                        className="text-sm text-black underline underline-offset-2 game-name cursor-pointer text-left flex items-center gap-2">
-                        <GameIcon 
-                          gameName={name} 
-                          gameData={{ nGame: url && url.includes('nerdlegame.com') }}
-                          className="w-6 h-6 flex-shrink-0"
-                        />
+                      className="mb-1 flex items-center">
+                      <GameIcon 
+                        gameName={name} 
+                        gameData={{ nGame: url && url.includes('nerdlegame.com') }}
+                        className="w-8 h-8 flex-shrink-0 mr-4"
+                      />
+                      <span className="text-sm text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {name}
-                      </button>
-                      <p className="text-sm text-black">{calculatedScore}</p>
+                      </span>
+                      <p className="text-sm text-black ml-4 font-medium">{calculatedScore}</p>
                     </div>
                   )
                 )}
@@ -310,8 +309,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           </div>
         </div>
         <div className="h-full">
-          <div className="h-full rounded-md bg-white border border-gray-200 p-4">
-            <div className="max-h-[100px] overflow-y-auto pr-4">
+          <div className="h-full rounded-lg bg-white border border-gray-200 p-4 shadow-sm relative overflow-hidden">
+            {/* Paper texture lines */}
+            <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-b from-amber-50/20 to-transparent pointer-events-none"></div>
+            <div className="absolute top-6 left-0 right-0 h-px bg-amber-100 opacity-30"></div>
+            <div className="absolute top-12 left-0 right-0 h-px bg-amber-100 opacity-30"></div>
+            <div className="absolute top-18 left-0 right-0 h-px bg-amber-100 opacity-30"></div>
+            
+            <div className="h-full relative z-10">
               {!recentlyPlayed?.length ? (
                 <p className="text-sm text-gray-500">All games played today</p>
               ) : (
@@ -319,20 +324,22 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                   {recentlyPlayed?.map(({ name, url }, index) => (
                     <div
                       key={index}
-                      className="mb-1 flex items-center justify-between">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handlePlayLinkClick(url + "?external=true", name);
-                        }}
-                        className="text-sm text-black underline underline-offset-2 game-name cursor-pointer text-left flex items-center gap-2">
-                        <GameIcon 
-                          gameName={name} 
-                          gameData={{ nGame: url && url.includes('nerdlegame.com') }}
-                          className="w-6 h-6 flex-shrink-0"
-                        />
+                      className="mb-1 flex items-center">
+                      <GameIcon 
+                        gameName={name} 
+                        gameData={{ nGame: url && url.includes('nerdlegame.com') }}
+                        className="w-8 h-8 flex-shrink-0 mr-4"
+                      />
+                      <span className="text-sm text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {name}
-                      </button>
+                      </span>
+                      <a
+                        href={url + "?external=true"}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="ml-4 inline-block bg-nerdle-primary text-white text-xs px-3 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">
+                        play
+                      </a>
                     </div>
                   ))}
                 </>
