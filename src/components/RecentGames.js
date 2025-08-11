@@ -277,7 +277,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         <h2>Not Played Today</h2>
       </div>
       <div className="grid grid-cols-2 gap-x-2">
-        <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
+        <div className="h-full rounded-md bg-white border border-gray-200 p-4">
           <div className="max-h-[125px] overflow-y-auto pr-4">
             {!gamesTodayWithDetails?.length ? (
               <p className="text-sm text-gray-500">No games played today</p>
@@ -293,15 +293,15 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                           e.preventDefault();
                           handlePlayLinkClick(url + "?external=true", name);
                         }}
-                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name cursor-pointer text-left flex items-center gap-2">
+                        className="text-sm text-black underline underline-offset-2 game-name cursor-pointer text-left flex items-center gap-2">
                         <GameIcon 
                           gameName={name} 
                           gameData={{ nGame: url && url.includes('nerdlegame.com') }}
-                          className="w-4 h-4 flex-shrink-0"
+                          className="w-6 h-6 flex-shrink-0"
                         />
                         {name}
                       </button>
-                      <p className="text-sm text-gray-900 dark:text-white">{calculatedScore}</p>
+                      <p className="text-sm text-black">{calculatedScore}</p>
                     </div>
                   )
                 )}
@@ -310,7 +310,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           </div>
         </div>
         <div className="h-full">
-          <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
+          <div className="h-full rounded-md bg-white border border-gray-200 p-4">
             <div className="max-h-[100px] overflow-y-auto pr-4">
               {!recentlyPlayed?.length ? (
                 <p className="text-sm text-gray-500">All games played today</p>
@@ -325,11 +325,11 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                           e.preventDefault();
                           handlePlayLinkClick(url + "?external=true", name);
                         }}
-                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name cursor-pointer text-left flex items-center gap-2">
+                        className="text-sm text-black underline underline-offset-2 game-name cursor-pointer text-left flex items-center gap-2">
                         <GameIcon 
                           gameName={name} 
                           gameData={{ nGame: url && url.includes('nerdlegame.com') }}
-                          className="w-4 h-4 flex-shrink-0"
+                          className="w-6 h-6 flex-shrink-0"
                         />
                         {name}
                       </button>

@@ -180,7 +180,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
         
         <div className="grid grid-cols-2 gap-x-2">
           {/* Played games */}
-          <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
+          <div className="h-full rounded-md bg-white border border-gray-200 p-4">
             <div className="max-h-[125px] overflow-y-auto pr-4">
               {!dayData.games.filter(g => g.played > 0).length ? (
                 <p className="text-sm text-gray-500">No games played {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
@@ -196,13 +196,13 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                           <GameIcon 
                             gameName={game.name} 
                             gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
-                            className="w-4 h-4 flex-shrink-0"
+                            className="w-6 h-6 flex-shrink-0"
                           />
-                          <span className="text-sm text-black dark:text-white game-name">
+                          <span className="text-sm text-black game-name">
                             {game.name}
                           </span>
                         </div>
-                        <p className="text-sm text-black dark:text-white">{game.points}</p>
+                        <p className="text-sm text-black">{game.points}</p>
                       </div>
                     ))
                   }
@@ -213,7 +213,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
 
           {/* Not played games */}
           <div className="h-full">
-            <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
+            <div className="h-full rounded-md bg-white border border-gray-200 p-4">
               <div className="max-h-[100px] overflow-y-auto pr-4">
                 {!dayData.games.filter(g => g.played === 0).length ? (
                   <p className="text-sm text-gray-500">All games played {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
@@ -229,9 +229,9 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                             <GameIcon 
                               gameName={game.name} 
                               gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
-                              className="w-4 h-4 flex-shrink-0"
+                              className="w-6 h-6 flex-shrink-0"
                             />
-                            <span className="text-sm text-black dark:text-white game-name">
+                            <span className="text-sm text-black game-name">
                               {game.name}
                             </span>
                           </div>
