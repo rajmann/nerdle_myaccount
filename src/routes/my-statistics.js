@@ -315,6 +315,7 @@ const MyStatistics = () => {
         allGames={allGames}
         gamesToday={gamesToday}
         gamesPastTwoWeeks={gamesPastTwoWeeks}
+        onGameFilterChange={setGameFilter}
       />
       <GameAndDateFilters
         gameFilter={gameFilter}

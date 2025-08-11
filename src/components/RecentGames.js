@@ -4,14 +4,22 @@ import { format } from "date-fns";
 import toast from "react-hot-toast";
 
 import Button from "../components/Button";
+import PlayLinkDialog from "../components/PlayLinkDialog";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from '../lib/useAnalyticsEventTracker';
 
-const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true }) => {
+const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true, onGameFilterChange }) => {
 
   const { isPWA } = useAuth();
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker('My Statistics');
+
+  // Dialog state for play link choices
+  const [playLinkDialog, setPlayLinkDialog] = React.useState({
+    isOpen: false,
+    gameLink: '',
+    gameName: ''
+  });
 
   let gamesTodayUnique = gamesToday?.filter(
     (game, index) =>
@@ -162,6 +170,44 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     gaEventTracker('shared_today');
   }, [gamesTodayUnique, isPWA, gaEventTracker, shareTodaysScore]);
 
+  // Handle play link click
+  const handlePlayLinkClick = React.useCallback((gameLink, gameName) => {
+    setPlayLinkDialog({
+      isOpen: true,
+      gameLink,
+      gameName
+    });
+  }, []);
+
+  // Handle viewing game diary - filter to the selected game and close dialog
+  const handleViewGameDiary = React.useCallback(() => {
+    // Find the game in allGames to get the filter value
+    // Handle special case for "nerdle (classic)" display name
+    let searchName = playLinkDialog.gameName;
+    if (searchName === 'nerdle (classic)') {
+      searchName = 'Nerdle';
+    }
+    
+    const gameDetail = allGames?.find(g => 
+      g.name === searchName || 
+      g.name.toLowerCase() === searchName.toLowerCase() ||
+      (g.value === 'nerdlegame' && playLinkDialog.gameName === 'nerdle (classic)')
+    );
+    
+    if (gameDetail && onGameFilterChange) {
+      // Use the display name for the label if it's nerdle classic
+      const displayLabel = gameDetail.value === 'nerdlegame' ? 'Nerdle (Classic)' : gameDetail.name;
+      onGameFilterChange({ label: displayLabel, value: gameDetail.value });
+    }
+    setPlayLinkDialog({ isOpen: false, gameLink: '', gameName: '' });
+  }, [allGames, onGameFilterChange, playLinkDialog.gameName]);
+
+  // Handle going to game directly
+  const handleGoToGame = React.useCallback(() => {
+    window.open(playLinkDialog.gameLink, '_blank', 'noreferrer');
+    setPlayLinkDialog({ isOpen: false, gameLink: '', gameName: '' });
+  }, [playLinkDialog.gameLink]);
+
   return (
     <div className="mt-8">
       {/* <div className="text-sm font-semibold text-gray-900 mb-2">
@@ -241,13 +287,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                     <div
                       key={index}
                       className="mb-1 flex items-center justify-between">
-                      <a
-                        href={url + "?external=true"}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePlayLinkClick(url + "?external=true", name);
+                        }}
+                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name cursor-pointer text-left">
                         {name}
-                      </a>
+                      </button>
                       <p className="text-sm text-gray-900 dark:text-white">{calculatedScore}</p>
                     </div>
                   )
@@ -267,13 +314,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                     <div
                       key={index}
                       className="mb-1 flex items-center justify-between">
-                      <a
-                        href={url + "?external=true"}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePlayLinkClick(url + "?external=true", name);
+                        }}
+                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name cursor-pointer text-left">
                         {name}
-                      </a>
+                      </button>
                     </div>
                   ))}
                 </>
@@ -289,6 +337,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           </Button>
         </div>
       )}
+
+      <PlayLinkDialog
+        isOpen={playLinkDialog.isOpen}
+        onClose={() => setPlayLinkDialog({ isOpen: false, gameLink: '', gameName: '' })}
+        onViewGameDiary={handleViewGameDiary}
+        onGoToGame={handleGoToGame}
+        gameName={playLinkDialog.gameName}
+      />
     </div>
   );
 };
