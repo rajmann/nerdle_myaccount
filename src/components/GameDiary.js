@@ -150,7 +150,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
   return (
     <div className="mb-6 relative">
       {/* Simple diary decoration */}
-      <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-red-300 via-red-400 to-red-300 rounded-full opacity-60"></div>
+      <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-nerdle-primary/60 via-nerdle-primary to-nerdle-primary/60 rounded-full opacity-80"></div>
       
       {/* Date and totals header with diary styling */}
       <div className="flex w-full border-b-2 border-dashed border-gray-300 dark:border-gray-600 pb-3 relative">
