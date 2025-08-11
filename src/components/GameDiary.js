@@ -153,32 +153,30 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
             ? "Tomorrow"
             : format(parsedDate, "d MMMM")}
         </span>
-        <span className="flex items-center justify-end pr-2 text-sm text-gray-900 dark:text-white">
+        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white">
           {dayData.totalPlayed}
         </span>
-        <span className="flex items-center justify-end pr-2 text-sm text-gray-900 dark:text-white">
+        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white">
           {dayData.totalWon}
         </span>
-        <span className="flex items-center justify-end pr-2 text-sm text-gray-900 dark:text-white">
+        <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white">
           {dayData.totalPoints}
         </span>
       </div>
 
       {/* Game breakdowns styled like RecentGames boxes */}
       <div className="mt-3">
-        {isFirstDay && (
-          <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-semibold text-gray-900 dark:text-white">
-            <h3>Played {dayData.day === 'today' ? 'Today' : dayData.day === 'yesterday' ? 'Yesterday' : dayData.day === 'tomorrow' ? 'Tomorrow' : 'This Day'}</h3>
-            <h3>Not Played {dayData.day === 'today' ? 'Today' : dayData.day === 'yesterday' ? 'Yesterday' : dayData.day === 'tomorrow' ? 'Tomorrow' : 'This Day'}</h3>
-          </div>
-        )}
+        <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+          <h3>Played {dayData.day === 'today' ? 'Today' : dayData.day === 'yesterday' ? 'Yesterday' : dayData.day === 'tomorrow' ? 'Tomorrow' : 'This Day'}</h3>
+          <h3>Not Played {dayData.day === 'today' ? 'Today' : dayData.day === 'yesterday' ? 'Yesterday' : dayData.day === 'tomorrow' ? 'Tomorrow' : 'This Day'}</h3>
+        </div>
         
         <div className="grid grid-cols-2 gap-x-2">
           {/* Played games */}
           <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
             <div className="max-h-[125px] overflow-y-auto pr-4">
               {!dayData.games.filter(g => g.played > 0).length ? (
-                <p className="text-sm text-gray-500">No games played {dayData.day === 'today' ? 'today' : 'this day'}</p>
+                <p className="text-sm text-gray-500">No games played {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
               ) : (
                 <>
                   {dayData.games
@@ -190,7 +188,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                         <span className="text-sm text-black dark:text-white game-name">
                           {game.name}
                         </span>
-                        <p className="text-sm text-gray-900 dark:text-white">{game.points}</p>
+                        <p className="text-sm text-black dark:text-white">{game.points}</p>
                       </div>
                     ))
                   }
@@ -204,7 +202,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
             <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
               <div className="max-h-[100px] overflow-y-auto pr-4">
                 {!dayData.games.filter(g => g.played === 0).length ? (
-                  <p className="text-sm text-gray-500">All games played {dayData.day === 'today' ? 'today' : 'this day'}</p>
+                  <p className="text-sm text-gray-500">All games played {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
                 ) : (
                   <>
                     {dayData.games
