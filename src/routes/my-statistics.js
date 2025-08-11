@@ -90,13 +90,13 @@ const MyStatistics = () => {
       if (targetDateOption) {
         setDateFilter(targetDateOption);
         
-        // For /lastmonth, also set games filter to "All Games"
-        if (dateParam === 'lastmonth' && allGamesOption) {
-          // Check if score logging is disabled and show dialog
-          if (!scoreLoggingEnabled) {
-            setShowEnableNonNerdleDialog(true);
-          } else {
-            setGameFilter(allGamesOption);
+        // For /lastmonth, also set games filter to "All Nerdle Games"
+        if (dateParam === 'lastmonth') {
+          const allNerdleOption = gameFilterOptions.find(option => 
+            option.label === 'All Nerdle Games'
+          );
+          if (allNerdleOption) {
+            setGameFilter(allNerdleOption);
           }
         }
         
@@ -113,7 +113,7 @@ const MyStatistics = () => {
         setDateFilter(defaultDateOption);
       }
     }
-  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter, navigate, allGamesOption, scoreLoggingEnabled, setGameFilter, setShowEnableNonNerdleDialog]);
+  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter, navigate, gameFilterOptions, setGameFilter]);
 
 
 
