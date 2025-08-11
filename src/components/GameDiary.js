@@ -116,8 +116,29 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
 
 // Enhanced diary components for multi-game view
 const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
-  const parsedDate = new Date(dayData.date + "T00:00:00.000Z");
-  const urlDate = format(parsedDate, "yyyyMMdd");
+  // Handle date parsing more safely
+  let parsedDate;
+  let urlDate = '';
+  
+  try {
+    // Try to parse the date, handling various formats
+    if (dayData.date.includes('T')) {
+      parsedDate = new Date(dayData.date);
+    } else {
+      parsedDate = new Date(dayData.date + "T00:00:00.000Z");
+    }
+    
+    if (isNaN(parsedDate.getTime())) {
+      // Fallback: use current date
+      parsedDate = new Date();
+    }
+    
+    urlDate = format(parsedDate, "yyyyMMdd");
+  } catch (error) {
+    console.error('Date parsing error:', error, dayData.date);
+    parsedDate = new Date();
+    urlDate = format(parsedDate, "yyyyMMdd");
+  }
 
   return (
     <div className="mb-6">
@@ -308,16 +329,21 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
         return;
       }
 
-      // Handle both array and object response formats  
-      const diaryData = Array.isArray(response.data) ? response.data : [response.data];
-      console.log(`Processing diary data for ${gameValue}:`, { dataLength: diaryData.length, firstEntry: diaryData[0] });
+      // Handle the nested data structure from API response
+      const apiData = response.data.data || response.data;
+      console.log(`Processing diary data for ${gameValue}:`, { apiData });
       
-      diaryData.forEach(diary => {
-        const dateKey = diary.date;
+      // Transform the API response structure to match expected format
+      Object.entries(apiData).forEach(([dayKey, dayData]) => {
+        if (!dayData || typeof dayData !== 'object') return;
+        
+        const dateKey = dayData.date;
+        if (!dateKey) return;
+        
         if (!dateGameMap.has(dateKey)) {
           dateGameMap.set(dateKey, {
-            day: diary.day,
-            date: diary.date,
+            day: dayKey,
+            date: dateKey,
             totalPlayed: 0,
             totalWon: 0,
             totalPoints: 0,
@@ -325,17 +351,17 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
           });
         }
 
-        const dayData = dateGameMap.get(dateKey);
-        dayData.totalPlayed += diary.played;
-        dayData.totalWon += diary.won;
-        dayData.totalPoints += diary.points;
-        dayData.games.push({
+        const aggregatedDayData = dateGameMap.get(dateKey);
+        aggregatedDayData.totalPlayed += dayData.played || 0;
+        aggregatedDayData.totalWon += dayData.won || 0;
+        aggregatedDayData.totalPoints += dayData.points || 0;
+        aggregatedDayData.games.push({
           name: gameDetail.name === 'Nerdle' ? 'nerdle (classic)' : gameDetail.name,
           value: gameDetail.value,
           url: gameDetail.url,
-          played: diary.played,
-          won: diary.won,
-          points: diary.points
+          played: dayData.played || 0,
+          won: dayData.won || 0,
+          points: dayData.points || 0
         });
       });
     });
@@ -352,7 +378,15 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
         if (b.day === 'today') return 1;
         if (a.day === 'yesterday') return -1;
         if (b.day === 'yesterday') return 1;
-        return new Date(b.date) - new Date(a.date);
+        
+        try {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB - dateA;
+        } catch (error) {
+          console.error('Date sorting error:', error);
+          return 0;
+        }
       });
 
     return sortedDays;
@@ -457,7 +491,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
       <div className="mt-12">
         <DiaryTitle showPlayColumn={false} />
         {enhancedDiaryData.map((dayData, index) => (
-          <React.Fragment key={dayData.date}>
+          <React.Fragment key={`${dayData.date}-${index}`}>
             <EnhancedDiaryDay dayData={dayData} isFirstDay={index === 0} />
             {index < enhancedDiaryData.length - 1 && (
               <hr className="border-white my-4" />
