@@ -423,7 +423,14 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
     const sortedDays = Array.from(dateGameMap.values())
       .map(dayData => ({
         ...dayData,
-        games: dayData.games.sort((a, b) => b.points - a.points) // Sort by points descending
+        games: dayData.games.sort((a, b) => {
+          // Nerdle (Classic) always first
+          if (a.name === 'nerdle (classic)') return -1;
+          if (b.name === 'nerdle (classic)') return 1;
+          
+          // Then alphabetical by name
+          return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+        })
       }))
       .sort((a, b) => {
         // Sort days chronologically with proper order: tomorrow, today, yesterday, then chronological

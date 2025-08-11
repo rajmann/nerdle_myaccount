@@ -66,6 +66,13 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           value: detail?.value,
           url: detail?.url,
         };
+      }).sort((a, b) => {
+        // Nerdle (Classic) always first
+        if (a.name === 'nerdle (classic)') return -1;
+        if (b.name === 'nerdle (classic)') return 1;
+        
+        // Then alphabetical by name
+        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       }),
     [gamesTodayUnique, allGames]
   );
@@ -88,8 +95,16 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         return {
           ...game,
           name: displayName,
+          value: detail?.value,
           url: detail?.url,
         };
+      }).sort((a, b) => {
+        // Nerdle (Classic) always first
+        if (a.name === 'nerdle (classic)') return -1;
+        if (b.name === 'nerdle (classic)') return 1;
+        
+        // Then alphabetical by name
+        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       }),
     [gamesPastTwoWeeksUnique, allGames]
   );
