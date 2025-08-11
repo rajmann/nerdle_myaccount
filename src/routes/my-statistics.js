@@ -287,7 +287,12 @@ const MyStatistics = () => {
         data={guessDistribution}
         isMultipleGames={gameFilter.value === "all"}
       />
-      <GameDiary data={gameDiary} weeklyScoresForSharingData={weeklyScoresForSharingData} />
+      <GameDiary 
+        data={gameDiary} 
+        weeklyScoresForSharingData={weeklyScoresForSharingData}
+        gameFilter={gameFilter}
+        allGames={allGames}
+      />
       
       <EnableNonNerdleDialog
         isOpen={showEnableNonNerdleDialog}

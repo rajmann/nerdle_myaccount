@@ -7,13 +7,16 @@ import Button from "../components/Button";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
 
-const DiaryTitle = () => {
+const DiaryTitle = ({ showPlayColumn }) => {
+  const gridCols = showPlayColumn ? "grid-cols-6" : "grid-cols-5";
+  const columns = showPlayColumn ? ["Play", "Played", "Won", "Points"] : ["Played", "Won", "Points"];
+  
   return (
-    <div className="grid grid-cols-5 place-items-end">
+    <div className={`grid ${gridCols} place-items-end`}>
       <span className="col-span-2 place-self-start font-semibold text-gray-900 dark:text-white">
         Game Diary
       </span>
-      {["Played", "Won", "Points"].map((title, index) => (
+      {columns.map((title, index) => (
         <span
           key={index}
           className="border-r border-gray-700 pr-2 text-right text-xs text-gray-400">
@@ -44,7 +47,7 @@ const DiaryTitle = () => {
 //   return someDate.getUTCDate() + " " + monthNames[someDate.getUTCMonth()]
 // }
 
-const DiaryData = ({ theDay, date, played, won, points }) => {
+const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl }) => {
   //const parsedDate = React.useMemo(() => parseISO(date), [date]);
   // const parsedDate = new Date(date)
   
@@ -63,11 +66,18 @@ const DiaryData = ({ theDay, date, played, won, points }) => {
     return newDate;
   }, [date]);
 
+  // Format date as YYYYMMDD for the URL
+  const urlDate = React.useMemo(() => {
+    return date.replace(/-/g, ''); // Convert 2020-10-10 to 20201010
+  }, [date]);
+
   if(theDay === 'tomorrow' && played === 0 && won === 0 && points === 0) return null;
 
+  const gridCols = showPlayColumn ? "grid-cols-6" : "grid-cols-5";
+  const values = showPlayColumn ? [played, won, points] : [played, won, points];
 
   return (
-    <div className="grid grid-cols-5">
+    <div className={`grid ${gridCols}`}>
       <span className="col-span-2 py-2 text-sm font-semibold text-gray-900 dark:text-white">
         {theDay === 'today'
           ? "Today"
@@ -77,7 +87,20 @@ const DiaryData = ({ theDay, date, played, won, points }) => {
           ? "Tomorrow"
           : format(parsedDate, "d MMMM")}
       </span>
-      {[played, won, points].map((value, index) => (
+      {showPlayColumn && (
+        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm">
+          {played === 0 && theDay !== 'tomorrow' && theDay !== 'today' ? (
+            <a
+              href={`${gameUrl}/${urlDate}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-nerdle-primary underline underline-offset-2">
+              play
+            </a>
+          ) : null}
+        </span>
+      )}
+      {values.map((value, index) => (
         <span
           key={index}
           className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
@@ -88,7 +111,7 @@ const DiaryData = ({ theDay, date, played, won, points }) => {
   );
 };
 
-const GameDiary = ({ data, weeklyScoresForSharingData }) => {
+const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) => {
   const { isPWA } = useAuth();
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker("My Statistics");
@@ -97,6 +120,22 @@ const GameDiary = ({ data, weeklyScoresForSharingData }) => {
     () => weeklyScoresForSharingData,
     [weeklyScoresForSharingData]
   );
+
+  // Determine if we should show the play column (only for single games, not "all" or "all nerdle games")
+  const showPlayColumn = React.useMemo(() => {
+    return gameFilter && 
+           gameFilter.value !== 'all' && 
+           gameFilter.value !== 'allnerdle' &&
+           gameFilter.value !== 'nerdlegame'; // Don't show for main nerdle game either since it doesn't follow the same URL pattern
+  }, [gameFilter]);
+
+  // Get the game URL for play links
+  const gameUrl = React.useMemo(() => {
+    if (!showPlayColumn || !allGames || !gameFilter) return '';
+    
+    const game = allGames.find(g => g.value === gameFilter.value);
+    return game ? game.url : '';
+  }, [showPlayColumn, allGames, gameFilter]);
 
   const generateTextForWeeklyScoreSharing = (currentData, isPWA) => {
     if (currentData === undefined) return "NO_GAMES";
@@ -181,7 +220,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData }) => {
   }, [weeklyScoresForSharing, isPWA, gaEventTracker]);
   return (
     <div className="mt-12">
-      <DiaryTitle />
+      <DiaryTitle showPlayColumn={showPlayColumn} />
       {data.map((diary) => (
         <DiaryData
           key={diary.day}
@@ -190,6 +229,8 @@ const GameDiary = ({ data, weeklyScoresForSharingData }) => {
           played={diary.played}
           won={diary.won}
           points={diary.points}
+          showPlayColumn={showPlayColumn}
+          gameUrl={gameUrl}
         />
       ))}
 
