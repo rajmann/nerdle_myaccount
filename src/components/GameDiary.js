@@ -168,8 +168,8 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
       <div className="mt-3">
         {isFirstDay && (
           <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-semibold text-gray-900 dark:text-white">
-            <h3>Played Today</h3>
-            <h3>Not Played Today</h3>
+            <h3>Played {dayData.day === 'today' ? 'Today' : dayData.day === 'yesterday' ? 'Yesterday' : dayData.day === 'tomorrow' ? 'Tomorrow' : 'This Day'}</h3>
+            <h3>Not Played {dayData.day === 'today' ? 'Today' : dayData.day === 'yesterday' ? 'Yesterday' : dayData.day === 'tomorrow' ? 'Tomorrow' : 'This Day'}</h3>
           </div>
         )}
         
@@ -340,6 +340,11 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
         const dateKey = dayData.date;
         if (!dateKey) return;
         
+        // Skip tomorrow entries with no activity (same logic as single-game diary)
+        if (dayKey === 'tomorrow' && dayData.played === 0 && dayData.won === 0 && dayData.points === 0) {
+          return;
+        }
+        
         if (!dateGameMap.has(dateKey)) {
           dateGameMap.set(dateKey, {
             day: dayKey,
@@ -373,7 +378,9 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
         games: dayData.games.sort((a, b) => b.points - a.points) // Sort by points descending
       }))
       .sort((a, b) => {
-        // Sort days chronologically (most recent first)
+        // Sort days chronologically with proper order: tomorrow, today, yesterday, then chronological
+        if (a.day === 'tomorrow') return -1;
+        if (b.day === 'tomorrow') return 1;
         if (a.day === 'today') return -1;
         if (b.day === 'today') return 1;
         if (a.day === 'yesterday') return -1;
