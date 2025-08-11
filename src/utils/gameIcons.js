@@ -74,16 +74,17 @@ export const getGameInitial = (gameName) => {
   return gameName.charAt(0).toUpperCase();
 };
 
-// Determine if we should use green or black background for fallback icon
-export const getFallbackIconColor = (gameData) => {
-  return isNerdleGame(gameData) ? 'bg-green-500' : 'bg-black';
+// Determine border color for fallback icon based on game type
+export const getFallbackIconBorderColor = (gameData) => {
+  return isNerdleGame(gameData) ? '#398874' : '#000000';
 };
 
 // React component for game icon
 export const GameIcon = ({ gameName, gameData, className = "w-4 h-4" }) => {
   const iconUrl = getGameIcon(gameName, gameData);
   const initial = getGameInitial(gameName);
-  const bgColor = getFallbackIconColor(gameData);
+  const isNerdle = isNerdleGame(gameData);
+  const borderColor = isNerdle ? '#398874' : '#000000'; // Teal border for Nerdle games, black for others
   
   if (iconUrl) {
     return (
@@ -100,9 +101,9 @@ export const GameIcon = ({ gameName, gameData, className = "w-4 h-4" }) => {
           }}
         />
         <div 
-          className={`${className} ${bgColor} text-white text-xs font-bold rounded items-center justify-center hidden`}
+          className={`${className} bg-white text-black text-xs font-bold rounded border-2 items-center justify-center hidden`}
+          style={{ display: 'none', borderColor: borderColor }}
           title={gameName}
-          style={{ display: 'none' }}
         >
           {initial}
         </div>
@@ -110,10 +111,11 @@ export const GameIcon = ({ gameName, gameData, className = "w-4 h-4" }) => {
     );
   }
   
-  // Fallback: colored square with first letter
+  // Fallback: white background with black text and colored border
   return (
     <div 
-      className={`${className} ${bgColor} text-white text-xs font-bold rounded flex items-center justify-center`}
+      className={`${className} bg-white text-black text-xs font-bold rounded border-2 flex items-center justify-center`}
+      style={{ borderColor: borderColor }}
       title={gameName}
     >
       {initial}

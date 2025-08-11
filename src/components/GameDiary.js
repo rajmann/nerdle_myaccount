@@ -258,7 +258,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                               href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
                               target="_blank"
                               rel="noreferrer"
-                              className="ml-4 inline-block bg-nerdle-primary text-white text-xs px-3 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium">
+                              className="ml-4 inline-block bg-nerdle-primary text-white text-xs px-3 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">
                               play
                             </a>
                           )}

@@ -2,126 +2,7 @@
 
 ## Overview
 
-This is a React-based gaming/league platform being rebranded from "Leleague" to match Nerdle's branding and styling. The application includes functionality for user management, leagues, game statistics, and social authentication. Built with Create React App and modern React patterns.
-
-## Recent Changes
-
-### 2025-07-30: Project Migration & Rebranding Initiative
-- Successfully migrated React app from leleague-react directory to root
-- Installed dependencies with yarn using legacy peer deps
-- Fixed environment variable issues for API connectivity
-- Added REACT_APP_API_URL secret pointing to https://api.leaderboardle.com/
-- **COMPLETED**: Nerdle rebranding process
-  - Updated all branding to "Nerdle League" throughout the application
-  - Applied Nerdle color scheme (#820458 purple, #398874 teal) 
-  - Replaced all logos with official Nerdle branding assets
-  - Removed all "leaderboardle" references from UI and sharing text
-  - **Changed background from dark to clean white** to match Nerdle's aesthetic
-  - Updated text colors from white to dark gray/black for proper contrast
-  - Applied Quicksand font family as primary typography
-
-### 2025-08-06: Game Filter UX Improvements
-- **COMPLETED**: Updated games filter dropdown to prioritize Nerdle
-  - Changed default game selection from "All Games" to "Nerdle" (nerdlegame)
-  - Reordered dropdown options to show "Nerdle" first  
-  - Updated all API hooks to default to "nerdlegame" game parameter (fixed from "classic")
-  - Modified game filter logic in statistics and leagues components
-  - Fixed initial load issue where statistics showed 0 games despite recent play
-  - **CRITICAL FIX**: Corrected API parameter from "classic" to "nerdlegame" for proper Nerdle data loading
-
-### 2025-08-06: Chart Color Scheme Updates
-- **COMPLETED**: Updated bar chart colors to match Nerdle branding
-  - Changed orange highlights (#F4900C) to Nerdle green (#398874)
-  - Changed light purple (#8D77B3) to Nerdle purple (#820458)  
-  - Applied changes to both main and legacy GameChart components
-  - Ensures maximum value bars show in Nerdle green, other bars in Nerdle purple
-  - Updated orange text in statistics to use Nerdle green for Points/Points per Game
-
-### 2025-08-06: Favicon and Icon Updates
-- **COMPLETED**: Updated favicon to use Nerdle logo
-  - Replaced all favicon files (16x16, 32x32, 192x192, 512x512, apple-touch-icon) with Nerdle branding
-  - Updated site.webmanifest to reference correct icon files
-  - Created proper ICO file for cross-browser compatibility
-
-### 2025-08-06: Dark Mode Implementation
-- **COMPLETED**: Added dark mode toggle functionality
-  - Created useDarkMode hook with localStorage "darkModeNew" persistence (true=dark, false/absent=light)
-  - ~~Added dark mode toggle button to navigation drawer with moon/sun icons~~ **MOVED** to profile page
-  - Implemented dark theme using #1F2937 background and white text as specified
-  - Updated all major components: Drawer, Header, layouts, BottomNavigation
-  - Added dark mode CSS classes throughout the component tree
-  - Maintains Nerdle branding colors while providing clean dark theme option
-  - **FIXED**: Added `darkMode: 'class'` to Tailwind config for proper class-based dark mode support
-  - **FIXED**: Enhanced dark mode state management to ensure consistent behavior across environments
-  - **FIXED**: Updated all grey boxes and hover states to use slate-700 (lighter version of dark background) instead of custom rgb color for better consistency
-  - **FIXED**: Updated game name text colors to use black in light mode and white in dark mode for better readability
-  - **FIXED**: Added dark background (slate-700) to dropdown menus in dark mode
-  - **FIXED**: Updated bottom navigation active tab icons to show white in dark mode instead of purple for better visibility
-  - **MOVED**: Dark mode toggle relocated from navigation drawer to dedicated /profile page section
-  - **UPDATED**: All text on profile page now uses black in light mode and white in dark mode for proper contrast
-  - **UPDATED**: Profile page title changed from "Profile" to "Profile settings"
-  - **UPDATED**: All purple text elements (buttons, links) converted to black/white with proper dark mode support
-
-### 2025-08-06: Profile Page Enhancements
-- **COMPLETED**: Added score logging toggle for non-nerdle games
-  - Created new toggle section "Enable score logging for non-nerdle games" positioned above marketing preferences
-  - Set default state to off (false) as requested
-  - Implemented URL parameter functionality - visiting /profile?lbl=true automatically enables the toggle
-  - Added proper state management with scoreLoggingOptedInState and scoreLoggingClicked handler
-  - Applied consistent styling with existing toggles (black/white text, proper spacing)
-  - Included email verification check like other preference toggles
-  - Added toast notifications for user feedback on save/error states
-  - Prepared for future backend integration with TODO comments for API calls
-  - **FIXED**: Corrected conditional logic so when toggle is OFF (default): only Nerdle games shown, + button hidden; when ON: all games shown, + button visible
-
-### 2025-08-11: Game Filter System Improvements
-- **COMPLETED**: Enhanced game filtering to always show "All Games" and "All Nerdle Games" options
-  - Updated gameFilters.js to display multi-game filter options regardless of score logging preference
-  - Created EnableNonNerdleDialog component with proper BaseDialog integration
-  - Added dialog logic that triggers when "All Games" is selected while non-nerdle games are disabled
-  - Implemented comprehensive null checks throughout my-statistics.js to prevent runtime errors
-  - **FIXED**: Auto-forwarding system for parameterized URLs (e.g., /my-statistics/lastmonth)
-    - URLs like /my-statistics/lastmonth now auto-forward to /my-statistics/ with correct date filter pre-selected
-    - Eliminates controlled/uncontrolled component issues with date filter dropdown
-    - Provides cleaner UX with proper state management
-
-### 2025-08-11: Enhanced Play Link Functionality
-- **COMPLETED**: Added interactive play link dialog system for game diary
-  - Created PlayLinkDialog component with choice between "View Game Diary" and "Go to Game"
-  - Converted direct play links to interactive buttons that trigger confirmation dialog
-  - Removed "Play" from column heading for cleaner UI
-  - Styled play buttons as purple rounded buttons with white text matching Nerdle branding
-  - Fixed URL formatting to show only /YYYYMMDD without timestamp information
-  - Added proper dark mode support for dialog components
-  - Play links only appear for unplayed games (played = 0) and single game selections
-  - "View Game Diary" keeps user on current page with game already filtered
-  - "Go to Game" opens game URL in new tab for direct play access
-
-### 2025-08-11: Enhanced Multi-Game Diary Implementation  
-- **COMPLETED**: Added enhanced game diary for "All Games" and "All Nerdle Games" selections
-  - Created useMultiGameDiary hook to fetch individual game diary data for each recent game
-  - Implemented EnhancedDiaryDay component with per-day game breakdowns
-  - Shows date/totals header followed by "Played Today"/"Not Played Today" boxes styled like RecentGames
-  - Game names display without links in played section, show scores
-  - Game names in not-played section show direct play buttons
-  - Added white horizontal line separators between days
-  - Only shows headings ("Played Today"/"Not Played Today") for first date
-  - Maintains existing single-game diary functionality unchanged
-  - Added dialog functionality to RecentGames "Played Today"/"Not Played Today" links
-  - Connected RecentGames to game filter system for seamless "View Game Diary" functionality
-
-### 2025-08-06: Header Redesign to Match Nerdle Website
-- **COMPLETED**: Updated header layout to match nerdlegame.com design
-  - Left-aligned section with three items: menu button, Nerdle logo, and "nerdle." text
-  - Right-aligned profile settings icon linking to /profile route
-  - Created new NerdleMenuIcon component matching Nerdle's hamburger menu style
-  - Created ProfileSettingsIcon component with user profile + settings cog overlay
-  - Created separate NerdleLogo and NerdleText components for modular design
-  - Updated header spacing and layout to use justify-between for proper alignment
-  - Removed transparency from decorative elements behind profile pictures
-  - **UPDATED**: Applied Nerdle website fonts - Quicksand for "nerdle" and Times New Roman for the period
-  - **UPDATED**: Replaced custom profile icon with professional Heroicons settings icon
-  - **UPDATED**: Replaced Nerdle logo with official transparent version from nerdlegame.com
+This project is a React-based gaming/league platform, rebranded as "Nerdle League" to align with Nerdle's branding and styling. Its core purpose is to provide a platform for user management, league participation, game statistics tracking, and social authentication, specifically tailored for the Nerdle game. The application aims to offer a consistent and engaging user experience through a clean, branded interface.
 
 ## User Preferences
 
@@ -131,101 +12,32 @@ Preferred communication style: Simple, everyday language.
 
 ### Frontend Architecture
 - **Framework**: React 18 with TypeScript/JSX
-- **Styling**: Tailwind CSS with shadcn/ui components for consistent design
-- **Routing**: Wouter for client-side routing (lightweight React Router alternative)
-- **State Management**: TanStack Query (React Query) for server state, Zustand for client state
-- **Build Tool**: Vite for fast development and optimized production builds
-- **Component Library**: Radix UI primitives with custom shadcn/ui styling
+- **Styling**: Tailwind CSS with shadcn/ui components for consistent design, including Nerdle's specific color scheme (#820458 purple, #398874 teal) and a preference for a clean white background with dark gray/black text. Quicksand is the primary typography.
+- **Routing**: Wouter for client-side routing.
+- **State Management**: TanStack Query for server state, Zustand for client state.
+- **Build Tool**: Vite for fast development and optimized production builds.
+- **Component Library**: Radix UI primitives with custom shadcn/ui styling.
+- **UI/UX Decisions**: Incorporates Nerdle branding elements like logos, favicons, and chart colors. Features dark mode functionality with persistence, and enhanced game filter UX prioritizing "Nerdle." Includes interactive play link dialogs and an enhanced multi-game diary with visual elements. Header redesigned to match the `nerdlegame.com` aesthetic, including specific fonts and iconography.
 
 ### Backend Architecture
-- **Framework**: Express.js with TypeScript
-- **Database ORM**: Drizzle ORM for type-safe database operations
-- **Database**: PostgreSQL (configured for Neon Database)
-- **Development**: Hot reload with tsx for TypeScript execution
-- **API Design**: RESTful APIs with /api prefix routing
+- **Framework**: Express.js with TypeScript.
+- **Database ORM**: Drizzle ORM for type-safe database operations.
+- **Database**: PostgreSQL (configured for Neon Database).
+- **API Design**: RESTful APIs with `/api` prefix routing.
 
 ### Build System
-- **Frontend**: Vite with React plugin for fast HMR and optimized builds
-- **Backend**: esbuild for server bundling and compilation
-- **TypeScript**: Shared configuration across frontend, backend, and shared modules
-- **Development**: Concurrent development servers with Vite middleware integration
+- **Frontend**: Vite with React plugin.
+- **Backend**: esbuild for server bundling and compilation.
+- **TypeScript**: Shared configuration across frontend, backend, and shared modules.
 
-## Key Components
-
-### Database Layer
-- **ORM**: Drizzle ORM with PostgreSQL dialect
-- **Schema**: Located in `shared/schema.ts` for type sharing between frontend and backend
-- **Migrations**: Generated to `./migrations` directory
-- **Connection**: Neon Database serverless connection via environment variables
-
-### Authentication & Storage
-- **Storage Interface**: Abstracted storage layer with in-memory implementation for development
-- **User Management**: Basic user CRUD operations with username-based lookup
-- **Session**: Placeholder for session management implementation
-
-### UI Components
-- **Design System**: shadcn/ui with Tailwind CSS for consistent styling
-- **Error Handling**: React Error Boundaries for graceful error recovery
-- **Responsive Design**: Mobile-first approach with Tailwind utilities
-- **Toast Notifications**: Integrated toast system for user feedback
-
-### Legacy Integration
-- **Existing React App**: `leleague-react` directory contains existing React application
-- **Migration Path**: Current structure suggests migration from legacy app to new stack
-- **Feature Parity**: Legacy app includes extensive gaming/league functionality to be ported
-
-## Data Flow
-
-### Client-Server Communication
-1. Frontend makes API requests to `/api/*` endpoints
-2. Express server handles routing and business logic
-3. Drizzle ORM manages database operations
-4. Responses flow back through the same chain
-
-### State Management
-1. TanStack Query handles server state caching and synchronization
-2. Local component state for UI interactions
-3. Shared types between frontend and backend ensure type safety
-
-### Development Workflow
-1. Vite serves frontend with HMR
-2. Express server runs concurrently with hot reload
-3. Database changes managed through Drizzle migrations
-4. TypeScript provides compile-time error checking
+### Key Components
+- **Database Layer**: Drizzle ORM with PostgreSQL dialect, schema in `shared/schema.ts`, migrations managed.
+- **Authentication & Storage**: Abstracted storage layer, basic user CRUD, placeholder for session management.
+- **UI Components**: shadcn/ui design system, React Error Boundaries, responsive design, integrated toast notifications.
 
 ## External Dependencies
 
-### Database
-- **Neon Database**: Serverless PostgreSQL hosting
-- **Connection**: Managed via DATABASE_URL environment variable
-- **Pooling**: Built-in connection pooling through Neon's serverless architecture
-
-### UI Libraries
-- **Radix UI**: Accessible component primitives
-- **Tailwind CSS**: Utility-first CSS framework
-- **Lucide React**: Icon library for consistent iconography
-
-### Development Tools
-- **Replit Integration**: Custom plugins for development environment
-- **Error Overlay**: Runtime error modal for development debugging
-- **Hot Reload**: File watching and automatic refresh
-
-## Deployment Strategy
-
-### Production Build
-1. **Frontend**: Vite builds optimized static assets to `dist/public`
-2. **Backend**: esbuild bundles server code to `dist/index.js`
-3. **Database**: Drizzle migrations applied via `db:push` command
-
-### Environment Configuration
-- **Development**: Local development with Vite dev server
-- **Production**: Served static files through Express with API routes
-- **Database**: Environment-based connection strings for different stages
-
-### Scalability Considerations
-- **Database**: Serverless PostgreSQL scales automatically
-- **Static Assets**: Can be served via CDN in production
-- **API**: Express server can be deployed to serverless platforms
-- **Caching**: TanStack Query provides client-side caching strategy
-
-The architecture prioritizes developer experience with fast hot reload, type safety, and modern tooling while maintaining production readiness with optimized builds and scalable database solutions.
+- **Neon Database**: Serverless PostgreSQL hosting, connected via `DATABASE_URL`.
+- **Radix UI**: Accessible component primitives for UI.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Lucide React**: Icon library.
