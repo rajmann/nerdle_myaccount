@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import NerdleLogo from "../assets/images/nerdle-logo.png";
 import useAuth from "../hooks/useAuth";
+
 import useAddScoreStore, { dialogStates } from "../store/useAddScoreStore";
 
 import LeagueIcon from "./icons/LeagueIcon";
