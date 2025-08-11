@@ -287,7 +287,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
 
   // Get list of games that appeared in recent games for multi-game diary
   const recentGamesForDiary = React.useMemo(() => {
-    if (!isMultiGameView || !recentGamesData) return [];
+    if (!isMultiGameView || !recentGamesData || !allGames) return [];
     
     const { gamesToday = [], gamesPastTwoWeeks = [] } = recentGamesData;
     const allRecentGames = [...(gamesToday || []), ...(gamesPastTwoWeeks || [])];
@@ -298,7 +298,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
         allRecentGames.findIndex(g => g.gameName?.toLowerCase() === game.gameName?.toLowerCase()) === index
       )
       .map(game => {
-        const gameDetail = allGames?.find(g => g.value?.toLowerCase() === game.gameName?.toLowerCase());
+        const gameDetail = allGames.find(g => g.value?.toLowerCase() === game.gameName?.toLowerCase());
         return gameDetail ? gameDetail.value : game.gameName?.toLowerCase();
       })
       .filter(Boolean);
@@ -315,8 +315,13 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
 
   // Process multi-game diary data into organized structure
   const enhancedDiaryData = React.useMemo(() => {
-    if (!isMultiGameView || !multiGameDiaryResponses?.length) {
-      console.log('Enhanced diary not active:', { isMultiGameView, responsesLength: multiGameDiaryResponses?.length });
+    if (!isMultiGameView || !multiGameDiaryResponses?.length || !recentGamesForDiary?.length || !allGames?.length) {
+      console.log('Enhanced diary not active:', { 
+        isMultiGameView, 
+        responsesLength: multiGameDiaryResponses?.length,
+        recentGamesLength: recentGamesForDiary?.length,
+        allGamesLength: allGames?.length 
+      });
       return null;
     }
 
