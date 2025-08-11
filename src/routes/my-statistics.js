@@ -84,11 +84,11 @@ const MyStatistics = () => {
         option.label === urlToDateMap[dateParam]
       );
       
-      if (targetDateOption && targetDateOption.value !== dateFilter.value) {
+      if (targetDateOption && targetDateOption.value !== dateFilter?.value) {
         setDateFilter(targetDateOption);
       }
     }
-  }, [location.pathname, dateFilterOptions, dateFilter.value, setDateFilter]);
+  }, [location.pathname, dateFilterOptions, dateFilter?.value, setDateFilter]);
 
 
 
@@ -109,7 +109,7 @@ const MyStatistics = () => {
   React.useEffect(() => {
     if (gameFilterOptions.length > 0) {
       const nerdleOption = gameFilterOptions.find(option => option.value === "nerdlegame");
-      if (nerdleOption && gameFilter.value === "nerdlegame" && gameFilter.label !== nerdleOption.label) {
+      if (nerdleOption && gameFilter?.value === "nerdlegame" && gameFilter?.label !== nerdleOption.label) {
         setGameFilter(nerdleOption);
       }
     }
@@ -152,18 +152,18 @@ const MyStatistics = () => {
 
   
   let { data: apiData, mutate: mutateStatistics } = useStatistics({
-    game: gameFilter.value,
-    date: dateFilter.value,
+    game: gameFilter?.value,
+    date: dateFilter?.value,
   });
 
   let { data: wvwData, mutate: mutateStatisticsWvw } = useStatisticsWvw({
-    game: gameFilter.value,
-    date: dateFilter.value,
+    game: gameFilter?.value,
+    date: dateFilter?.value,
   });
 
   let { data: gameDiaryData, mutate: mutateGameDiary } = useGameDiary({
-    game: gameFilter.value,
-    date: dateFilter.value,
+    game: gameFilter?.value,
+    date: dateFilter?.value,
   });
 
   const data = React.useMemo(() => apiData?.data, [apiData?.data]);
@@ -293,7 +293,7 @@ const MyStatistics = () => {
       <GameStats data={gameStats} />
       <ScoreDistribution
         data={guessDistribution}
-        isMultipleGames={gameFilter.value === "all"}
+        isMultipleGames={gameFilter?.value === "all"}
       />
       <GameDiary 
         data={gameDiary} 
