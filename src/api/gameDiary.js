@@ -25,3 +25,31 @@ export const useGameDiary = ({ game = "nerdlegame", date = "This week", id }) =>
   const response = useSWR(`/user/game-diary?${queryParams}`);
   return response;
 };
+
+// Hook for fetching multiple game diaries for enhanced multi-game display
+export const useMultiGameDiary = ({ games = [], date = "This week", id }) => {
+  const responses = games.map(gameValue => {
+    const params = new URLSearchParams();
+    params.append("game", gameValue);
+    params.append("date", date);
+
+    //SEND LOCAL DATE IN MILLISECONDS.
+    let d = new Date();
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+    const completeDate = `${ye}-${mo}-${da}T00:00:00.000Z`;
+    const currentDayForGameDate = Date.parse(completeDate);
+
+    params.append("localDate", currentDayForGameDate);
+
+    if (id) {
+      params.append("id", id);
+    }
+    const queryParams = params.toString();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useSWR(`/user/game-diary?${queryParams}`);
+  });
+
+  return responses;
+};

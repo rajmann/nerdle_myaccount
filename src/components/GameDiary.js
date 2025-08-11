@@ -3,6 +3,7 @@ import React from "react";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 
+import { useMultiGameDiary } from "../api/gameDiary";
 import Button from "../components/Button";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
@@ -113,7 +114,111 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
   );
 };
 
-const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) => {
+// Enhanced diary components for multi-game view
+const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
+  const parsedDate = new Date(dayData.date + "T00:00:00.000Z");
+  const urlDate = format(parsedDate, "yyyyMMdd");
+
+  return (
+    <div className="mb-6">
+      {/* Date and totals header */}
+      <div className="grid grid-cols-4 border-b border-gray-400 dark:border-gray-500 pb-2">
+        <span className="flex items-center text-sm font-semibold text-black dark:text-white">
+          {dayData.day === 'today'
+            ? "Today"
+            : dayData.day === 'yesterday'
+            ? "Yesterday"
+            : dayData.day === 'tomorrow'
+            ? "Tomorrow"
+            : format(parsedDate, "d MMMM")}
+        </span>
+        <span className="flex items-center justify-end pr-2 text-sm text-gray-900 dark:text-white">
+          {dayData.totalPlayed}
+        </span>
+        <span className="flex items-center justify-end pr-2 text-sm text-gray-900 dark:text-white">
+          {dayData.totalWon}
+        </span>
+        <span className="flex items-center justify-end pr-2 text-sm text-gray-900 dark:text-white">
+          {dayData.totalPoints}
+        </span>
+      </div>
+
+      {/* Game breakdowns styled like RecentGames boxes */}
+      <div className="mt-3">
+        {isFirstDay && (
+          <div className="mb-2 grid grid-cols-2 gap-x-2 text-sm font-semibold text-gray-900 dark:text-white">
+            <h3>Played Today</h3>
+            <h3>Not Played Today</h3>
+          </div>
+        )}
+        
+        <div className="grid grid-cols-2 gap-x-2">
+          {/* Played games */}
+          <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
+            <div className="max-h-[125px] overflow-y-auto pr-4">
+              {!dayData.games.filter(g => g.played > 0).length ? (
+                <p className="text-sm text-gray-500">No games played {dayData.day === 'today' ? 'today' : 'this day'}</p>
+              ) : (
+                <>
+                  {dayData.games
+                    .filter(game => game.played > 0)
+                    .map((game, index) => (
+                      <div
+                        key={index}
+                        className="mb-1 flex items-center justify-between">
+                        <span className="text-sm text-black dark:text-white game-name">
+                          {game.name}
+                        </span>
+                        <p className="text-sm text-gray-900 dark:text-white">{game.points}</p>
+                      </div>
+                    ))
+                  }
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Not played games */}
+          <div className="h-full">
+            <div className="h-full rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
+              <div className="max-h-[100px] overflow-y-auto pr-4">
+                {!dayData.games.filter(g => g.played === 0).length ? (
+                  <p className="text-sm text-gray-500">All games played {dayData.day === 'today' ? 'today' : 'this day'}</p>
+                ) : (
+                  <>
+                    {dayData.games
+                      .filter(game => game.played === 0)
+                      .map((game, index) => (
+                        <div
+                          key={index}
+                          className="mb-1 flex items-center justify-between">
+                          <span className="text-sm text-black dark:text-white game-name">
+                            {game.name}
+                          </span>
+                          {dayData.day !== 'tomorrow' && (
+                            <a
+                              href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors">
+                              play
+                            </a>
+                          )}
+                        </div>
+                      ))
+                    }
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, recentGamesData = {} }) => {
   const { isPWA } = useAuth();
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker("My Statistics");
@@ -130,6 +235,103 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
            gameFilter.value !== 'allnerdle' &&
            !gameFilter.label?.includes('All '); // Hide for any filter with "All" in the label
   }, [gameFilter]);
+
+  // Check if this is a multi-game view that needs enhanced diary
+  const isMultiGameView = React.useMemo(() => {
+    return gameFilter && (
+      gameFilter.value === 'all' || 
+      gameFilter.value === 'allnerdle' ||
+      gameFilter.label?.includes('All ')
+    );
+  }, [gameFilter]);
+
+  // Get list of games that appeared in recent games for multi-game diary
+  const recentGamesForDiary = React.useMemo(() => {
+    if (!isMultiGameView || !recentGamesData) return [];
+    
+    const { gamesToday = [], gamesPastTwoWeeks = [] } = recentGamesData;
+    const allRecentGames = [...(gamesToday || []), ...(gamesPastTwoWeeks || [])];
+    
+    // Get unique game values, prioritizing those that match our filter
+    const uniqueGames = allRecentGames
+      .filter((game, index) => 
+        allRecentGames.findIndex(g => g.gameName?.toLowerCase() === game.gameName?.toLowerCase()) === index
+      )
+      .map(game => {
+        const gameDetail = allGames?.find(g => g.value?.toLowerCase() === game.gameName?.toLowerCase());
+        return gameDetail ? gameDetail.value : game.gameName?.toLowerCase();
+      })
+      .filter(Boolean);
+    
+    return uniqueGames;
+  }, [isMultiGameView, recentGamesData, allGames]);
+
+  // Fetch multi-game diary data if needed
+  const multiGameDiaryResponses = useMultiGameDiary({
+    games: isMultiGameView ? recentGamesForDiary : [],
+    date: "This week",
+    id: null
+  });
+
+  // Process multi-game diary data into organized structure
+  const enhancedDiaryData = React.useMemo(() => {
+    if (!isMultiGameView || !multiGameDiaryResponses?.length) return null;
+
+    // Create a map of date -> games data
+    const dateGameMap = new Map();
+    
+    multiGameDiaryResponses.forEach((response, index) => {
+      const gameValue = recentGamesForDiary[index];
+      if (!response?.data || response.isLoading || response.error) return;
+
+      const gameDetail = allGames?.find(g => g.value === gameValue);
+      if (!gameDetail) return;
+
+      response.data.forEach(diary => {
+        const dateKey = diary.date;
+        if (!dateGameMap.has(dateKey)) {
+          dateGameMap.set(dateKey, {
+            day: diary.day,
+            date: diary.date,
+            totalPlayed: 0,
+            totalWon: 0,
+            totalPoints: 0,
+            games: []
+          });
+        }
+
+        const dayData = dateGameMap.get(dateKey);
+        dayData.totalPlayed += diary.played;
+        dayData.totalWon += diary.won;
+        dayData.totalPoints += diary.points;
+        dayData.games.push({
+          name: gameDetail.name === 'Nerdle' ? 'nerdle (classic)' : gameDetail.name,
+          value: gameDetail.value,
+          url: gameDetail.url,
+          played: diary.played,
+          won: diary.won,
+          points: diary.points
+        });
+      });
+    });
+
+    // Sort games within each day and convert to array
+    const sortedDays = Array.from(dateGameMap.values())
+      .map(dayData => ({
+        ...dayData,
+        games: dayData.games.sort((a, b) => b.points - a.points) // Sort by points descending
+      }))
+      .sort((a, b) => {
+        // Sort days chronologically (most recent first)
+        if (a.day === 'today') return -1;
+        if (b.day === 'today') return 1;
+        if (a.day === 'yesterday') return -1;
+        if (b.day === 'yesterday') return 1;
+        return new Date(b.date) - new Date(a.date);
+      });
+
+    return sortedDays;
+  }, [isMultiGameView, multiGameDiaryResponses, recentGamesForDiary, allGames]);
 
 
 
@@ -224,6 +426,32 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
     //console.log("GA: SHARED 7 DAYS");
     gaEventTracker("shared_7days");
   }, [weeklyScoresForSharing, isPWA, gaEventTracker]);
+  // Render enhanced multi-game diary or regular single-game diary
+  if (isMultiGameView && enhancedDiaryData) {
+    return (
+      <div className="mt-12">
+        <DiaryTitle showPlayColumn={false} />
+        {enhancedDiaryData.map((dayData, index) => (
+          <React.Fragment key={dayData.date}>
+            <EnhancedDiaryDay dayData={dayData} isFirstDay={index === 0} />
+            {index < enhancedDiaryData.length - 1 && (
+              <hr className="border-white my-4" />
+            )}
+          </React.Fragment>
+        ))}
+
+        {weeklyScoresForSharingData !== undefined ? (
+          <div className="flex h-full flex-col items-stretch">
+            <Button className="mt-3" onClick={onShareWeeklyScores}>
+              {`Share all scores for the past 7 days`}
+            </Button>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  // Regular single-game diary
   return (
     <div className="mt-12">
       <DiaryTitle showPlayColumn={showPlayColumn} />

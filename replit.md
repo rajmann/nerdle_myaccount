@@ -97,6 +97,19 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - "View Game Diary" keeps user on current page with game already filtered
   - "Go to Game" opens game URL in new tab for direct play access
 
+### 2025-08-11: Enhanced Multi-Game Diary Implementation  
+- **COMPLETED**: Added enhanced game diary for "All Games" and "All Nerdle Games" selections
+  - Created useMultiGameDiary hook to fetch individual game diary data for each recent game
+  - Implemented EnhancedDiaryDay component with per-day game breakdowns
+  - Shows date/totals header followed by "Played Today"/"Not Played Today" boxes styled like RecentGames
+  - Game names display without links in played section, show scores
+  - Game names in not-played section show direct play buttons
+  - Added white horizontal line separators between days
+  - Only shows headings ("Played Today"/"Not Played Today") for first date
+  - Maintains existing single-game diary functionality unchanged
+  - Added dialog functionality to RecentGames "Played Today"/"Not Played Today" links
+  - Connected RecentGames to game filter system for seamless "View Game Diary" functionality
+
 ### 2025-08-06: Header Redesign to Match Nerdle Website
 - **COMPLETED**: Updated header layout to match nerdlegame.com design
   - Left-aligned section with three items: menu button, Nerdle logo, and "nerdle." text

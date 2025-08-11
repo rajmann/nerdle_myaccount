@@ -335,6 +335,10 @@ const MyStatistics = () => {
         weeklyScoresForSharingData={weeklyScoresForSharingData}
         gameFilter={gameFilter}
         allGames={allGames}
+        recentGamesData={{
+          gamesToday: gamesToday,
+          gamesPastTwoWeeks: gamesPastTwoWeeks
+        }}
       />
       
       <EnableNonNerdleDialog
