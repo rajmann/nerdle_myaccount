@@ -207,7 +207,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                     .map((game, index) => (
                       <div
                         key={index}
-                        className="mb-1 flex items-center">
+                        className="mb-2 flex items-center">
                         <GameIcon 
                           gameName={game.name} 
                           gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
@@ -244,7 +244,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                       .map((game, index) => (
                         <div
                           key={index}
-                          className="mb-1 flex items-center">
+                          className="mb-2 flex items-center">
                           <GameIcon 
                             gameName={game.name} 
                             gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
@@ -296,7 +296,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
     const allRecentGames = [...(gamesToday || []), ...(gamesPastTwoWeeks || [])];
     
     // Get unique game values, prioritizing those that match our filter
-    const uniqueGames = allRecentGames
+    let uniqueGames = allRecentGames
       .filter((game, index) => 
         allRecentGames.findIndex(g => g.gameName?.toLowerCase() === game.gameName?.toLowerCase()) === index
       )
@@ -306,8 +306,16 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
       })
       .filter(Boolean);
     
+    // If filtering to "All Nerdle Games", only include Nerdle games
+    if (gameFilter && gameFilter.value === 'allnerdle') {
+      uniqueGames = uniqueGames.filter(gameValue => {
+        const gameDetail = allGames.find(g => g.value === gameValue);
+        return gameDetail && gameDetail.nGame === true;
+      });
+    }
+    
     return uniqueGames;
-  }, [isMultiGameView, recentGamesData, allGames]);
+  }, [isMultiGameView, recentGamesData, allGames, gameFilter]);
 
   // Fetch multi-game diary data if needed - MOVED TO TOP to avoid hooks order violation
   const multiGameDiaryResponses = useMultiGameDiary({

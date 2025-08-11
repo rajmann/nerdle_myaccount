@@ -291,7 +291,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                   ({ name, calculatedScore, url }, index) => (
                     <div
                       key={index}
-                      className="mb-1 flex items-center">
+                      className="mb-2 flex items-center">
                       <GameIcon 
                         gameName={name} 
                         gameData={{ nGame: url && url.includes('nerdlegame.com') }}
@@ -324,7 +324,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                   {recentlyPlayed?.map(({ name, url }, index) => (
                     <div
                       key={index}
-                      className="mb-1 flex items-center">
+                      className="mb-2 flex items-center">
                       <GameIcon 
                         gameName={name} 
                         gameData={{ nGame: url && url.includes('nerdlegame.com') }}
