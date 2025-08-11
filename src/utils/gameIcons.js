@@ -112,7 +112,7 @@ export const GameIcon = ({ gameName, gameData, className = "w-4 h-4" }) => {
           }}
         />
         <div 
-          className={`${className} bg-white text-black text-xs font-bold rounded border-2 items-center justify-center hidden`}
+          className={`${className} bg-white text-black text-xs font-bold rounded border-2 flex items-center justify-center hidden`}
           style={{ display: 'none', borderColor: borderColor }}
           title={gameName}
         >
