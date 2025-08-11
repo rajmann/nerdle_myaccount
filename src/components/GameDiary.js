@@ -89,15 +89,25 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       </span>
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm">
-          {played === 0 && theDay !== 'tomorrow' ? (
-            <a
-              href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
-              target="_blank"
-              rel="noreferrer"
-              className="text-sm text-nerdle-primary underline underline-offset-2">
-              play
-            </a>
-          ) : null}
+          {(() => {
+            console.log(`DiaryData ${theDay} - played: ${played}, theDay: ${theDay}, gameUrl: ${gameUrl}`);
+            console.log(`Should show play link: ${played === 0 && theDay !== 'tomorrow'}`);
+            
+            if (played === 0 && theDay !== 'tomorrow') {
+              const href = theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`;
+              console.log(`Play link href: ${href}`);
+              return (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-nerdle-primary underline underline-offset-2">
+                  play
+                </a>
+              );
+            }
+            return null;
+          })()}
         </span>
       )}
       {values.map((value, index) => (
@@ -140,10 +150,21 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames }) =
 
   // Get the game URL for play links
   const gameUrl = React.useMemo(() => {
-    if (!showPlayColumn || !allGames || !gameFilter) return '';
+    console.log('GameDiary - gameUrl calculation:');
+    console.log('showPlayColumn:', showPlayColumn);
+    console.log('allGames:', allGames);
+    console.log('gameFilter:', gameFilter);
+    
+    if (!showPlayColumn || !allGames || !gameFilter) {
+      console.log('Early return - missing prerequisites');
+      return '';
+    }
     
     const game = allGames.find(g => g.value === gameFilter.value);
-    return game ? game.url : '';
+    console.log('Found game:', game);
+    const url = game ? game.url : '';
+    console.log('Game URL:', url);
+    return url;
   }, [showPlayColumn, allGames, gameFilter]);
 
   const generateTextForWeeklyScoreSharing = (currentData, isPWA) => {
