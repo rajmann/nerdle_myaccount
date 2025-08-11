@@ -160,10 +160,10 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
             ? "Tomorrow"
             : format(parsedDate, "d MMMM")}
         </span>
-        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
+        <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
           {dayData.totalPlayed}
         </span>
-        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
+        <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
           {dayData.totalWon}
         </span>
         <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
