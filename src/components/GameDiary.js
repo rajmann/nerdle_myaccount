@@ -122,7 +122,7 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
 };
 
 // Enhanced diary components for multi-game view
-const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
+const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
   // Handle date parsing more safely
   let parsedDate;
   let urlDate = '';
@@ -253,15 +253,21 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                           <span className="text-xs text-black game-name flex-1 min-w-0 ml-3" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                             {game.name}
                           </span>
-                          {dayData.day !== 'tomorrow' && (
-                            <a
-                              href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">
-                              play
-                            </a>
-                          )}
+                          {dayData.day !== 'tomorrow' && (() => {
+                            // Only show play button for Nerdle games
+                            const gameDetail = allGames?.find(g => g.value === game.value);
+                            const isNerdleGame = gameDetail && gameDetail.nGame === true;
+                            
+                            return isNerdleGame ? (
+                              <a
+                                href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">
+                                play
+                              </a>
+                            ) : null;
+                          })()}
                         </div>
                       ))
                     }
@@ -308,18 +314,16 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
     
     // If filtering to "All Nerdle Games", only include Nerdle games
     if (gameFilter && gameFilter.value === 'allnerdle') {
-      console.log('🚨 FILTERING TO ALLNERDLE - BEFORE FILTER:', uniqueGames);
-      console.log('🚨 GAMEFILTER:', gameFilter);
-      console.log('🚨 ALL GAMES WITH NGAME:', allGames?.filter(g => g.name?.toLowerCase().includes('wordle') || g.value?.toLowerCase().includes('wordle')));
+      console.log('Filtering to allnerdle - before filter:', uniqueGames);
       
       uniqueGames = uniqueGames.filter(gameValue => {
         const gameDetail = allGames.find(g => g.value === gameValue);
         const isNerdle = gameDetail && gameDetail.nGame === true;
-        console.log(`🚨 CHECKING ${gameValue}: gameDetail=${gameDetail?.name}, nGame=${gameDetail?.nGame}, isNerdle=${isNerdle}`);
+        console.log(`Checking ${gameValue}: gameDetail=${gameDetail?.name}, nGame=${gameDetail?.nGame}, isNerdle=${isNerdle}`);
         return isNerdle;
       });
       
-      console.log('🚨 FILTERING TO ALLNERDLE - AFTER FILTER:', uniqueGames);
+      console.log('Filtering to allnerdle - after filter:', uniqueGames);
     }
     
     return uniqueGames;
@@ -562,7 +566,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
         <DiaryTitle showPlayColumn={false} />
         {enhancedDiaryData.map((dayData, index) => (
           <React.Fragment key={`${dayData.date}-${index}`}>
-            <EnhancedDiaryDay dayData={dayData} isFirstDay={index === 0} />
+            <EnhancedDiaryDay dayData={dayData} allGames={allGames} isFirstDay={index === 0} />
             {index < enhancedDiaryData.length - 1 && (
               <hr className="border-white my-4" />
             )}
