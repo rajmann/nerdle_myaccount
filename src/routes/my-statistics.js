@@ -64,10 +64,18 @@ const MyStatistics = () => {
 
   // Auto-forward from parameterized URLs to /my-statistics with correct date filter
   React.useEffect(() => {
+    console.log('Auto-forward effect triggered:', {
+      pathname: location.pathname,
+      dateFilterOptionsLength: dateFilterOptions.length,
+      dateFilter: dateFilter
+    });
+    
     if (dateFilterOptions.length === 0) return;
     
     const pathSegments = location.pathname.split('/');
     const dateParam = pathSegments[pathSegments.length - 1];
+    
+    console.log('Date param:', dateParam);
     
     // Map URL parameters to date filter options
     const urlToDateMap = {
@@ -83,11 +91,16 @@ const MyStatistics = () => {
 
     // Check if we have a URL parameter that maps to a date filter
     if (urlToDateMap[dateParam]) {
+      console.log('Found URL mapping for:', dateParam, '→', urlToDateMap[dateParam]);
       const targetDateOption = dateFilterOptions.find(option => 
         option.label === urlToDateMap[dateParam]
       );
       
+      console.log('Target date option found:', targetDateOption);
+      console.log('Available date options:', dateFilterOptions.map(opt => opt.label));
+      
       if (targetDateOption) {
+        console.log('Setting date filter and navigating...');
         setDateFilter(targetDateOption);
         // Auto-forward to standard URL with the date filter applied
         navigate('/my-statistics', { replace: true });
