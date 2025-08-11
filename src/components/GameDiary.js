@@ -89,9 +89,9 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       </span>
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm">
-          {played === 0 && theDay !== 'tomorrow' && theDay !== 'today' ? (
+          {played === 0 && theDay !== 'tomorrow' ? (
             <a
-              href={`${gameUrl}/${urlDate}`}
+              href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
               target="_blank"
               rel="noreferrer"
               className="text-sm text-nerdle-primary underline underline-offset-2">
