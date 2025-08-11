@@ -64,7 +64,7 @@ const MyStatistics = () => {
 
   // Auto-forward from parameterized URLs to /my-statistics with correct date filter
   React.useEffect(() => {
-    if (dateFilterOptions.length === 0) return;
+    if (dateFilterOptions.length === 0 || gameFilterOptions.length === 0) return;
     
     const pathSegments = location.pathname.split('/');
     const dateParam = pathSegments[pathSegments.length - 1];
@@ -92,14 +92,10 @@ const MyStatistics = () => {
         
         // For /lastmonth, also set games filter to "All Nerdle Games"
         if (dateParam === 'lastmonth') {
-          console.log('Setting game filter for /lastmonth');
-          console.log('Available game filter options:', gameFilterOptions.map(opt => opt.label));
           const allNerdleOption = gameFilterOptions.find(option => 
             option.label === 'All Nerdle Games'
           );
-          console.log('Found All Nerdle Games option:', allNerdleOption);
           if (allNerdleOption) {
-            console.log('Setting game filter to All Nerdle Games');
             setGameFilter(allNerdleOption);
           }
         }
