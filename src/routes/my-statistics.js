@@ -62,7 +62,7 @@ const MyStatistics = () => {
   const { gameFilter, setGameFilter, dateFilter, setDateFilter } =
     useMyStatisticsStore();
 
-  // Parse URL to set date filter automatically and ensure default value
+  // Auto-forward from parameterized URLs to /my-statistics with correct date filter
   React.useEffect(() => {
     if (dateFilterOptions.length === 0) return;
     
@@ -87,8 +87,10 @@ const MyStatistics = () => {
         option.label === urlToDateMap[dateParam]
       );
       
-      if (targetDateOption && targetDateOption.value !== dateFilter?.value) {
+      if (targetDateOption) {
         setDateFilter(targetDateOption);
+        // Auto-forward to standard URL with the date filter applied
+        navigate('/my-statistics', { replace: true });
         return;
       }
     }
@@ -100,7 +102,7 @@ const MyStatistics = () => {
         setDateFilter(defaultDateOption);
       }
     }
-  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter]);
+  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter, navigate]);
 
 
 
@@ -145,15 +147,11 @@ const MyStatistics = () => {
 
   const onDateFilterChange = React.useCallback(
     (value) => {
-      console.log('onDateFilterChange called with value:', value);
       const option = dateFilterOptions.find((option) => option.value === value);
-      console.log('Found option:', option);
       if (option) {
-        console.log('Setting date filter to:', option);
         setDateFilter(option);
         // Navigate to standard URL when date filter changes
         if (location.pathname !== '/my-statistics') {
-          console.log('Navigating to /my-statistics from:', location.pathname);
           navigate('/my-statistics');
         }
       }

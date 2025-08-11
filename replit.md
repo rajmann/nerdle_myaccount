@@ -74,6 +74,17 @@ This is a React-based gaming/league platform being rebranded from "Leleague" to 
   - Prepared for future backend integration with TODO comments for API calls
   - **FIXED**: Corrected conditional logic so when toggle is OFF (default): only Nerdle games shown, + button hidden; when ON: all games shown, + button visible
 
+### 2025-08-11: Game Filter System Improvements
+- **COMPLETED**: Enhanced game filtering to always show "All Games" and "All Nerdle Games" options
+  - Updated gameFilters.js to display multi-game filter options regardless of score logging preference
+  - Created EnableNonNerdleDialog component with proper BaseDialog integration
+  - Added dialog logic that triggers when "All Games" is selected while non-nerdle games are disabled
+  - Implemented comprehensive null checks throughout my-statistics.js to prevent runtime errors
+  - **FIXED**: Auto-forwarding system for parameterized URLs (e.g., /my-statistics/lastmonth)
+    - URLs like /my-statistics/lastmonth now auto-forward to /my-statistics/ with correct date filter pre-selected
+    - Eliminates controlled/uncontrolled component issues with date filter dropdown
+    - Provides cleaner UX with proper state management
+
 ### 2025-08-06: Header Redesign to Match Nerdle Website
 - **COMPLETED**: Updated header layout to match nerdlegame.com design
   - Left-aligned section with three items: menu button, Nerdle logo, and "nerdle." text
