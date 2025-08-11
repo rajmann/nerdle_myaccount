@@ -9,23 +9,23 @@ import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
 
 const DiaryTitle = ({ showPlayColumn }) => {
-  const gridCols = showPlayColumn ? "grid-cols-6" : "grid-cols-5";
   const columns = showPlayColumn ? ["", "Played", "Won", "Points"] : ["Played", "Won", "Points"];
   
   return (
-    <div className={`grid ${gridCols}`}>
-      <span className="col-span-2 py-2 text-sm font-semibold text-gray-900 dark:text-white">
+    <div className="flex w-full">
+      <span className="py-2 text-sm font-semibold text-gray-900 dark:text-white" style={{ width: '40%' }}>
         Game Diary
       </span>
       {showPlayColumn && (
-        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
+        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white" style={{ width: '20%' }}>
           {columns[0]}
         </span>
       )}
       {columns.slice(showPlayColumn ? 1 : 0).map((title, index) => (
         <span
           key={index}
-          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
+          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white"
+          style={{ width: '20%' }}>
           {title}
         </span>
       ))}
@@ -85,8 +85,8 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
   const values = showPlayColumn ? [played, won, points] : [played, won, points];
 
   return (
-    <div className={`grid ${gridCols}`}>
-      <span className="col-span-2 py-2 text-sm font-semibold text-gray-900 dark:text-white">
+    <div className="flex w-full">
+      <span className="py-2 text-sm font-semibold text-gray-900 dark:text-white" style={{ width: '40%' }}>
         {theDay === 'today'
           ? "Today"
           : theDay === 'yesterday'
@@ -96,7 +96,7 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
           : format(parsedDate, "d MMMM")}
       </span>
       {showPlayColumn && (
-        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm">
+        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm" style={{ width: '20%' }}>
           {played === 0 && theDay !== 'tomorrow' ? (
             <a
               href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
@@ -111,7 +111,8 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       {values.map((value, index) => (
         <span
           key={index}
-          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white">
+          className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-gray-900 dark:text-white"
+          style={{ width: '20%' }}>
           {value}
         </span>
       ))}
@@ -148,8 +149,8 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
   return (
     <div className="mb-6">
       {/* Date and totals header */}
-      <div className="grid grid-cols-4 border-b border-gray-400 dark:border-gray-500 pb-2">
-        <span className="flex items-center text-sm font-semibold text-black dark:text-white">
+      <div className="flex w-full border-b border-gray-400 dark:border-gray-500 pb-2">
+        <span className="flex items-center text-sm font-semibold text-black dark:text-white" style={{ width: '40%' }}>
           {dayData.day === 'today'
             ? "Today"
             : dayData.day === 'yesterday'
@@ -158,13 +159,13 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
             ? "Tomorrow"
             : format(parsedDate, "d MMMM")}
         </span>
-        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white">
+        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
           {dayData.totalPlayed}
         </span>
-        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white">
+        <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
           {dayData.totalWon}
         </span>
-        <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white">
+        <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
           {dayData.totalPoints}
         </span>
       </div>
