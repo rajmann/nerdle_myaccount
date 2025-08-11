@@ -263,29 +263,14 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker("My Statistics");
 
-  const currentData = React.useMemo(
-    () => weeklyScoresForSharingData,
-    [weeklyScoresForSharingData]
+  // Check if this is a multi-game view that needs enhanced diary
+  const isMultiGameView = gameFilter && (
+    gameFilter.value === 'all' || 
+    gameFilter.value === 'allnerdle' ||
+    gameFilter.label?.includes('All ')
   );
 
-  // Determine if we should show the play column (only for single games, not "all" or "all nerdle games")
-  const showPlayColumn = React.useMemo(() => {
-    return gameFilter && 
-           gameFilter.value !== 'all' && 
-           gameFilter.value !== 'allnerdle' &&
-           !gameFilter.label?.includes('All '); // Hide for any filter with "All" in the label
-  }, [gameFilter]);
-
-  // Check if this is a multi-game view that needs enhanced diary
-  const isMultiGameView = React.useMemo(() => {
-    return gameFilter && (
-      gameFilter.value === 'all' || 
-      gameFilter.value === 'allnerdle' ||
-      gameFilter.label?.includes('All ')
-    );
-  }, [gameFilter]);
-
-  // Get list of games that appeared in recent games for multi-game diary
+  // Get list of games that appeared in recent games for multi-game diary - wrapped in useMemo to avoid dependency issues
   const recentGamesForDiary = React.useMemo(() => {
     if (!isMultiGameView || !recentGamesData || !allGames) return [];
     
@@ -306,12 +291,25 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
     return uniqueGames;
   }, [isMultiGameView, recentGamesData, allGames]);
 
-  // Fetch multi-game diary data if needed
+  // Fetch multi-game diary data if needed - MOVED TO TOP to avoid hooks order violation
   const multiGameDiaryResponses = useMultiGameDiary({
     games: isMultiGameView ? recentGamesForDiary : [],
     date: "This week",
     id: null
   });
+
+  const currentData = React.useMemo(
+    () => weeklyScoresForSharingData,
+    [weeklyScoresForSharingData]
+  );
+
+  // Determine if we should show the play column (only for single games, not "all" or "all nerdle games")
+  const showPlayColumn = React.useMemo(() => {
+    return gameFilter && 
+           gameFilter.value !== 'all' && 
+           gameFilter.value !== 'allnerdle' &&
+           !gameFilter.label?.includes('All '); // Hide for any filter with "All" in the label
+  }, [gameFilter]);
 
   // Process multi-game diary data into organized structure
   const enhancedDiaryData = React.useMemo(() => {
