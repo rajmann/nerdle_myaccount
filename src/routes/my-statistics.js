@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 import toast from "react-hot-toast";
-import { useOutletContext, useParams, useLocation } from "react-router-dom";
+import { useOutletContext, useParams, useLocation, useNavigate } from "react-router-dom";
 
 import { useGameDiary } from "../api/gameDiary";
 import { useGames } from "../api/games";
@@ -39,6 +39,7 @@ const MyStatistics = () => {
   const [refresher,] = useOutletContext();
   const [showEnableNonNerdleDialog, setShowEnableNonNerdleDialog] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker('My Statistics');
   const auth = useAuth();
@@ -131,8 +132,12 @@ const MyStatistics = () => {
     (value) => {
       const option = dateFilterOptions.find((option) => option.value === value);
       setDateFilter(option);
+      // Navigate to standard URL when date filter changes
+      if (location.pathname !== '/my-statistics') {
+        navigate('/my-statistics');
+      }
     },
-    [dateFilterOptions, setDateFilter]
+    [dateFilterOptions, setDateFilter, location.pathname, navigate]
   );
 
   const { data: profile} = useProfile();
