@@ -127,6 +127,13 @@ const MyStatistics = () => {
   };
 
   const handleEnableNonNerdleCancel = () => {
+    // When user clicks "No", set game filter to "All Nerdle Games" instead
+    const allNerdleOption = gameFilterOptions.find(option => 
+      option.label === 'All Nerdle Games'
+    );
+    if (allNerdleOption) {
+      setGameFilter(allNerdleOption);
+    }
     setShowEnableNonNerdleDialog(false);
   };
 
