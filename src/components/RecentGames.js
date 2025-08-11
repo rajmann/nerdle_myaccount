@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import PlayLinkDialog from "../components/PlayLinkDialog";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from '../lib/useAnalyticsEventTracker';
+import { GameIcon } from "../utils/gameIcons";
 
 const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true, onGameFilterChange }) => {
 
@@ -292,7 +293,12 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                           e.preventDefault();
                           handlePlayLinkClick(url + "?external=true", name);
                         }}
-                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name cursor-pointer text-left">
+                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name cursor-pointer text-left flex items-center gap-2">
+                        <GameIcon 
+                          gameName={name} 
+                          gameData={{ nGame: url && url.includes('nerdlegame.com') }}
+                          className="w-4 h-4 flex-shrink-0"
+                        />
                         {name}
                       </button>
                       <p className="text-sm text-gray-900 dark:text-white">{calculatedScore}</p>
@@ -319,7 +325,12 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                           e.preventDefault();
                           handlePlayLinkClick(url + "?external=true", name);
                         }}
-                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name cursor-pointer text-left">
+                        className="text-sm text-black dark:text-white underline underline-offset-2 game-name cursor-pointer text-left flex items-center gap-2">
+                        <GameIcon 
+                          gameName={name} 
+                          gameData={{ nGame: url && url.includes('nerdlegame.com') }}
+                          className="w-4 h-4 flex-shrink-0"
+                        />
                         {name}
                       </button>
                     </div>
