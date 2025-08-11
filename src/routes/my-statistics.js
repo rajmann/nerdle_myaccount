@@ -113,7 +113,26 @@ const MyStatistics = () => {
         setDateFilter(defaultDateOption);
       }
     }
-  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter, navigate, gameFilterOptions, setGameFilter]);
+    
+    // Set default game filter to "All Nerdle Games" if not already set or if current filter is invalid
+    if (gameFilterOptions.length > 0) {
+      const currentGameFilterExists = gameFilterOptions.find(option => 
+        option.value === gameFilter?.value && option.label === gameFilter?.label
+      );
+      
+      if (!currentGameFilterExists) {
+        const allNerdleOption = gameFilterOptions.find(option => 
+          option.label === 'All Nerdle Games'
+        );
+        if (allNerdleOption) {
+          setGameFilter(allNerdleOption);
+        } else if (gameFilterOptions.length > 0) {
+          // Fallback to first option if "All Nerdle Games" not found
+          setGameFilter(gameFilterOptions[0]);
+        }
+      }
+    }
+  }, [location.pathname, dateFilterOptions, dateFilter, setDateFilter, navigate, gameFilterOptions, setGameFilter, gameFilter]);
 
 
 
