@@ -90,18 +90,13 @@ const MyStatistics = () => {
     }
   }, [location.pathname, dateFilterOptions, dateFilter.value, setDateFilter]);
 
-  // Handle game filter change with dialog for "All Games" when non-nerdle games disabled
-  const handleGameFilterChange = (newGameFilter) => {
-    if (newGameFilter.value === allGamesOption.value && !scoreLoggingEnabled) {
-      setShowEnableNonNerdleDialog(true);
-      return;
-    }
-    setGameFilter(newGameFilter);
-  };
+
 
   const handleEnableNonNerdleConfirm = () => {
     setScoreLoggingEnabled(true);
-    setGameFilter(allGamesOption);
+    if (allGamesOption) {
+      setGameFilter(allGamesOption);
+    }
     setShowEnableNonNerdleDialog(false);
     toast.success('Non-nerdle games enabled');
   };
@@ -123,9 +118,17 @@ const MyStatistics = () => {
   const onGameFilterChange = React.useCallback(
     (value) => {
       const option = gameFilterOptions.find((option) => option.value === value);
+      if (!option) return;
+      
+      // Check if "All Games" is selected while non-nerdle games are disabled
+      if (option.value === allGamesOption?.value && !scoreLoggingEnabled) {
+        setShowEnableNonNerdleDialog(true);
+        return;
+      }
+      
       setGameFilter(option);
     },
-    [gameFilterOptions, setGameFilter]
+    [gameFilterOptions, setGameFilter, allGamesOption, scoreLoggingEnabled, setShowEnableNonNerdleDialog]
   );
 
   const onDateFilterChange = React.useCallback(
@@ -282,7 +285,7 @@ const MyStatistics = () => {
       <GameAndDateFilters
         gameFilter={gameFilter}
         gameFilterOptions={gameFilterOptions}
-        onGameFilterChange={handleGameFilterChange}
+        onGameFilterChange={onGameFilterChange}
         dateFilter={dateFilter}
         dateFilterOptions={dateFilterOptions}
         onDateFilterChange={onDateFilterChange}
