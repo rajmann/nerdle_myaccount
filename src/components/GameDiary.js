@@ -9,7 +9,7 @@ import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
 
 const DiaryTitle = ({ showPlayColumn }) => {
   const gridCols = showPlayColumn ? "grid-cols-6" : "grid-cols-5";
-  const columns = showPlayColumn ? ["Play", "Played", "Won", "Points"] : ["Played", "Won", "Points"];
+  const columns = showPlayColumn ? ["", "Played", "Won", "Points"] : ["Played", "Won", "Points"];
   
   return (
     <div className={`grid ${gridCols} place-items-end`}>
@@ -94,7 +94,7 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
               href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
               target="_blank"
               rel="noreferrer"
-              className="text-sm text-nerdle-primary underline underline-offset-2">
+              className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors">
               play
             </a>
           ) : null}
