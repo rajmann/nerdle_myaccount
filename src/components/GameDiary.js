@@ -149,24 +149,22 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
 
   return (
     <div className="mb-6 relative">
-      {/* Diary-style decorative elements */}
+      {/* Simple diary decoration */}
       <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-red-300 via-red-400 to-red-300 rounded-full opacity-60"></div>
-      <div className="absolute -left-2 top-2 w-2 h-2 bg-red-400 rounded-full opacity-70"></div>
-      <div className="absolute -left-2 bottom-2 w-2 h-2 bg-red-400 rounded-full opacity-70"></div>
       
       {/* Date and totals header with diary styling */}
       <div className="flex w-full border-b-2 border-dashed border-gray-300 dark:border-gray-600 pb-3 relative">
         {/* Corner decoration */}
         <div className="absolute -top-1 -left-1 w-3 h-3 border-l-2 border-t-2 border-gray-300 dark:border-gray-600"></div>
         
-        <span className="flex items-center text-sm font-semibold text-black dark:text-white font-serif" style={{ width: '40%' }}>
+        <span className="flex items-center text-sm font-semibold text-black dark:text-white" style={{ width: '40%', fontFamily: 'Barlow, sans-serif' }}>
           {dayData.day === 'today'
             ? "📝 Today"
             : dayData.day === 'yesterday'
-            ? "📖 Yesterday"
+            ? "📝 Yesterday"
             : dayData.day === 'tomorrow'
-            ? "📅 Tomorrow"
-            : `📆 ${format(parsedDate, "d MMMM")}`}
+            ? "📝 Tomorrow"
+            : `📝 ${format(parsedDate, "d MMMM")}`}
         </span>
         <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
           {dayData.totalPlayed}
@@ -186,8 +184,8 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
         <div className="absolute left-12 top-0 bottom-0 w-px bg-blue-200 opacity-20"></div>
         
         <div className="mb-3 grid grid-cols-2 gap-x-3 text-sm font-medium text-gray-700 dark:text-gray-300">
-          <h3 className="font-serif tracking-wide">✅ Played Today</h3>
-          <h3 className="font-serif tracking-wide">⏳ Not Played</h3>
+          <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>Played</h3>
+          <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>Not Played</h3>
         </div>
         
         <div className="grid grid-cols-2 gap-x-3">
@@ -215,7 +213,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                           gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
                           className="w-8 h-8 flex-shrink-0 mr-3"
                         />
-                        <span className="text-sm text-black game-name flex-1 min-w-0">
+                        <span className="text-sm text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                           {game.name}
                         </span>
                         <p className="text-sm text-black ml-4 font-medium">{game.points}</p>
@@ -252,7 +250,7 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                             gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
                             className="w-8 h-8 flex-shrink-0 mr-3"
                           />
-                          <span className="text-sm text-black game-name flex-1 min-w-0">
+                          <span className="text-sm text-black game-name flex-1 min-w-0" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                             {game.name}
                           </span>
                           {dayData.day !== 'tomorrow' && (
