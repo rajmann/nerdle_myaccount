@@ -50,6 +50,17 @@ export const getGameIcon = (gameName, gameData = null) => {
     return gameIconMap[normalizedName];
   }
   
+  // Check for special keywords and map to appropriate icons
+  if (normalizedName.includes('decoy')) {
+    return gameIconMap['decoy'];
+  }
+  if (normalizedName.includes('shuffle')) {
+    return gameIconMap['shuffle'];
+  }
+  if (normalizedName.includes('2d')) {
+    return gameIconMap['2d nerdle'];
+  }
+  
   // Check variations (remove common suffixes/prefixes)
   const variations = [
     normalizedName.replace(' nerdle', ''),
