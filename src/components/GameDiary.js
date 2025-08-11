@@ -7,6 +7,7 @@ import { useMultiGameDiary } from "../api/gameDiary";
 import Button from "../components/Button";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
+import { GameIcon } from "../utils/gameIcons";
 
 const DiaryTitle = ({ showPlayColumn }) => {
   const columns = showPlayColumn ? ["", "Played", "Won", "Points"] : ["Played", "Won", "Points"];
@@ -81,7 +82,7 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
 
   if(theDay === 'tomorrow' && played === 0 && won === 0 && points === 0) return null;
 
-  const gridCols = showPlayColumn ? "grid-cols-6" : "grid-cols-5";
+// Removed unused gridCols variable
   const values = showPlayColumn ? [played, won, points] : [played, won, points];
 
   return (
@@ -191,9 +192,16 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                       <div
                         key={index}
                         className="mb-1 flex items-center justify-between">
-                        <span className="text-sm text-black dark:text-white game-name">
-                          {game.name}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <GameIcon 
+                            gameName={game.name} 
+                            gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
+                            className="w-4 h-4 flex-shrink-0"
+                          />
+                          <span className="text-sm text-black dark:text-white game-name">
+                            {game.name}
+                          </span>
+                        </div>
                         <p className="text-sm text-black dark:text-white">{game.points}</p>
                       </div>
                     ))
@@ -217,9 +225,16 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                         <div
                           key={index}
                           className="mb-1 flex items-center justify-between">
-                          <span className="text-sm text-black dark:text-white game-name">
-                            {game.name}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <GameIcon 
+                              gameName={game.name} 
+                              gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
+                              className="w-4 h-4 flex-shrink-0"
+                            />
+                            <span className="text-sm text-black dark:text-white game-name">
+                              {game.name}
+                            </span>
+                          </div>
                           {dayData.day !== 'tomorrow' && (
                             <a
                               href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
