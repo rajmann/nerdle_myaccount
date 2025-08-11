@@ -191,18 +191,16 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                     .map((game, index) => (
                       <div
                         key={index}
-                        className="mb-1 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <GameIcon 
-                            gameName={game.name} 
-                            gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
-                            className="w-6 h-6 flex-shrink-0"
-                          />
-                          <span className="text-sm text-black game-name">
-                            {game.name}
-                          </span>
-                        </div>
-                        <p className="text-sm text-black">{game.points}</p>
+                        className="mb-1 flex items-center">
+                        <GameIcon 
+                          gameName={game.name} 
+                          gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
+                          className="w-6 h-6 flex-shrink-0 mr-3"
+                        />
+                        <span className="text-sm text-black game-name flex-1 min-w-0">
+                          {game.name}
+                        </span>
+                        <p className="text-sm text-black ml-4 font-medium">{game.points}</p>
                       </div>
                     ))
                   }
@@ -224,23 +222,21 @@ const EnhancedDiaryDay = ({ dayData, isFirstDay = false }) => {
                       .map((game, index) => (
                         <div
                           key={index}
-                          className="mb-1 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <GameIcon 
-                              gameName={game.name} 
-                              gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
-                              className="w-6 h-6 flex-shrink-0"
-                            />
-                            <span className="text-sm text-black game-name">
-                              {game.name}
-                            </span>
-                          </div>
+                          className="mb-1 flex items-center">
+                          <GameIcon 
+                            gameName={game.name} 
+                            gameData={{ nGame: game.value && (game.value.includes('nerdlegame') || game.value.includes('nerdle')) }}
+                            className="w-6 h-6 flex-shrink-0 mr-3"
+                          />
+                          <span className="text-sm text-black game-name flex-1 min-w-0">
+                            {game.name}
+                          </span>
                           {dayData.day !== 'tomorrow' && (
                             <a
                               href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
                               target="_blank"
                               rel="noreferrer"
-                              className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors">
+                              className="ml-4 inline-block bg-nerdle-primary text-white text-xs px-3 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium">
                               play
                             </a>
                           )}
