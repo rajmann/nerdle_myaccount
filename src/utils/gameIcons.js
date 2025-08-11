@@ -90,12 +90,15 @@ export const getFallbackIconBorderColor = (gameData) => {
   return isNerdleGame(gameData) ? '#398874' : '#000000';
 };
 
-// React component for game icon
-export const GameIcon = ({ gameName, gameData, className = "w-4 h-4" }) => {
+// React component for game icon - forces consistent 32x32px size
+export const GameIcon = ({ gameName, gameData, className = "w-8 h-8" }) => {
   const iconUrl = getGameIcon(gameName, gameData);
   const initial = getGameInitial(gameName);
   const isNerdle = isNerdleGame(gameData);
   const borderColor = isNerdle ? '#398874' : '#000000'; // Teal border for Nerdle games, black for others
+  
+  // Force consistent size - always use w-8 h-8 (32x32px)
+  const forcedSize = "w-8 h-8";
   
   if (iconUrl) {
     return (
@@ -103,7 +106,7 @@ export const GameIcon = ({ gameName, gameData, className = "w-4 h-4" }) => {
         <img 
           src={iconUrl} 
           alt={`${gameName} icon`}
-          className={`${className} object-contain`}
+          className={`${forcedSize} object-contain`}
           onError={(e) => {
             // If image fails to load, hide it and show fallback
             e.target.style.display = 'none';
@@ -112,7 +115,7 @@ export const GameIcon = ({ gameName, gameData, className = "w-4 h-4" }) => {
           }}
         />
         <div 
-          className={`${className} bg-white text-black text-xs font-bold rounded border-2 flex items-center justify-center hidden`}
+          className={`${forcedSize} bg-white text-black text-xs font-bold rounded border-2 flex items-center justify-center hidden`}
           style={{ display: 'none', borderColor: borderColor }}
           title={gameName}
         >
@@ -125,7 +128,7 @@ export const GameIcon = ({ gameName, gameData, className = "w-4 h-4" }) => {
   // Fallback: white background with black text and colored border
   return (
     <div 
-      className={`${className} bg-white text-black text-xs font-bold rounded border-2 flex items-center justify-center`}
+      className={`${forcedSize} bg-white text-black text-xs font-bold rounded border-2 flex items-center justify-center`}
       style={{ borderColor: borderColor }}
       title={gameName}
     >
