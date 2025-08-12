@@ -11,8 +11,6 @@ export const useGameDiary = ({ game = "nerdlegame", date = "This week", id, date
   // Use startDate and endDate if dateFilter is provided (new API format)
   if (dateFilter) {
     const { startDate, endDate } = getDateRange(dateFilter);
-    console.log(`Game Diary API: Using new format with dateFilter "${dateFilter.label}" (${dateFilter.value})`);
-    console.log(`Date range: ${new Date(startDate).toISOString()} to ${new Date(endDate).toISOString()}`);
     params.append("startDate", startDate.toString());
     params.append("endDate", endDate.toString());
   } else {
@@ -41,7 +39,6 @@ export const useMultiGameDiary = ({ games = [], date = "This week", id, dateFilt
     // Use startDate and endDate if dateFilter is provided (new API format)
     if (dateFilter) {
       const { startDate, endDate } = getDateRange(dateFilter);
-      console.log(`Multi-Game Diary API (${gameValue}): Using new format with dateFilter "${dateFilter.label}" (${dateFilter.value})`);
       params.append("startDate", startDate.toString());
       params.append("endDate", endDate.toString());
     } else {

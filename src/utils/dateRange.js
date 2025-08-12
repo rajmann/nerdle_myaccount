@@ -133,3 +133,73 @@ export const getCurrentDayForGameDate = () => {
   const completeDate = `${ye}-${mo}-${da}T00:00:00.000Z`;
   return Date.parse(completeDate);
 };
+
+// Generate all dates in the range for filling missing dates
+export const generateDateRange = (startDate, endDate) => {
+  const dates = [];
+  const current = new Date(startDate);
+  const end = new Date(endDate);
+  
+  while (current <= end) {
+    dates.push(new Date(current));
+    current.setDate(current.getDate() + 1);
+  }
+  
+  return dates;
+};
+
+// Fill missing dates in diary data with zero values
+export const fillMissingDates = (diaryData, dateFilter) => {
+  if (!diaryData || !dateFilter) return diaryData;
+  
+  const { startDate, endDate } = getDateRange(dateFilter);
+  const allDates = generateDateRange(startDate, endDate);
+  
+  // Create a map of existing dates from diary data
+  const existingDataMap = new Map();
+  diaryData.forEach(entry => {
+    if (entry.date) {
+      existingDataMap.set(entry.date, entry);
+    }
+  });
+  
+  // Generate complete diary data with missing dates filled in
+  const completeDiaryData = allDates.map(date => {
+    const dateKey = date.toISOString().split('T')[0] + 'T00:00:00.000Z';
+    const dateString = date.toISOString().split('T')[0];
+    
+    if (existingDataMap.has(dateKey)) {
+      return existingDataMap.get(dateKey);
+    }
+    
+    // Create entry with zero values for missing dates
+    return {
+      day: dateString,
+      date: dateKey,
+      played: 0,
+      won: 0,
+      points: 0
+    };
+  });
+  
+  // Sort chronologically (newest first, excluding special days)
+  return completeDiaryData.sort((a, b) => {
+    // Handle special day keys
+    if (a.day === 'tomorrow') return -1;
+    if (b.day === 'tomorrow') return 1;
+    if (a.day === 'today') return -1;
+    if (b.day === 'today') return 1;
+    if (a.day === 'yesterday') return -1;
+    if (b.day === 'yesterday') return 1;
+    
+    // For regular dates, sort newest first
+    try {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB - dateA;
+    } catch (error) {
+      console.error('Date sorting error:', error);
+      return 0;
+    }
+  });
+};

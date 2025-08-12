@@ -17,6 +17,7 @@ import Spinner from "../components/Spinner";
 import UserDetails from "../components/UserDetails";
 import useOptionsStore from "../store/useOptionsStore";
 import useScoreLoggingStore from "../store/useScoreLoggingStore";
+import { fillMissingDates } from "../utils/dateRange";
 import { getGameFilterOptions } from "../utils/gameFilters";
 
 const UserProfile = () => {
@@ -88,14 +89,18 @@ const UserProfile = () => {
   );
 
   const gameDiary = React.useMemo(
-    () =>
-      gameDiaryData?.data
-        ? Object.entries(gameDiaryData?.data).map(([key, value]) => ({
-            day: key,
-            ...value,
-          }))
-        : null,
-    [gameDiaryData?.data]
+    () => {
+      if (!gameDiaryData?.data) return null;
+      
+      const rawDiary = Object.entries(gameDiaryData.data).map(([key, value]) => ({
+        day: key,
+        ...value,
+      }));
+      
+      // Fill missing dates with zero values
+      return fillMissingDates(rawDiary, dateFilter);
+    },
+    [gameDiaryData?.data, dateFilter]
   );
   
   const gamesToday = React.useMemo(() => data?.gamesToday, [data?.gamesToday]);

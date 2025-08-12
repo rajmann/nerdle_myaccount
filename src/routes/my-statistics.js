@@ -24,6 +24,7 @@ import useAnalyticsEventTracker from '../lib/useAnalyticsEventTracker';
 import useMyStatisticsStore from "../store/useMyStatisticsStore";
 import useOptionsStore from "../store/useOptionsStore";
 import useScoreLoggingStore from "../store/useScoreLoggingStore";
+import { fillMissingDates } from "../utils/dateRange";
 import { getGameFilterOptions } from "../utils/gameFilters";
 
 
@@ -183,7 +184,6 @@ const MyStatistics = () => {
 
   const onDateFilterChange = React.useCallback(
     (option) => {
-      console.log('Date filter change received:', option);
       if (option) {
         setDateFilter(option);
         // Navigate to standard URL when date filter changes
@@ -229,14 +229,17 @@ const MyStatistics = () => {
   const gameDiary = React.useMemo(
     () =>
     {
-      return gameDiaryData?.data
-        ? Object.entries(gameDiaryData?.data).map(([key, value]) => ({
-          day: key,
-          ...value,
-        }))
-        : null
-      },
-    [gameDiaryData?.data]
+      if (!gameDiaryData?.data) return null;
+      
+      const rawDiary = Object.entries(gameDiaryData.data).map(([key, value]) => ({
+        day: key,
+        ...value,
+      }));
+      
+      // Fill missing dates with zero values
+      return fillMissingDates(rawDiary, dateFilter);
+    },
+    [gameDiaryData?.data, dateFilter]
   );
 
   const gamesToday = React.useMemo(() => data?.gamesToday, [data?.gamesToday]);

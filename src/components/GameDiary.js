@@ -7,6 +7,7 @@ import { useMultiGameDiary } from "../api/gameDiary";
 import Button from "../components/Button";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from "../lib/useAnalyticsEventTracker";
+import { generateDateRange, getDateRange } from "../utils/dateRange";
 import { GameIcon } from "../utils/gameIcons";
 
 const DiaryTitle = ({ showPlayColumn }) => {
@@ -432,6 +433,38 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
       });
     });
 
+    // Fill missing dates with zero values for multi-game diary
+    if (dateFilter) {
+      const { startDate, endDate } = getDateRange(dateFilter);
+      const allDates = generateDateRange(startDate, endDate);
+      
+      // Add missing dates with zero values
+      allDates.forEach(date => {
+        const dateKey = date.toISOString().split('T')[0] + 'T00:00:00.000Z';
+        
+        if (!dateGameMap.has(dateKey)) {
+          dateGameMap.set(dateKey, {
+            day: date.toISOString().split('T')[0],
+            date: dateKey,
+            totalPlayed: 0,
+            totalWon: 0,
+            totalPoints: 0,
+            games: recentGamesForDiary.map(gameValue => {
+              const gameDetail = allGames?.find(g => g.value === gameValue);
+              return gameDetail ? {
+                name: gameDetail.name === 'Nerdle' ? 'nerdle (classic)' : gameDetail.name,
+                value: gameDetail.value,
+                url: gameDetail.url,
+                played: 0,
+                won: 0,
+                points: 0
+              } : null;
+            }).filter(Boolean)
+          });
+        }
+      });
+    }
+
     // Sort games within each day and convert to array
     const sortedDays = Array.from(dateGameMap.values())
       .map(dayData => ({
@@ -465,7 +498,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
       });
 
     return sortedDays;
-  }, [isMultiGameView, multiGameDiaryResponses, recentGamesForDiary, allGames]);
+  }, [isMultiGameView, multiGameDiaryResponses, recentGamesForDiary, allGames, dateFilter]);
 
 
 

@@ -16,7 +16,6 @@ const GameAndDateFilters = ({
   };
 
   const handleDateFilterChange = (option) => {
-    console.log('Date filter changed to:', option);
     onDateFilterChange(option);
   };
 
