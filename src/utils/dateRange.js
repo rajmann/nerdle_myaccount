@@ -107,11 +107,16 @@ export const getDateRange = (dateFilter) => {
     }
     
     case "All time": {
-      // Set a very early start date (e.g., January 1, 2020)
-      const allTimeStart = new Date(2020, 0, 1);
+      // For performance, limit "All time" to last 2 years instead of from 2020
+      // This prevents UI crashes from generating too many empty dates
+      const allTimeStart = new Date(now);
+      allTimeStart.setFullYear(now.getFullYear() - 2);
       
       startDate = getUTCStartOfDay(allTimeStart);
       endDate = getUTCEndOfDay(now);
+      
+      console.log(`[ALL TIME DEBUG] Start: ${new Date(startDate).toISOString()}, End: ${new Date(endDate).toISOString()}`);
+      console.log(`[ALL TIME DEBUG] Range span: ${Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24))} days`);
       break;
     }
     
@@ -155,11 +160,20 @@ export const generateDateRange = (startDate, endDate) => {
   // Cap the end date to today to exclude future dates
   const actualEnd = end < today ? end : today;
   
+  const totalDays = Math.ceil((actualEnd - current) / (1000 * 60 * 60 * 24));
+  console.log(`[GENERATE DATE RANGE] Generating ${totalDays} dates from ${current.toISOString()} to ${actualEnd.toISOString()}`);
+  
+  // Performance safeguard: limit to reasonable number of days for UI performance
+  if (totalDays > 1000) {
+    console.warn(`[GENERATE DATE RANGE] Warning: Large date range (${totalDays} days) - this may cause performance issues`);
+  }
+  
   while (current <= actualEnd) {
     dates.push(new Date(current));
     current.setDate(current.getDate() + 1);
   }
   
+  console.log(`[GENERATE DATE RANGE] Generated ${dates.length} dates`);
   return dates;
 };
 
