@@ -104,6 +104,14 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
             const isNerdleGame = gameUrl && gameUrl.includes('nerdlegame.com');
             const canShowPlayButton = theDay !== 'tomorrow' && (theDay === 'today' || isNerdleGame);
             
+            // Debug logging
+            console.log(`Play button logic for ${gameUrl}:`, {
+              theDay,
+              isNerdleGame,
+              canShowPlayButton,
+              gameUrl
+            });
+            
             return canShowPlayButton ? (
               <a
                 href={theDay === 'today' ? `${gameUrl}?external=true` : `${gameUrl}/${urlDate}?external=true`}
