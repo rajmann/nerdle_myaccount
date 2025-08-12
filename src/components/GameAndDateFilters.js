@@ -11,7 +11,17 @@ const GameAndDateFilters = ({
   dateFilter,
   onDateFilterChange,
 }) => {
-  const [selectedYear, setSelectedYear] = React.useState(new Date().getFullYear());
+  // Extract year from dateFilter if it exists, otherwise use current year
+  const [selectedYear, setSelectedYear] = React.useState(() => {
+    return dateFilter.year || new Date().getFullYear();
+  });
+
+  // Update selectedYear when dateFilter changes with a year
+  React.useEffect(() => {
+    if (dateFilter.year && dateFilter.year !== selectedYear) {
+      setSelectedYear(dateFilter.year);
+    }
+  }, [dateFilter.year, selectedYear]);
   
   // Generate year options from 2022 to current year
   const yearOptions = React.useMemo(() => {
@@ -28,12 +38,12 @@ const GameAndDateFilters = ({
   };
 
   const handleDateFilterChange = (option) => {
-    // If "All time" is selected, include the year information
+    // If "All time" is selected, include the year information but keep original label
     if (option.value === "All time") {
       const optionWithYear = {
         ...option,
         year: selectedYear,
-        label: `All time (${selectedYear})`
+        label: "All time" // Keep the original label, don't show year
       };
       onDateFilterChange(optionWithYear);
     } else {
@@ -43,12 +53,12 @@ const GameAndDateFilters = ({
 
   const handleYearChange = (yearOption) => {
     setSelectedYear(yearOption.value);
-    // If "All time" is currently selected, update it with new year
+    // If "All time" is currently selected, update it with new year but keep original label
     if (dateFilter.value === "All time") {
       const updatedDateFilter = {
         ...dateFilter,
         year: yearOption.value,
-        label: `All time (${yearOption.value})`
+        label: "All time" // Keep the original label, don't show year
       };
       onDateFilterChange(updatedDateFilter);
     }
