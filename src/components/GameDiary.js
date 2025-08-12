@@ -104,7 +104,7 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
               href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors">
+              className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors z-10">
               play
             </a>
           ) : null}
@@ -264,7 +264,7 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                                 href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">
+                                className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline z-10">
                                 play
                               </a>
                             ) : null;
