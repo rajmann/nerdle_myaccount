@@ -31,6 +31,9 @@ const gameIconMap = {
   '2d nerdle': 'https://nerdlegame.com/s/nerdle2dSm.png',
   'targets': 'https://nerdlegame.com/s/targetsSm.png',
   'maffdoku': 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
+  'mini maffdoku': 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
+  'micro maffdoku': 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
+  'maxi maffdoku': 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
 };
 
 // Utility to check if a game is a Nerdle game (imported from gameFilters.js)
@@ -59,6 +62,9 @@ export const getGameIcon = (gameName, gameData = null) => {
   }
   if (normalizedName.includes('2d')) {
     return gameIconMap['2d nerdle'];
+  }
+  if (normalizedName.includes('maffdoku')) {
+    return gameIconMap['maffdoku'];
   }
   
   // Check variations (remove common suffixes/prefixes)
