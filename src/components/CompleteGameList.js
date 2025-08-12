@@ -141,7 +141,6 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                       style={{ fontFamily: 'Quicksand, sans-serif' }}>
                       {name}
                     </a>
-                    <p className="text-xs text-black dark:text-white ml-4 font-medium">{calculatedScore}</p>
                   </div>
                 )
               )}
