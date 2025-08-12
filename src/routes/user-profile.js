@@ -23,9 +23,8 @@ import { getGameFilterOptions } from "../utils/gameFilters";
 const UserProfile = () => {
   const games = useGames();
 
-  const { allGamesOption, allNerdleGamesOption, dateFilterOptions } = useOptionsStore((state) => ({
+  const { allGamesOption, dateFilterOptions } = useOptionsStore((state) => ({
     allGamesOption: state.allGamesOption,
-    allNerdleGamesOption: state.allNerdleGamesOption,
     dateFilterOptions: state.dateOptions,
   }));
   const { scoreLoggingEnabled } = useScoreLoggingStore();
@@ -34,8 +33,8 @@ const UserProfile = () => {
 
   const gameFilterOptions = React.useMemo(() => {
     const data = games.data?.data;
-    return getGameFilterOptions(data, allGamesOption, allNerdleGamesOption, scoreLoggingEnabled);
-  }, [allGamesOption, allNerdleGamesOption, games.data?.data, scoreLoggingEnabled]);
+    return getGameFilterOptions(data, allGamesOption, scoreLoggingEnabled);
+  }, [allGamesOption, games.data?.data, scoreLoggingEnabled]);
 
   const [gameFilter, setGameFilter] = React.useState(allGamesOption);
   const [dateFilter, setDateFilter] = React.useState(dateFilterOptions[0]);

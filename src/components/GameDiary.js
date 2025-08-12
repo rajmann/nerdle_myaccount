@@ -291,7 +291,6 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
   // Check if this is a multi-game view that needs enhanced diary
   const isMultiGameView = gameFilter && (
     gameFilter.value === 'all' || 
-    gameFilter.value === 'allnerdle' ||
     gameFilter.label?.includes('All ')
   );
 
@@ -313,19 +312,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
       })
       .filter(Boolean);
     
-    // If filtering to "All Nerdle Games", only include Nerdle games
-    if (gameFilter && gameFilter.value === 'allnerdle') {
-      console.log('Filtering to allnerdle - before filter:', uniqueGames);
-      
-      uniqueGames = uniqueGames.filter(gameValue => {
-        const gameDetail = allGames.find(g => g.value === gameValue);
-        const isNerdle = gameDetail && gameDetail.nGame === true;
-        console.log(`Checking ${gameValue}: gameDetail=${gameDetail?.name}, nGame=${gameDetail?.nGame}, isNerdle=${isNerdle}`);
-        return isNerdle;
-      });
-      
-      console.log('Filtering to allnerdle - after filter:', uniqueGames);
-    }
+
     
     return uniqueGames;
   }, [isMultiGameView, recentGamesData, allGames, gameFilter]);
@@ -343,11 +330,10 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
     [weeklyScoresForSharingData]
   );
 
-  // Determine if we should show the play column (only for single games, not "all" or "all nerdle games")
+  // Determine if we should show the play column (only for single games, not "all games")
   const showPlayColumn = React.useMemo(() => {
     return gameFilter && 
            gameFilter.value !== 'all' && 
-           gameFilter.value !== 'allnerdle' &&
            !gameFilter.label?.includes('All '); // Hide for any filter with "All" in the label
   }, [gameFilter]);
 

@@ -11,7 +11,7 @@ export const filterNerdleGames = (games) => {
 };
 
 // Get game filter options with conditional Nerdle-only filtering
-export const getGameFilterOptions = (games, allGamesOption, allNerdleGamesOption, scoreLoggingEnabled = false) => {
+export const getGameFilterOptions = (games, allGamesOption, scoreLoggingEnabled = false) => {
   if (!Array.isArray(games)) return [];
 
   let individualGames = games.map((game) => ({ 
@@ -48,12 +48,7 @@ export const getGameFilterOptions = (games, allGamesOption, allNerdleGamesOption
   // Add "All Games" first
   options.push(allGamesOption);
   
-  // Add "All Nerdle Games" second
-  if (allNerdleGamesOption) {
-    options.push(allNerdleGamesOption);
-  }
-  
-  // Add "Nerdle (Classic)" third
+  // Add "Nerdle (Classic)" second
   if (nerdleGame) options.push(nerdleGame);
   
   // Add all other games last

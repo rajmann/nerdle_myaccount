@@ -2,7 +2,6 @@ import create from "zustand";
 
 const useOptionsStore = create(() => ({
   allGamesOption: { label: "All Games", value: "all" },
-  allNerdleGamesOption: { label: "All Nerdle Games", value: "all_nerdle" },
   dateOptions: [
     { label: "This week", value: "This week" },
     { label: "Last week", value: "Last week" },

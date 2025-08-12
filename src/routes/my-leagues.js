@@ -47,17 +47,16 @@ const MyLeagues = () => {
     }
   }, [isUsingApp, gaEventTracker, firstTimeLoaded]);
 
-  const { allGamesOption, allNerdleGamesOption, dateFilterOptions } = useOptionsStore((state) => ({
+  const { allGamesOption, dateFilterOptions } = useOptionsStore((state) => ({
     allGamesOption: state.allGamesOption,
-    allNerdleGamesOption: state.allNerdleGamesOption,
     dateFilterOptions: state.dateOptions,
   }));
   const { scoreLoggingEnabled } = useScoreLoggingStore();
 
   const gameFilterOptions = React.useMemo(() => {
     const data = games.data?.data;
-    return getGameFilterOptions(data, allGamesOption, allNerdleGamesOption, scoreLoggingEnabled);
-  }, [allGamesOption, allNerdleGamesOption, games.data?.data, scoreLoggingEnabled]);
+    return getGameFilterOptions(data, allGamesOption, scoreLoggingEnabled);
+  }, [allGamesOption, games.data?.data, scoreLoggingEnabled]);
 
   const { gameFilter, setGameFilter, dateFilter, setDateFilter } =
     useMyLeaguesStore();
