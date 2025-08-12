@@ -442,7 +442,18 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
       allDates.forEach(date => {
         const dateKey = date.toISOString().split('T')[0] + 'T00:00:00.000Z';
         
-        if (!dateGameMap.has(dateKey)) {
+        // Check if this date already exists in any format
+        let dateExists = false;
+        for (const [existingKey] of dateGameMap) {
+          const existingDate = new Date(existingKey).toISOString().split('T')[0];
+          const newDate = date.toISOString().split('T')[0];
+          if (existingDate === newDate) {
+            dateExists = true;
+            break;
+          }
+        }
+        
+        if (!dateExists) {
           dateGameMap.set(dateKey, {
             day: date.toISOString().split('T')[0],
             date: dateKey,

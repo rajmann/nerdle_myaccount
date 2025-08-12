@@ -11,6 +11,9 @@ export const useGameDiary = ({ game = "nerdlegame", date = "This week", id, date
   // Use startDate and endDate if dateFilter is provided (new API format)
   if (dateFilter) {
     const { startDate, endDate } = getDateRange(dateFilter);
+    console.log(`Game Diary API: Using dateFilter "${dateFilter.label}"`);
+    console.log(`Date range: ${new Date(startDate).toLocaleDateString()} to ${new Date(endDate).toLocaleDateString()}`);
+    console.log(`Timestamps: ${startDate} to ${endDate}`);
     params.append("startDate", startDate.toString());
     params.append("endDate", endDate.toString());
   } else {

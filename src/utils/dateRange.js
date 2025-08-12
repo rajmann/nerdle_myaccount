@@ -4,13 +4,13 @@ export const getDateRange = (dateFilter) => {
   
   // Helper to get start of day in UTC
   const getUTCStartOfDay = (date) => {
-    const utcDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0));
     return utcDate.getTime();
   };
   
   // Helper to get end of day in UTC
   const getUTCEndOfDay = (date) => {
-    const utcDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+    const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999));
     return utcDate.getTime();
   };
   
@@ -24,8 +24,12 @@ export const getDateRange = (dateFilter) => {
       const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // If Sunday (0), go back 6 days
       startOfWeek.setDate(startOfWeek.getDate() + diffToMonday);
       
+      // End of current week (Sunday)  
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(endOfWeek.getDate() + 6);
+      
       startDate = getUTCStartOfDay(startOfWeek);
-      endDate = getUTCEndOfDay(now);
+      endDate = getUTCEndOfDay(endOfWeek);
       break;
     }
     
@@ -109,14 +113,18 @@ export const getDateRange = (dateFilter) => {
     }
     
     default: {
-      // Default to "This week"
+      // Default to "This week" 
       const startOfWeek = new Date(now);
       const dayOfWeek = startOfWeek.getDay();
       const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
       startOfWeek.setDate(startOfWeek.getDate() + diffToMonday);
       
+      // End of current week (Sunday)
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(endOfWeek.getDate() + 6);
+      
       startDate = getUTCStartOfDay(startOfWeek);
-      endDate = getUTCEndOfDay(now);
+      endDate = getUTCEndOfDay(endOfWeek);
       break;
     }
   }
@@ -168,8 +176,24 @@ export const fillMissingDates = (diaryData, dateFilter) => {
     const dateKey = date.toISOString().split('T')[0] + 'T00:00:00.000Z';
     const dateString = date.toISOString().split('T')[0];
     
-    if (existingDataMap.has(dateKey)) {
-      return existingDataMap.get(dateKey);
+    // Try multiple potential date formats from API
+    const potentialKeys = [
+      dateKey,
+      date.toISOString(),
+      dateString,
+      dateString + 'T00:00:00.000Z'
+    ];
+    
+    let existingEntry = null;
+    for (const key of potentialKeys) {
+      if (existingDataMap.has(key)) {
+        existingEntry = existingDataMap.get(key);
+        break;
+      }
+    }
+    
+    if (existingEntry) {
+      return existingEntry;
     }
     
     // Create entry with zero values for missing dates
