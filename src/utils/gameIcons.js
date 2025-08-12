@@ -38,7 +38,7 @@ const gameIconMap = {
   'mini maffdoku': 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
   'micro maffdoku': 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
   'maxi maffdoku': 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
-  'connect': 'https://www.nerdlegame.com/assets/iamges/connectSm.png',
+  'connect': 'https://www.nerdlegame.com/assets/images/connectSm.png',
 };
 
 // Utility to check if a game is a Nerdle game (imported from gameFilters.js)

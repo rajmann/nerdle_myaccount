@@ -30,22 +30,24 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
 
   const gamesTodayWithDetails = React.useMemo(
     () =>
-      gamesTodayUnique?.map((game) => {
-        const detail = allGames?.find(
-          (g) => g?.value.toLowerCase() === game?.gameName?.toLowerCase()
-        );
-        // Transform "nerdle" to "nerdle (classic)" for display
-        let displayName = detail?.name;
-        if (detail?.value === 'nerdlegame' && detail?.name === 'nerdle') {
-          displayName = 'nerdle (classic)';
-        }
-        return {
-          ...game,
-          name: displayName,
-          value: detail?.value,
-          url: detail?.url,
-        };
-      }),
+      gamesTodayUnique
+        ?.filter((game) => game?.gameName?.toLowerCase() !== 'ndigits') // Hide ndigits game
+        ?.map((game) => {
+          const detail = allGames?.find(
+            (g) => g?.value.toLowerCase() === game?.gameName?.toLowerCase()
+          );
+          // Transform "nerdle" to "nerdle (classic)" for display
+          let displayName = detail?.name;
+          if (detail?.value === 'nerdlegame' && detail?.name === 'nerdle') {
+            displayName = 'nerdle (classic)';
+          }
+          return {
+            ...game,
+            name: displayName,
+            value: detail?.value,
+            url: detail?.url,
+          };
+        }),
     [gamesTodayUnique, allGames]
   );
 
@@ -86,12 +88,14 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
       if(recentlyPlayed.length > 0)
             arrSpacer.push({name: 'SPACER', value: 'SPACER', url: 'SPACER'});
 
-      const arrTemp = allGames?.filter(
-        (game) =>
-          recentlyPlayed?.findIndex(
-            (g) => g.gameName.toLowerCase() === game.value.toLowerCase()
-          ) === -1
-      )
+      const arrTemp = allGames
+        ?.filter((game) => game?.value?.toLowerCase() !== 'ndigits') // Hide ndigits game
+        ?.filter(
+          (game) =>
+            recentlyPlayed?.findIndex(
+              (g) => g.gameName.toLowerCase() === game.value.toLowerCase()
+            ) === -1
+        )
 
       /* console.log('arrTemp');
       console.log(arrTemp); */
@@ -141,6 +145,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                       style={{ fontFamily: 'Quicksand, sans-serif' }}>
                       {name}
                     </a>
+                    <p className="text-xs text-black dark:text-white ml-4 font-medium">{calculatedScore}</p>
                   </div>
                 )
               )}
