@@ -1,5 +1,7 @@
 import React from "react";
 
+import { GameIcon } from "../utils/gameIcons";
+
 
 const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true }) => {
 
@@ -125,15 +127,21 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                 ({ name, calculatedScore, url }, index) => (
                   <div
                     key={index}
-                    className="mb-1 flex items-center justify-between">
+                    className="mb-2 flex items-center">
+                    <GameIcon 
+                      gameName={name} 
+                      gameData={{ nGame: url && url.includes('nerdlegame.com') }}
+                      className="w-8 h-8 flex-shrink-0"
+                    />
                     <a
                       href={url}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-sm text-black dark:text-white underline underline-offset-2 game-name">
+                      className="text-xs text-black dark:text-white underline underline-offset-2 game-name flex-1 min-w-0 ml-3"
+                      style={{ fontFamily: 'Quicksand, sans-serif' }}>
                       {name}
                     </a>
-                    <p className="text-sm text-gray-900 dark:text-white">{calculatedScore}</p>
+                    <p className="text-xs text-black dark:text-white ml-4 font-medium">{calculatedScore}</p>
                   </div>
                 )
               )}
@@ -156,12 +164,18 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                 <div key={index} className="h-6"></div>: 
                 <div
                   key={index}
-                  className="mb-1 flex items-center justify-between">
+                  className="mb-2 flex items-center">
+                  <GameIcon 
+                    gameName={name} 
+                    gameData={{ nGame: url && url.includes('nerdlegame.com') }}
+                    className="w-8 h-8 flex-shrink-0"
+                  />
                   <a
                     href={url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-sm text-black dark:text-white underline underline-offset-2 game-name">
+                    className="text-xs text-black dark:text-white underline underline-offset-2 game-name flex-1 min-w-0 ml-3"
+                    style={{ fontFamily: 'Quicksand, sans-serif' }}>
                     {name}
                   </a>
                 </div>
