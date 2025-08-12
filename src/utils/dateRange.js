@@ -214,20 +214,13 @@ export const fillMissingDates = (diaryData, dateFilter) => {
     const yesterdayStr = yesterday.toISOString().split('T')[0];
     const tomorrowStr = tomorrow.toISOString().split('T')[0];
     
-    console.log(`[FILL MISSING DATES DEBUG] targetDateStr: ${targetDateStr}, todayStr: ${todayStr}, yesterdayStr: ${yesterdayStr}`);
-    
     if (targetDateStr === todayStr) {
-      console.log(`[FILL MISSING DATES DEBUG] Setting dayLabel to 'today' for ${targetDateStr}`);
       dayLabel = 'today';
     } else if (targetDateStr === yesterdayStr) {
-      console.log(`[FILL MISSING DATES DEBUG] Setting dayLabel to 'yesterday' for ${targetDateStr}`);
       dayLabel = 'yesterday';
     } else if (targetDateStr === tomorrowStr) {
-      console.log(`[FILL MISSING DATES DEBUG] Setting dayLabel to 'tomorrow' for ${targetDateStr}`);
       dayLabel = 'tomorrow';
     }
-    
-    console.log(`[FILL MISSING DATES DEBUG] Final dayLabel for ${targetDateStr}: "${dayLabel}"`);
 
     if (existingEntry) {
       // Return existing entry but with corrected day label
