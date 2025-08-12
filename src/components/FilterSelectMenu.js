@@ -30,7 +30,7 @@ const FilterSelectMenu = ({ options, value, onChange }) => {
                     active ? "bg-nerdle-primary/10 text-gray-900 dark:text-white font-bold" : "text-gray-900 dark:text-white"
                   }`
                 }
-                value={option?.value}
+                value={option}
               >
                 {({ selected }) => (
                   <>

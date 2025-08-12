@@ -40,19 +40,17 @@ const UserProfile = () => {
   const [dateFilter, setDateFilter] = React.useState(dateFilterOptions[0]);
 
   const onGameFilterChange = React.useCallback(
-    (value) => {
-      const option = gameFilterOptions.find((option) => option.value === value);
+    (option) => {
       setGameFilter(option);
     },
-    [gameFilterOptions]
+    []
   );
 
   const onDateFilterChange = React.useCallback(
-    (value) => {
-      const option = dateFilterOptions.find((option) => option.value === value);
+    (option) => {
       setDateFilter(option);
     },
-    [dateFilterOptions]
+    []
   );
 
   const params = useParams();

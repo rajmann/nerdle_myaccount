@@ -167,8 +167,7 @@ const MyStatistics = () => {
   }, [gameFilterOptions, gameFilter, setGameFilter]);
 
   const onGameFilterChange = React.useCallback(
-    (value) => {
-      const option = gameFilterOptions.find((option) => option.value === value);
+    (option) => {
       if (!option) return;
       
       // Check if "All Games" is selected while non-nerdle games are disabled
@@ -179,12 +178,12 @@ const MyStatistics = () => {
       
       setGameFilter(option);
     },
-    [gameFilterOptions, setGameFilter, allGamesOption, scoreLoggingEnabled, setShowEnableNonNerdleDialog]
+    [setGameFilter, allGamesOption, scoreLoggingEnabled, setShowEnableNonNerdleDialog]
   );
 
   const onDateFilterChange = React.useCallback(
-    (value) => {
-      const option = dateFilterOptions.find((option) => option.value === value);
+    (option) => {
+      console.log('Date filter change received:', option);
       if (option) {
         setDateFilter(option);
         // Navigate to standard URL when date filter changes
@@ -193,7 +192,7 @@ const MyStatistics = () => {
         }
       }
     },
-    [dateFilterOptions, setDateFilter, location.pathname, navigate]
+    [setDateFilter, location.pathname, navigate]
   );
 
   const { data: profile} = useProfile();
