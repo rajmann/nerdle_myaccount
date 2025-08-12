@@ -28,6 +28,10 @@ const gameIconMap = {
   'shuffle': 'https://nerdlegame.com/s/shuffleSm.png',
   'crossnerdle': 'https://nerdlegame.com/crossnerdle/crossnerdle_icon.png',
   'nanagrams': 'https://nerdlegame.com/nanagram/favicon.png',
+  'nanagram': 'https://nerdlegame.com/nanagram/favicon.png',
+  'mini nanagrams': 'https://nerdlegame.com/nanagram/favicon.png',
+  'micro nanagrams': 'https://nerdlegame.com/nanagram/favicon.png',
+  'maxi nanagrams': 'https://nerdlegame.com/nanagram/favicon.png',
   '2d nerdle': 'https://nerdlegame.com/s/nerdle2dSm.png',
   'targets': 'https://nerdlegame.com/s/targetsSm.png',
   'maffdoku': 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
@@ -65,6 +69,9 @@ export const getGameIcon = (gameName, gameData = null) => {
   }
   if (normalizedName.includes('maffdoku')) {
     return gameIconMap['maffdoku'];
+  }
+  if (normalizedName.includes('nanagrams') || normalizedName.includes('nanagram')) {
+    return gameIconMap['nanagrams'];
   }
   
   // Check variations (remove common suffixes/prefixes)
