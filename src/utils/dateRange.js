@@ -107,15 +107,20 @@ export const getDateRange = (dateFilter) => {
     }
     
     case "All time": {
-      // For performance, limit "All time" to last 2 years instead of from 2020
-      // This prevents UI crashes from generating too many empty dates
-      const allTimeStart = new Date(now);
-      allTimeStart.setFullYear(now.getFullYear() - 2);
+      // Handle year-specific "All time" selection
+      const selectedYear = dateFilter.year || now.getFullYear();
+      const isCurrentYear = selectedYear === now.getFullYear();
+      
+      // Start of selected year
+      const allTimeStart = new Date(selectedYear, 0, 1);
+      // End of selected year, but not beyond today for current year
+      const allTimeEnd = new Date(selectedYear, 11, 31);
+      const actualEnd = isCurrentYear && allTimeEnd > now ? now : allTimeEnd;
       
       startDate = getUTCStartOfDay(allTimeStart);
-      endDate = getUTCEndOfDay(now);
+      endDate = getUTCEndOfDay(actualEnd);
       
-      console.log(`[ALL TIME DEBUG] Start: ${new Date(startDate).toISOString()}, End: ${new Date(endDate).toISOString()}`);
+      console.log(`[ALL TIME DEBUG] Year: ${selectedYear}, Start: ${new Date(startDate).toISOString()}, End: ${new Date(endDate).toISOString()}`);
       console.log(`[ALL TIME DEBUG] Range span: ${Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24))} days`);
       break;
     }

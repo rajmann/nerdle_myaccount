@@ -74,28 +74,34 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
     return newDate;
   }, [date]);
 
-  // Format date as YYYYMMDD for the URL
-  const urlDate = React.useMemo(() => {
-    // Extract just the date part and format as YYYYMMDD
-    const datePart = date.split('T')[0]; // Remove time part if present
-    return datePart.replace(/-/g, ''); // Convert 2020-10-10 to 20201010
-  }, [date]);
+  // Format date as YYYYMMDD for the URL (removed since not used in this component)
 
   if(theDay === 'tomorrow' && played === 0 && won === 0 && points === 0) return null;
 
 // Removed unused gridCols variable
   const values = showPlayColumn ? [played, won, points] : [played, won, points];
 
+  // Helper function to format date with year if needed
+  const formatDateWithYear = (parsedDate, theDay) => {
+    if (theDay === 'today') return "Today";
+    if (theDay === 'yesterday') return "Yesterday";
+    if (theDay === 'tomorrow') return "Tomorrow";
+    
+    const currentYear = new Date().getFullYear();
+    const dateYear = parsedDate.getFullYear();
+    
+    // Show year if it's different from current year
+    if (dateYear !== currentYear) {
+      return format(parsedDate, "d MMMM yyyy");
+    } else {
+      return format(parsedDate, "d MMMM");
+    }
+  };
+
   return (
     <div className="flex w-full">
       <span className="py-2 text-sm font-semibold text-gray-900 dark:text-white" style={{ width: '40%' }}>
-        {theDay === 'today'
-          ? "Today"
-          : theDay === 'yesterday'
-          ? "Yesterday"
-          : theDay === 'tomorrow'
-          ? "Tomorrow"
-          : format(parsedDate, "d MMMM")}
+        {formatDateWithYear(parsedDate, theDay)}
       </span>
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm" style={{ width: '20%' }}>
@@ -157,7 +163,16 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
             ? "📝 Yesterday"
             : dayData.day === 'tomorrow'
             ? "📝 Tomorrow"
-            : `📝 ${format(parsedDate, "d MMMM")}`}
+            : (() => {
+                const currentYear = new Date().getFullYear();
+                const dateYear = parsedDate.getFullYear();
+                // Show year if it's different from current year
+                if (dateYear !== currentYear) {
+                  return `📝 ${format(parsedDate, "d MMMM yyyy")}`;
+                } else {
+                  return `📝 ${format(parsedDate, "d MMMM")}`;
+                }
+              })()}
         </span>
         <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
           {dayData.totalPlayed}
@@ -323,7 +338,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
 
     
     return uniqueGames;
-  }, [isMultiGameView, recentGamesData, allGames, gameFilter]);
+  }, [isMultiGameView, recentGamesData, allGames]);
 
   // Fetch multi-game diary data if needed - MOVED TO TOP to avoid hooks order violation
   const multiGameDiaryResponses = useMultiGameDiary({
