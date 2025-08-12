@@ -203,9 +203,32 @@ export const fillMissingDates = (diaryData, dateFilter) => {
       return existingEntry;
     }
     
+    // Calculate day label (today, yesterday, tomorrow, or date string)
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    
+    let dayLabel = dateString;
+    
+    // Compare dates by converting to date strings to avoid time zone issues
+    const targetDateStr = date.toISOString().split('T')[0];
+    const todayStr = today.toISOString().split('T')[0];
+    const yesterdayStr = yesterday.toISOString().split('T')[0];
+    const tomorrowStr = tomorrow.toISOString().split('T')[0];
+    
+    if (targetDateStr === todayStr) {
+      dayLabel = 'today';
+    } else if (targetDateStr === yesterdayStr) {
+      dayLabel = 'yesterday';
+    } else if (targetDateStr === tomorrowStr) {
+      dayLabel = 'tomorrow';
+    }
+
     // Create entry with zero values for missing dates
     return {
-      day: dateString,
+      day: dayLabel,
       date: dateKey,
       played: 0,
       won: 0,
