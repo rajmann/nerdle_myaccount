@@ -179,13 +179,21 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
         <div className="absolute -top-1 -left-1 w-3 h-3 border-l-2 border-t-2 border-gray-300 dark:border-gray-600"></div>
         
         <span className="flex items-center text-sm font-semibold text-black dark:text-white" style={{ width: '40%', fontFamily: 'Barlow, sans-serif' }}>
-          {dayData.day === 'today'
-            ? "📝 Today"
-            : dayData.day === 'yesterday'
-            ? "📝 Yesterday"
-            : dayData.day === 'tomorrow'
-            ? "📝 Tomorrow"
-            : `📝 ${format(parsedDate, "d MMMM")}`}
+          {(() => {
+            console.log(`[DATE HEADER DEBUG] dayData.day: "${dayData.day}", parsedDate: ${parsedDate}`);
+            
+            if (dayData.day === 'today') {
+              return "📝 Today";
+            } else if (dayData.day === 'yesterday') {
+              return "📝 Yesterday";
+            } else if (dayData.day === 'tomorrow') {
+              return "📝 Tomorrow";
+            } else {
+              const formattedDate = format(parsedDate, "d MMMM");
+              const isToday = dayData.day === 'today';
+              return `📝 ${formattedDate}${isToday ? ' (today)' : ''}`;
+            }
+          })()}
         </span>
         <span className="flex items-center justify-end pr-2 text-sm text-black dark:text-white" style={{ width: '20%' }}>
           {dayData.totalPlayed}
@@ -240,6 +248,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                         <div className="flex items-center ml-auto">
                           <p className="text-xs text-black font-medium mr-2">{game.points}</p>
                           {(() => {
+                            console.log(`[PLAY BUTTON DEBUG PLAYED] Game: ${game.name}, dayData.day: "${dayData.day}", urlDate: "${urlDate}"`);
+                            
                             // Simple logic: 
                             // - For "today": show play button for ALL games WITHOUT suffix
                             // - For other dates: show play button for nerdlegame.com games WITH suffix
@@ -250,6 +260,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
                             const isToday = dayData.day === 'today';
                             
+                            console.log(`[PLAY BUTTON DEBUG PLAYED] ${game.name}: isToday=${isToday}, isNerdleGame=${isNerdleGame}`);
+                            
                             const canShowPlayButton = isToday || isNerdleGame;
                             
                             if (!canShowPlayButton) return null;
@@ -257,6 +269,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             const playUrl = isToday 
                               ? `${game.url}?external=true` 
                               : `${game.url}/${urlDate}?external=true`;
+                            
+                            console.log(`[PLAY BUTTON DEBUG PLAYED] ${game.name} play URL: ${playUrl}`);
                             
                             return (
                               <a
@@ -306,6 +320,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             {game.name}
                           </span>
                           {(() => {
+                            console.log(`[PLAY BUTTON DEBUG NOT PLAYED] Game: ${game.name}, dayData.day: "${dayData.day}", urlDate: "${urlDate}"`);
+                            
                             // Simple logic: 
                             // - For "today": show play button for ALL games WITHOUT suffix
                             // - For other dates: show play button for nerdlegame.com games WITH suffix
@@ -316,6 +332,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
                             const isToday = dayData.day === 'today';
                             
+                            console.log(`[PLAY BUTTON DEBUG NOT PLAYED] ${game.name}: isToday=${isToday}, isNerdleGame=${isNerdleGame}`);
+                            
                             const canShowPlayButton = isToday || isNerdleGame;
                             
                             if (!canShowPlayButton) return null;
@@ -323,6 +341,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             const playUrl = isToday 
                               ? `${game.url}?external=true` 
                               : `${game.url}/${urlDate}?external=true`;
+                            
+                            console.log(`[PLAY BUTTON DEBUG NOT PLAYED] ${game.name} play URL: ${playUrl}`);
                             
                             return (
                               <a
