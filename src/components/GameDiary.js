@@ -100,21 +100,33 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm" style={{ width: '20%' }}>
           {(() => {
-            // Only show play button for today for all games, or for any date if it's a nerdlegame.com game
+            // Simple logic: 
+            // - For "today": show play button for ALL games WITHOUT suffix
+            // - For other dates: show play button for nerdlegame.com games WITH suffix
+            // - Never show for "tomorrow"
+            
+            if (theDay === 'tomorrow') return null;
+            
             const isNerdleGame = gameUrl && gameUrl.includes('nerdlegame.com');
-            const canShowPlayButton = theDay !== 'tomorrow' && (theDay === 'today' || isNerdleGame);
+            const isToday = theDay === 'today';
             
-
+            const canShowPlayButton = isToday || isNerdleGame;
             
-            return canShowPlayButton ? (
+            if (!canShowPlayButton) return null;
+            
+            const playUrl = isToday 
+              ? `${gameUrl}?external=true` 
+              : `${gameUrl}/${urlDate}?external=true`;
+            
+            return (
               <a
-                href={theDay === 'today' ? `${gameUrl}?external=true` : `${gameUrl}/${urlDate}?external=true`}
+                href={playUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors z-10">
                 play
               </a>
-            ) : null;
+            );
           })()}
         </span>
       )}
@@ -274,19 +286,33 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             {game.name}
                           </span>
                           {(() => {
-                            // Only show play button for today for all games, or for any date if it's a nerdlegame.com game
-                            const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
-                            const canShowPlayButton = dayData.day !== 'tomorrow' && (dayData.day === 'today' || isNerdleGame);
+                            // Simple logic: 
+                            // - For "today": show play button for ALL games WITHOUT suffix
+                            // - For other dates: show play button for nerdlegame.com games WITH suffix
+                            // - Never show for "tomorrow"
                             
-                            return canShowPlayButton ? (
+                            if (dayData.day === 'tomorrow') return null;
+                            
+                            const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
+                            const isToday = dayData.day === 'today';
+                            
+                            const canShowPlayButton = isToday || isNerdleGame;
+                            
+                            if (!canShowPlayButton) return null;
+                            
+                            const playUrl = isToday 
+                              ? `${game.url}?external=true` 
+                              : `${game.url}/${urlDate}?external=true`;
+                            
+                            return (
                               <a
-                                href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
+                                href={playUrl}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline z-10">
                                 play
                               </a>
-                            ) : null;
+                            );
                           })()}
                         </div>
                       ))

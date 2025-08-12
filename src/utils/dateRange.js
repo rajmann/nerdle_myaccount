@@ -225,6 +225,16 @@ export const fillMissingDates = (diaryData, dateFilter) => {
     } else if (targetDateStr === tomorrowStr) {
       dayLabel = 'tomorrow';
     }
+    
+    // Debug logging for date calculation
+    console.log('Date calculation debug:', {
+      targetDateStr,
+      todayStr,
+      yesterdayStr,
+      tomorrowStr,
+      dayLabel,
+      originalDate: date.toISOString()
+    });
 
     // Create entry with zero values for missing dates
     return {
