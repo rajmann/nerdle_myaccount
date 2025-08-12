@@ -99,9 +99,9 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       </span>
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm" style={{ width: '20%' }}>
-          {played === 0 && theDay !== 'tomorrow' ? (
+          {theDay !== 'tomorrow' ? (
             <a
-              href={theDay === 'today' ? gameUrl : `${gameUrl}/${urlDate}`}
+              href={theDay === 'today' ? `${gameUrl}?external=true` : `${gameUrl}/${urlDate}?external=true`}
               target="_blank"
               rel="noreferrer"
               className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors z-10">
@@ -217,7 +217,18 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                         <span className="text-xs text-black game-name flex-1 min-w-0 ml-3" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                           {game.name}
                         </span>
-                        <p className="text-xs text-black ml-4 font-medium">{game.points}</p>
+                        <div className="flex items-center ml-auto">
+                          <p className="text-xs text-black font-medium mr-2">{game.points}</p>
+                          {dayData.day === 'today' && (
+                            <a
+                              href={`${game.url}?external=true`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline z-10">
+                              play
+                            </a>
+                          )}
+                        </div>
                       </div>
                     ))
                   }
@@ -236,13 +247,11 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
               <div className="absolute top-18 left-0 right-0 h-px bg-amber-100 opacity-30"></div>
               
               <div className="h-full relative z-10">
-                {!dayData.games.filter(g => g.played === 0).length ? (
-                  <p className="text-sm text-gray-500">All games played {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
+                {dayData.games.length === 0 ? (
+                  <p className="text-sm text-gray-500">No games for {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
                 ) : (
                   <>
-                    {dayData.games
-                      .filter(game => game.played === 0)
-                      .map((game, index) => (
+                    {dayData.games.map((game, index) => (
                         <div
                           key={index}
                           className="mb-2 flex items-center">
@@ -254,21 +263,15 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                           <span className="text-xs text-black game-name flex-1 min-w-0 ml-3" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                             {game.name}
                           </span>
-                          {dayData.day !== 'tomorrow' && (() => {
-                            // Only show play button for Nerdle games
-                            const gameDetail = allGames?.find(g => g.value === game.value);
-                            const isNerdleGame = gameDetail && gameDetail.nGame === true;
-                            
-                            return isNerdleGame ? (
-                              <a
-                                href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline z-10">
-                                play
-                              </a>
-                            ) : null;
-                          })()}
+                          {dayData.day !== 'tomorrow' && (
+                            <a
+                              href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline z-10">
+                              play
+                            </a>
+                          )}
                         </div>
                       ))
                     }
