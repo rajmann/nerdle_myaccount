@@ -24,12 +24,12 @@ export const getDateRange = (dateFilter) => {
       const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // If Sunday (0), go back 6 days
       startOfWeek.setDate(startOfWeek.getDate() + diffToMonday);
       
-      // End of current week (Sunday)  
+      // End of current week (Sunday) but not beyond today
       const endOfWeek = new Date(startOfWeek);
       endOfWeek.setDate(endOfWeek.getDate() + 6);
       
       startDate = getUTCStartOfDay(startOfWeek);
-      endDate = getUTCEndOfDay(endOfWeek);
+      endDate = getUTCEndOfDay(endOfWeek < now ? endOfWeek : now);
       break;
     }
     
@@ -68,8 +68,11 @@ export const getDateRange = (dateFilter) => {
       // Start of current month
       const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
       
+      // End of current month but not beyond today
+      const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+      
       startDate = getUTCStartOfDay(startOfMonth);
-      endDate = getUTCEndOfDay(now);
+      endDate = getUTCEndOfDay(endOfMonth < now ? endOfMonth : now);
       break;
     }
     
@@ -119,12 +122,12 @@ export const getDateRange = (dateFilter) => {
       const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
       startOfWeek.setDate(startOfWeek.getDate() + diffToMonday);
       
-      // End of current week (Sunday)
+      // End of current week (Sunday) but not beyond today
       const endOfWeek = new Date(startOfWeek);
       endOfWeek.setDate(endOfWeek.getDate() + 6);
       
       startDate = getUTCStartOfDay(startOfWeek);
-      endDate = getUTCEndOfDay(endOfWeek);
+      endDate = getUTCEndOfDay(endOfWeek < now ? endOfWeek : now);
       break;
     }
   }
@@ -142,13 +145,17 @@ export const getCurrentDayForGameDate = () => {
   return Date.parse(completeDate);
 };
 
-// Generate all dates in the range for filling missing dates
+// Generate all dates in the range for filling missing dates, excluding future dates
 export const generateDateRange = (startDate, endDate) => {
   const dates = [];
   const current = new Date(startDate);
   const end = new Date(endDate);
+  const today = new Date();
   
-  while (current <= end) {
+  // Cap the end date to today to exclude future dates
+  const actualEnd = end < today ? end : today;
+  
+  while (current <= actualEnd) {
     dates.push(new Date(current));
     current.setDate(current.getDate() + 1);
   }
