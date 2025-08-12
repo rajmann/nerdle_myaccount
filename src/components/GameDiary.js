@@ -240,6 +240,9 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                         <div className="flex items-center ml-auto">
                           <p className="text-xs text-black font-medium mr-2">{game.points}</p>
                           {(() => {
+                            // Debug logging
+                            console.log(`[DEBUG] Game: ${game.name}, dayData.day: "${dayData.day}", urlDate: "${urlDate}", game.url: "${game.url}"`);
+                            
                             // Simple logic: 
                             // - For "today": show play button for ALL games WITHOUT suffix
                             // - For other dates: show play button for nerdlegame.com games WITH suffix
@@ -250,6 +253,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
                             const isToday = dayData.day === 'today';
                             
+                            console.log(`[DEBUG] ${game.name}: isToday=${isToday}, isNerdleGame=${isNerdleGame}`);
+                            
                             const canShowPlayButton = isToday || isNerdleGame;
                             
                             if (!canShowPlayButton) return null;
@@ -257,6 +262,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             const playUrl = isToday 
                               ? `${game.url}?external=true` 
                               : `${game.url}/${urlDate}?external=true`;
+                            
+                            console.log(`[DEBUG] ${game.name} play URL: ${playUrl}`);
                             
                             return (
                               <a
@@ -306,6 +313,9 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             {game.name}
                           </span>
                           {(() => {
+                            // Debug logging
+                            console.log(`[DEBUG NOT PLAYED] Game: ${game.name}, dayData.day: "${dayData.day}", urlDate: "${urlDate}", game.url: "${game.url}"`);
+                            
                             // Simple logic: 
                             // - For "today": show play button for ALL games WITHOUT suffix
                             // - For other dates: show play button for nerdlegame.com games WITH suffix
@@ -316,6 +326,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
                             const isToday = dayData.day === 'today';
                             
+                            console.log(`[DEBUG NOT PLAYED] ${game.name}: isToday=${isToday}, isNerdleGame=${isNerdleGame}`);
+                            
                             const canShowPlayButton = isToday || isNerdleGame;
                             
                             if (!canShowPlayButton) return null;
@@ -323,6 +335,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             const playUrl = isToday 
                               ? `${game.url}?external=true` 
                               : `${game.url}/${urlDate}?external=true`;
+                            
+                            console.log(`[DEBUG NOT PLAYED] ${game.name} play URL: ${playUrl}`);
                             
                             return (
                               <a
