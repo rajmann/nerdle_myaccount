@@ -199,11 +199,7 @@ export const fillMissingDates = (diaryData, dateFilter) => {
       }
     }
     
-    if (existingEntry) {
-      return existingEntry;
-    }
-    
-    // Calculate day label (today, yesterday, tomorrow, or date string)
+    // Calculate day label (today, yesterday, tomorrow, or date string) FIRST
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
@@ -225,8 +221,14 @@ export const fillMissingDates = (diaryData, dateFilter) => {
     } else if (targetDateStr === tomorrowStr) {
       dayLabel = 'tomorrow';
     }
-    
 
+    if (existingEntry) {
+      // Return existing entry but with corrected day label
+      return {
+        ...existingEntry,
+        day: dayLabel
+      };
+    }
 
     // Create entry with zero values for missing dates
     return {
