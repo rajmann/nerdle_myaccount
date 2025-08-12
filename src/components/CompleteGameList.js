@@ -127,7 +127,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                     key={index}
                     className="mb-1 flex items-center justify-between">
                     <a
-                      href={url + "?external=true"}
+                      href={url}
                       target="_blank"
                       rel="noreferrer"
                       className="text-sm text-black dark:text-white underline underline-offset-2 game-name">
@@ -158,7 +158,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                   key={index}
                   className="mb-1 flex items-center justify-between">
                   <a
-                    href={url + "?external=true"}
+                    href={url}
                     target="_blank"
                     rel="noreferrer"
                     className="text-sm text-black dark:text-white underline underline-offset-2 game-name">

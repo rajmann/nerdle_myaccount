@@ -115,8 +115,8 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
             if (!canShowPlayButton) return null;
             
             const playUrl = isToday 
-              ? `${gameUrl}?external=true` 
-              : `${gameUrl}/${urlDate}?external=true`;
+              ? gameUrl 
+              : `${gameUrl}/${urlDate}`;
             
             return (
               <a
@@ -255,8 +255,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             if (!canShowPlayButton) return null;
                             
                             const playUrl = isToday 
-                              ? `${game.url}?external=true` 
-                              : `${game.url}/${urlDate}?external=true`;
+                              ? game.url 
+                              : `${game.url}/${urlDate}`;
                             
                             return (
                               <a
@@ -321,8 +321,8 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             if (!canShowPlayButton) return null;
                             
                             const playUrl = isToday 
-                              ? `${game.url}?external=true` 
-                              : `${game.url}/${urlDate}?external=true`;
+                              ? game.url 
+                              : `${game.url}/${urlDate}`;
                             
                             return (
                               <a

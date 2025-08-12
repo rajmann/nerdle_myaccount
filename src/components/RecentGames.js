@@ -242,7 +242,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                     key={index}
                     className="mb-1 flex items-center justify-between">
                     <a
-                      href={url + "?external=true"}
+                      href={url}
                       target="_blank"
                       rel="noreferrer"
                       className="text-sm text-black dark:text-white underline underline-offset-2 game-name">
@@ -271,7 +271,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                   key={index}
                   className="mb-1 flex items-center justify-between">
                   <a
-                    href={url + "?external=true"}
+                    href={url}
                     target="_blank"
                     rel="noreferrer"
                     className="text-sm text-nerdle-primary underline underline-offset-2">
@@ -349,7 +349,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         {name}
                       </span>
                       <a
-                        href={url + "?external=true"}
+                        href={url}
                         target="_blank"
                         rel="noreferrer"
                         className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">

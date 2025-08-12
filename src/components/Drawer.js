@@ -111,7 +111,7 @@ const Drawer = ({ isOpen, onClose }) => {
           {externalPages.map((page) => (
             <li key={page.label} onClick={onClose} className="flex">
               <a
-                href={page.path + "?external=true"}
+                href={page.path}
                 target="_blank"
                 rel="noreferrer"
                 className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-[slate-700]">

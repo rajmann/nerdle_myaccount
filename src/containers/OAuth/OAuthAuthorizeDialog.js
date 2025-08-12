@@ -70,7 +70,7 @@ const OAuthAuthorizeDialog = ({ open, clientID, redirectURI }) => {
         clearOAuthParams();
         //navigate(`../my-leagues/${data.code}`);
 
-        const finalURL = `${redirectURI}?authCode=${response.data.authCode}&external=true`;
+        const finalURL = `${redirectURI}?authCode=${response.data.authCode}`;
         window.open(finalURL, "_self");
       } catch (error) {
         toast.error(error.message);
