@@ -57,7 +57,7 @@ const AddScore = () => {
   return (
     <>
       <button
-        className="absolute bottom-20 right-4 h-14 w-14 rounded-full bg-nerdle-primary p-3 hover:bg-nerdle-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-nerdle-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background z-50"
+        className="fixed bottom-20 right-4 h-14 w-14 rounded-full bg-nerdle-primary p-3 hover:bg-nerdle-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-nerdle-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background z-50"
         onClick={() => setDialogState(dialogStates.adding)}>
         <MdAdd className="h-full w-full text-white" />
       </button>
