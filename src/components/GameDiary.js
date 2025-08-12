@@ -282,7 +282,7 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
   );
 };
 
-const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, recentGamesData = {} }) => {
+const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, recentGamesData = {}, dateFilter }) => {
   const { isPWA } = useAuth();
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker("My Statistics");
@@ -333,7 +333,8 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
   const multiGameDiaryResponses = useMultiGameDiary({
     games: isMultiGameView ? recentGamesForDiary : [],
     date: "This week",
-    id: null
+    id: null,
+    dateFilter: dateFilter
   });
 
   const currentData = React.useMemo(

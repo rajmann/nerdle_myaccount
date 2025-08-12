@@ -217,6 +217,7 @@ const MyStatistics = () => {
   let { data: gameDiaryData, mutate: mutateGameDiary } = useGameDiary({
     game: gameFilter?.value,
     date: dateFilter?.value,
+    dateFilter: dateFilter
   });
 
   const data = React.useMemo(() => apiData?.data, [apiData?.data]);
@@ -358,6 +359,7 @@ const MyStatistics = () => {
           gamesToday: gamesToday,
           gamesPastTwoWeeks: gamesPastTwoWeeks
         }}
+        dateFilter={dateFilter}
       />
       
       <EnableNonNerdleDialog

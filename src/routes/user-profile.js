@@ -77,6 +77,7 @@ const UserProfile = () => {
     game: gameFilter.value,
     date: dateFilter.value,
     id: params.userId,
+    dateFilter: dateFilter
   });
 
   const data = React.useMemo(() => apiData?.data, [apiData?.data]);
@@ -156,7 +157,7 @@ const UserProfile = () => {
         data={guessDistribution}
         isMultipleGames={gameFilter.value === "all"}
       />
-      <GameDiary data={gameDiary} />
+      <GameDiary data={gameDiary} dateFilter={dateFilter} />
     </div>
   );
 };
