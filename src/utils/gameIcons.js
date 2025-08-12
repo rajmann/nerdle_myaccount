@@ -103,17 +103,19 @@ export const GameIcon = ({ gameName, gameData, className = "w-8 h-8" }) => {
   if (iconUrl) {
     return (
       <div className="relative">
-        <img 
-          src={iconUrl} 
-          alt={`${gameName} icon`}
-          className={`${forcedSize} object-contain`}
-          onError={(e) => {
-            // If image fails to load, hide it and show fallback
-            e.target.style.display = 'none';
-            const fallback = e.target.nextElementSibling;
-            if (fallback) fallback.style.display = 'flex';
-          }}
-        />
+        <div className={`${forcedSize} bg-white rounded flex items-center justify-center`}>
+          <img 
+            src={iconUrl} 
+            alt={`${gameName} icon`}
+            className={`${forcedSize} object-contain rounded`}
+            onError={(e) => {
+              // If image fails to load, hide it and show fallback
+              e.target.style.display = 'none';
+              const fallback = e.target.parentElement.nextElementSibling;
+              if (fallback) fallback.style.display = 'flex';
+            }}
+          />
+        </div>
         <div 
           className={`${forcedSize} bg-white text-black text-sm font-bold rounded border flex items-center justify-center hidden`}
           style={{ display: 'none', borderColor: borderColor }}
