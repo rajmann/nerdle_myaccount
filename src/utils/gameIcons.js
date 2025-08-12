@@ -117,7 +117,7 @@ export const GameIcon = ({ gameName, gameData, className = "w-8 h-8" }) => {
           />
         </div>
         <div 
-          className={`${forcedSize} bg-white text-black text-sm font-bold rounded border flex items-center justify-center hidden`}
+          className={`${forcedSize} bg-white text-black text-lg font-bold rounded border flex items-center justify-center hidden p-0`}
           style={{ display: 'none', borderColor: borderColor }}
           title={gameName}
         >
@@ -130,7 +130,7 @@ export const GameIcon = ({ gameName, gameData, className = "w-8 h-8" }) => {
   // Fallback: white background with black text and colored border
   return (
     <div 
-      className={`${forcedSize} bg-white text-black text-sm font-bold rounded border flex items-center justify-center`}
+      className={`${forcedSize} bg-white text-black text-lg font-bold rounded border flex items-center justify-center p-0`}
       style={{ borderColor: borderColor }}
       title={gameName}
     >
