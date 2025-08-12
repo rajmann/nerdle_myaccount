@@ -476,6 +476,28 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
       });
     }
 
+    // Ensure all days have all recent games represented
+    Array.from(dateGameMap.values()).forEach(dayData => {
+      const existingGameValues = dayData.games.map(g => g.value);
+      
+      // Add missing games as "not played" for this day
+      recentGamesForDiary.forEach(gameValue => {
+        if (!existingGameValues.includes(gameValue)) {
+          const gameDetail = allGames?.find(g => g.value === gameValue);
+          if (gameDetail) {
+            dayData.games.push({
+              name: gameDetail.name === 'Nerdle' ? 'nerdle (classic)' : gameDetail.name,
+              value: gameDetail.value,
+              url: gameDetail.url,
+              played: 0,
+              won: 0,
+              points: 0
+            });
+          }
+        }
+      });
+    });
+
     // Sort games within each day and convert to array
     const sortedDays = Array.from(dateGameMap.values())
       .map(dayData => ({
