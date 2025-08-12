@@ -99,35 +99,7 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       </span>
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm" style={{ width: '20%' }}>
-          {(() => {
-            // Simple logic: 
-            // - For "today": show play button for ALL games WITHOUT suffix
-            // - For other dates: show play button for nerdlegame.com games WITH suffix
-            // - Never show for "tomorrow"
-            
-            if (theDay === 'tomorrow') return null;
-            
-            const isNerdleGame = gameUrl && gameUrl.includes('nerdlegame.com');
-            const isToday = theDay === 'today';
-            
-            const canShowPlayButton = isToday || isNerdleGame;
-            
-            if (!canShowPlayButton) return null;
-            
-            const playUrl = isToday 
-              ? gameUrl 
-              : `${gameUrl}/${urlDate}`;
-            
-            return (
-              <a
-                href={playUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors z-10">
-                play
-              </a>
-            );
-          })()}
+          {/* No play button for played games */}
         </span>
       )}
       {values.map((value, index) => (
@@ -239,35 +211,6 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                         </span>
                         <div className="flex items-center ml-auto">
                           <p className="text-xs text-black font-medium mr-2">{game.points}</p>
-                          {(() => {
-                            // Simple logic: 
-                            // - For "today": show play button for ALL games WITHOUT suffix
-                            // - For other dates: show play button for nerdlegame.com games WITH suffix
-                            // - Never show for "tomorrow"
-                            
-                            if (dayData.day === 'tomorrow') return null;
-                            
-                            const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
-                            const isToday = dayData.day === 'today';
-                            
-                            const canShowPlayButton = isToday || isNerdleGame;
-                            
-                            if (!canShowPlayButton) return null;
-                            
-                            const playUrl = isToday 
-                              ? game.url 
-                              : `${game.url}/${urlDate}`;
-                            
-                            return (
-                              <a
-                                href={playUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline z-10">
-                                play
-                              </a>
-                            );
-                          })()}
                         </div>
                       </div>
                     ))
