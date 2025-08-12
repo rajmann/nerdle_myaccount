@@ -355,6 +355,7 @@ const MyStatistics = () => {
         data={gameDiary} 
         weeklyScoresForSharingData={weeklyScoresForSharingData}
         gameFilter={gameFilter}
+        gameUrl={allGames?.find(g => g.value === gameFilter?.value)?.url}
         allGames={allGames}
         recentGamesData={{
           gamesToday: gamesToday,
