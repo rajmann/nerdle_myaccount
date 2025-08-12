@@ -261,11 +261,13 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
               <div className="absolute top-18 left-0 right-0 h-px bg-amber-100 opacity-30"></div>
               
               <div className="h-full relative z-10">
-                {dayData.games.length === 0 ? (
-                  <p className="text-sm text-gray-500">No games for {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
+                {!dayData.games.filter(g => g.played === 0).length ? (
+                  <p className="text-sm text-gray-500">All games played {dayData.day === 'today' ? 'today' : dayData.day === 'yesterday' ? 'yesterday' : dayData.day === 'tomorrow' ? 'tomorrow' : 'this day'}</p>
                 ) : (
                   <>
-                    {dayData.games.map((game, index) => (
+                    {dayData.games
+                      .filter(game => game.played === 0)
+                      .map((game, index) => (
                         <div
                           key={index}
                           className="mb-2 flex items-center">
