@@ -42,19 +42,21 @@ export const getGameFilterOptions = (games, allGamesOption, allNerdleGamesOption
     game !== nerdleGame
   ).sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
 
-  // Build options array - start with "All Nerdle Games" as default
+  // Build options array - start with "All Games" first
   const options = [];
   
-  // Always add "All Nerdle Games" first as the default
+  // Add "All Games" first
+  options.push(allGamesOption);
+  
+  // Add "All Nerdle Games" second
   if (allNerdleGamesOption) {
     options.push(allNerdleGamesOption);
   }
   
+  // Add "Nerdle (Classic)" third
   if (nerdleGame) options.push(nerdleGame);
   
-  // Add "All Games" after nerdle options
-  options.push(allGamesOption);
-  
+  // Add all other games last
   options.push(...otherGames);
   
   return options;
