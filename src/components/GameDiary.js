@@ -99,15 +99,21 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       </span>
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm" style={{ width: '20%' }}>
-          {theDay !== 'tomorrow' ? (
-            <a
-              href={theDay === 'today' ? `${gameUrl}?external=true` : `${gameUrl}/${urlDate}?external=true`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors z-10">
-              play
-            </a>
-          ) : null}
+          {(() => {
+            // Only show play button for today for all games, or for any date if it's a nerdlegame.com game
+            const isNerdleGame = gameUrl && gameUrl.includes('nerdlegame.com');
+            const canShowPlayButton = theDay !== 'tomorrow' && (theDay === 'today' || isNerdleGame);
+            
+            return canShowPlayButton ? (
+              <a
+                href={theDay === 'today' ? `${gameUrl}?external=true` : `${gameUrl}/${urlDate}?external=true`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors z-10">
+                play
+              </a>
+            ) : null;
+          })()}
         </span>
       )}
       {values.map((value, index) => (
@@ -263,15 +269,21 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                           <span className="text-xs text-black game-name flex-1 min-w-0 ml-3" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                             {game.name}
                           </span>
-                          {dayData.day !== 'tomorrow' && (
-                            <a
-                              href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline z-10">
-                              play
-                            </a>
-                          )}
+                          {(() => {
+                            // Only show play button for today for all games, or for any date if it's a nerdlegame.com game
+                            const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
+                            const canShowPlayButton = dayData.day !== 'tomorrow' && (dayData.day === 'today' || isNerdleGame);
+                            
+                            return canShowPlayButton ? (
+                              <a
+                                href={dayData.day === 'today' ? `${game.url}?external=true` : `${game.url}/${urlDate}?external=true`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="ml-3 inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline z-10">
+                                play
+                              </a>
+                            ) : null;
+                          })()}
                         </div>
                       ))
                     }
