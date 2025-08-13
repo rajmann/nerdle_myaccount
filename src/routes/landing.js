@@ -150,7 +150,7 @@ const Landing = () => {
       <main className="flex-1 overflow-y-auto p-4 flex flex-col items-stretch justify-center text-center">
         <h1 className="mt-5 text-3xl font-semibold text-gray-900 dark:text-white">My account</h1>
         <p className="mt-5 text-xl text-gray-600 dark:text-gray-300">
-          With a nerdle account, you'll be able to see your score history across all nerdle games here. You can add scores from other popular games like Wordle and Worldle too and even compete in leagues with other nerdle players.
+          With a nerdle account, you can see your score history across all nerdle games here. You can add scores from other popular games like Wordle and Worldle too and even compete in leagues with other nerdle players.
         </p>
       <div className="mt-10 flex flex-col items-stretch gap-2">
         <hr className="mb-2" />
