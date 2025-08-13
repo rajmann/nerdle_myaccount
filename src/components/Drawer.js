@@ -85,15 +85,15 @@ const Drawer = ({ isOpen, onClose }) => {
       >
         <div className="w-full">
           {/* Header with logo and close button */}
-          <div className="flex items-center mb-4">
+          <div className="flex items-center justify-between mb-4 w-full">
             <img
               src="https://nerdlegame.com/logo192.png"
               alt="Nerdlegame - the daily numbers game"
-              className="h-8 mr-auto"
+              className="h-8"
               aria-label="Nerdle logo - close menu"
             />
             <XIcon 
-              className="h-6 w-6 cursor-pointer dark:text-[#D7DADC] ml-auto" 
+              className="h-6 w-6 cursor-pointer dark:text-[#D7DADC]" 
               onClick={onClose} 
             />
           </div>
