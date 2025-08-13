@@ -110,7 +110,7 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
         let displayName = game?.name;
         if (game?.value === 'nerdlegame' && game?.name === 'nerdle') {
           displayName = 'nerdle (classic)';
-          console.log('Transforming nerdle to nerdle (classic) in otherGames:', game);
+          console.log('Transforming nerdle to nerdle (classic) in otherGames:', game, 'value:', game?.value, 'name:', game?.name);
         }
         return {
           ...game,
