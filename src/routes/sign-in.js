@@ -56,7 +56,7 @@ const SignIn = () => {
       <main className="flex-1 overflow-y-auto p-4 flex flex-col justify-center">
         <h1 className="text-center text-3xl font-semibold text-black dark:text-white">Sign in</h1>
         <SignInForm />
-        <div className="mt-6 text-center">
+        <div className="mt-6 flex justify-center">
           <Link to="/">
             <Button className="py-2 px-6 text-sm shadow-lg focus-visible:ring-offset-white">
               Cancel
