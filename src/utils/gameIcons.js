@@ -1,5 +1,3 @@
-import { games } from '../lib/gameList';
-
 // Game icon mapping based on nerdle/src/lib/gameList.ts
 const gameIconMap = {
   // Nerdle games (from nerdle gameList.ts) - prepend https://nerdlegame.com for relative paths
@@ -100,6 +98,108 @@ export const getGameIcon = (gameName, gameData = null) => {
   return null;
 };
 
+// Game data from nerdle/src/lib/gameList.ts - contains both icons and descriptions
+const gameListData = [
+  {
+    gameMode: '',
+    name: 'classic',
+    url: 'https://nerdlegame.com',
+    img: '/newicons/classic.png',
+    description: "The original - 8 digits, 6 guesses"
+  },
+  {
+    gameMode: 'micro',
+    name: 'micro',
+    url: 'https://micro.nerdlegame.com',
+    img: '/newicons/micro.png',
+    description: "Micro nerdle - 5 digit nerdle"
+  },
+  {
+    gameMode: 'mini',
+    name: 'mini',
+    url: 'https://mini.nerdlegame.com',
+    img: '/newicons/mini.png',
+    description: "Mini nerdle - 6 digit nerdle"
+  },
+  {
+    gameMode: 'midi',
+    name: 'midi',
+    url: 'https://midi.nerdlegame.com',
+    img: '/newicons/midi.png',
+    description: "Midi nerdle - 7 digit nerdle"
+  },
+  {
+    gameMode: 'maxi',
+    name: 'maxi',
+    url: 'https://maxi.nerdlegame.com',
+    img: '/newicons/maxi.png',
+    description: "Maxi nerdle - 10 digits, more operators"
+  },
+  {
+    gameMode: 'mini-bi',
+    name: 'mini-bi',
+    url: 'https://mini.bi.nerdlegame.com',
+    img: '/newicons/mini-bi.png',
+    description: "Mini bi nerdle - 2 mini nerdles at once"
+  },
+  {
+    gameMode: 'bi',
+    name: 'bi',
+    url: 'https://bi.nerdlegame.com',
+    img: '/newicons/bi.png',
+    description: "Bi nerdle - 2 classic nerdles at once"
+  },
+  {
+    gameMode: 'quad',
+    name: 'quad',
+    url: 'https://quad.nerdlegame.com/',
+    img: '/newicons/quad.png',
+    description: "Quad nerdle - 4 classic nerdles at once"
+  },
+  {
+    gameMode: 'decoy',
+    name: 'decoy',
+    url: 'https://nerdlegame.com/decoy',
+    img: '/newicons/decoy-logo.png',
+    description: "Find the calculation or word, one character is a decoy"
+  },
+  {
+    gameMode: 'speed',
+    name: 'speed',
+    url: 'https://speed.nerdlegame.com',
+    img: '/newicons/speed.png',
+    description: "Nerdle against the clock"
+  },
+  {
+    gameMode: 'instant',
+    name: 'instant',
+    url: 'https://instant.nerdlegame.com',
+    img: '/newicons/instant.png',
+    description: "Instant nerdle - only one guess!"
+  },
+  {
+    gameMode: 'twords',
+    name: 'twords',
+    url: 'https://nerdlegame.com/twords',
+    img: '/newicons/twords-logo.png',
+    description: "Word puzzles with a nerdle twist"
+  },
+  {
+    gameMode: 'crossnerdle',
+    name: 'crossnerdle',
+    url: 'https://nerdlegame.com/crossnerdle',
+    img: '/crossnerdle/crossnerdle_icon.png',
+    description: "Cross nerdle - like a crossword but with nerdles"
+  },
+  {
+    gameMode: 'nanagrams',
+    name: 'nanagrams',
+    url: 'https://nerdlegame.com/nanagrams',
+    img: '/nanagram/favicon.png',
+    description: "Nanagrams - find all the calculations using the numbers given"
+  }
+];
+
 // Get game details (icon + description) using gameList data
 export const getGameDetails = (gameName, allGames = null) => {
   if (!gameName) {
@@ -109,9 +209,9 @@ export const getGameDetails = (gameName, allGames = null) => {
   // Normalize the game name for lookup (lowercase, handle variations)
   const normalizedName = gameName.toLowerCase().trim();
   
-  // Helper function to find game in games array by various keys
+  // Helper function to find game in gameListData by various keys
   const findGameByKey = (lookupKey) => {
-    return games.find(g => 
+    return gameListData.find(g => 
       g?.gameMode?.toLowerCase() === lookupKey ||
       g?.name?.toLowerCase() === lookupKey ||
       `${g?.name?.toLowerCase()} nerdle` === lookupKey ||
@@ -142,7 +242,7 @@ export const getGameDetails = (gameName, allGames = null) => {
   
   // Special case for nerdlegame -> classic
   if (!gameDetail && (normalizedName === 'nerdlegame' || normalizedName === 'nerdle')) {
-    gameDetail = games.find(g => g.name === 'classic');
+    gameDetail = gameListData.find(g => g.name === 'classic');
   }
   
   // Get icon using existing logic (prepend https://nerdlegame.com for relative paths)
