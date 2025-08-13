@@ -431,7 +431,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
       {suggestedGame && (
         <div className="mt-4">
           <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-            <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>Try a new game?</h3>
+            <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>New game?</h3>
           </div>
           <div className="rounded-md bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 p-4">
             {suggestedGame.showAllPlayedMessage ? (
