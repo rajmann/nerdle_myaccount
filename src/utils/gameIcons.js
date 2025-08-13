@@ -200,63 +200,76 @@ const gameListData = [
   }
 ];
 
-// Get game details (icon + description) using gameList data
+// Get game details (icon + description) using EXACT same logic as getGameIcon
 export const getGameDetails = (gameName, allGames = null) => {
   if (!gameName) {
     return { iconUrl: null, description: null };
   }
   
-  // Normalize the game name for lookup (lowercase, handle variations)
+  // Use EXACT same logic as getGameIcon to find the matching key
   const normalizedName = gameName.toLowerCase().trim();
   
-  // Helper function to find game in gameListData by various keys
-  const findGameByKey = (lookupKey) => {
-    return gameListData.find(g => 
-      g?.gameMode?.toLowerCase() === lookupKey ||
-      g?.name?.toLowerCase() === lookupKey ||
-      `${g?.name?.toLowerCase()} nerdle` === lookupKey ||
-      `${g?.name?.toLowerCase()} nerdlegame` === lookupKey
-    );
-  };
+  let foundKey = null;
   
-  let gameDetail = null;
+  // Direct match in gameIconMap
+  if (gameIconMap[normalizedName]) {
+    foundKey = normalizedName;
+  }
   
-  // Try direct match first
-  gameDetail = findGameByKey(normalizedName);
+  // Check for special keywords (EXACT same as getGameIcon)
+  if (!foundKey && normalizedName.includes('decoy')) {
+    foundKey = 'decoy';
+  }
+  if (!foundKey && normalizedName.includes('shuffle')) {
+    foundKey = 'shuffle';
+  }
+  if (!foundKey && normalizedName.includes('2d')) {
+    foundKey = '2d nerdle';
+  }
+  if (!foundKey && normalizedName.includes('maffdoku')) {
+    foundKey = 'maffdoku';
+  }
+  if (!foundKey && (normalizedName.includes('nanagrams') || normalizedName.includes('nanagram'))) {
+    foundKey = 'nanagrams';
+  }
   
-  // If not found, try variations (same logic as icon lookup)
-  if (!gameDetail) {
+  // Check variations (EXACT same as getGameIcon)
+  if (!foundKey) {
     const variations = [
       normalizedName.replace(' nerdle', ''),
-      normalizedName.replace('nerdle ', ''),  
+      normalizedName.replace('nerdle ', ''),
       normalizedName.replace(' nerdlegame', ''),
       normalizedName.replace('nerdlegame ', ''),
       normalizedName.replace(/\s+/g, ''), // Remove all spaces
     ];
     
     for (const variation of variations) {
-      gameDetail = findGameByKey(variation);
-      if (gameDetail) break;
+      if (gameIconMap[variation]) {
+        foundKey = variation;
+        break;
+      }
     }
   }
   
-  // Special case for nerdlegame -> classic
-  if (!gameDetail && (normalizedName === 'nerdlegame' || normalizedName === 'nerdle')) {
-    gameDetail = gameListData.find(g => g.name === 'classic');
+  // Now find the description using the same key that would find an icon
+  let gameDetail = null;
+  if (foundKey) {
+    gameDetail = gameListData.find(g => 
+      g?.name?.toLowerCase() === foundKey ||
+      g?.gameMode?.toLowerCase() === foundKey ||
+      (foundKey === 'classic' && (g?.name === 'classic' || g?.gameMode === '')) ||
+      (foundKey === 'nanagrams' && g?.name?.toLowerCase().includes('nanagrams'))
+    );
   }
   
-  // Get icon using existing logic (prepend https://nerdlegame.com for relative paths)
-  let iconUrl = null;
-  if (gameDetail?.img) {
-    iconUrl = gameDetail.img.startsWith('http') ? gameDetail.img : `https://nerdlegame.com${gameDetail.img}`;
-  } else {
-    iconUrl = getGameIcon(gameName);
-  }
+  // Get icon using existing logic
+  const iconUrl = getGameIcon(gameName);
   
   return {
     iconUrl,
     description: gameDetail?.description || null,
-    gameDetail
+    gameDetail,
+    foundKey // for debugging
   };
 };
 
