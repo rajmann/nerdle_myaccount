@@ -4,7 +4,6 @@ import {
   HomeIcon,
   LoginIcon,
   ShareIcon,
-  CogIcon,
   XIcon,
   CalendarIcon,
   DocumentTextIcon,
@@ -253,8 +252,8 @@ const Drawer = ({ isOpen, onClose }) => {
               Merch etc
             </div>
 
-            {/* Settings */}
-            <div
+            {/* Settings - commented out as this is now context-specific */}
+            {/* <div
               className="flex mt-4 cursor-pointer active:bg-slate-400"
               onClick={() => handleAction("settings")}
               aria-label="Settings"
@@ -266,7 +265,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 style={{ marginRight: 10 }}
               />
               Settings
-            </div>
+            </div> */}
 
             {/* Arcade math games */}
             <div className="flex mt-2">Arcade math games</div>
