@@ -17,8 +17,10 @@ import AppleIcon from "../assets/icons/appleIcon.svg";
 import AppleSignInButton from "../components/AppleSignInButton";
 import Button from "../components/Button";
 import GoogleLoginButton from "../components/GoogleLoginButton";
-import LogoMain from "../components/LogoMain";
-import SocialButton from "../components/SocialButton";
+import Header from "../components/Header";
+import NerdleMenuIcon from "../components/icons/NerdleMenuIcon";
+import NerdleLogo from "../components/NerdleLogo";
+import NerdleText from "../components/NerdleText";
 import useAuth from "../hooks/useAuth";
 import useLeagueCodeStore from "../store/useLeagueCodeStore";
 import useOAuthParamsStore from "../store/useOAuthParamsStore";
@@ -110,18 +112,40 @@ const Landing = () => {
   }
 
   return (
-    //<div className="relative flex h-full flex-col items-stretch justify-center text-center"></div>
-    <div className="flex flex-col items-stretch justify-center text-center">
-      <LogoMain className="w-1/2 self-center" />
-      <h1 className="mt-5 text-3xl font-semibold text-gray-900 dark:text-white">{`Welcome to Nerdle League!`}</h1>
-      <p className="mt-5 text-xl text-gray-600">
-        Track your Nerdle scores and compete in leagues with friends. Join the math puzzle community!
-      </p>
+    <div className="relative flex h-screen max-h-[-webkit-fill-available] flex-col overflow-hidden">
+      <Header>
+        <Header.Left>
+          <div className="flex items-center gap-4">
+            <button
+              className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-1">
+              <NerdleMenuIcon />
+            </button>
+            <NerdleLogo />
+            <NerdleText />
+          </div>
+        </Header.Left>
+        <Header.Right>
+          <div className="flex items-center gap-3">
+            <span 
+              className="text-sm font-normal text-black dark:text-white"
+              style={{ fontSize: '0.975em', fontFamily: "'Barlow', sans-serif" }}
+            >
+              account stats
+            </span>
+          </div>
+        </Header.Right>
+      </Header>
+      <main className="flex-1 overflow-y-auto p-4 flex flex-col items-stretch justify-center text-center">
+        <h1 className="mt-5 text-3xl font-semibold text-gray-900 dark:text-white">My account</h1>
+        <p className="mt-5 text-xl text-gray-600 dark:text-gray-300">
+          With a nerdle account, you'll be able to see your score history across all nerdle games here. You can add scores from other popular games like Wordle and Worldle too and even compete in leagues with other nerdle players.
+        </p>
       <div className="mt-10 flex flex-col items-stretch gap-2">
         <hr className="mb-2" />
         <GoogleOAuthProvider clientId="987197032798-q36obh48bkuj71fk7455hfs3c2hfvrpq.apps.googleusercontent.com">
           <GoogleLoginButton onSuccess={handleSocialLogin} onFailure={(err) => console.log(err)} />
         </GoogleOAuthProvider>
+        {/* Facebook login commented out per user request
         <div className="h-16">
           <SocialButton
             className="facebook"
@@ -134,6 +158,7 @@ const Landing = () => {
           // onLoginFailure={handleSocialLoginFailure}
           />
         </div>
+        */}
         <div>
           {(appPlatform === "ios" || !isPWA) && (
             <AppleSignInButton
@@ -171,17 +196,18 @@ const Landing = () => {
           Create an account manually
         </Button>
       </Link>
-      <span className="mt-7 text-sm text-gray-600">
+      <div className="mt-7 text-sm text-gray-600 dark:text-gray-300">
         Already have an account?{" "}
-        <Link
-          to="sign-in"
-          className="text-nerdle-primary underline hover:text-nerdle-secondary">
-          Sign In
+        <Link to="sign-in" className="mt-2">
+          <Button className="ml-2 py-2 px-4 text-sm shadow-lg focus-visible:ring-offset-white">
+            Sign In
+          </Button>
         </Link>
-      </span>
-      <p className="mt-4 text-sm text-gray-500">
-        {localStorage.getItem("appVersion")}
-      </p>
+      </div>
+        <p className="mt-4 text-sm text-gray-500">
+          {localStorage.getItem("appVersion")}
+        </p>
+      </main>
     </div>
   );
 };
