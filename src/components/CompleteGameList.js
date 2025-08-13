@@ -105,7 +105,17 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
           gamesTodayWithDetails?.findIndex(
             (g) => g.gameName.toLowerCase() === game.value.toLowerCase()
           ) === -1
-      )
+      )?.map((game) => {
+        // Transform "nerdle" to "nerdle (classic)" for display
+        let displayName = game?.name;
+        if (game?.value === 'nerdlegame' && game?.name === 'nerdle') {
+          displayName = 'nerdle (classic)';
+        }
+        return {
+          ...game,
+          name: displayName
+        };
+      })
       const all = [...recentlyPlayed, ...arrSpacer, ...otherGames];
       /* console.log('ALL');
       console.log(all); */
