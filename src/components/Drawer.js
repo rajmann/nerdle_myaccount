@@ -83,18 +83,20 @@ const Drawer = ({ isOpen, onClose }) => {
         className="absolute top-0 left-0 bottom-0 bg-white dark:bg-gray-800 z-50 pr-4 pt-4 pl-4 max-w-[420px] w-full dark:text-[#D7DADC] overflow-auto flex"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Close button positioned at top-right */}
+        <XIcon 
+          className="h-6 w-6 cursor-pointer dark:text-[#D7DADC] absolute top-4 right-4 z-10" 
+          onClick={onClose}
+        />
+        
         <div className="w-full">
-          {/* Header with logo and close button */}
-          <div className="flex items-center justify-between mb-4 w-full">
+          {/* Header with logo */}
+          <div className="flex items-center mb-4">
             <img
               src="https://nerdlegame.com/logo192.png"
               alt="Nerdlegame - the daily numbers game"
               className="h-8"
               aria-label="Nerdle logo - close menu"
-            />
-            <XIcon 
-              className="h-6 w-6 cursor-pointer dark:text-[#D7DADC]" 
-              onClick={onClose} 
             />
           </div>
 
