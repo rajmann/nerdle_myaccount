@@ -16,6 +16,7 @@ import AppleIcon from "../assets/icons/appleIcon.svg";
 // import GoogleIcon from "../assets/icons/googleIcon.svg";
 import AppleSignInButton from "../components/AppleSignInButton";
 import Button from "../components/Button";
+import Drawer from "../components/Drawer";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import Header from "../components/Header";
 import NerdleMenuIcon from "../components/icons/NerdleMenuIcon";
@@ -30,6 +31,15 @@ const Landing = () => {
   const { leagueCode } = useLeagueCodeStore();
   const { clientID, redirectURI } = useOAuthParamsStore();
   const navigate = useNavigate();
+  const [drawerIsOpen, setDrawerIsOpen] = React.useState(false);
+
+  const onDrawerOpen = React.useCallback(() => {
+    setDrawerIsOpen(true);
+  }, []);
+
+  const onDrawerClose = React.useCallback(() => {
+    setDrawerIsOpen(false);
+  }, []);
 
   useEffect(() => {
     //function start() {
@@ -117,6 +127,7 @@ const Landing = () => {
         <Header.Left>
           <div className="flex items-center gap-4">
             <button
+              onClick={onDrawerOpen}
               className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-1">
               <NerdleMenuIcon />
             </button>
@@ -135,6 +146,7 @@ const Landing = () => {
           </div>
         </Header.Right>
       </Header>
+      <Drawer isOpen={drawerIsOpen} onClose={onDrawerClose} />
       <main className="flex-1 overflow-y-auto p-4 flex flex-col items-stretch justify-center text-center">
         <h1 className="mt-5 text-3xl font-semibold text-gray-900 dark:text-white">My account</h1>
         <p className="mt-5 text-xl text-gray-600 dark:text-gray-300">

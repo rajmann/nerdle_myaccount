@@ -2,6 +2,7 @@ import React from "react";
 
 import { Navigate } from "react-router-dom";
 
+import Drawer from "../components/Drawer";
 import Header from "../components/Header";
 import NerdleMenuIcon from "../components/icons/NerdleMenuIcon";
 import NerdleLogo from "../components/NerdleLogo";
@@ -11,6 +12,15 @@ import useAuth from "../hooks/useAuth";
 
 const SignIn = () => {
   const auth = useAuth();
+  const [drawerIsOpen, setDrawerIsOpen] = React.useState(false);
+
+  const onDrawerOpen = React.useCallback(() => {
+    setDrawerIsOpen(true);
+  }, []);
+
+  const onDrawerClose = React.useCallback(() => {
+    setDrawerIsOpen(false);
+  }, []);
 
   if (auth.token) {
     return <Navigate to="/" replace />;
@@ -22,6 +32,7 @@ const SignIn = () => {
         <Header.Left>
           <div className="flex items-center gap-4">
             <button
+              onClick={onDrawerOpen}
               className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-1">
               <NerdleMenuIcon />
             </button>
@@ -40,6 +51,7 @@ const SignIn = () => {
           </div>
         </Header.Right>
       </Header>
+      <Drawer isOpen={drawerIsOpen} onClose={onDrawerClose} />
       <main className="flex-1 overflow-y-auto p-4 flex flex-col justify-center">
         <h1 className="text-center text-3xl font-semibold text-black dark:text-white">Sign in</h1>
         <SignInForm />
