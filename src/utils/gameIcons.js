@@ -98,6 +98,49 @@ export const getGameIcon = (gameName, gameData = null) => {
   return null;
 };
 
+// Get game details (icon + description) from allGames data using the same lookup logic
+export const getGameDetails = (gameName, allGames = null) => {
+  if (!gameName || !allGames) return { iconUrl: null, description: null };
+  
+  // Normalize the game name for lookup (lowercase, handle variations)
+  const normalizedName = gameName.toLowerCase().trim();
+  
+  // Helper function to find game in allGames by lookup key
+  const findGameByKey = (lookupKey) => {
+    return allGames.find(g => g?.value?.toLowerCase() === lookupKey);
+  };
+  
+  let gameDetail = null;
+  
+  // Direct match first
+  gameDetail = findGameByKey(normalizedName);
+  
+  // If not found, try variations (same logic as icon lookup)
+  if (!gameDetail) {
+    const variations = [
+      normalizedName.replace(' nerdle', ''),
+      normalizedName.replace('nerdle ', ''),  
+      normalizedName.replace(' nerdlegame', ''),
+      normalizedName.replace('nerdlegame ', ''),
+      normalizedName.replace(/\s+/g, ''), // Remove all spaces
+    ];
+    
+    for (const variation of variations) {
+      gameDetail = findGameByKey(variation);
+      if (gameDetail) break;
+    }
+  }
+  
+  // Get icon using existing logic
+  const iconUrl = getGameIcon(gameName);
+  
+  return {
+    iconUrl,
+    description: gameDetail?.description || null,
+    gameDetail
+  };
+};
+
 // Get the first letter of a game name for fallback icons
 export const getGameInitial = (gameName) => {
   if (!gameName) return '?';

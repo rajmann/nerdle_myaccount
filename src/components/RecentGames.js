@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import PlayLinkDialog from "../components/PlayLinkDialog";
 import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from '../lib/useAnalyticsEventTracker';
-import { GameIcon } from "../utils/gameIcons";
+import { GameIcon, getGameDetails } from "../utils/gameIcons";
 
 const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true, onGameFilterChange }) => {
 
@@ -151,59 +151,16 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const randomIndex = Math.floor(Math.random() * unplayedNerdleGames.length);
     const selectedGame = unplayedNerdleGames[randomIndex];
     
-    // Get description from allGames data using the same mapping logic as icons
-    let description = '';
-    const gameValue = selectedGame.value?.toLowerCase() || '';
+    // Use the same lookup logic as icons to get description
+    const gameDetails = getGameDetails(selectedGame.value, allGames);
+    const description = gameDetails.description || '';
     
-    // Create mapping from display values to lookup keys (same as icon logic)
-    const getGameLookupKey = (gameValue) => {
-      const normalizedValue = gameValue.toLowerCase().trim();
-      
-      // Special mappings that match gameIconMap logic
-      const specialMappings = {
-        'bi': 'bi',
-        'mini-bi': 'mini-bi', 
-        'micro': 'micro',
-        'mini': 'mini',
-        'maxi': 'maxi',
-        'midi': 'midi',
-        'quad': 'quad',
-        'speed': 'speed',
-        'instant': 'instant',
-        'nerdlegame': 'classic',
-        'classic': 'classic',
-        'nerdle': 'classic'
-      };
-      
-      // Direct mapping if exists
-      if (specialMappings[normalizedValue]) {
-        return specialMappings[normalizedValue];
-      }
-      
-      // Extract base game type from compound names
-      if (normalizedValue.includes('quad')) return 'quad';
-      if (normalizedValue.includes('bi') && normalizedValue.includes('mini')) return 'mini-bi';
-      if (normalizedValue.includes('bi')) return 'bi';
-      if (normalizedValue.includes('micro')) return 'micro';
-      if (normalizedValue.includes('mini')) return 'mini';
-      if (normalizedValue.includes('maxi')) return 'maxi';
-      if (normalizedValue.includes('midi')) return 'midi';
-      if (normalizedValue.includes('speed')) return 'speed';
-      if (normalizedValue.includes('instant')) return 'instant';
-      
-      return normalizedValue;
-    };
-    
-    const lookupKey = getGameLookupKey(gameValue);
-    console.log('Description lookup:', { gameValue, lookupKey });
-    
-    // Find the game in allGames by the lookup key
-    const gameDetail = allGames?.find(g => g?.value?.toLowerCase() === lookupKey);
-    console.log('Found game detail:', gameDetail);
-    
-    if (gameDetail && gameDetail.description) {
-      description = gameDetail.description;
-    }
+    console.log('Game details lookup:', { 
+      gameName: selectedGame.name, 
+      gameValue: selectedGame.value,
+      description: gameDetails.description,
+      hasGameDetail: !!gameDetails.gameDetail
+    });
     
 
     
@@ -496,14 +453,9 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         play
                       </button>
                     </div>
-                    {console.log('Final description in render:', suggestedGame.description)}
-                    {suggestedGame.description ? (
+                    {suggestedGame.description && (
                       <p className="text-xs text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {suggestedGame.description}
-                      </p>
-                    ) : (
-                      <p className="text-xs text-gray-500 dark:text-gray-400" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                        [Debug: No description for {suggestedGame.name} / {suggestedGame.value}]
                       </p>
                     )}
                   </div>
