@@ -453,15 +453,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         play
                       </button>
                     </div>
-                    {suggestedGame.description ? (
-                      <p className="text-xs text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                        {suggestedGame.description}
-                      </p>
-                    ) : (
-                      <p className="text-xs text-red-500 dark:text-red-400" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                        DEBUG: No description for {suggestedGame.name} ({suggestedGame.value})
-                      </p>
-                    )}
+                    {(() => {
+                      const gameDetails = getGameDetails(suggestedGame.name);
+                      return gameDetails.description ? (
+                        <p className="text-xs text-gray-600 dark:text-gray-300" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                          {gameDetails.description}
+                        </p>
+                      ) : null;
+                    })()}
                   </div>
                 </div>
               </>

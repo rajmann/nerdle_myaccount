@@ -189,7 +189,7 @@ const gameListData = [
     name: 'crossnerdle',
     url: 'https://nerdlegame.com/crossnerdle',
     img: '/crossnerdle/crossnerdle_icon.png',
-    description: "Cross nerdle - like a crossword but with nerdles"
+    description: "Cross nerdle - like a crossword but with numbers"
   },
   {
     gameMode: 'nanagrams',
