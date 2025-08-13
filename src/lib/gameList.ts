@@ -100,5 +100,40 @@ export const games = [
       img: 'https://nerdlegame.com/nanagram/favicon.png',
       lastPlayedStartsWith: true,
       description: "Nanagrams - make words from letters"
+    },
+    {
+      gameMode: 'maffdoku',
+      name: 'maffdoku',
+      url: 'https://nerdlegame.com/maffdoku',
+      img: '/maffdoku/maffdokuSm.png',
+      description: "Maffdoku - sudoku with arithmetic"
+    },
+    {
+      gameMode: '2d nerdle',
+      name: '2d nerdle',
+      url: 'https://nerdlegame.com/s/nerdle2d',
+      img: 'https://nerdlegame.com/s/nerdle2dSm.png',
+      description: "2D nerdle - solve the grid of calculations"
+    },
+    {
+      gameMode: 'targets',
+      name: 'targets',
+      url: 'https://nerdlegame.com/s/targets',
+      img: 'https://nerdlegame.com/s/targetsSm.png',
+      description: "Targets - hit the target number using the given numbers"
+    },
+    {
+      gameMode: 'connect',
+      name: 'connect',
+      url: 'https://www.nerdlegame.com/connect',
+      img: 'https://www.nerdlegame.com/assets/images/connectSm.png',
+      description: "Connect - link numbers to make calculations"
+    },
+    {
+      gameMode: 'twords',
+      name: 'twords',
+      url: 'https://nerdlegame.com/twords',
+      img: '/newicons/twords-logo.png',
+      description: "Word puzzles with a nerdle twist"
     }
 ];
