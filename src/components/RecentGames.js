@@ -155,16 +155,11 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const gameDetails = getGameDetails(selectedGame.value, allGames);
     const description = gameDetails.description || '';
     
-    // Check what fields are actually available in allGames
-    console.log('Sample allGames entries:', allGames?.slice(0, 3).map(g => Object.keys(g)));
-    console.log('Sample game detail keys for first game:', Object.keys(allGames?.[0] || {}));
-    
-    // Single debug log
+    // Debug log for description lookup
     console.log('Description lookup result:', { 
       gameValue: selectedGame.value, 
       description: description,
-      found: !!gameDetails.gameDetail,
-      gameDetailKeys: Object.keys(gameDetails.gameDetail || {})
+      found: !!gameDetails.gameDetail
     });
     
 
