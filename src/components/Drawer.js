@@ -83,7 +83,7 @@ const Drawer = ({ isOpen, onClose }) => {
               setDialogState(dialogStates.adding);
             }}
             className="flex w-full items-center gap-2 rounded-lg p-2 font-semibold text-nerdle-primary hover:bg-gray-100 dark:hover:bg-slate-700">
-            <MdAdd className="h-8 w-8" />
+            <MdAdd className="h-6 w-6" />
             <h6>Add Score</h6>
           </button>
         </div>
@@ -93,7 +93,7 @@ const Drawer = ({ isOpen, onClose }) => {
               <Link
                 to={page.path}
                 className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-[slate-700]">
-                <page.icon />
+                <page.icon className="h-6 w-6 flex-shrink-0" />
                 {page.label}
               </Link>
             </li>
@@ -102,7 +102,7 @@ const Drawer = ({ isOpen, onClose }) => {
             <Link
                 to='#'
                 className="flex flex-1 items-center gap-2 rounded-lg p-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-[slate-700]">
-                <LogoutIcon />
+                <LogoutIcon className="h-6 w-6 flex-shrink-0" />
                 Sign Out
               </Link>
             </li>
@@ -115,7 +115,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 target="_blank"
                 rel="noreferrer"
                 className="flex flex-1 items-center gap-4 rounded-lg px-5 py-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-[slate-700]">
-                <FiExternalLink />
+                <FiExternalLink className="h-5 w-5 flex-shrink-0" />
                 {page.label}
               </a>
             </li>
@@ -131,7 +131,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 <img
                   src={NerdleLogo}
                   alt="Visit Nerdle"
-                  className="h-8 w-8 rounded"
+                  className="h-6 w-6 rounded"
                 />
                 Visit Nerdle
               </a>
