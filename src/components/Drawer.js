@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 
 import {
-  QuestionMarkCircleIcon,
   HomeIcon,
   LoginIcon,
   ShareIcon,
-  ChartBarIcon,
   CogIcon,
   XIcon,
-  CalculatorIcon,
   CalendarIcon,
   DocumentTextIcon,
   ShoppingBagIcon,
@@ -48,7 +45,7 @@ const Drawer = ({ isOpen, onClose }) => {
   const [isLoggedIn] = useState(
     localStorage.getItem("lbl_token") ? true : false,
   );
-  const [gamesPlayed] = useState(1); // Placeholder - in real app this would track actual games
+  // Removed gamesPlayed as Profile/Stats is now commented out
 
   const onSignOut = React.useCallback(() => {
     if (auth.isPWA) {
@@ -138,8 +135,8 @@ const Drawer = ({ isOpen, onClose }) => {
               Home
             </div>
 
-            {/* How to play */}
-            <div
+            {/* How to play - commented out as this is now context-specific */}
+            {/* <div
               className="flex mt-4 cursor-pointer active:bg-slate-400"
               onClick={() => handleAction("info")}
               aria-label="Help"
@@ -150,7 +147,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 style={{ marginRight: 10 }}
               />
               How to play
-            </div>
+            </div> */}
 
             {/* FAQs */}
             <div
@@ -180,8 +177,8 @@ const Drawer = ({ isOpen, onClose }) => {
               Blog
             </div>
 
-            {/* Profile/Stats - Navigate to My Statistics */}
-            {gamesPlayed > 0 && (
+            {/* Profile/Stats - commented out as this is now context-specific */}
+            {/* {gamesPlayed > 0 && (
               <Link
                 to="/my-statistics"
                 className="flex mt-4 cursor-pointer active:bg-slate-400"
@@ -195,7 +192,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 />
                 Profile/Stats
               </Link>
-            )}
+            )} */}
 
             {/* Share */}
             <div
@@ -211,8 +208,8 @@ const Drawer = ({ isOpen, onClose }) => {
               Share
             </div>
 
-            {/* Calculator */}
-            <div
+            {/* Calculator - commented out as this is now context-specific */}
+            {/* <div
               className="flex mt-4 cursor-pointer active:bg-slate-400"
               onClick={() => handleAction("calc")}
               aria-label="Calculator"
@@ -223,7 +220,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 style={{ marginRight: 10 }}
               />
               Calculator
-            </div>
+            </div> */}
 
             {/* Replay games */}
             <div
@@ -360,9 +357,9 @@ const Drawer = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Other games section */}
+        {/* Games section */}
         <div className="w-full">
-          <div className="flex mt-1 mb-2 pt-1">Other games</div>
+          <div className="flex mt-1 mb-2 pt-1">Games</div>
 
           <div>
             {sortedGames.map((game) => {
