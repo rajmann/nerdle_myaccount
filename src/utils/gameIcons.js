@@ -197,6 +197,41 @@ const gameListData = [
     url: 'https://nerdlegame.com/nanagrams',
     img: '/nanagram/favicon.png',
     description: "Nanagrams - find all the calculations using the numbers given"
+  },
+  {
+    gameMode: 'shuffle',
+    name: 'shuffle',
+    url: 'https://nerdlegame.com/s/shuffle//1234/',
+    img: 'https://nerdlegame.com/s/shuffleSm.png',
+    description: "Shuffle the tiles to solve the square"
+  },
+  {
+    gameMode: 'maffdoku',
+    name: 'maffdoku',
+    url: 'https://nerdlegame.com/maffdoku',
+    img: '/maffdoku/maffdokuSm.png',
+    description: "Maffdoku - sudoku with arithmetic"
+  },
+  {
+    gameMode: '2d nerdle',
+    name: '2d nerdle',
+    url: 'https://nerdlegame.com/s/nerdle2d',
+    img: 'https://nerdlegame.com/s/nerdle2dSm.png',
+    description: "2D nerdle - solve the grid of calculations"
+  },
+  {
+    gameMode: 'targets',
+    name: 'targets',
+    url: 'https://nerdlegame.com/s/targets',
+    img: 'https://nerdlegame.com/s/targetsSm.png',
+    description: "Targets - hit the target number using the given numbers"
+  },
+  {
+    gameMode: 'connect',
+    name: 'connect',
+    url: 'https://www.nerdlegame.com/connect',
+    img: 'https://www.nerdlegame.com/assets/images/connectSm.png',
+    description: "Connect - link numbers to make calculations"
   }
 ];
 
@@ -258,7 +293,9 @@ export const getGameDetails = (gameName, allGames = null) => {
       g?.name?.toLowerCase() === foundKey ||
       g?.gameMode?.toLowerCase() === foundKey ||
       (foundKey === 'classic' && (g?.name === 'classic' || g?.gameMode === '')) ||
-      (foundKey === 'nanagrams' && g?.name?.toLowerCase().includes('nanagrams'))
+      (foundKey === 'nanagrams' && g?.name?.toLowerCase().includes('nanagrams')) ||
+      (foundKey === 'bi' && g?.name?.toLowerCase() === 'bi') ||
+      (foundKey === 'binerdle' && g?.name?.toLowerCase() === 'bi')
     );
   }
   
