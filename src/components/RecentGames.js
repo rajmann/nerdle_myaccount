@@ -155,12 +155,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const gameDetails = getGameDetails(selectedGame.value, allGames);
     const description = gameDetails.description || '';
     
-    // Debug log for description lookup
-    console.log('Description lookup result:', { 
-      gameValue: selectedGame.value, 
-      description: description,
-      found: !!gameDetails.gameDetail
-    });
+
     
 
     
@@ -453,13 +448,9 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         play
                       </button>
                     </div>
-                    {suggestedGame.description ? (
+                    {suggestedGame.description && (
                       <p className="text-xs text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {suggestedGame.description}
-                      </p>
-                    ) : (
-                      <p className="text-xs text-red-500 dark:text-red-400" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                        DEBUG: No description for {suggestedGame.name} ({suggestedGame.value})
                       </p>
                     )}
                   </div>

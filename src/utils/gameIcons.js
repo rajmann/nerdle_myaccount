@@ -197,6 +197,41 @@ const gameListData = [
     url: 'https://nerdlegame.com/nanagrams',
     img: '/nanagram/favicon.png',
     description: "Nanagrams - find all the calculations using the numbers given"
+  },
+  {
+    gameMode: 'shuffle',
+    name: 'shuffle',
+    url: 'https://nerdlegame.com/s/shuffle//1234/',
+    img: 'https://nerdlegame.com/s/shuffleSm.png',
+    description: "Shuffle nerdle - rearrange the equation"
+  },
+  {
+    gameMode: 'swapnumbers',
+    name: '2d nerdle',
+    url: 'https://nerdlegame.com/s/2d',
+    img: 'https://nerdlegame.com/s/nerdle2dSm.png',
+    description: "2d nerdle - swap digits to make a magic square"
+  },
+  {
+    gameMode: 'targets',
+    name: 'targets',
+    url: 'https://nerdlegame.com/s/targets',
+    img: 'https://nerdlegame.com/s/targetsSm.png',
+    description: "Targets - hit the target number"
+  },
+  {
+    gameMode: 'maffdoku',
+    name: 'maffdoku',
+    url: 'https://nerdlegame.com/maffdoku',
+    img: 'https://nerdlegame.com/maffdoku/maffdokuSm.png',
+    description: "Maffdoku - sudoku meets nerdle"
+  },
+  {
+    gameMode: 'connect',
+    name: 'connect',
+    url: 'https://www.nerdlegame.com/connect',
+    img: 'https://www.nerdlegame.com/assets/images/connectSm.png',
+    description: "Connect - link the numbers"
   }
 ];
 
