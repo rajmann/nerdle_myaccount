@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
+import Button from "../components/Button";
 import Drawer from "../components/Drawer";
 import Header from "../components/Header";
 import NerdleMenuIcon from "../components/icons/NerdleMenuIcon";
@@ -28,7 +29,7 @@ const SignIn = () => {
 
   return (
     <div className="relative flex h-screen max-h-[-webkit-fill-available] flex-col overflow-hidden">
-      <Header>
+      <Header className="z-50">
         <Header.Left>
           <div className="flex items-center gap-4">
             <button
@@ -55,6 +56,13 @@ const SignIn = () => {
       <main className="flex-1 overflow-y-auto p-4 flex flex-col justify-center">
         <h1 className="text-center text-3xl font-semibold text-black dark:text-white">Sign in</h1>
         <SignInForm />
+        <div className="mt-6 text-center">
+          <Link to="/">
+            <Button className="py-2 px-6 text-sm shadow-lg focus-visible:ring-offset-white">
+              Cancel
+            </Button>
+          </Link>
+        </div>
       </main>
     </div>
   );

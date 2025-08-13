@@ -123,7 +123,7 @@ const Landing = () => {
 
   return (
     <div className="relative flex h-screen max-h-[-webkit-fill-available] flex-col overflow-hidden">
-      <Header>
+      <Header className="z-50">
         <Header.Left>
           <div className="flex items-center gap-4">
             <button
@@ -201,7 +201,7 @@ const Landing = () => {
           )}
         </div>
       </div>
-      <h3 className="mt-8 text-lg text-gray-600">OR</h3>
+      <h3 className="mt-8 text-lg text-gray-600 dark:text-gray-300">OR</h3>
 
       <Link to="sign-up" className="mt-4">
         <Button className="w-full shadow-lg focus-visible:ring-offset-white">
