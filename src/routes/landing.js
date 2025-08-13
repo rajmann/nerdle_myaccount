@@ -33,8 +33,8 @@ const Landing = () => {
   const navigate = useNavigate();
   const [drawerIsOpen, setDrawerIsOpen] = React.useState(false);
 
-  const onDrawerOpen = React.useCallback(() => {
-    setDrawerIsOpen(true);
+  const onDrawerToggle = React.useCallback(() => {
+    setDrawerIsOpen(prev => !prev);
   }, []);
 
   const onDrawerClose = React.useCallback(() => {
@@ -127,7 +127,7 @@ const Landing = () => {
         <Header.Left>
           <div className="flex items-center gap-4">
             <button
-              onClick={onDrawerOpen}
+              onClick={onDrawerToggle}
               className="text-gray-700 hover:text-nerdle-primary dark:text-gray-300 dark:hover:text-white p-1">
               <NerdleMenuIcon />
             </button>
