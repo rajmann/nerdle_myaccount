@@ -479,9 +479,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         play
                       </button>
                     </div>
-                    {suggestedGame.description && (
+                    {console.log('Description check:', { description: suggestedGame.description, hasDescription: !!suggestedGame.description })}
+                    {suggestedGame.description ? (
                       <p className="text-xs text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {suggestedGame.description}
+                      </p>
+                    ) : (
+                      <p className="text-xs text-gray-500 dark:text-gray-400" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                        No description available for {suggestedGame.name} (value: {suggestedGame.value})
                       </p>
                     )}
                   </div>
