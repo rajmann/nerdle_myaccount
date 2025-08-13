@@ -185,8 +185,36 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
       'twords': 'Word puzzles with a nerdle twist'
     };
     
-    const description = gameDescriptions[selectedGame.value?.toLowerCase()] || 
-                       gameDescriptions[selectedGame.name?.toLowerCase()] || '';
+    // Try multiple lookup strategies like the icon mapping
+    let description = '';
+    const gameName = selectedGame.name?.toLowerCase() || '';
+    const gameValue = selectedGame.value?.toLowerCase() || '';
+    
+    // Direct lookups first
+    description = gameDescriptions[gameValue] || 
+                 gameDescriptions[gameName] || 
+                 gameDescriptions[`${gameValue} nerdlegame`] || 
+                 gameDescriptions[`${gameValue} nerdle`] || '';
+    
+    // Special mappings for common variations
+    if (!description) {
+      const specialMappings = {
+        'bi': 'bi nerdle',
+        'mini-bi': 'mini bi nerdle', 
+        'micro': 'micro nerdle',
+        'mini': 'mini nerdle',
+        'maxi': 'maxi nerdle',
+        'midi': 'midi nerdle',
+        'quad': 'quad nerdle',
+        'speed': 'speed nerdle',
+        'instant': 'instant nerdle'
+      };
+      
+      const mappedKey = specialMappings[gameValue];
+      if (mappedKey) {
+        description = gameDescriptions[mappedKey] || '';
+      }
+    }
     
 
     
@@ -479,14 +507,9 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         play
                       </button>
                     </div>
-                    {console.log('Description check:', { description: suggestedGame.description, hasDescription: !!suggestedGame.description })}
-                    {suggestedGame.description ? (
+                    {suggestedGame.description && (
                       <p className="text-xs text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {suggestedGame.description}
-                      </p>
-                    ) : (
-                      <p className="text-xs text-gray-500 dark:text-gray-400" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                        No description available for {suggestedGame.name} (value: {suggestedGame.value})
                       </p>
                     )}
                   </div>
