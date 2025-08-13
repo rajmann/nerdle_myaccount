@@ -1,0 +1,95 @@
+# Ads.txt -- Longitudeads.com for nerdlegame.com
+ManagerDomain=longitudeads.com
+longitudeads.com, 9305, DIRECT
+adagio.io, 1240, DIRECT
+rubiconproject.com, 19116, RESELLER, 0bfd66d529a55807
+pubmatic.com, 159110, RESELLER, 5d62403b186f2ace
+improvedigital.com, 1790, RESELLER
+indexexchange.com, 194558, RESELLER
+onetag.com, 6b859b96c564fbe, RESELLER
+yahoo.com, 58905, RESELLER, e1a5b5b6e3255540
+appnexus.com, 13099, RESELLER
+smartadserver.com, 4111, RESELLER
+33across.com, 0015a00002oUk4aAAC, RESELLER, bbea06d9c4d2853c
+yahoo.com, 57289, RESELLER, e1a5b5b6e3255540
+appnexus.com, 10239, RESELLER, f5ab79cb980f11d1
+rubiconproject.com, 16414, RESELLER, 0bfd66d529a55807
+richaudience.com, 1BTOoaD22a, RESELLER
+appnexus.com, 8233, RESELLER
+pubmatic.com, 81564, RESELLER, 5d62403b186f2ace
+rubiconproject.com, 13510, RESELLER
+yahoo.com, 59973, RESELLER, e1a5b5b6e3255540
+google.com, pub-5286346120013326, RESELLER, f08c47fec0942fa0
+google.com, pub-1008130700664775, DIRECT, f08c47fec0942fa0 #Adsense
+google.com, pub-7973133048409296, DIRECT, f08c47fec0942fa0 #AdX
+amazon-adsystem.com, 3355, RESELLER
+aps.amazon.com,c8b7d244-cdfc-48df-8b4a-98e8c4fadc6a, RESELLER
+pubmatic.com,160006, RESELLER, 5d62403b186f2ace
+pubmatic.com,160096, RESELLER, 5d62403b186f2ace
+yieldmo.com, 2719019867620450718, RESELLER
+appnexus.com, 3781, RESELLER, f5ab79cb980f11d1
+blockthrough.com, 5729749314830336, DIRECT
+rubiconproject.com, 23718, RESELLER, 0bfd66d529a55807 
+indexexchange.com, 194341, RESELLER, 50b1c356f2c5c8fc
+pubmatic.com, 160377, RESELLER, 5d62403b186f2ace
+conversantmedia.com, 41132, RESELLER
+criteo.com, B-063675, RESELLER, 9fac4a4a87c2a44f
+themediagrid.com, V13DP2, RESELLER, 35d5010d7789b49d
+gumgum.com, 13886, RESELLER, ffdef49475d318a9
+indexexchange.com, 192251, RESELLER, 50b1c356f2c5c8fc
+indexexchange.com, 192387, RESELLER, 50b1c356f2c5c8fc
+indexexchange.com, 193401, RESELLER, 50b1c356f2c5c8fc
+themediagrid.com, KWDN13, RESELLER, 35d5010d7789b49d
+media.net, 8CUA0SYJJ, RESELLER
+media.net, 8CUC2676T, RESELLER
+ogury.com, fd1f5fd7-b4a5-4e79-b1e4-c805c0d604f7, RESELLER
+appnexus.com, 11470, RESELLER
+onetag.com, 770e2cce7ac898d, DIRECT
+sharethrough.com, 4j22CXRt, DIRECT, d53b998a7bd4ecd2
+openx.com, 537119862, RESELLER, 6a698e2ec38604c6
+openx.com, 540158405, RESELLER, 6a698e2ec38604c6
+openx.com, 556665488, RESELLER, 6a698e2ec38604c6
+pubmatic.com, 160037, RESELLER, 5d62403b186f2ace
+pubmatic.com, 160049, RESELLER, 5d62403b186f2ace
+pubmatic.com, 160620, RESELLER, 5d62403b186f2ace
+risecodes.com, 62b9c1779766d400014aeda2, RESELLER
+spotxchange.com, 304965, RESELLER, 7842df1d2fe2db34
+spotx.tv, 304965, RESELLER, 7842df1d2fe2db34
+rubiconproject.com, 23876, RESELLER, 0bfd66d529a55807
+indexexchange.com, 194590, RESELLER, 50b1c356f2c5c8fc
+openx.com, 537140488, RESELLER, 6a698e2ec38604c6
+pubmatic.com, 160295, RESELLER, 5d62403b186f2ace
+yahoo.com, 59261, RESELLER, e1a5b5b6e3255540
+emxdgt.com, 1584, RESELLER, 1e1d41537f7cad7f
+synacor.com, 82401, RESELLER, e108f11b2cdf7d5b
+yahoo.com, 55317, RESELLER, e1a5b5b6e3255540
+sharethrough.com, 5926d422, RESELLER, d53b998a7bd4ecd2
+yieldmo.com, 2754490424016969782, RESELLER
+loopme.com, 11362, RESELLER, 6c8d5f95897a5a3b
+media.net, 8CUQ6928Q, RESELLER
+33across.com, 0010b00002Xbn7QAAR, RESELLER, bbea06d9c4d2853c
+contextweb.com, 562615, RESELLER, 89ff185a4c4e857c
+rubiconproject.com, 13708, RESELLER, 0bfd66d529a55807
+rubiconproject.com, 19556, RESELLER, 0bfd66d529a55807
+sharethrough.com, 7eaa6660, RESELLER, d53b998a7bd4ecd2
+sharethrough.com, 7922b4b2, RESELLER, d53b998a7bd4ecd2
+indexexchange.com, 186046, RESELLER
+spotxchange.com, 212457, RESELLER
+spotx.tv, 212457, RESELLER
+pubmatic.com, 156557, RESELLER
+pubmatic.com, 158723, RESELLER, 5d62403b186f2ace
+rubiconproject.com, 18694, RESELLER, 0bfd66d529a55807
+openx.com, 540274407, RESELLER, 6a698e2ec38604c6
+33across.com, 0013300001kQj2HAAS, RESELLER, bbea06d9c4d2853c
+smaato.com, 1100047713, RESELLER, 07bcf65f187117b4
+yahoo.com, 59531, RESELLER, e1a5b5b6e3255540
+sovrn.com, 237742, RESELLER, fafdf38b16bf6b2b
+lijit.com, 237742, RESELLER, fafdf38b16bf6b2b
+lijit.com, 237742-eb, RESELLER, fafdf38b16bf6b2b
+triplelift.com, 9091, DIRECT, 6c33edb13117fd86 #BT
+triplelift.com, 11717, DIRECT, 6c33edb13117fd86
+yahoo.com, 56875, RESELLER, e1a5b5b6e3255540
+yahoo.com, 59354, RESELLER, e1a5b5b6e3255540
+yahoo.com, 59372, RESELLER, e1a5b5b6e3255540
+pubmatic.com, 156078, RESELLER, 5d62403b186f2ace
+pubmatic.com, 155967, RESELLER, 5d62403b186f2ace
