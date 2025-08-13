@@ -3,6 +3,7 @@ const gameIconMap = {
   // Nerdle games (from nerdle gameList.ts) - prepend https://nerdlegame.com for relative paths
   'nerdlegame': 'https://nerdlegame.com/newicons/classic.png',
   'classic': 'https://nerdlegame.com/newicons/classic.png',
+  'nerdle': 'https://nerdlegame.com/newicons/classic.png',
   'nerdle (classic)': 'https://nerdlegame.com/newicons/classic.png',
   'micro nerdlegame': 'https://nerdlegame.com/newicons/micro.png',
   'micro': 'https://nerdlegame.com/newicons/micro.png',
@@ -51,6 +52,11 @@ const isNerdleGame = (game) => {
 // Get icon URL for a game, or return null if no icon exists
 export const getGameIcon = (gameName, gameData = null) => {
   if (!gameName) return null;
+  
+  // Debug logging
+  if (gameName.toLowerCase().includes('nerdle')) {
+    console.log('getGameIcon called with:', gameName, 'gameData:', gameData);
+  }
   
   // Normalize the game name for lookup (lowercase, handle variations)
   const normalizedName = gameName.toLowerCase().trim();
