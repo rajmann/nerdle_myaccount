@@ -53,12 +53,7 @@ const isNerdleGame = (game) => {
 export const getGameIcon = (gameName, gameData = null) => {
   if (!gameName) return null;
   
-  // Debug logging
-  if (gameName.toLowerCase().includes('nerdle')) {
-    console.log('getGameIcon called with:', gameName, 'gameData:', gameData);
-    const result = gameIconMap[gameName.toLowerCase().trim()];
-    console.log('Direct lookup result:', result);
-  }
+
   
   // Normalize the game name for lookup (lowercase, handle variations)
   const normalizedName = gameName.toLowerCase().trim();

@@ -171,6 +171,13 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const description = gameDescriptions[selectedGame.value?.toLowerCase()] || 
                        gameDescriptions[selectedGame.name?.toLowerCase()] || '';
     
+    console.log('Selected game for suggestion:', {
+      name: selectedGame.name,
+      value: selectedGame.value,
+      description: description,
+      availableDescriptions: Object.keys(gameDescriptions)
+    });
+    
     return {
       ...selectedGame,
       description
