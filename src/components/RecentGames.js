@@ -123,6 +123,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
 
   // Get a suggested Nerdle game that hasn't been played recently
   const suggestedGame = React.useMemo(() => {
+
     if (!allGames || !recentlyPlayedWithDetails) return null;
     
     // Get all recent game names (today + past two weeks) for comparison
@@ -152,18 +153,34 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     
     // Add description from game data if available
     const gameDescriptions = {
+      // Both API value formats supported
       'nerdlegame': 'The original - 8 digits, 6 guesses',
+      'nerdle': 'The original - 8 digits, 6 guesses',
+      'micro nerdlegame': 'Micro nerdle - 5 digit nerdle',
       'micro nerdle': 'Micro nerdle - 5 digit nerdle',
       'mini nerdlegame': 'Mini nerdle - 6 digit nerdle',
+      'mini nerdle': 'Mini nerdle - 6 digit nerdle',
       'midi nerdlegame': 'Midi nerdle - 7 digit nerdle',
+      'midi nerdle': 'Midi nerdle - 7 digit nerdle',
       'maxi nerdlegame': 'Maxi nerdle - 10 digits, more operators',
+      'maxi nerdle': 'Maxi nerdle - 10 digits, more operators',
       'bi nerdlegame': 'Bi nerdle - 2 classic nerdles at once',
+      'bi nerdle': 'Bi nerdle - 2 classic nerdles at once',
+      'binerdle': 'Bi nerdle - 2 classic nerdles at once',
       'mini-bi nerdlegame': 'Mini bi nerdle - 2 mini nerdles at once',
+      'mini-bi nerdle': 'Mini bi nerdle - 2 mini nerdles at once',
+      'mini bi nerdle': 'Mini bi nerdle - 2 mini nerdles at once',
+      'minibinerdle': 'Mini bi nerdle - 2 mini nerdles at once',
       'quad nerdlegame': 'Quad nerdle - 4 classic nerdles at once',
+      'quad nerdle': 'Quad nerdle - 4 classic nerdles at once',
       'decoy nerdlegame': 'Find the calculation or word, one character is a decoy',
+      'decoy nerdle': 'Find the calculation or word, one character is a decoy',
       'speed nerdlegame': 'Nerdle against the clock',
+      'speed nerdle': 'Nerdle against the clock',
       'instant nerdlegame': 'Instant nerdle - only one guess!',
+      'instant nerdle': 'Instant nerdle - only one guess!',
       'crossnerdle': 'Cross nerdle - like a crossword but with nerdles',
+      'cross nerdlegame': 'Cross nerdle - like a crossword but with nerdles',
       'cross nerdle': 'Cross nerdle - like a crossword but with nerdles',
       'twords': 'Word puzzles with a nerdle twist'
     };
@@ -171,12 +188,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const description = gameDescriptions[selectedGame.value?.toLowerCase()] || 
                        gameDescriptions[selectedGame.name?.toLowerCase()] || '';
     
-    console.log('Selected game for suggestion:', {
-      name: selectedGame.name,
-      value: selectedGame.value,
-      description: description,
-      availableDescriptions: Object.keys(gameDescriptions)
-    });
+
     
     return {
       ...selectedGame,
