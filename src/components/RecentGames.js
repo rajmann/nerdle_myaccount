@@ -121,6 +121,59 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     [gamesTodayWithDetails, recentlyPlayedWithDetails]
   );
 
+  // Get a suggested game that hasn't been played recently
+  const suggestedGame = React.useMemo(() => {
+    if (!allGames || !recentlyPlayedWithDetails) return null;
+    
+    // Get all recent game names (today + past two weeks) for comparison
+    const recentGameNames = [
+      ...(gamesTodayWithDetails?.map(g => g.value?.toLowerCase()) || []),
+      ...(recentlyPlayedWithDetails?.map(g => g.value?.toLowerCase()) || [])
+    ];
+    
+    // Filter out games that have been played recently
+    const unplayedGames = allGames.filter(game => 
+      game?.value && !recentGameNames.includes(game.value.toLowerCase())
+    );
+    
+    if (!unplayedGames.length) return null;
+    
+    // Pick a random game from unplayed games
+    const randomIndex = Math.floor(Math.random() * unplayedGames.length);
+    const selectedGame = unplayedGames[randomIndex];
+    
+    // Add description from game data if available
+    const gameDescriptions = {
+      'nerdlegame': 'The original - 8 digits, 6 guesses',
+      'micro nerdle': 'Micro nerdle - 5 digit nerdle',
+      'mini nerdlegame': 'Mini nerdle - 6 digit nerdle',
+      'midi nerdlegame': 'Midi nerdle - 7 digit nerdle',
+      'maxi nerdlegame': 'Maxi nerdle - 10 digits, more operators',
+      'bi nerdlegame': 'Bi nerdle - 2 classic nerdles at once',
+      'mini-bi nerdlegame': 'Mini bi nerdle - 2 mini nerdles at once',
+      'quad nerdlegame': 'Quad nerdle - 4 classic nerdles at once',
+      'decoy nerdlegame': 'Find the calculation or word, one character is a decoy',
+      'speed nerdlegame': 'Nerdle against the clock',
+      'instant nerdlegame': 'Instant nerdle - only one guess!',
+      'crossnerdle': 'Cross nerdle - like a crossword but with nerdles',
+      'cross nerdle': 'Cross nerdle - like a crossword but with nerdles',
+      'twords': 'Word puzzles with a nerdle twist',
+      'wordle': 'The classic word game',
+      'worldle': 'Guess the country from its outline',
+      'quordle': 'Four wordles at once',
+      'absurdle': 'Wordle but the answer keeps changing',
+      'heardle': 'Guess the song from a short clip'
+    };
+    
+    const description = gameDescriptions[selectedGame.value?.toLowerCase()] || 
+                       gameDescriptions[selectedGame.name?.toLowerCase()] || '';
+    
+    return {
+      ...selectedGame,
+      description
+    };
+  }, [allGames, gamesTodayWithDetails, recentlyPlayedWithDetails]);
+
   const purpleSquare = "\u{1f7ea}";
 
   const shareTodaysScore = React.useMemo(() => {
@@ -368,6 +421,42 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           <Button className="mt-4" onClick={onShareScore}>
             {`Share Today's Score${(gamesTodayUnique.length > 1) ? 's' : ''}`}
           </Button>
+        </div>
+      )}
+
+      {/* Try a new game section */}
+      {suggestedGame && (
+        <div className="mt-4">
+          <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>Try a new game?</h3>
+          </div>
+          <div className="rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 p-4 shadow-sm">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+              How about trying a game of...
+            </p>
+            <div className="flex items-start gap-3">
+              <GameIcon 
+                gameName={suggestedGame.name} 
+                gameData={{ nGame: suggestedGame.url && suggestedGame.url.includes('nerdlegame.com') }}
+                className="w-10 h-10 flex-shrink-0"
+              />
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-black dark:text-white mb-1" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                  {suggestedGame.name === 'nerdle' ? 'Nerdle (Classic)' : suggestedGame.name}
+                </h4>
+                {suggestedGame.description && (
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-2" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                    {suggestedGame.description}
+                  </p>
+                )}
+                <button
+                  onClick={() => handlePlayLinkClick(suggestedGame.url, suggestedGame.name === 'nerdle' ? 'nerdle (classic)' : suggestedGame.name)}
+                  className="inline-block bg-nerdle-primary text-white text-xs px-3 py-1.5 rounded hover:bg-nerdle-primary/90 transition-colors font-medium">
+                  Play Today's Game
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
