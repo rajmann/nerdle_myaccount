@@ -92,7 +92,7 @@ const Drawer = ({ isOpen, onClose }) => {
               className="h-8"
               aria-label="Nerdle logo - close menu"
             />
-            <XIcon className="h-6 w-6 cursor-pointer" onClick={onClose} />
+            <XIcon className="h-6 w-6 cursor-pointer dark:text-[#D7DADC] ml-auto" onClick={onClose} />
           </div>
 
           <div className="mt-8 pt-4 ml-2 max-w-[95%] mr-8 mx-auto items-center mb-4 h-full">
