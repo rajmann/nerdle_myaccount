@@ -4,13 +4,10 @@
 
 /**
  * Get the base path for the application
- * @returns {string} The base path ('/' for dev, '/myaccount' for production)
+ * @returns {string} The base path ('/myaccount' for both dev and production)
  */
 export const getBasePath = () => {
-  if (process.env.NODE_ENV === 'production') {
-    return '/myaccount';
-  }
-  return '/';
+  return '/myaccount';
 };
 
 /**
