@@ -13,9 +13,17 @@ import "@fontsource/inter/variable.css";
 import "@fontsource/quicksand/300.css"; // Light weight
 import "./index.css";
 
+// Determine basename based on environment
+const getBasename = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return '/myaccount';
+  }
+  return '/'; // Development uses root path
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
+    <BrowserRouter basename={getBasename()}>
       <SWRConfig value={swrConfig}>
         <AuthProvider>
           <App />
