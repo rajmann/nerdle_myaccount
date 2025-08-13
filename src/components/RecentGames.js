@@ -455,7 +455,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         {suggestedGame.name === 'nerdle' ? 'Nerdle (Classic)' : suggestedGame.name}
                       </h4>
                       <button
-                        onClick={() => handlePlayLinkClick(suggestedGame.url, suggestedGame.name === 'nerdle' ? 'nerdle (classic)' : suggestedGame.name)}
+                        onClick={() => window.open(suggestedGame.url, '_blank', 'noreferrer')}
                         className="inline-block bg-nerdle-primary text-white text-xs px-3 py-1.5 rounded hover:bg-nerdle-primary/90 transition-colors font-medium">
                         play
                       </button>
