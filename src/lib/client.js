@@ -4,7 +4,7 @@ const baseURL = process.env.REACT_APP_API_URL;
 const client = axios.create({ baseURL });
 
 client.interceptors.request.use(async (config) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("lbl_token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -17,7 +17,7 @@ client.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 403 || error.response.status === 401) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("lbl_token");
       //window.location.reload();
       if(window.location.pathname.indexOf('sign-in') === -1)
         window.location.href = window.location.origin;
@@ -28,7 +28,7 @@ client.interceptors.response.use(
 );
 
 export const attachToken = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("lbl_token");
   client.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 

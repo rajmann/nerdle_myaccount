@@ -48,7 +48,7 @@ const SignInForm = () => {
         const {
           data: { token },
         } = await execute(data);
-        localStorage.setItem("token", token);
+        localStorage.setItem("lbl_token", token);
         localStorage.setItem("email", data.email);
         auth.signIn();
         

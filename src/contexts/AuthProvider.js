@@ -5,7 +5,7 @@ export const AuthContext = React.createContext();
 const AuthProvider = ({ children }) => {
   const [isPWA, setIsPWA] = React.useState(false);
   const [isTestFlight, setIsTestFlight] = React.useState(false);
-  const [token, setToken] = React.useState(localStorage.getItem("token"));
+  const [token, setToken] = React.useState(localStorage.getItem("lbl_token"));
   const [appPlatform, setAppPlatform] = React.useState(
     localStorage.getItem("appPlatform")
   );
@@ -23,11 +23,11 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signIn = React.useCallback(() => {
-    setToken(localStorage.getItem("token"));
+    setToken(localStorage.getItem("lbl_token"));
   }, []);
 
   const signOut = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("lbl_token");
     setToken(null);
     window.location.reload();
   };

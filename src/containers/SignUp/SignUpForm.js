@@ -83,7 +83,7 @@ const SignUpForm = () => {
         const {
           data: { token },
         } = await signIn.execute({ email, password });
-        localStorage.setItem("token", token);
+        localStorage.setItem("lbl_token", token);
         auth.signIn();
         // toast.success("An email has been sent to you to confirm your account.", { duration: 3000 });
       } catch (error) {
