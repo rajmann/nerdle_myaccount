@@ -435,12 +435,12 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           </div>
           <div className="rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 p-4 shadow-sm">
             {suggestedGame.showAllPlayedMessage ? (
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+              <p className="text-sm text-black dark:text-white text-center" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                 Wow, you seem to have played them all!
               </p>
             ) : (
               <>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                <p className="text-xs text-black dark:text-white mb-2" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                   How about trying a game of...
                 </p>
                 <div className="flex items-start gap-3">
@@ -450,19 +450,21 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                     className="w-10 h-10 flex-shrink-0"
                   />
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-semibold text-black dark:text-white mb-1" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                      {suggestedGame.name === 'nerdle' ? 'Nerdle (Classic)' : suggestedGame.name}
-                    </h4>
+                    <div className="flex items-center justify-between mb-1">
+                      <h4 className="text-sm font-semibold text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                        {suggestedGame.name === 'nerdle' ? 'Nerdle (Classic)' : suggestedGame.name}
+                      </h4>
+                      <button
+                        onClick={() => handlePlayLinkClick(suggestedGame.url, suggestedGame.name === 'nerdle' ? 'nerdle (classic)' : suggestedGame.name)}
+                        className="inline-block bg-nerdle-primary text-white text-xs px-3 py-1.5 rounded hover:bg-nerdle-primary/90 transition-colors font-medium">
+                        play
+                      </button>
+                    </div>
                     {suggestedGame.description && (
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-2" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                      <p className="text-xs text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {suggestedGame.description}
                       </p>
                     )}
-                    <button
-                      onClick={() => handlePlayLinkClick(suggestedGame.url, suggestedGame.name === 'nerdle' ? 'nerdle (classic)' : suggestedGame.name)}
-                      className="inline-block bg-nerdle-primary text-white text-xs px-3 py-1.5 rounded hover:bg-nerdle-primary/90 transition-colors font-medium">
-                      Play Today's Game
-                    </button>
                   </div>
                 </div>
               </>
