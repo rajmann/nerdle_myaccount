@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GameIcon } from "../utils/gameIcons";
+import { GameIcon, getGameDetails } from "../utils/gameIcons";
 
 
 const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true }) => {
@@ -148,14 +148,24 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                       gameData={{ nGame: url && url.includes('nerdlegame.com') }}
                       className="w-8 h-8 flex-shrink-0"
                     />
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-xs text-black dark:text-white underline underline-offset-2 game-name flex-1 min-w-0 ml-3"
-                      style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                      {name}
-                    </a>
+                    <div className="flex-1 min-w-0 ml-3">
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-black dark:text-white underline underline-offset-2 game-name"
+                        style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                        {name}
+                      </a>
+                      {(() => {
+                        const gameDetails = getGameDetails(name);
+                        return gameDetails.description ? (
+                          <span className="text-xs text-gray-600 dark:text-gray-300 ml-1" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                            - {gameDetails.description}
+                          </span>
+                        ) : null;
+                      })()}
+                    </div>
                     <p className="text-xs text-black dark:text-white ml-4 font-medium">{calculatedScore}</p>
                   </div>
                 )
@@ -185,14 +195,24 @@ const CompleteGameList = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareBu
                     gameData={{ nGame: url && url.includes('nerdlegame.com') }}
                     className="w-8 h-8 flex-shrink-0"
                   />
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-xs text-black dark:text-white underline underline-offset-2 game-name flex-1 min-w-0 ml-3"
-                    style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                    {name}
-                  </a>
+                  <div className="flex-1 min-w-0 ml-3">
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs text-black dark:text-white underline underline-offset-2 game-name"
+                      style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                      {name}
+                    </a>
+                    {(() => {
+                      const gameDetails = getGameDetails(name);
+                      return gameDetails.description ? (
+                        <span className="text-xs text-gray-600 dark:text-gray-300 ml-1" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                          - {gameDetails.description}
+                        </span>
+                      ) : null;
+                    })()}
+                  </div>
                 </div>
               )))}
             </>
