@@ -63,7 +63,7 @@ const SignInForm = () => {
         <label className="text-xs text-gray-400">Email</label>
         <input
           {...register("email")}
-          className="rounded-lg border-gray-200 py-5 px-6"
+          className="rounded-lg border-gray-200 py-5 px-6 bg-white text-black dark:bg-gray-700 dark:text-white dark:border-gray-600"
           type="email"
           id="input-email"
         />

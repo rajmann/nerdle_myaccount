@@ -14,7 +14,7 @@ export default function GoogleLoginButton({ onSuccess, onFailure }) {
     onSuccess: credentials => onSuccess({ ...credentials, google: true }),
     onFailure: console.log,
     scope: "email profile"
-	});
+        });
   return <button
         onClick={() => {
                 return isPWA
@@ -22,7 +22,7 @@ export default function GoogleLoginButton({ onSuccess, onFailure }) {
                   : login()
         }
               }
-              className="relative my-[10px] flex h-[55px] w-full items-center justify-center rounded-lg bg-white p-4 text-[19px] shadow-lg hover:bg-stone-100"
+              className="relative my-[10px] flex h-[55px] w-full items-center justify-center rounded-lg bg-white p-4 text-[19px] text-black shadow-lg hover:bg-stone-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
               >
               <img
                 src={GoogleIcon}

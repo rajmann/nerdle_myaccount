@@ -174,12 +174,12 @@ const Landing = () => {
               onError={(err) => console.log(err)}
               render={(renderProps) => (
                 <button
-                  className="relative flex h-[55px] w-full items-center justify-center rounded-lg bg-white p-4 text-[19px] shadow-lg hover:bg-stone-100"
+                  className="relative flex h-[55px] w-full items-center justify-center rounded-lg bg-white p-4 text-[19px] text-black shadow-lg hover:bg-stone-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
                   {...renderProps}>
                   <img
                     src={AppleIcon}
                     className="absolute left-2 h-8 w-8"
-                    alt="googleicon"
+                    alt="appleicon"
                   />
                   <span>Log in with Apple</span>
                 </button>
@@ -196,10 +196,10 @@ const Landing = () => {
           Create an account manually
         </Button>
       </Link>
-      <div className="mt-7 text-sm text-gray-600 dark:text-gray-300">
-        Already have an account?{" "}
-        <Link to="sign-in" className="mt-2">
-          <Button className="ml-2 py-2 px-4 text-sm shadow-lg focus-visible:ring-offset-white">
+      <div className="mt-7 text-sm text-gray-600 dark:text-gray-300 flex flex-col items-center">
+        <span className="mb-2">Already have an account?</span>
+        <Link to="sign-in">
+          <Button className="py-2 px-4 text-sm shadow-lg focus-visible:ring-offset-white">
             Sign In
           </Button>
         </Link>
