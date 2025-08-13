@@ -190,11 +190,15 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const gameName = selectedGame.name?.toLowerCase() || '';
     const gameValue = selectedGame.value?.toLowerCase() || '';
     
+    console.log('Description lookup for:', { name: gameName, value: gameValue });
+    
     // Direct lookups first
     description = gameDescriptions[gameValue] || 
                  gameDescriptions[gameName] || 
                  gameDescriptions[`${gameValue} nerdlegame`] || 
                  gameDescriptions[`${gameValue} nerdle`] || '';
+    
+    console.log('After direct lookup:', description);
     
     // Special mappings for common variations
     if (!description) {
@@ -211,8 +215,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
       };
       
       const mappedKey = specialMappings[gameValue];
+      console.log('Special mapping check:', { gameValue, mappedKey });
       if (mappedKey) {
         description = gameDescriptions[mappedKey] || '';
+        console.log('After special mapping:', description);
       }
     }
     
@@ -507,9 +513,14 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         play
                       </button>
                     </div>
-                    {suggestedGame.description && (
+                    {console.log('Final description in render:', suggestedGame.description)}
+                    {suggestedGame.description ? (
                       <p className="text-xs text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {suggestedGame.description}
+                      </p>
+                    ) : (
+                      <p className="text-xs text-gray-500 dark:text-gray-400" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                        [Debug: No description for {suggestedGame.name} / {suggestedGame.value}]
                       </p>
                     )}
                   </div>
