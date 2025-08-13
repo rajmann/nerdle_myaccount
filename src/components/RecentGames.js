@@ -151,76 +151,23 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const randomIndex = Math.floor(Math.random() * unplayedNerdleGames.length);
     const selectedGame = unplayedNerdleGames[randomIndex];
     
-    // Add description from game data if available
-    const gameDescriptions = {
-      // Both API value formats supported
-      'nerdlegame': 'The original - 8 digits, 6 guesses',
-      'nerdle': 'The original - 8 digits, 6 guesses',
-      'micro nerdlegame': 'Micro nerdle - 5 digit nerdle',
-      'micro nerdle': 'Micro nerdle - 5 digit nerdle',
-      'mini nerdlegame': 'Mini nerdle - 6 digit nerdle',
-      'mini nerdle': 'Mini nerdle - 6 digit nerdle',
-      'midi nerdlegame': 'Midi nerdle - 7 digit nerdle',
-      'midi nerdle': 'Midi nerdle - 7 digit nerdle',
-      'maxi nerdlegame': 'Maxi nerdle - 10 digits, more operators',
-      'maxi nerdle': 'Maxi nerdle - 10 digits, more operators',
-      'bi nerdlegame': 'Bi nerdle - 2 classic nerdles at once',
-      'bi nerdle': 'Bi nerdle - 2 classic nerdles at once',
-      'binerdle': 'Bi nerdle - 2 classic nerdles at once',
-      'mini-bi nerdlegame': 'Mini bi nerdle - 2 mini nerdles at once',
-      'mini-bi nerdle': 'Mini bi nerdle - 2 mini nerdles at once',
-      'mini bi nerdle': 'Mini bi nerdle - 2 mini nerdles at once',
-      'minibinerdle': 'Mini bi nerdle - 2 mini nerdles at once',
-      'quad nerdlegame': 'Quad nerdle - 4 classic nerdles at once',
-      'quad nerdle': 'Quad nerdle - 4 classic nerdles at once',
-      'decoy nerdlegame': 'Find the calculation or word, one character is a decoy',
-      'decoy nerdle': 'Find the calculation or word, one character is a decoy',
-      'speed nerdlegame': 'Nerdle against the clock',
-      'speed nerdle': 'Nerdle against the clock',
-      'instant nerdlegame': 'Instant nerdle - only one guess!',
-      'instant nerdle': 'Instant nerdle - only one guess!',
-      'crossnerdle': 'Cross nerdle - like a crossword but with nerdles',
-      'cross nerdlegame': 'Cross nerdle - like a crossword but with nerdles',
-      'cross nerdle': 'Cross nerdle - like a crossword but with nerdles',
-      'twords': 'Word puzzles with a nerdle twist'
-    };
-    
-    // Try multiple lookup strategies like the icon mapping
+    // Get description from allGames data like icons do
     let description = '';
-    const gameName = selectedGame.name?.toLowerCase() || '';
     const gameValue = selectedGame.value?.toLowerCase() || '';
     
-    console.log('Description lookup for:', { name: gameName, value: gameValue });
+    console.log('Description lookup for game value:', gameValue);
+    console.log('Available games in allGames:', allGames?.map(g => ({ value: g.value, name: g.name, description: g.description })));
     
-    // Direct lookups first
-    description = gameDescriptions[gameValue] || 
-                 gameDescriptions[gameName] || 
-                 gameDescriptions[`${gameValue} nerdlegame`] || 
-                 gameDescriptions[`${gameValue} nerdle`] || '';
+    // Find the game in allGames by value - same lookup as icons
+    const gameDetail = allGames?.find(g => g?.value?.toLowerCase() === gameValue);
     
-    console.log('After direct lookup:', description);
+    console.log('Found game detail:', gameDetail);
     
-    // Special mappings for common variations
-    if (!description) {
-      const specialMappings = {
-        'bi': 'bi nerdle',
-        'mini-bi': 'mini bi nerdle', 
-        'micro': 'micro nerdle',
-        'mini': 'mini nerdle',
-        'maxi': 'maxi nerdle',
-        'midi': 'midi nerdle',
-        'quad': 'quad nerdle',
-        'speed': 'speed nerdle',
-        'instant': 'instant nerdle'
-      };
-      
-      const mappedKey = specialMappings[gameValue];
-      console.log('Special mapping check:', { gameValue, mappedKey });
-      if (mappedKey) {
-        description = gameDescriptions[mappedKey] || '';
-        console.log('After special mapping:', description);
-      }
+    if (gameDetail && gameDetail.description) {
+      description = gameDetail.description;
     }
+    
+    console.log('Final description:', description);
     
 
     
