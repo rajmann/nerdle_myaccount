@@ -151,23 +151,59 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const randomIndex = Math.floor(Math.random() * unplayedNerdleGames.length);
     const selectedGame = unplayedNerdleGames[randomIndex];
     
-    // Get description from allGames data like icons do
+    // Get description from allGames data using the same mapping logic as icons
     let description = '';
     const gameValue = selectedGame.value?.toLowerCase() || '';
     
-    console.log('Description lookup for game value:', gameValue);
-    console.log('Available games in allGames:', allGames?.map(g => ({ value: g.value, name: g.name, description: g.description })));
+    // Create mapping from display values to lookup keys (same as icon logic)
+    const getGameLookupKey = (gameValue) => {
+      const normalizedValue = gameValue.toLowerCase().trim();
+      
+      // Special mappings that match gameIconMap logic
+      const specialMappings = {
+        'bi': 'bi',
+        'mini-bi': 'mini-bi', 
+        'micro': 'micro',
+        'mini': 'mini',
+        'maxi': 'maxi',
+        'midi': 'midi',
+        'quad': 'quad',
+        'speed': 'speed',
+        'instant': 'instant',
+        'nerdlegame': 'classic',
+        'classic': 'classic',
+        'nerdle': 'classic'
+      };
+      
+      // Direct mapping if exists
+      if (specialMappings[normalizedValue]) {
+        return specialMappings[normalizedValue];
+      }
+      
+      // Extract base game type from compound names
+      if (normalizedValue.includes('quad')) return 'quad';
+      if (normalizedValue.includes('bi') && normalizedValue.includes('mini')) return 'mini-bi';
+      if (normalizedValue.includes('bi')) return 'bi';
+      if (normalizedValue.includes('micro')) return 'micro';
+      if (normalizedValue.includes('mini')) return 'mini';
+      if (normalizedValue.includes('maxi')) return 'maxi';
+      if (normalizedValue.includes('midi')) return 'midi';
+      if (normalizedValue.includes('speed')) return 'speed';
+      if (normalizedValue.includes('instant')) return 'instant';
+      
+      return normalizedValue;
+    };
     
-    // Find the game in allGames by value - same lookup as icons
-    const gameDetail = allGames?.find(g => g?.value?.toLowerCase() === gameValue);
+    const lookupKey = getGameLookupKey(gameValue);
+    console.log('Description lookup:', { gameValue, lookupKey });
     
+    // Find the game in allGames by the lookup key
+    const gameDetail = allGames?.find(g => g?.value?.toLowerCase() === lookupKey);
     console.log('Found game detail:', gameDetail);
     
     if (gameDetail && gameDetail.description) {
       description = gameDetail.description;
     }
-    
-    console.log('Final description:', description);
     
 
     
