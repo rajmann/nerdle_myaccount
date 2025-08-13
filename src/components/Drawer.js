@@ -14,6 +14,9 @@ import {
   ShoppingBagIcon,
   NewspaperIcon,
   CheckIcon,
+  UserIcon,
+  LogoutIcon as HeroLogoutIcon,
+  CollectionIcon,
 } from "@heroicons/react/outline";
 import { MdAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -22,9 +25,7 @@ import useAuth from "../hooks/useAuth";
 import { games } from "../lib/gameList";
 import useAddScoreStore, { dialogStates } from "../store/useAddScoreStore";
 
-import LeagueIcon from "./icons/LeagueIcon";
-import LogoutIcon from "./icons/LogoutIcon";
-import ProfileIcon from "./icons/ProfileIcon";
+// Using Heroicons instead of custom icons for better compatibility
 
 // Simple game tracking for played games (placeholder implementation)
 const getGamesPlayedToday = () => {
@@ -328,7 +329,7 @@ const Drawer = ({ isOpen, onClose }) => {
                 onClick={onClose}
                 className="flex items-center gap-2 rounded-lg p-2 mt-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
               >
-                <LeagueIcon className="h-6 w-6 flex-shrink-0" />
+                <CollectionIcon className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]" style={{ marginRight: 10 }} />
                 My Leagues
               </Link>
 
@@ -337,16 +338,16 @@ const Drawer = ({ isOpen, onClose }) => {
                 onClick={onClose}
                 className="flex items-center gap-2 rounded-lg p-2 mt-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
               >
-                <ProfileIcon className="h-6 w-6 flex-shrink-0" />
+                <UserIcon className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]" style={{ marginRight: 10 }} />
                 Profile
               </Link>
 
               {isLoggedIn && (
                 <button
                   onClick={onSignOut}
-                  className="flex items-center gap-2 rounded-lg p-2 mt-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700 w-full"
+                  className="flex items-center gap-2 rounded-lg p-2 mt-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700 w-full text-left"
                 >
-                  <LogoutIcon className="h-6 w-6 flex-shrink-0" />
+                  <HeroLogoutIcon className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]" style={{ marginRight: 10 }} />
                   Sign Out
                 </button>
               )}
