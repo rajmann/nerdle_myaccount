@@ -100,7 +100,9 @@ export const getGameIcon = (gameName, gameData = null) => {
 
 // Get game details (icon + description) from allGames data using the same lookup logic
 export const getGameDetails = (gameName, allGames = null) => {
-  if (!gameName || !allGames) return { iconUrl: null, description: null };
+  if (!gameName || !allGames) {
+    return { iconUrl: null, description: null };
+  }
   
   // Normalize the game name for lookup (lowercase, handle variations)
   const normalizedName = gameName.toLowerCase().trim();

@@ -155,11 +155,16 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
     const gameDetails = getGameDetails(selectedGame.value, allGames);
     const description = gameDetails.description || '';
     
-    console.log('Game details lookup:', { 
-      gameName: selectedGame.name, 
-      gameValue: selectedGame.value,
-      description: gameDetails.description,
-      hasGameDetail: !!gameDetails.gameDetail
+    // Check what fields are actually available in allGames
+    console.log('Sample allGames entries:', allGames?.slice(0, 3).map(g => Object.keys(g)));
+    console.log('Sample game detail keys for first game:', Object.keys(allGames?.[0] || {}));
+    
+    // Single debug log
+    console.log('Description lookup result:', { 
+      gameValue: selectedGame.value, 
+      description: description,
+      found: !!gameDetails.gameDetail,
+      gameDetailKeys: Object.keys(gameDetails.gameDetail || {})
     });
     
 
@@ -453,9 +458,13 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         play
                       </button>
                     </div>
-                    {suggestedGame.description && (
+                    {suggestedGame.description ? (
                       <p className="text-xs text-black dark:text-white" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {suggestedGame.description}
+                      </p>
+                    ) : (
+                      <p className="text-xs text-red-500 dark:text-red-400" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                        DEBUG: No description for {suggestedGame.name} ({suggestedGame.value})
                       </p>
                     )}
                   </div>
