@@ -105,7 +105,42 @@ const DiaryData = ({ theDay, date, played, won, points, showPlayColumn, gameUrl 
       </span>
       {showPlayColumn && (
         <span className="flex items-center justify-end border-r border-gray-700 pr-2 text-sm" style={{ width: '20%' }}>
-          {/* No play button for played games */}
+          {played === 0 && (() => {
+            // Only show play button when played = 0
+            if (!gameUrl) return null;
+            
+            // Check if it's a nerdlegame.com URL
+            const isNerdleGame = gameUrl.includes('nerdlegame.com');
+            
+            // For non-nerdlegame.com games, only show play button for 'today'
+            if (!isNerdleGame && theDay !== 'today') return null;
+            
+            // Don't show play button for 'tomorrow'
+            if (theDay === 'tomorrow') return null;
+            
+            // Determine the play URL
+            let playUrl;
+            if (theDay === 'today') {
+              playUrl = gameUrl; // Simple game URL for today
+            } else {
+              // Format date as YYYYMMDD for historical dates
+              const year = date.substring(0, 4);
+              const month = date.substring(5, 7);
+              const day = date.substring(8, 10);
+              const urlDate = `${year}${month}${day}`;
+              playUrl = `${gameUrl}/${urlDate}`;
+            }
+            
+            return (
+              <a
+                href={playUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block bg-nerdle-primary text-white text-xs px-2 py-1 rounded hover:bg-nerdle-primary/90 transition-colors font-medium no-underline">
+                play
+              </a>
+            );
+          })()}
         </span>
       )}
       {values.map((value, index) => (
