@@ -118,6 +118,11 @@ const Landing = () => {
 
   // Redirect user after signing in
   if (token) {
+    const redirectPath = localStorage.getItem("redirectPath");
+    if (redirectPath) {
+      localStorage.removeItem("redirectPath");
+      return <Navigate to={redirectPath} replace />;
+    }
     return <Navigate to="my-statistics" replace />;
   }
 

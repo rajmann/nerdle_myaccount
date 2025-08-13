@@ -3,7 +3,7 @@ import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import { useSignIn } from "../../api/signIn";
@@ -29,6 +29,7 @@ const schema = yup
 
 const SignInForm = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -48,13 +49,22 @@ const SignInForm = () => {
           data: { token },
         } = await execute(data);
         localStorage.setItem("token", token);
-        localStorage.setItem("email", data.email)
+        localStorage.setItem("email", data.email);
         auth.signIn();
+        
+        // Handle redirect after successful login
+        const redirectPath = localStorage.getItem("redirectPath");
+        if (redirectPath) {
+          localStorage.removeItem("redirectPath");
+          navigate(redirectPath);
+        } else {
+          navigate("/my-statistics");
+        }
       } catch (error) {
         toast.error(error.message);
       }
     },
-    [auth, execute]
+    [auth, execute, navigate]
   );
 
   return (

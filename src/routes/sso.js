@@ -43,8 +43,15 @@ const SSO = () => {
           localStorage.removeItem('redirectURI');
           navigate(`/oauth/authorize/${clientID}/${encodeURIComponent(redirectURI)}`);
         }
-        else
-          navigate("/my-statistics");
+        else {
+          const redirectPath = localStorage.getItem("redirectPath");
+          if (redirectPath) {
+            localStorage.removeItem("redirectPath");
+            navigate(redirectPath);
+          } else {
+            navigate("/my-statistics");
+          }
+        }
       } catch (error) {
         toast.error(error.message)
       }
