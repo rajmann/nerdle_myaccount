@@ -18,7 +18,7 @@ export const games = [
       name: 'mini',
       url: 'https://mini.nerdlegame.com',
       img: '/newicons/mini.png',
-      description: "Mini nerdle - 6 digit nerdle"
+      description: "6-digit nerdle"
     },
     {
       gameMode: 'midi',
