@@ -16,7 +16,7 @@ const ScoreDistribution = ({ data, isMultipleGames = false }) => {
             />
             <StatCard
               value={data?.bestScore}
-              label="Best Score"
+              label="Best Daily Score"
               className="flex-grow"
             />
           </div>
