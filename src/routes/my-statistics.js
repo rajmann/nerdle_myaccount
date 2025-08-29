@@ -367,8 +367,8 @@ const MyStatistics = () => {
       <UserDetails user={user} />
       {monthHeading && (
         <div className="mb-6 px-4 -mt-2">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
-            <div className="flex justify-center gap-6">
+          <div className="flex justify-center gap-6">
+
               <a 
                 href="#stats-scores" 
                 className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
@@ -389,7 +389,7 @@ const MyStatistics = () => {
               >
                 Jump to game diary
               </a>
-            </div>
+
           </div>
         </div>
       )}
