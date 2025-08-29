@@ -1,5 +1,5 @@
 // Import the updated game list
-import { games } from '../lib/gameList.ts';
+import { games } from '../lib/gameList';
 
 // Game icon mapping based on nerdle/src/lib/gameList.ts
 const gameIconMap = {

@@ -18,7 +18,7 @@ import { MdAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
-import { games } from "../lib/gameList.ts";
+import { games } from "../lib/gameList";
 import useAddScoreStore, { dialogStates } from "../store/useAddScoreStore";
 
 // Using Heroicons instead of custom icons for better compatibility
