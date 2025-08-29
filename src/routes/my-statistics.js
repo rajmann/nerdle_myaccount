@@ -428,7 +428,7 @@ const MyStatistics = () => {
         {gameFilter?.value === "all" && 
          dateFilter?.value !== "This week" && 
          dateFilter?.value !== "Last week" && (
-          <div className="px-4 mb-4">
+          <div className="px-4 mt-8 mb-2">
             <p className="text-sm text-gray-600 dark:text-gray-400">
               The diary below lists games you've played once or more in the last 7 days. List other games by using the filter above.
             </p>
