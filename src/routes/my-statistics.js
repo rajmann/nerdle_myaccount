@@ -329,8 +329,42 @@ const MyStatistics = () => {
     mutateProfilePhoto(); */
   }
 
+  // Helper function to get month heading
+  const getMonthHeading = () => {
+    if (dateFilter?.value === 'This month' || dateFilter?.value === 'Last month') {
+      const now = new Date();
+      let targetDate = now;
+      
+      if (dateFilter?.value === 'Last month') {
+        targetDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      }
+      
+      const monthName = targetDate.toLocaleDateString('en-US', { month: 'long' });
+      const year = targetDate.getFullYear();
+      const suffix = dateFilter?.value === 'This month' ? ' (to date)' : '';
+      
+      return {
+        title: `${monthName} ${year}${suffix}`,
+        subtitle: 'nerdleverse activity summary'
+      };
+    }
+    return null;
+  };
+
+  const monthHeading = getMonthHeading();
+
   return (
     <div className="pb-20">
+      {monthHeading && (
+        <div className="text-center mb-6 px-4">
+          <h1 className="text-3xl font-bold text-black dark:text-white mb-2">
+            {monthHeading.title}
+          </h1>
+          <h2 className="text-lg text-gray-600 dark:text-gray-400">
+            {monthHeading.subtitle}
+          </h2>
+        </div>
+      )}
       <UserDetails user={user} />
       <RecentGames
         allGames={allGames}
