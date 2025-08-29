@@ -77,7 +77,7 @@ const Photo = ({isVerified, photo, name, isValidating, mutate, children }) => {
           className={`text-xs underline ${
             !isVerified 
               ? 'text-gray-400 dark:text-gray-500' 
-              : 'text-nerdle-primary hover:text-nerdle-secondary dark:text-white dark:hover:text-gray-300'
+              : 'text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300'
           }`}
         >
           Change Photo
