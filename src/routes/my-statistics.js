@@ -367,27 +367,29 @@ const MyStatistics = () => {
       <UserDetails user={user} />
       {monthHeading && (
         <div className="mb-6 px-4 -mt-2">
-          <div className="flex justify-center gap-6">
-            <a 
-              href="#stats-scores" 
-              className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('stats-scores')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Jump to stats
-            </a>
-            <a 
-              href="#game-diary" 
-              className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('game-diary')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Jump to game diary
-            </a>
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+            <div className="flex justify-center gap-6">
+              <a 
+                href="#stats-scores" 
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('stats-scores')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Jump to stats
+              </a>
+              <a 
+                href="#game-diary" 
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('game-diary')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Jump to game diary
+              </a>
+            </div>
           </div>
         </div>
       )}
