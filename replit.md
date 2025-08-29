@@ -41,3 +41,7 @@ Preferred communication style: Simple, everyday language.
 - **Radix UI**: Accessible component primitives for UI.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 - **Lucide React**: Icon library.
+
+## Recent Fixes
+
+- **Authentication Data Loading Issue**: Fixed the "blank data" screen that appeared after login by ensuring the AuthProvider triggers a page refresh after successful authentication. This ensures all user data is properly loaded when the user signs in, preventing the need for manual page refresh.

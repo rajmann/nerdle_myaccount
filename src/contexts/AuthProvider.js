@@ -24,6 +24,9 @@ const AuthProvider = ({ children }) => {
 
   const signIn = React.useCallback(() => {
     setToken(localStorage.getItem("lbl_token"));
+    // Force a window location refresh to ensure all data is reloaded
+    // This prevents the "blank data" screen after login
+    window.location.reload();
   }, []);
 
   const signOut = () => {

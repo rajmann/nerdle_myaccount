@@ -41,9 +41,8 @@ const getGamesPlayedToday = () => {
 const Drawer = ({ isOpen, onClose }) => {
   const { setDialogState } = useAddScoreStore();
   const auth = useAuth();
-  const [isLoggedIn] = useState(
-    localStorage.getItem("lbl_token") ? true : false,
-  );
+  // Use auth.token instead of localStorage to get real-time auth state
+  const isLoggedIn = !!auth.token;
   // Removed gamesPlayed as Profile/Stats is now commented out
 
   const onSignOut = React.useCallback(() => {
