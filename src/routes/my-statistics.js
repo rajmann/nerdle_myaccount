@@ -387,7 +387,7 @@ const MyStatistics = () => {
                   document.getElementById('game-diary')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                Jump to game diary
+                Jump to diary
               </a>
             </div>
           </div>
