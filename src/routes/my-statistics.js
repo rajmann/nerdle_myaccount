@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useOutletContext, useLocation, useNavigate } from "react-router-dom";
 
 import { useGameDiary } from "../api/gameDiary";
-import { useGames } from "../api/games";
+import { useGames, useRefreshGames } from "../api/games";
 import { useGetWeeklyScoresForSharing } from "../api/getWeeklyScoresForSharing";
 import { useProfile } from "../api/profile";
 import { useProfilePhoto } from "../api/profilePhoto";
@@ -32,12 +32,21 @@ import { getGameFilterOptions } from "../utils/gameFilters";
 let counter = 0;
 const MyStatistics = () => {
   const games = useGames();
+  const refreshGames = useRefreshGames();
   const [prevRefresherValue, setPrevRefresherValue] = useState(0);
   // `timestamp` is used for throttling requests. Only
   // allowed users to refresh
   // data every 30 seconds.
   const [timestamp, setTimestamp] = useState(Math.floor(new Date().getTime() / 1000));
   const [refresher,] = useOutletContext();
+  
+  // Refresh games data when refresher value changes
+  React.useEffect(() => {
+    if (refresher !== prevRefresherValue && refresher > 0) {
+      refreshGames();
+      setPrevRefresherValue(refresher);
+    }
+  }, [refresher, prevRefresherValue, refreshGames]);
   const [showEnableNonNerdleDialog, setShowEnableNonNerdleDialog] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
