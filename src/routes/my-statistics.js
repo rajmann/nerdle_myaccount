@@ -402,15 +402,17 @@ const MyStatistics = () => {
           showShareButton={!monthHeading}
         />
       </div>
-      <div id="new-game">
-        <GameAndDateFilters
-          gameFilter={gameFilter}
-          gameFilterOptions={gameFilterOptions}
-          onGameFilterChange={onGameFilterChange}
-          dateFilter={dateFilter}
-          dateFilterOptions={dateFilterOptions}
-          onDateFilterChange={onDateFilterChange}
-        />
+      <div id="new-game" className="px-4">
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <GameAndDateFilters
+            gameFilter={gameFilter}
+            gameFilterOptions={gameFilterOptions}
+            onGameFilterChange={onGameFilterChange}
+            dateFilter={dateFilter}
+            dateFilterOptions={dateFilterOptions}
+            onDateFilterChange={onDateFilterChange}
+          />
+        </div>
       </div>
       <div id="stats-scores">
         <GameStats data={gameStats} />
