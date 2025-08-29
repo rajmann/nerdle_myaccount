@@ -377,7 +377,7 @@ const MyStatistics = () => {
                   document.getElementById('stats-scores')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                Jump to stats
+                Jump to monthly stats
               </a>
               <a 
                 href="#game-diary" 
@@ -387,7 +387,7 @@ const MyStatistics = () => {
                   document.getElementById('game-diary')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                Jump to diary
+                Jump to monthly diary
               </a>
             </div>
           </div>
