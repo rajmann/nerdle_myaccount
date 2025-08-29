@@ -90,7 +90,7 @@ const Name = ({isVerified, name, isValidating, mutate }) => {
           <Spinner />
         </div>
       ) : (
-        <p className="font-semibold text-white">{name}</p>
+        <p className="font-semibold text-black dark:text-white">{name}</p>
       )}
       <button
         onClick={onEdit}

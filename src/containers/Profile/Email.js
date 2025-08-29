@@ -90,7 +90,7 @@ const Email = ({isVerified,  email, isValidating, mutate }) => {
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center justify-between">
-          <div className="text-sm font-semibold text-white">Email Address</div>
+          <div className="text-sm font-semibold text-black dark:text-white">Email Address</div>
           <TextButton type="submit">Save</TextButton>
         </div>
         <input {...register("email")} type="email" className="rounded-lg" />
@@ -106,7 +106,7 @@ const Email = ({isVerified,  email, isValidating, mutate }) => {
   return (
     <div className="mt-10">
       <div className="flex items-center justify-between">
-        <div className="text-sm font-semibold text-white">Email Address</div>
+        <div className="text-sm font-semibold text-black dark:text-white">Email Address</div>
         <button
           onClick={onEdit}
           className={`${(!isVerified) ? 'text-gray-400': 'text-violet-400 hover:text-violet-500'}`}>
@@ -118,10 +118,10 @@ const Email = ({isVerified,  email, isValidating, mutate }) => {
           <Spinner />
         </div>
       ) : (
-        <p className="mt-2 text-sm text-white">{email}</p>
+        <p className="mt-2 text-sm text-black dark:text-white">{email}</p>
       )}
       {profile.isVerified === false && (
-        <p className="mt-2 text-xs text-white">
+        <p className="mt-2 text-xs text-black dark:text-white">
           <span>Your email is unverified. </span>
           <button
             onClick={onSendEmail}
