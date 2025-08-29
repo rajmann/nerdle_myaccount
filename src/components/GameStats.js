@@ -2,7 +2,7 @@ import React from "react";
 
 import StatCard from "./StatCard";
 
-const GameStats = ({ data }) => {
+const GameStats = ({ data, isMonthlyView = false }) => {
   return (
     <div className="mt-7">
       <h2 className="mb-2 font-semibold text-gray-900 dark:text-white">My Stats</h2>
@@ -20,7 +20,7 @@ const GameStats = ({ data }) => {
         />
         <StatCard
           value={`${data?.ww >= 0 ? "+" : ""}${data?.ww}`}
-          label="Week vs Week"
+          label={isMonthlyView ? "Month vs Month" : "Week vs Week"}
           numberColor={data?.ww >= 0 ? "text-nerdle-green" : "text-red-500"}
         />
       </div>

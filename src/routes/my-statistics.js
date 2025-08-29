@@ -415,7 +415,10 @@ const MyStatistics = () => {
         </div>
       </div>
       <div id="stats-scores">
-        <GameStats data={gameStats} />
+        <GameStats 
+          data={gameStats} 
+          isMonthlyView={!!monthHeading} 
+        />
         <ScoreDistribution
           data={guessDistribution}
           isMultipleGames={gameFilter?.value === "all"}
