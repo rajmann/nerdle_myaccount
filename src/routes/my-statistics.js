@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 import toast from "react-hot-toast";
-import { useOutletContext, useParams, useLocation, useNavigate } from "react-router-dom";
+import { useOutletContext, useLocation, useNavigate } from "react-router-dom";
 
 import { useGameDiary } from "../api/gameDiary";
 import { useGames } from "../api/games";
@@ -366,37 +366,96 @@ const MyStatistics = () => {
         </div>
       )}
       <UserDetails user={user} />
-      <RecentGames
-        allGames={allGames}
-        gamesToday={gamesToday}
-        gamesPastTwoWeeks={gamesPastTwoWeeks}
-        onGameFilterChange={setGameFilter}
-      />
-      <GameAndDateFilters
-        gameFilter={gameFilter}
-        gameFilterOptions={gameFilterOptions}
-        onGameFilterChange={onGameFilterChange}
-        dateFilter={dateFilter}
-        dateFilterOptions={dateFilterOptions}
-        onDateFilterChange={onDateFilterChange}
-      />
-      <GameStats data={gameStats} />
-      <ScoreDistribution
-        data={guessDistribution}
-        isMultipleGames={gameFilter?.value === "all"}
-      />
-      <GameDiary 
-        data={gameDiary} 
-        weeklyScoresForSharingData={weeklyScoresForSharingData}
-        gameFilter={gameFilter}
-        gameUrl={allGames?.find(g => g.value === gameFilter?.value)?.url}
-        allGames={allGames}
-        recentGamesData={{
-          gamesToday: gamesToday,
-          gamesPastTwoWeeks: gamesPastTwoWeeks
-        }}
-        dateFilter={dateFilter}
-      />
+      {monthHeading && (
+        <div className="mb-8 px-4">
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 text-center">
+              On this page
+            </h3>
+            <nav className="flex flex-wrap justify-center gap-4">
+              <a 
+                href="#todays-activity" 
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:text-white dark:hover:text-gray-300 underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('todays-activity')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Today's activity
+              </a>
+              <a 
+                href="#new-game" 
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:text-white dark:hover:text-gray-300 underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('new-game')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                New game
+              </a>
+              <a 
+                href="#stats-scores" 
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:text-white dark:hover:text-gray-300 underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('stats-scores')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Stats & scores
+              </a>
+              <a 
+                href="#game-diary" 
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:text-white dark:hover:text-gray-300 underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('game-diary')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Game diary
+              </a>
+            </nav>
+          </div>
+        </div>
+      )}
+      <div id="todays-activity">
+        <RecentGames
+          allGames={allGames}
+          gamesToday={gamesToday}
+          gamesPastTwoWeeks={gamesPastTwoWeeks}
+          onGameFilterChange={setGameFilter}
+        />
+      </div>
+      <div id="new-game">
+        <GameAndDateFilters
+          gameFilter={gameFilter}
+          gameFilterOptions={gameFilterOptions}
+          onGameFilterChange={onGameFilterChange}
+          dateFilter={dateFilter}
+          dateFilterOptions={dateFilterOptions}
+          onDateFilterChange={onDateFilterChange}
+        />
+      </div>
+      <div id="stats-scores">
+        <GameStats data={gameStats} />
+        <ScoreDistribution
+          data={guessDistribution}
+          isMultipleGames={gameFilter?.value === "all"}
+        />
+      </div>
+      <div id="game-diary">
+        <GameDiary 
+          data={gameDiary} 
+          weeklyScoresForSharingData={weeklyScoresForSharingData}
+          gameFilter={gameFilter}
+          gameUrl={allGames?.find(g => g.value === gameFilter?.value)?.url}
+          allGames={allGames}
+          recentGamesData={{
+            gamesToday: gamesToday,
+            gamesPastTwoWeeks: gamesPastTwoWeeks
+          }}
+          dateFilter={dateFilter}
+        />
+      </div>
       
       <EnableNonNerdleDialog
         isOpen={showEnableNonNerdleDialog}
