@@ -372,10 +372,10 @@ const MyStatistics = () => {
             <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 text-center">
               On this page
             </h3>
-            <nav className="flex flex-wrap justify-center gap-4">
+            <nav className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
               <a 
                 href="#todays-activity" 
-                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline text-center"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('todays-activity')?.scrollIntoView({ behavior: 'smooth' });
@@ -385,7 +385,7 @@ const MyStatistics = () => {
               </a>
               <a 
                 href="#new-game" 
-                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline text-center"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('new-game')?.scrollIntoView({ behavior: 'smooth' });
@@ -395,7 +395,7 @@ const MyStatistics = () => {
               </a>
               <a 
                 href="#stats-scores" 
-                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline text-center"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('stats-scores')?.scrollIntoView({ behavior: 'smooth' });
@@ -405,7 +405,7 @@ const MyStatistics = () => {
               </a>
               <a 
                 href="#game-diary" 
-                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline"
+                className="text-sm text-nerdle-primary hover:text-nerdle-secondary dark:!text-white dark:hover:!text-gray-300 underline text-center"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('game-diary')?.scrollIntoView({ behavior: 'smooth' });
