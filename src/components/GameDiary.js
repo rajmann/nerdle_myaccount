@@ -341,7 +341,7 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
   );
 };
 
-const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, recentGamesData = {}, dateFilter }) => {
+const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, recentGamesData = {}, dateFilter, isMonthlyView = false }) => {
   const { isPWA } = useAuth();
   //FOR GOOGLE ANALYTICS
   const gaEventTracker = useAnalyticsEventTracker("My Statistics");
@@ -706,7 +706,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
           </React.Fragment>
         ))}
 
-        {weeklyScoresForSharingData !== undefined ? (
+        {weeklyScoresForSharingData !== undefined && !isMonthlyView ? (
           <div className="flex h-full flex-col items-stretch">
             <Button className="mt-3" onClick={onShareWeeklyScores}>
               {`Share all scores for the past 7 days`}
@@ -734,7 +734,7 @@ const GameDiary = ({ data, weeklyScoresForSharingData, gameFilter, allGames, rec
         />
       ))}
 
-      {weeklyScoresForSharingData !== undefined ? (
+      {weeklyScoresForSharingData !== undefined && !isMonthlyView ? (
         <div className="flex h-full flex-col items-stretch">
           <Button className="mt-3" onClick={onShareWeeklyScores}>
             {`Share all scores for the past 7 days`}

@@ -445,6 +445,7 @@ const MyStatistics = () => {
             gamesPastTwoWeeks: gamesPastTwoWeeks
           }}
           dateFilter={dateFilter}
+          isMonthlyView={!!monthHeading}
         />
       </div>
       
