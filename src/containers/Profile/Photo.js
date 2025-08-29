@@ -74,7 +74,7 @@ const Photo = ({isVerified, photo, name, isValidating, mutate, children }) => {
         />
         <button
           onClick={onOpenFileBrowser}
-          className={`${(!isVerified) ? 'text-gray-400 dark:text-gray-500': 'text-nerdle-primary hover:text-nerdle-secondary dark:text-white dark:hover:text-gray-300'} text-xs underline`}
+          className={`${(!isVerified) ? 'text-gray-400 dark:text-gray-500': 'text-nerdle-primary hover:text-nerdle-secondary'} dark:text-white dark:hover:text-gray-300 text-xs underline`}
         >
           Change Photo
         </button>
