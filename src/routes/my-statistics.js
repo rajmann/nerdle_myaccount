@@ -52,7 +52,14 @@ const MyStatistics = () => {
   // Also refresh games data when the component first mounts (in case of updates)
   React.useEffect(() => {
     // Force refresh games data on mount to get latest updates
+    console.log('Force refreshing games cache on mount');
     refreshGames();
+    
+    // Add a timestamp to force fresh data
+    setTimeout(() => {
+      console.log('Secondary refresh with timestamp');
+      refreshGames();
+    }, 1000);
   }, [refreshGames]);
   const [showEnableNonNerdleDialog, setShowEnableNonNerdleDialog] = useState(false);
   const location = useLocation();

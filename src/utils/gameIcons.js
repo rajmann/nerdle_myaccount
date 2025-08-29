@@ -286,9 +286,26 @@ export const getGameDetails = (gameName, allGames = null) => {
     }
   }
   
-  // Now find the description using the same key that would find an icon
+  // Try to find the description from the dynamic allGames data first, fall back to static data
   let gameDetail = null;
-  if (foundKey) {
+  let description = null;
+  
+  if (allGames && gameName) {
+    // First try to find exact match in allGames by value
+    const apiGame = allGames.find(g => 
+      g?.value?.toLowerCase() === gameName.toLowerCase() ||
+      g?.name?.toLowerCase() === gameName.toLowerCase()
+    );
+    
+    if (apiGame) {
+      // Use the name from API as description (since API names are now clean)
+      description = apiGame.name;
+      gameDetail = { description, apiMatch: true };
+    }
+  }
+  
+  // Fall back to static gameListData if no API match found
+  if (!gameDetail && foundKey) {
     gameDetail = gameListData.find(g => 
       g?.name?.toLowerCase() === foundKey ||
       g?.gameMode?.toLowerCase() === foundKey ||
@@ -297,6 +314,9 @@ export const getGameDetails = (gameName, allGames = null) => {
       (foundKey === 'bi' && g?.name?.toLowerCase() === 'bi') ||
       (foundKey === 'binerdle' && g?.name?.toLowerCase() === 'bi')
     );
+    if (gameDetail && !description) {
+      description = gameDetail.description;
+    }
   }
   
   // Get icon using existing logic
@@ -304,7 +324,7 @@ export const getGameDetails = (gameName, allGames = null) => {
   
   return {
     iconUrl,
-    description: gameDetail?.description || null,
+    description: description || null,
     gameDetail,
     foundKey // for debugging
   };
