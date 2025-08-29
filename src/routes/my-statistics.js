@@ -341,10 +341,9 @@ const MyStatistics = () => {
       
       const monthName = targetDate.toLocaleDateString('en-US', { month: 'long' });
       const year = targetDate.getFullYear();
-      const suffix = dateFilter?.value === 'This month' ? ' (to date)' : '';
       
       return {
-        title: `${monthName} ${year}${suffix}`,
+        title: `${monthName} ${year}`,
         subtitle: 'nerdleverse activity summary'
       };
     }
