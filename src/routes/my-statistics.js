@@ -43,10 +43,17 @@ const MyStatistics = () => {
   // Refresh games data when refresher value changes
   React.useEffect(() => {
     if (refresher !== prevRefresherValue && refresher > 0) {
+      console.log('Refreshing games cache due to refresher change');
       refreshGames();
       setPrevRefresherValue(refresher);
     }
   }, [refresher, prevRefresherValue, refreshGames]);
+  
+  // Also refresh games data when the component first mounts (in case of updates)
+  React.useEffect(() => {
+    // Force refresh games data on mount to get latest updates
+    refreshGames();
+  }, [refreshGames]);
   const [showEnableNonNerdleDialog, setShowEnableNonNerdleDialog] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();

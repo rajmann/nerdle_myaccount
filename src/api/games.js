@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 export const useGames = () => {
   const response = useSWR("/games");
@@ -6,10 +6,10 @@ export const useGames = () => {
 };
 
 export const useRefreshGames = () => {
-  const { mutate } = useSWR("/games");
+  const { mutate } = useSWRConfig();
   
   const refresh = () => {
-    mutate();
+    mutate("/games");
   };
   
   return refresh;

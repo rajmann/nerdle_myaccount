@@ -11,7 +11,7 @@ export const games = [
         name: 'micro nerdle',
         url: 'https://micro.nerdlegame.com',
         img: 'https://nerdlegame.com/newicons/micro.png',
-        description: "5 digit nerdle"
+        description: "5 digit nerdle" 
       },
       {
         gameMode: 'mini',
