@@ -2,7 +2,7 @@ import React from "react";
 
 import ReactGA from "react-ga4";
 import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import BasicLayout from "./components/layouts/BasicLayout";
 import BottomTabsLayout from "./components/layouts/BottomTabsLayout";
@@ -60,6 +60,7 @@ const App = () => {
                 path="my-statistics/:dateFilter"
                 element={<MyStatistics />}
               />
+            <Route path="lastmonth" element={<Navigate to="/my-statistics/lastmonth" replace />} />
             <Route path="my-leagues" element={<MyLeagues />} />
             <Route path="profile" element={<Profile />} />
             <Route path="all-games" element={<AllGames />} />
