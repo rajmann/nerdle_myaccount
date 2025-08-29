@@ -45,3 +45,4 @@ Preferred communication style: Simple, everyday language.
 ## Recent Fixes
 
 - **Authentication Data Loading Issue**: Fixed the "blank data" screen that appeared after login by ensuring the AuthProvider triggers a page refresh after successful authentication. This ensures all user data is properly loaded when the user signs in, preventing the need for manual page refresh.
+- **Dark Mode Enhancement**: Fixed "Change Photo" button text color on profile page to be white in dark mode for better visibility.
