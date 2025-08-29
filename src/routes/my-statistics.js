@@ -366,7 +366,7 @@ const MyStatistics = () => {
       )}
       <UserDetails user={user} />
       {monthHeading && (
-        <div className="mb-8 px-4">
+        <div className="mb-6 px-4 -mt-2">
           <div className="flex justify-center gap-6">
             <a 
               href="#stats-scores" 
