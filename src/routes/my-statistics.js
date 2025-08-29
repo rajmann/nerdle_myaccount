@@ -399,6 +399,7 @@ const MyStatistics = () => {
           gamesToday={gamesToday}
           gamesPastTwoWeeks={gamesPastTwoWeeks}
           onGameFilterChange={setGameFilter}
+          showShareButton={!monthHeading}
         />
       </div>
       <div id="new-game">
