@@ -221,28 +221,6 @@ const MyStatistics = () => {
 
   const { data: photo} = useProfilePhoto();
 
-  // Log the profile response to see what data is returned
-  React.useEffect(() => {
-    console.log('[PROFILE DEBUG] - profile value:', profile);
-    console.log('[PROFILE DEBUG] - profile type:', typeof profile);
-    console.log('[PROFILE DEBUG] - profile is null:', profile === null);
-    console.log('[PROFILE DEBUG] - profile is undefined:', profile === undefined);
-    
-    if (profile) {
-      console.log('[PROFILE API RESPONSE]:', profile);
-      console.log('[PROFILE API RESPONSE - keys]:', Object.keys(profile));
-    } else {
-      console.log('[PROFILE API RESPONSE] - No profile data received');
-    }
-  }, [profile]);
-
-  // Log the photo response to see what data is returned
-  React.useEffect(() => {
-    if (photo) {
-      console.log('[PROFILE PHOTO API RESPONSE]:', photo);
-      console.log('[PROFILE PHOTO TYPE]:', typeof photo);
-    }
-  }, [photo]);
 
   const user = React.useMemo(() => ({ ...profile, photo }), [photo, profile]);
 
