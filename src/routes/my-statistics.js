@@ -223,9 +223,16 @@ const MyStatistics = () => {
 
   // Log the profile response to see what data is returned
   React.useEffect(() => {
+    console.log('[PROFILE DEBUG] - profile value:', profile);
+    console.log('[PROFILE DEBUG] - profile type:', typeof profile);
+    console.log('[PROFILE DEBUG] - profile is null:', profile === null);
+    console.log('[PROFILE DEBUG] - profile is undefined:', profile === undefined);
+    
     if (profile) {
       console.log('[PROFILE API RESPONSE]:', profile);
       console.log('[PROFILE API RESPONSE - keys]:', Object.keys(profile));
+    } else {
+      console.log('[PROFILE API RESPONSE] - No profile data received');
     }
   }, [profile]);
 
