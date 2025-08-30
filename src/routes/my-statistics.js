@@ -221,6 +221,22 @@ const MyStatistics = () => {
 
   const { data: photo} = useProfilePhoto();
 
+  // Log the profile response to see what data is returned
+  React.useEffect(() => {
+    if (profile) {
+      console.log('[PROFILE API RESPONSE]:', profile);
+      console.log('[PROFILE API RESPONSE - keys]:', Object.keys(profile));
+    }
+  }, [profile]);
+
+  // Log the photo response to see what data is returned
+  React.useEffect(() => {
+    if (photo) {
+      console.log('[PROFILE PHOTO API RESPONSE]:', photo);
+      console.log('[PROFILE PHOTO TYPE]:', typeof photo);
+    }
+  }, [photo]);
+
   const user = React.useMemo(() => ({ ...profile, photo }), [photo, profile]);
 
 
