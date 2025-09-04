@@ -307,15 +307,29 @@ const EnhancedDiaryDay = ({ dayData, allGames, isFirstDay = false }) => {
                             if (dayData.day === 'tomorrow') return null;
                             
                             const isNerdleGame = game.url && game.url.includes('nerdlegame.com');
+                            const isMaffdokuGame = game.name && game.name.toLowerCase().includes('maffdoku');
                             const isToday = dayData.day === 'today';
                             
-                            const canShowPlayButton = isToday || isNerdleGame;
+                            const canShowPlayButton = isToday || isNerdleGame || isMaffdokuGame;
                             
                             if (!canShowPlayButton) return null;
                             
-                            const playUrl = isToday 
-                              ? game.url 
-                              : `${game.url}/${urlDate}`;
+                            let playUrl;
+                            if (isMaffdokuGame) {
+                              // Extract level from game name (e.g., "Maffdoku level 1" → "1")
+                              const levelMatch = game.name.match(/level (\d+)/i);
+                              const level = levelMatch ? levelMatch[1] : '1';
+                              
+                              if (isToday) {
+                                playUrl = `https://nerdlegame.com/maffdoku/level${level}`;
+                              } else {
+                                playUrl = `https://nerdlegame.com/maffdoku/level${level}/${urlDate}`;
+                              }
+                            } else {
+                              playUrl = isToday 
+                                ? game.url 
+                                : `${game.url}/${urlDate}`;
+                            }
                             
                             return (
                               <a

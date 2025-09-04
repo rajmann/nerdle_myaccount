@@ -132,10 +132,12 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
       ...(recentlyPlayedWithDetails?.map(g => g.value?.toLowerCase()) || [])
     ];
     
-    // Filter to only Nerdle games (nerdlegame.com domain) and exclude nDigits
-    const nerdleGames = allGames.filter(game => 
-      game?.url && game.url.includes('nerdlegame.com') && game?.value?.toLowerCase() !== 'ndigits'
-    );
+    // Filter to only Nerdle games (nerdlegame.com domain or Maffdoku) and exclude nDigits
+    const nerdleGames = allGames.filter(game => {
+      const isNerdleGame = game?.url && game.url.includes('nerdlegame.com');
+      const isMaffdokuGame = game?.name && game.name.toLowerCase().includes('maffdoku');
+      return (isNerdleGame || isMaffdokuGame) && game?.value?.toLowerCase() !== 'ndigits';
+    });
     
     // Filter out Nerdle games that have been played recently
     const unplayedNerdleGames = nerdleGames.filter(game => 
