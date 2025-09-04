@@ -365,6 +365,7 @@ export const getCloudStats = async (gameName: string) => {
         if (res.status === 200) {
           // success
           res.json().then((json) => {
+            console.log('Profile endpoint response:', json)
             callback(json)
           })
         } else {
