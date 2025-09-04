@@ -70,23 +70,31 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
     return { gamesToday: [], gamesInPeriod: [] };
   }
   
-  // Debug: Log all available games for mapping
-  console.log('\n=== AVAILABLE GAMES IN DROPDOWN ===');
-  allGames.forEach((game, index) => {
-    console.log(`${index + 1}. NAME: "${game.name}" | VALUE: "${game.value}"`);
-  });
-  console.log('===================================\n');
   
   const cutoffTimestamp = calculateCutoffTimestamp(dateFilter);
   const recentGameNames = filterRecentlyPlayedGames(lastPlayedGames, cutoffTimestamp);
   
   // Convert game names to the expected format with game details
+  // User's lastPlayedGames contains game values with spaces removed
   const enhancedGames = recentGameNames
     .map(gameName => {
-      const gameDetail = allGames.find(g => 
+      // Try exact match first
+      let gameDetail = allGames.find(g => 
         g.value?.toLowerCase() === gameName?.toLowerCase() || 
         g.name?.toLowerCase() === gameName?.toLowerCase()
       );
+      
+      // If no exact match, try matching by removing spaces from game values
+      if (!gameDetail) {
+        gameDetail = allGames.find(g => 
+          g.value?.replace(/\s/g, '').toLowerCase() === gameName?.toLowerCase()
+        );
+        if (gameDetail) {
+          console.log(`[GAME MATCHING DEBUG] Space-removed match: "${gameName}" → "${gameDetail.value}"`);
+        }
+      } else {
+        console.log(`[GAME MATCHING DEBUG] Direct match: "${gameName}" → "${gameDetail.value}"`);
+      }
       
       if (gameDetail) {
         const gameEntry = lastPlayedGames.find(g => g.game === gameName);
@@ -106,9 +114,11 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
     .filter(Boolean);
 
   console.log(`[FILTERING DEBUG] Input: ${recentGameNames.length} games, After matching: ${enhancedGames.length} games`);
-  console.log(`[FILTERING DEBUG] Games that didn't match:`, recentGameNames.filter(gameName => 
-    !allGames.find(g => g.value?.toLowerCase() === gameName?.toLowerCase() || g.name?.toLowerCase() === gameName?.toLowerCase())
-  ));
+  console.log(`[FILTERING DEBUG] Games that didn't match:`, recentGameNames.filter(gameName => {
+    const exactMatch = allGames.find(g => g.value?.toLowerCase() === gameName?.toLowerCase() || g.name?.toLowerCase() === gameName?.toLowerCase());
+    const spaceRemovedMatch = allGames.find(g => g.value?.replace(/\s/g, '').toLowerCase() === gameName?.toLowerCase());
+    return !exactMatch && !spaceRemovedMatch;
+  }));
   
   // Split into today vs in period
   const gamesToday = enhancedGames.filter(game => game.playedToday);
