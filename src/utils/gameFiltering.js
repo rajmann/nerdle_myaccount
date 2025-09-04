@@ -32,8 +32,7 @@ export const calculateCutoffTimestamp = (dateFilter) => {
     
     cutoffDate.setDate(cutoffDate.getDate() - bufferDays);
     
-    console.log(`[CUTOFF DEBUG] Filter: ${dateFilter.value}, Buffer: ${bufferDays} days, Cutoff: ${cutoffDate.toISOString()}`);
-    
+      
     return cutoffDate.getTime();
   } catch (error) {
     console.warn('Error calculating cutoff timestamp:', error);
@@ -89,11 +88,6 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
         gameDetail = allGames.find(g => 
           g.value?.replace(/\s/g, '').toLowerCase() === gameName?.toLowerCase()
         );
-        if (gameDetail) {
-          console.log(`[GAME MATCHING DEBUG] Space-removed match: "${gameName}" → "${gameDetail.value}"`);
-        }
-      } else {
-        console.log(`[GAME MATCHING DEBUG] Direct match: "${gameName}" → "${gameDetail.value}"`);
       }
       
       if (gameDetail) {
@@ -106,26 +100,15 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
           // Determine if played today
           playedToday: isPlayedToday(gameEntry?.timestamp)
         };
-      } else {
-        console.log(`[GAME MATCHING DEBUG] Could not find game "${gameName}" in allGames list`);
       }
       return null;
     })
     .filter(Boolean);
 
-  console.log(`[FILTERING DEBUG] Input: ${recentGameNames.length} games, After matching: ${enhancedGames.length} games`);
-  console.log(`[FILTERING DEBUG] Games that didn't match:`, recentGameNames.filter(gameName => {
-    const exactMatch = allGames.find(g => g.value?.toLowerCase() === gameName?.toLowerCase() || g.name?.toLowerCase() === gameName?.toLowerCase());
-    const spaceRemovedMatch = allGames.find(g => g.value?.replace(/\s/g, '').toLowerCase() === gameName?.toLowerCase());
-    return !exactMatch && !spaceRemovedMatch;
-  }));
   
   // Split into today vs in period
   const gamesToday = enhancedGames.filter(game => game.playedToday);
   const gamesInPeriod = enhancedGames.filter(game => !game.playedToday);
-  
-  console.log(`[ENHANCED GAMES] Cutoff: ${new Date(cutoffTimestamp).toISOString()}`);
-  console.log(`[ENHANCED GAMES] Recent games: ${recentGameNames.length}, Today: ${gamesToday.length}, In period: ${gamesInPeriod.length}`);
   
   
   return { gamesToday, gamesInPeriod };
