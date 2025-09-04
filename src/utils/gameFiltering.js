@@ -70,6 +70,13 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
     return { gamesToday: [], gamesInPeriod: [] };
   }
   
+  // Debug: Log all available games for mapping
+  console.log('\n=== AVAILABLE GAMES IN DROPDOWN ===');
+  allGames.forEach((game, index) => {
+    console.log(`${index + 1}. NAME: "${game.name}" | VALUE: "${game.value}"`);
+  });
+  console.log('===================================\n');
+  
   const cutoffTimestamp = calculateCutoffTimestamp(dateFilter);
   const recentGameNames = filterRecentlyPlayedGames(lastPlayedGames, cutoffTimestamp);
   
