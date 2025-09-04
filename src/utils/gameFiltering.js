@@ -106,7 +106,9 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
   // Temporary: Log all lastPlayedGames with readable dates
   console.log('\n=== YOUR RECENT GAME HISTORY ===');
   const sortedGames = [...lastPlayedGames].sort((a, b) => b.timestamp - a.timestamp);
-  sortedGames.forEach((game, index) => {
+  
+  // Create a formatted list for display
+  const gamesList = sortedGames.map((game, index) => {
     const date = new Date(game.timestamp);
     const formattedDate = date.toLocaleDateString('en-US', { 
       year: 'numeric', 
@@ -114,9 +116,19 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
       day: 'numeric',
       weekday: 'long'
     });
-    console.log(`${index + 1}. ${game.game} - ${formattedDate}`);
+    const entry = `${index + 1}. ${game.game} - ${formattedDate}`;
+    console.log(entry);
+    return entry;
   });
+  
   console.log('=================================\n');
+  
+  // Also alert the list for immediate visibility
+  if (sortedGames.length > 0) {
+    const alertMessage = 'YOUR RECENT GAME HISTORY:\n\n' + gamesList.slice(0, 20).join('\n') + 
+      (gamesList.length > 20 ? '\n\n(Showing first 20 games)' : '');
+    alert(alertMessage);
+  }
   
   return { gamesToday, gamesInPeriod };
 };
