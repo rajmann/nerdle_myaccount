@@ -103,6 +103,21 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
   console.log(`[ENHANCED GAMES] Cutoff: ${new Date(cutoffTimestamp).toISOString()}`);
   console.log(`[ENHANCED GAMES] Recent games: ${recentGameNames.length}, Today: ${gamesToday.length}, In period: ${gamesInPeriod.length}`);
   
+  // Temporary: Log all lastPlayedGames with readable dates
+  console.log('\n=== YOUR RECENT GAME HISTORY ===');
+  const sortedGames = [...lastPlayedGames].sort((a, b) => b.timestamp - a.timestamp);
+  sortedGames.forEach((game, index) => {
+    const date = new Date(game.timestamp);
+    const formattedDate = date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric',
+      weekday: 'long'
+    });
+    console.log(`${index + 1}. ${game.game} - ${formattedDate}`);
+  });
+  console.log('=================================\n');
+  
   return { gamesToday, gamesInPeriod };
 };
 
