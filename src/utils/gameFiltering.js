@@ -16,9 +16,24 @@ export const calculateCutoffTimestamp = (dateFilter) => {
   
   try {
     const { startDate } = getDateRange(dateFilter);
-    // Go back 30 more days from the start date
     const cutoffDate = new Date(startDate);
-    cutoffDate.setDate(cutoffDate.getDate() - 30);
+    
+    // Use appropriate buffer based on the time period
+    let bufferDays;
+    if (dateFilter.value.toLowerCase().includes('week')) {
+      bufferDays = 7; // For weekly views, go back 1 additional week
+    } else if (dateFilter.value.toLowerCase().includes('month')) {
+      bufferDays = 30; // For monthly views, go back 1 additional month
+    } else if (dateFilter.value.toLowerCase().includes('year')) {
+      bufferDays = 90; // For yearly views, go back 3 additional months
+    } else {
+      bufferDays = 14; // Default fallback
+    }
+    
+    cutoffDate.setDate(cutoffDate.getDate() - bufferDays);
+    
+    console.log(`[CUTOFF DEBUG] Filter: ${dateFilter.value}, Buffer: ${bufferDays} days, Cutoff: ${cutoffDate.toISOString()}`);
+    
     return cutoffDate.getTime();
   } catch (error) {
     console.warn('Error calculating cutoff timestamp:', error);
