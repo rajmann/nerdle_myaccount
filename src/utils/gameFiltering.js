@@ -91,10 +91,17 @@ export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGa
           // Determine if played today
           playedToday: isPlayedToday(gameEntry?.timestamp)
         };
+      } else {
+        console.log(`[GAME MATCHING DEBUG] Could not find game "${gameName}" in allGames list`);
       }
       return null;
     })
     .filter(Boolean);
+
+  console.log(`[FILTERING DEBUG] Input: ${recentGameNames.length} games, After matching: ${enhancedGames.length} games`);
+  console.log(`[FILTERING DEBUG] Games that didn't match:`, recentGameNames.filter(gameName => 
+    !allGames.find(g => g.value?.toLowerCase() === gameName?.toLowerCase() || g.name?.toLowerCase() === gameName?.toLowerCase())
+  ));
   
   // Split into today vs in period
   const gamesToday = enhancedGames.filter(game => game.playedToday);
