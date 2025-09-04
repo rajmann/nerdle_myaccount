@@ -13,14 +13,9 @@ import "@fontsource/inter/variable.css";
 import "@fontsource/quicksand/300.css"; // Light weight
 import "./index.css";
 
-// Always use /myaccount basename for both dev and production
-const getBasename = () => {
-  return '/myaccount';
-};
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter basename={getBasename()}>
+    <BrowserRouter>
       <SWRConfig value={swrConfig}>
         <AuthProvider>
           <App />
