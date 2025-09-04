@@ -25,6 +25,7 @@ import useMyStatisticsStore from "../store/useMyStatisticsStore";
 import useOptionsStore from "../store/useOptionsStore";
 import useScoreLoggingStore from "../store/useScoreLoggingStore";
 import { fillMissingDates } from "../utils/dateRange";
+import { createEnhancedRecentGamesData } from "../utils/gameFiltering";
 import { getGameFilterOptions } from "../utils/gameFilters";
 
 
@@ -265,12 +266,22 @@ const MyStatistics = () => {
     [gameDiaryData?.data, dateFilter]
   );
 
-  const gamesToday = React.useMemo(() => data?.gamesToday, [data?.gamesToday]);
+  // Enhanced recent games data using profile's lastPlayedGames with flexible cutoff
+  const enhancedRecentGames = React.useMemo(() => {
+    if (!profile?.lastPlayedGames || !dateFilter || !allGames) {
+      // Fallback to original data if profile data not available
+      return {
+        gamesToday: data?.gamesToday || [],
+        gamesInPeriod: data?.gamesPastTwoWeeks || []
+      };
+    }
+    
+    return createEnhancedRecentGamesData(profile.lastPlayedGames, dateFilter, allGames);
+  }, [profile?.lastPlayedGames, dateFilter, allGames, data?.gamesToday, data?.gamesPastTwoWeeks]);
 
-  const gamesPastTwoWeeks = React.useMemo(
-    () => data?.gamesPastTwoWeeks,
-    [data?.gamesPastTwoWeeks]
-  );
+  const gamesToday = React.useMemo(() => enhancedRecentGames.gamesToday, [enhancedRecentGames.gamesToday]);
+
+  const gamesPastTwoWeeks = React.useMemo(() => enhancedRecentGames.gamesInPeriod, [enhancedRecentGames.gamesInPeriod]);
 
   const guessDistribution = React.useMemo(
     () =>

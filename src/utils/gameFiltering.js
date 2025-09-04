@@ -1,0 +1,106 @@
+import { getDateRange } from './dateRange';
+
+/**
+ * Calculate cutoff timestamp for filtering lastPlayedGames
+ * Returns a timestamp that's 30 days before the first date in the selected date filter
+ * @param {Object} dateFilter - The selected date filter object
+ * @returns {number} Cutoff timestamp in milliseconds
+ */
+export const calculateCutoffTimestamp = (dateFilter) => {
+  if (!dateFilter) return 0;
+  
+  // For "All time", use a very old date (Jan 1, 2022)
+  if (dateFilter.value === "All time") {
+    return new Date('2022-01-01T00:00:00.000Z').getTime();
+  }
+  
+  try {
+    const { startDate } = getDateRange(dateFilter);
+    // Go back 30 more days from the start date
+    const cutoffDate = new Date(startDate);
+    cutoffDate.setDate(cutoffDate.getDate() - 30);
+    return cutoffDate.getTime();
+  } catch (error) {
+    console.warn('Error calculating cutoff timestamp:', error);
+    return 0;
+  }
+};
+
+/**
+ * Filter lastPlayedGames from profile data based on cutoff timestamp
+ * @param {Array} lastPlayedGames - Array of game objects with game name and timestamp
+ * @param {number} cutoffTimestamp - Cutoff timestamp in milliseconds
+ * @returns {Array} Filtered array of game names that were played after cutoff
+ */
+export const filterRecentlyPlayedGames = (lastPlayedGames, cutoffTimestamp) => {
+  if (!Array.isArray(lastPlayedGames) || !cutoffTimestamp) {
+    return [];
+  }
+  
+  return lastPlayedGames
+    .filter(gameEntry => gameEntry.timestamp >= cutoffTimestamp)
+    .map(gameEntry => gameEntry.game)
+    .filter(Boolean); // Remove any falsy values
+};
+
+/**
+ * Create enhanced recent games data using profile's lastPlayedGames
+ * @param {Array} lastPlayedGames - Array from profile data
+ * @param {Object} dateFilter - Selected date filter
+ * @param {Array} allGames - All available games list
+ * @returns {Object} Enhanced recent games data with gamesToday and gamesInPeriod
+ */
+export const createEnhancedRecentGamesData = (lastPlayedGames, dateFilter, allGames) => {
+  if (!Array.isArray(lastPlayedGames) || !dateFilter || !Array.isArray(allGames)) {
+    return { gamesToday: [], gamesInPeriod: [] };
+  }
+  
+  const cutoffTimestamp = calculateCutoffTimestamp(dateFilter);
+  const recentGameNames = filterRecentlyPlayedGames(lastPlayedGames, cutoffTimestamp);
+  
+  // Convert game names to the expected format with game details
+  const enhancedGames = recentGameNames
+    .map(gameName => {
+      const gameDetail = allGames.find(g => 
+        g.value?.toLowerCase() === gameName?.toLowerCase() || 
+        g.name?.toLowerCase() === gameName?.toLowerCase()
+      );
+      
+      if (gameDetail) {
+        const gameEntry = lastPlayedGames.find(g => g.game === gameName);
+        return {
+          gameName: gameDetail.value,
+          name: gameDetail.name,
+          url: gameDetail.url,
+          lastPlayed: gameEntry?.timestamp,
+          // Determine if played today
+          playedToday: isPlayedToday(gameEntry?.timestamp)
+        };
+      }
+      return null;
+    })
+    .filter(Boolean);
+  
+  // Split into today vs in period
+  const gamesToday = enhancedGames.filter(game => game.playedToday);
+  const gamesInPeriod = enhancedGames.filter(game => !game.playedToday);
+  
+  console.log(`[ENHANCED GAMES] Cutoff: ${new Date(cutoffTimestamp).toISOString()}`);
+  console.log(`[ENHANCED GAMES] Recent games: ${recentGameNames.length}, Today: ${gamesToday.length}, In period: ${gamesInPeriod.length}`);
+  
+  return { gamesToday, gamesInPeriod };
+};
+
+/**
+ * Check if a timestamp represents today
+ * @param {number} timestamp - Timestamp in milliseconds
+ * @returns {boolean} True if timestamp is from today
+ */
+const isPlayedToday = (timestamp) => {
+  if (!timestamp) return false;
+  
+  const today = new Date();
+  const gameDate = new Date(timestamp);
+  
+  return today.toDateString() === gameDate.toDateString();
+};
