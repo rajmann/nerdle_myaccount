@@ -79,11 +79,11 @@ const Drawer = ({ isOpen, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button positioned at top-right */}
-        <XIcon 
-          className="h-6 w-6 cursor-pointer dark:text-[#D7DADC] absolute top-4 right-4 z-10" 
+        <XIcon
+          className="h-6 w-6 cursor-pointer dark:text-[#D7DADC] absolute top-4 right-4 z-10"
           onClick={onClose}
         />
-        
+
         <div className="w-full">
           {/* Header with logo */}
           <div className="flex items-center mb-4">
@@ -266,53 +266,55 @@ const Drawer = ({ isOpen, onClose }) => {
               Settings
             </div> */}
 
-            {/* Arcade math games */}
-            <div className="flex mt-2">Arcade math games</div>
-            <div
-              className="flex mt-0 cursor-pointer active:bg-slate-400"
-              aria-label="Arcade games"
-              role="navigation"
-              style={{
-                border: "1px solid gray",
-                fontSize: "0.8rem",
-                padding: "3px",
-                marginRight: "5px",
-              }}
-            >
-              <table>
-                <tbody>
-                  <tr style={{ width: "100%" }}>
-                    <td
-                      style={{ width: "50%" }}
-                      onClick={() => {
-                        window.location.href = "https://maff.games/digitdrop";
-                      }}
-                    >
-                      <img
-                        src="https://maff.games/digitdrop/assets/images/whiteDDPromo.gif"
-                        style={{ width: "100%", margin: "0 0", border: "0px" }}
-                        alt="Digit Drop"
-                      />
-                    </td>
-                    <td
-                      style={{ width: "50%" }}
-                      onClick={() => {
-                        window.location.href = "https://maff.games/adder?v002";
-                      }}
-                    >
-                      <img
-                        src="https://maff.games/digitdrop/assets/images/whiteAdderPromo.gif"
-                        style={{ width: "100%", margin: "0 0", border: "0px" }}
-                        alt="Adder"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            {/* NEW */}
+            <div className="flex flex-col gap-2 mt-4 mb-4">
+              <div style={{ fontSize: "0.95rem", marginBottom: 4 }}>
+                Partner games
+              </div>
+              <a
+                href="https://nerdlegame.com/guesswhat/"
+                style={{ display: "block" }}
+              >
+                <img
+                  src="https://nerdlegame.com/other_games/1.png"
+                  alt="GuessWhat?"
+                  style={{ width: 160, maxWidth: "100%" }}
+                />
+              </a>
+              <a
+                href="https://nerdlegame.com/wordgpt/"
+                style={{ display: "block" }}
+              >
+                <img
+                  src="https://nerdlegame.com/other_games/2.png"
+                  alt="WordGPT"
+                  style={{ width: 160, maxWidth: "100%" }}
+                />
+              </a>
+              <a
+                href="https://maff.games/digitdrop"
+                style={{ display: "block" }}
+              >
+                <img
+                  src="https://nerdlegame.com/other_games/3.png"
+                  alt="DigitDrop"
+                  style={{ width: 160, maxWidth: "100%" }}
+                />
+              </a>
+              <a
+                href="https://maff.games/adder?v002"
+                style={{ display: "block" }}
+              >
+                <img
+                  src="https://nerdlegame.com/other_games/4.png"
+                  alt="Adder"
+                  style={{ width: 160, maxWidth: "100%" }}
+                />
+              </a>
             </div>
 
             {/* League menu items */}
-            <div className="mt-8">
+            <div className="mt-4">
               <button
                 onClick={() => {
                   onClose();
@@ -329,7 +331,10 @@ const Drawer = ({ isOpen, onClose }) => {
                 onClick={onClose}
                 className="flex items-center gap-2 rounded-lg p-2 mt-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
               >
-                <CollectionIcon className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]" style={{ marginRight: 10 }} />
+                <CollectionIcon
+                  className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]"
+                  style={{ marginRight: 10 }}
+                />
                 My Leagues
               </Link>
 
@@ -338,7 +343,10 @@ const Drawer = ({ isOpen, onClose }) => {
                 onClick={onClose}
                 className="flex items-center gap-2 rounded-lg p-2 mt-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
               >
-                <UserIcon className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]" style={{ marginRight: 10 }} />
+                <UserIcon
+                  className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]"
+                  style={{ marginRight: 10 }}
+                />
                 Profile
               </Link>
 
@@ -347,7 +355,10 @@ const Drawer = ({ isOpen, onClose }) => {
                   onClick={onSignOut}
                   className="flex items-center gap-2 rounded-lg p-2 mt-2 font-semibold text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700 w-full text-left"
                 >
-                  <HeroLogoutIcon className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]" style={{ marginRight: 10 }} />
+                  <HeroLogoutIcon
+                    className="h-6 w-6 flex-shrink-0 cursor-pointer dark:text-[#D7DADC]"
+                    style={{ marginRight: 10 }}
+                  />
                   Sign Out
                 </button>
               )}
@@ -357,7 +368,7 @@ const Drawer = ({ isOpen, onClose }) => {
 
         {/* Games section */}
         <div className="w-full">
-          <div className="flex mt-1 mb-2 pt-1">Games</div>
+          <div className="flex mt-1 mb-2 pt-1">nerdleverse games</div>
 
           <div>
             {sortedGames.map((game) => {
