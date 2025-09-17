@@ -2,7 +2,7 @@ import { getDateRange } from './dateRange';
 
 /**
  * Calculate cutoff timestamp for filtering lastPlayedGames
- * Returns a timestamp that's 30 days before the first date in the selected date filter
+ * Returns the earlier of: (a) a month ago and (b) the date selector with buffer
  * @param {Object} dateFilter - The selected date filter object
  * @returns {number} Cutoff timestamp in milliseconds
  */
@@ -31,9 +31,15 @@ export const calculateCutoffTimestamp = (dateFilter) => {
     }
     
     cutoffDate.setDate(cutoffDate.getDate() - bufferDays);
+    const dateSelectorTimestamp = cutoffDate.getTime();
     
-      
-    return cutoffDate.getTime();
+    // Calculate option (a): a month ago
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+    const oneMonthAgoTimestamp = oneMonthAgo.getTime();
+    
+    // Return the earlier of the two dates (further back in time = smaller timestamp)
+    return Math.min(oneMonthAgoTimestamp, dateSelectorTimestamp);
   } catch (error) {
     console.warn('Error calculating cutoff timestamp:', error);
     return 0;
