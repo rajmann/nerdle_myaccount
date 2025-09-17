@@ -354,7 +354,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
             ) : (
               <>
                 {gamesTodayWithDetails?.map(
-                  ({ name, calculatedScore, url }, index) => (
+                  ({ name, calculatedScore, url, played, won, points }, index) => (
                     <div
                       key={index}
                       className="mb-2 flex items-center">
@@ -366,7 +366,9 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                       <span className="text-xs text-black game-name flex-1 min-w-0 ml-3" style={{ fontFamily: 'Quicksand, sans-serif' }}>
                         {name}
                       </span>
-                      <p className="text-xs text-black ml-4 font-medium">{calculatedScore}</p>
+                      <div className="flex items-center ml-auto">
+                        <p className="text-xs text-black font-medium mr-2">{points || calculatedScore}</p>
+                      </div>
                     </div>
                   )
                 )}
