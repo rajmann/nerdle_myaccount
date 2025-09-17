@@ -57,6 +57,13 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           entry.day === 'today' || entry.day === new Date().toISOString().split('T')[0]
         );
         
+        console.log('[DIARY DEBUG]', {
+          gameName: game?.gameName,
+          todayDiary,
+          gameDiaryLength: gameDiary?.length,
+          allDiary: gameDiary
+        });
+        
         // Transform "nerdle" to "nerdle (classic)" for display
         let displayName = detail?.name;
         if (detail?.value === 'nerdlegame' && detail?.name === 'nerdle') {
