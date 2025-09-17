@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { SWRConfig } from "swr";
 
 import App from "./App";
+import AuthProvider from "./contexts/AuthProvider";
 import "./index.css";
 import swrConfig from "./lib/swrConfig";
 import reportWebVitals from "./reportWebVitals";
@@ -11,9 +12,11 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <SWRConfig value={swrConfig}>
-      <App />
-    </SWRConfig>
+    <AuthProvider>
+      <SWRConfig value={swrConfig}>
+        <App />
+      </SWRConfig>
+    </AuthProvider>
   </React.StrictMode>
 );
 
