@@ -435,6 +435,7 @@ const MyStatistics = () => {
           gamesPastTwoWeeks={gamesPastTwoWeeks}
           onGameFilterChange={setGameFilter}
           showShareButton={!monthHeading}
+          gameDiary={gameDiary}
         />
       </div>
       <div id="new-game" className="px-4">

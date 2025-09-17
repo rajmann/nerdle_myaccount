@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from '../lib/useAnalyticsEventTracker';
 import { GameIcon, getGameDetails } from "../utils/gameIcons";
 
-const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true, onGameFilterChange }) => {
+const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true, onGameFilterChange, gameDiary }) => {
 
   const { isPWA } = useAuth();
   //FOR GOOGLE ANALYTICS
@@ -51,6 +51,12 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         const detail = allGames?.find(
           (g) => g?.value.toLowerCase() === game?.gameName?.toLowerCase()
         );
+        
+        // Find today's diary entry for this game
+        const todayDiary = gameDiary?.find(entry => 
+          entry.day === 'today' || entry.day === new Date().toISOString().split('T')[0]
+        );
+        
         // Transform "nerdle" to "nerdle (classic)" for display
         let displayName = detail?.name;
         if (detail?.value === 'nerdlegame' && detail?.name === 'nerdle') {
@@ -60,11 +66,16 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         if (!displayName || displayName === 'nerdle' || game?.gameName?.toLowerCase() === 'nerdlegame') {
           displayName = 'nerdle (classic)';
         }
+        
         return {
           ...game,
           name: displayName,
           value: detail?.value,
           url: detail?.url,
+          // Add diary data for scores
+          played: todayDiary?.played || game.played,
+          won: todayDiary?.won || game.won, 
+          points: todayDiary?.points || game.points || game.calculatedScore,
         };
       }).sort((a, b) => {
         // Nerdle (Classic) always first
@@ -74,7 +85,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         // Then alphabetical by name
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       }),
-    [gamesTodayUnique, allGames]
+    [gamesTodayUnique, allGames, gameDiary]
   );
 
   const recentlyPlayedWithDetails = React.useMemo(
@@ -354,10 +365,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
             ) : (
               <>
                 {gamesTodayWithDetails?.map(
-                  (game, index) => {
-                    console.log('[PLAYED TODAY DEBUG]', game);
-                    const { name, calculatedScore, url, played, won, points } = game;
-                    return (
+                  ({ name, url, points }, index) => (
                     <div
                       key={index}
                       className="mb-2 flex items-center">
@@ -370,11 +378,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         {name}
                       </span>
                       <div className="flex items-center ml-auto">
-                        <p className="text-xs text-black font-medium mr-2">{points || calculatedScore}</p>
+                        <p className="text-xs text-black font-medium mr-2">{points}</p>
                       </div>
                     </div>
-                    );
-                  }
+                  )
                 )}
               </>
             )}
