@@ -354,7 +354,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
             ) : (
               <>
                 {gamesTodayWithDetails?.map(
-                  ({ name, calculatedScore, url, played, won, points }, index) => (
+                  (game, index) => {
+                    console.log('[PLAYED TODAY DEBUG]', game);
+                    const { name, calculatedScore, url, played, won, points } = game;
+                    return (
                     <div
                       key={index}
                       className="mb-2 flex items-center">
@@ -370,7 +373,8 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
                         <p className="text-xs text-black font-medium mr-2">{points || calculatedScore}</p>
                       </div>
                     </div>
-                  )
+                    );
+                  }
                 )}
               </>
             )}
