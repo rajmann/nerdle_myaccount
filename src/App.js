@@ -2,7 +2,7 @@ import React from "react";
 
 import ReactGA from "react-ga4";
 import { Toaster } from "react-hot-toast";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
 
 import BasicLayout from "./components/layouts/BasicLayout";
 import BottomTabsLayout from "./components/layouts/BottomTabsLayout";
@@ -30,6 +30,7 @@ import SignUp from "./routes/sign-up";
 import SSO from "./routes/sso";
 import UserProfile from "./routes/user-profile";
 import VerifyEmail from "./routes/verify-email";
+import { getBasePath } from "./utils/pathUtils";
 
 const MEASUREMENT_ID = (process.env.REACT_APP_API_URL || '').includes("dev") ? 'G-22XDR6CGC3': 'G-83J58K2PLZ';
 ReactGA.initialize(MEASUREMENT_ID);
@@ -38,10 +39,11 @@ const App = () => {
   const auth = useAuth();
 
   return (
-    <div className="mx-auto h-screen min-w-min max-w-md bg-white dark:bg-gray-900 shadow-2xl shadow-gray-200 dark:shadow-gray-800">
-    {/* <div className="mx-auto h-screen max-h-[-webkit-fill-available] min-w-min max-w-md bg-background shadow-2xl shadow-background"> */}
-      <Toaster />
-      <Routes>
+    <BrowserRouter basename={getBasePath()}>
+      <div className="mx-auto h-screen min-w-min max-w-md bg-white dark:bg-gray-900 shadow-2xl shadow-gray-200 dark:shadow-gray-800">
+      {/* <div className="mx-auto h-screen max-h-[-webkit-fill-available] min-w-min max-w-md bg-background shadow-2xl shadow-background"> */}
+        <Toaster />
+        <Routes>
         <Route element={<BasicLayout />}>
           <Route index element={<Landing />} />
           <Route path="sso" element={<SSO />} />
@@ -89,6 +91,7 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
+    </BrowserRouter>
   );
 };
 

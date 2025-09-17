@@ -1,27 +1,20 @@
 import React from "react";
 
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import { SWRConfig } from "swr";
 
 import App from "./App";
-import AuthProvider from "./contexts/AuthProvider";
-import swrConfig from "./lib/swrConfig";
-import reportWebVitals from "./reportWebVitals";
-
-import "@fontsource/inter/variable.css";
-import "@fontsource/quicksand/300.css"; // Light weight
 import "./index.css";
+import { swrConfig } from "./lib/swrConfig";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
-      <SWRConfig value={swrConfig}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </SWRConfig>
-    </BrowserRouter>
+  <React.StrictMode>
+    <SWRConfig value={swrConfig}>
+      <App />
+    </SWRConfig>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
