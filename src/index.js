@@ -5,7 +5,7 @@ import { SWRConfig } from "swr";
 
 import App from "./App";
 import "./index.css";
-import { swrConfig } from "./lib/swrConfig";
+import swrConfig from "./lib/swrConfig";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
