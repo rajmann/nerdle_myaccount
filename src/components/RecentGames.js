@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 import useAnalyticsEventTracker from '../lib/useAnalyticsEventTracker';
 import { GameIcon, getGameDetails } from "../utils/gameIcons";
 
-const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true, onGameFilterChange, gameDiary }) => {
+const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton = true, onGameFilterChange, gameDiary, multiGameDiaryData }) => {
 
   const { isPWA } = useAuth();
   //FOR GOOGLE ANALYTICS
@@ -52,17 +52,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           (g) => g?.value.toLowerCase() === game?.gameName?.toLowerCase()
         );
         
-        // Find today's diary entry for this game
-        const todayDiary = gameDiary?.find(entry => 
-          entry.day === 'today' || entry.day === new Date().toISOString().split('T')[0]
+        // Find today's individual game diary data from multiGameDiaryData
+        const gameSpecificDiary = multiGameDiaryData?.find(gameData => 
+          gameData?.day === 'today' && gameData?.game === game?.gameName
         );
-        
-        console.log('[DIARY DEBUG]', {
-          gameName: game?.gameName,
-          todayDiary,
-          gameDiaryLength: gameDiary?.length,
-          allDiary: gameDiary
-        });
         
         // Transform "nerdle" to "nerdle (classic)" for display
         let displayName = detail?.name;
@@ -79,10 +72,10 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           name: displayName,
           value: detail?.value,
           url: detail?.url,
-          // Add diary data for scores
-          played: todayDiary?.played || game.played,
-          won: todayDiary?.won || game.won, 
-          points: todayDiary?.points || game.points || game.calculatedScore,
+          // Use individual game diary data for accurate scores
+          played: gameSpecificDiary?.played || game.played,
+          won: gameSpecificDiary?.won || game.won, 
+          points: gameSpecificDiary?.points || game.points || game.calculatedScore,
         };
       }).sort((a, b) => {
         // Nerdle (Classic) always first
@@ -92,7 +85,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         // Then alphabetical by name
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       }),
-    [gamesTodayUnique, allGames, gameDiary]
+    [gamesTodayUnique, allGames, multiGameDiaryData]
   );
 
   const recentlyPlayedWithDetails = React.useMemo(

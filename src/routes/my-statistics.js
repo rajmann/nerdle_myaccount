@@ -4,7 +4,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useOutletContext, useLocation, useNavigate } from "react-router-dom";
 
-import { useGameDiary } from "../api/gameDiary";
+import { useGameDiary, useMultiGameDiary } from "../api/gameDiary";
 import { useGames, useRefreshGames } from "../api/games";
 import { useGetWeeklyScoresForSharing } from "../api/getWeeklyScoresForSharing";
 import { useProfile } from "../api/profile";
@@ -283,6 +283,54 @@ const MyStatistics = () => {
 
   const gamesPastTwoWeeks = React.useMemo(() => enhancedRecentGames.gamesInPeriod, [enhancedRecentGames.gamesInPeriod]);
 
+  // Get list of games for multi-game diary (for individual scores)
+  const todayGamesForDiary = React.useMemo(() => {
+    if (!gamesToday || !allGames) return [];
+    
+    return gamesToday
+      .map(game => {
+        const gameDetail = allGames.find(g => g.value?.toLowerCase() === game.gameName?.toLowerCase());
+        return gameDetail ? gameDetail.value : game.gameName?.toLowerCase();
+      })
+      .filter(Boolean);
+  }, [gamesToday, allGames]);
+
+  // Fetch multi-game diary data for today's games
+  const multiGameDiaryResponses = useMultiGameDiary({
+    games: todayGamesForDiary,
+    date: "This week",
+    id: null,
+    dateFilter: dateFilter
+  });
+
+  // Process multi-game diary data to extract individual game scores for today
+  const todayIndividualGameScores = React.useMemo(() => {
+    if (!multiGameDiaryResponses?.length || !todayGamesForDiary?.length) return [];
+    
+    const todayGames = [];
+    
+    multiGameDiaryResponses.forEach((response, index) => {
+      const gameValue = todayGamesForDiary[index];
+      if (!response?.data || response.isLoading || response.error) return;
+      
+      const apiData = response.data.data || response.data;
+      const todayData = apiData.today;
+      
+      if (todayData && todayData.played > 0) {
+        todayGames.push({
+          game: gameValue,
+          day: 'today',
+          played: todayData.played,
+          won: todayData.won,
+          points: todayData.points,
+          date: todayData.date
+        });
+      }
+    });
+    
+    return todayGames;
+  }, [multiGameDiaryResponses, todayGamesForDiary]);
+
   const guessDistribution = React.useMemo(
     () =>
       data
@@ -436,6 +484,7 @@ const MyStatistics = () => {
           onGameFilterChange={setGameFilter}
           showShareButton={!monthHeading}
           gameDiary={gameDiary}
+          multiGameDiaryData={todayIndividualGameScores}
         />
       </div>
       <div id="new-game" className="px-4">
