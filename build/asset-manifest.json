@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/myaccount/static/css/main.e7f3288b.css",
-    "main.js": "/myaccount/static/js/main.41c515cc.js",
+    "main.css": "/myaccount/static/css/main.665254c2.css",
+    "main.js": "/myaccount/static/js/main.84e3bd09.js",
     "static/js/453.f5d0139d.chunk.js": "/myaccount/static/js/453.f5d0139d.chunk.js",
     "static/media/share-app.svg": "/myaccount/static/media/share-app.e2d8d118eb9f8bfcbd76584c072d9d5d.svg",
     "static/media/inter-latin-ext-variable-wghtOnly-normal.woff2": "/myaccount/static/media/inter-latin-ext-variable-wghtOnly-normal.fad2a547f18821b21f1f.woff2",
@@ -32,12 +32,12 @@
     "static/media/league-rank-decrease.svg": "/myaccount/static/media/league-rank-decrease.d9b5c9af9002a3451f8211e5a4df5f7e.svg",
     "static/media/increase.svg": "/myaccount/static/media/increase.d928fc3a096af184296bc5c399d8fda3.svg",
     "static/media/league-rank-increase.svg": "/myaccount/static/media/league-rank-increase.73b1614a7f1c96e212065dd25879e371.svg",
-    "main.e7f3288b.css.map": "/myaccount/static/css/main.e7f3288b.css.map",
-    "main.41c515cc.js.map": "/myaccount/static/js/main.41c515cc.js.map",
+    "main.665254c2.css.map": "/myaccount/static/css/main.665254c2.css.map",
+    "main.84e3bd09.js.map": "/myaccount/static/js/main.84e3bd09.js.map",
     "453.f5d0139d.chunk.js.map": "/myaccount/static/js/453.f5d0139d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e7f3288b.css",
-    "static/js/main.41c515cc.js"
+    "static/css/main.665254c2.css",
+    "static/js/main.84e3bd09.js"
   ]
 }
