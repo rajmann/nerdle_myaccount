@@ -46,8 +46,15 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
   );
 
   const gamesTodayWithDetails = React.useMemo(
-    () =>
-      gamesTodayUnique?.map((game) => {
+    () => {
+      console.log('[RECENT GAMES DEBUG] Input data:', {
+        gamesTodayUniqueLength: gamesTodayUnique?.length,
+        multiGameDiaryDataLength: multiGameDiaryData?.length,
+        multiGameDiaryData: multiGameDiaryData,
+        gamesTodayUnique: gamesTodayUnique
+      });
+      
+      return gamesTodayUnique?.map((game) => {
         const detail = allGames?.find(
           (g) => g?.value.toLowerCase() === game?.gameName?.toLowerCase()
         );
@@ -56,6 +63,13 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         const gameSpecificDiary = multiGameDiaryData?.find(gameData => 
           gameData?.day === 'today' && gameData?.game === game?.gameName
         );
+        
+        console.log('[RECENT GAMES DEBUG] Processing game:', {
+          gameName: game?.gameName,
+          gameSpecificDiary,
+          gamePoints: game.points,
+          gameCalculatedScore: game.calculatedScore
+        });
         
         // Transform "nerdle" to "nerdle (classic)" for display
         let displayName = detail?.name;
@@ -67,6 +81,17 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           displayName = 'nerdle (classic)';
         }
         
+        const finalPoints = gameSpecificDiary?.points || game.points || game.calculatedScore;
+        
+        console.log('[RECENT GAMES DEBUG] Final game data:', {
+          gameName: game?.gameName,
+          displayName,
+          finalPoints,
+          gameSpecificDiaryPoints: gameSpecificDiary?.points,
+          gamePoints: game.points,
+          gameCalculatedScore: game.calculatedScore
+        });
+        
         return {
           ...game,
           name: displayName,
@@ -75,7 +100,7 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
           // Use individual game diary data for accurate scores
           played: gameSpecificDiary?.played || game.played,
           won: gameSpecificDiary?.won || game.won, 
-          points: gameSpecificDiary?.points || game.points || game.calculatedScore,
+          points: finalPoints,
         };
       }).sort((a, b) => {
         // Nerdle (Classic) always first
@@ -84,7 +109,8 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
         
         // Then alphabetical by name
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-      }),
+      });
+    },
     [gamesTodayUnique, allGames, multiGameDiaryData]
   );
 

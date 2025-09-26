@@ -308,13 +308,28 @@ const MyStatistics = () => {
     if (!multiGameDiaryResponses?.length || !todayGamesForDiary?.length) return [];
     
     const todayGames = [];
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     
     multiGameDiaryResponses.forEach((response, index) => {
       const gameValue = todayGamesForDiary[index];
       if (!response?.data || response.isLoading || response.error) return;
       
+      // Handle the nested data structure from API response
       const apiData = response.data.data || response.data;
-      const todayData = apiData.today;
+      
+      // Check if apiData is the object structure (with today/yesterday keys) or array structure
+      let todayData = null;
+      
+      if (Array.isArray(apiData)) {
+        // Find today's data in the array by matching the date
+        todayData = apiData.find(item => {
+          const itemDate = item.date?.split('T')[0];
+          return itemDate === today;
+        });
+      } else if (apiData && typeof apiData === 'object') {
+        // Try to get today's data from object structure
+        todayData = apiData.today;
+      }
       
       if (todayData && todayData.played > 0) {
         todayGames.push({
@@ -328,6 +343,7 @@ const MyStatistics = () => {
       }
     });
     
+    console.log('[MY-STATS DEBUG] Today individual game scores:', todayGames);
     return todayGames;
   }, [multiGameDiaryResponses, todayGamesForDiary]);
 
