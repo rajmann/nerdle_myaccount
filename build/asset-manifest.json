@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/myaccount/static/css/main.4458273e.css",
-    "main.js": "/myaccount/static/js/main.c998476f.js",
+    "main.js": "/myaccount/static/js/main.bf441d65.js",
     "static/js/453.f5d0139d.chunk.js": "/myaccount/static/js/453.f5d0139d.chunk.js",
     "static/media/share-app.svg": "/myaccount/static/media/share-app.e2d8d118eb9f8bfcbd76584c072d9d5d.svg",
     "static/media/nerdle-logo.png": "/myaccount/static/media/nerdle-logo.0829c32be07731455846.png",
@@ -20,11 +20,11 @@
     "static/media/increase.svg": "/myaccount/static/media/increase.d928fc3a096af184296bc5c399d8fda3.svg",
     "static/media/league-rank-increase.svg": "/myaccount/static/media/league-rank-increase.73b1614a7f1c96e212065dd25879e371.svg",
     "main.4458273e.css.map": "/myaccount/static/css/main.4458273e.css.map",
-    "main.c998476f.js.map": "/myaccount/static/js/main.c998476f.js.map",
+    "main.bf441d65.js.map": "/myaccount/static/js/main.bf441d65.js.map",
     "453.f5d0139d.chunk.js.map": "/myaccount/static/js/453.f5d0139d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4458273e.css",
-    "static/js/main.c998476f.js"
+    "static/js/main.bf441d65.js"
   ]
 }
