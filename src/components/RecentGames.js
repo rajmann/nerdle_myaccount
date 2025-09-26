@@ -374,7 +374,13 @@ const RecentGames = ({ allGames, gamesToday, gamesPastTwoWeeks, showShareButton 
  */}
 
       <div className="mb-3 grid grid-cols-2 gap-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-        <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>Played Today</h3>
+        <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>
+          Played Today
+          {gamesTodayWithDetails?.length > 0 && (() => {
+            const totalPoints = gamesTodayWithDetails.reduce((sum, game) => sum + (game.points || 0), 0);
+            return totalPoints > 0 ? ` (points: ${totalPoints})` : '';
+          })()}
+        </h3>
         <h3 style={{ fontFamily: 'Barlow, sans-serif' }}>Not Played Today</h3>
       </div>
       <div className="grid grid-cols-2 gap-x-2">
